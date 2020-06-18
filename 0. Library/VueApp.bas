@@ -10,27 +10,30 @@ Sub Class_Globals
 	Public emit As BANanoObject
 	Public Modules As Map
 	Private BANano As BANano   'ignore
-	Private methods As Map
+	Public methods As Map
 	Private computed As Map
 	Private watches As Map
 	Private filters As Map
 	Private opt As Map
-	Private data As Map
+	Public data As Map
 	Private refs As BANanoObject
 	Private props As List
 	Public Path As String
 	Public name As String
 	Public Query As Map
-	Private EventHandler As Object
+	Private EventHandler As Object   'ignore
 	Private routes As List
 	Public components As Map
 	Public Options As Map
 	Public va As BANanoObject
-	Private Template As String
+	Public Template As String
 	Public vuetify As BANanoObject
 	Public RTL As Boolean
 	Public Dark As Boolean
 	Private lang As String
+	Public Errors As Map
+	Public Themes As Map
+	Private ColorMap As Map
 	'
 	Public const BORDER_DEFAULT As String = ""
 	Public const BORDER_DASHED As String = "dashed"
@@ -124,6 +127,9 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	components.Initialize
 	Options.Initialize
 	Modules.Initialize
+	Errors.Initialize 
+	Themes.Initialize 
+	ColorMap.Initialize 
 	va.Initialize("Vue")
 	'
 	SetBeforeCreate(Module, "BeforeCreate")
@@ -138,8 +144,360 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	RTL = False
 	Dark = False
 	lang = "en"
+	InitColors
 	Return Me
 End Sub
+
+Sub InitColors
+	ColorMap.Initialize
+	ColorMap.put("red lighten-5", "#ffebee")
+	ColorMap.put("red lighten-4", "#ffcdd2")
+	ColorMap.put("red lighten-3", "#ef9a9a")
+	ColorMap.put("red lighten-2", "#e57373")
+	ColorMap.put("red lighten-1", "#ef5350")
+	ColorMap.put("red", "#f44336")
+	ColorMap.put("red darken-1", "#e53935")
+	ColorMap.put("red darken-2", "#d32f2f")
+	ColorMap.put("red darken-3", "#c62828")
+	ColorMap.put("red darken-4", "#b71c1c")
+	ColorMap.put("red accent-1", "#ff8a80")
+	ColorMap.put("red accent-2", "#ff5252")
+	ColorMap.put("red accent-3", "#ff1744")
+	ColorMap.put("red accent-4", "#d50000")
+	ColorMap.put("pink lighten-5", "#fce4ec")
+	ColorMap.put("pink lighten-4", "#f8bbd0")
+	ColorMap.put("pink lighten-3", "#f48fb1")
+	ColorMap.put("pink lighten-2", "#f06292")
+	ColorMap.put("pink lighten-1", "#ec407a")
+	ColorMap.put("pink", "#e91e63")
+	ColorMap.put("pink darken-1", "#d81b60")
+	ColorMap.put("pink darken-2", "#c2185b")
+	ColorMap.put("pink darken-3", "#ad1457")
+	ColorMap.put("pink darken-4", "#880e4f")
+	ColorMap.put("pink accent-1", "#ff80ab")
+	ColorMap.put("pink accent-2", "#ff4081")
+	ColorMap.put("pink accent-3", "#f50057")
+	ColorMap.put("pink accent-4", "#c51162")
+	ColorMap.put("purple lighten-5", "#f3e5f5")
+	ColorMap.put("purple lighten-4", "#e1bee7")
+	ColorMap.put("purple lighten-3", "#ce93d8")
+	ColorMap.put("purple lighten-2", "#ba68c8")
+	ColorMap.put("purple lighten-1", "#ab47bc")
+	ColorMap.put("purple", "#9c27b0")
+	ColorMap.put("purple darken-1", "#8e24aa")
+	ColorMap.put("purple darken-2", "#7b1fa2")
+	ColorMap.put("purple darken-3", "#6a1b9a")
+	ColorMap.put("purple darken-4", "#4a148c")
+	ColorMap.put("purple accent-1", "#ea80fc")
+	ColorMap.put("purple accent-2", "#e040fb")
+	ColorMap.put("purple accent-3", "#d500f9")
+	ColorMap.put("purple accent-4", "#aa00ff")
+	ColorMap.put("deep-purple lighten-5", "#ede7f6")
+	ColorMap.put("deep-purple lighten-4", "#d1c4e9")
+	ColorMap.put("deep-purple lighten-3", "#b39ddb")
+	ColorMap.put("deep-purple lighten-2", "#9575cd")
+	ColorMap.put("deep-purple lighten-1", "#7e57c2")
+	ColorMap.put("deep-purple", "#673ab7")
+	ColorMap.put("deep-purple darken-1", "#5e35b1")
+	ColorMap.put("deep-purple darken-2", "#512da8")
+	ColorMap.put("deep-purple darken-3", "#4527a0")
+	ColorMap.put("deep-purple darken-4", "#311b92")
+	ColorMap.put("deep-purple accent-1", "#b388ff")
+	ColorMap.put("deep-purple accent-2", "#7c4dff")
+	ColorMap.put("deep-purple accent-3", "#651fff")
+	ColorMap.put("deep-purple accent-4", "#6200ea")
+	ColorMap.put("indigo lighten-5", "#e8eaf6")
+	ColorMap.put("indigo lighten-4", "#c5cae9")
+	ColorMap.put("indigo lighten-3", "#9fa8da")
+	ColorMap.put("indigo lighten-2", "#7986cb")
+	ColorMap.put("indigo lighten-1", "#5c6bc0")
+	ColorMap.put("indigo", "#3f51b5")
+	ColorMap.put("indigo darken-1", "#3949ab")
+	ColorMap.put("indigo darken-2", "#303f9f")
+	ColorMap.put("indigo darken-3", "#283593")
+	ColorMap.put("indigo darken-4", "#1a237e")
+	ColorMap.put("indigo accent-1", "#8c9eff")
+	ColorMap.put("indigo accent-2", "#536dfe")
+	ColorMap.put("indigo accent-3", "#3d5afe")
+	ColorMap.put("indigo accent-4", "#304ffe")
+	ColorMap.put("blue lighten-5", "#e3f2fd")
+	ColorMap.put("blue lighten-4", "#bbdefb")
+	ColorMap.put("blue lighten-3", "#90caf9")
+	ColorMap.put("blue lighten-2", "#64b5f6")
+	ColorMap.put("blue lighten-1", "#42a5f5")
+	ColorMap.put("blue", "#2196f3")
+	ColorMap.put("blue darken-1", "#1e88e5")
+	ColorMap.put("blue darken-2", "#1976d2")
+	ColorMap.put("blue darken-3", "#1565c0")
+	ColorMap.put("blue darken-4", "#0d47a1")
+	ColorMap.put("blue accent-1", "#82b1ff")
+	ColorMap.put("blue accent-2", "#448aff")
+	ColorMap.put("blue accent-3", "#2979ff")
+	ColorMap.put("blue accent-4", "#2962ff")
+	ColorMap.put("light-blue lighten-5", "#e1f5fe")
+	ColorMap.put("light-blue lighten-4", "#b3e5fc")
+	ColorMap.put("light-blue lighten-3", "#81d4fa")
+	ColorMap.put("light-blue lighten-2", "#4fc3f7")
+	ColorMap.put("light-blue lighten-1", "#29b6f6")
+	ColorMap.put("light-blue", "#03a9f4")
+	ColorMap.put("light-blue darken-1", "#039be5")
+	ColorMap.put("light-blue darken-2", "#0288d1")
+	ColorMap.put("light-blue darken-3", "#0277bd")
+	ColorMap.put("light-blue darken-4", "#01579b")
+	ColorMap.put("light-blue accent-1", "#80d8ff")
+	ColorMap.put("light-blue accent-2", "#40c4ff")
+	ColorMap.put("light-blue accent-3", "#00b0ff")
+	ColorMap.put("light-blue accent-4", "#0091ea")
+	ColorMap.put("cyan lighten-5", "#e0f7fa")
+	ColorMap.put("cyan lighten-4", "#b2ebf2")
+	ColorMap.put("cyan lighten-3", "#80deea")
+	ColorMap.put("cyan lighten-2", "#4dd0e1")
+	ColorMap.put("cyan lighten-1", "#26c6da")
+	ColorMap.put("cyan", "#00bcd4")
+	ColorMap.put("cyan darken-1", "#00acc1")
+	ColorMap.put("cyan darken-2", "#0097a7")
+	ColorMap.put("cyan darken-3", "#00838f")
+	ColorMap.put("cyan darken-4", "#006064")
+	ColorMap.put("cyan accent-1", "#84ffff")
+	ColorMap.put("cyan accent-2", "#18ffff")
+	ColorMap.put("cyan accent-3", "#00e5ff")
+	ColorMap.put("cyan accent-4", "#00b8d4")
+	ColorMap.put("teal lighten-5", "#e0f2f1")
+	ColorMap.put("teal lighten-4", "#b2dfdb")
+	ColorMap.put("teal lighten-3", "#80cbc4")
+	ColorMap.put("teal lighten-2", "#4db6ac")
+	ColorMap.put("teal lighten-1", "#26a69a")
+	ColorMap.put("teal", "#009688")
+	ColorMap.put("teal darken-1", "#00897b")
+	ColorMap.put("teal darken-2", "#00796b")
+	ColorMap.put("teal darken-3", "#00695c")
+	ColorMap.put("teal darken-4", "#004d40")
+	ColorMap.put("teal accent-1", "#a7ffeb")
+	ColorMap.put("teal accent-2", "#64ffda")
+	ColorMap.put("teal accent-3", "#1de9b6")
+	ColorMap.put("teal accent-4", "#00bfa5")
+	ColorMap.put("green lighten-5", "#e8f5e9")
+	ColorMap.put("green lighten-4", "#c8e6c9")
+	ColorMap.put("green lighten-3", "#a5d6a7")
+	ColorMap.put("green lighten-2", "#81c784")
+	ColorMap.put("green lighten-1", "#66bb6a")
+	ColorMap.put("green", "#4caf50")
+	ColorMap.put("green darken-1", "#43a047")
+	ColorMap.put("green darken-2", "#388e3c")
+	ColorMap.put("green darken-3", "#2e7d32")
+	ColorMap.put("green darken-4", "#1b5e20")
+	ColorMap.put("green accent-1", "#b9f6ca")
+	ColorMap.put("green accent-2", "#69f0ae")
+	ColorMap.put("green accent-3", "#00e676")
+	ColorMap.put("green accent-4", "#00c853")
+	ColorMap.put("light-green lighten-5", "#f1f8e9")
+	ColorMap.put("light-green lighten-4", "#dcedc8")
+	ColorMap.put("light-green lighten-3", "#c5e1a5")
+	ColorMap.put("light-green lighten-2", "#aed581")
+	ColorMap.put("light-green lighten-1", "#9ccc65")
+	ColorMap.put("light-green", "#8bc34a")
+	ColorMap.put("light-green darken-1", "#7cb342")
+	ColorMap.put("light-green darken-2", "#689f38")
+	ColorMap.put("light-green darken-3", "#558b2f")
+	ColorMap.put("light-green darken-4", "#33691e")
+	ColorMap.put("light-green accent-1", "#ccff90")
+	ColorMap.put("light-green accent-2", "#b2ff59")
+	ColorMap.put("light-green accent-3", "#76ff03")
+	ColorMap.put("light-green accent-4", "#64dd17")
+	ColorMap.put("lime lighten-5", "#f9fbe7")
+	ColorMap.put("lime lighten-4", "#f0f4c3")
+	ColorMap.put("lime lighten-3", "#e6ee9c")
+	ColorMap.put("lime lighten-2", "#dce775")
+	ColorMap.put("lime lighten-1", "#d4e157")
+	ColorMap.put("lime", "#cddc39")
+	ColorMap.put("lime darken-1", "#c0ca33")
+	ColorMap.put("lime darken-2", "#afb42b")
+	ColorMap.put("lime darken-3", "#9e9d24")
+	ColorMap.put("lime darken-4", "#827717")
+	ColorMap.put("lime accent-1", "#f4ff81")
+	ColorMap.put("lime accent-2", "#eeff41")
+	ColorMap.put("lime accent-3", "#c6ff00")
+	ColorMap.put("lime accent-4", "#aeea00")
+	ColorMap.put("yellow lighten-5", "#fffde7")
+	ColorMap.put("yellow lighten-4", "#fff9c4")
+	ColorMap.put("yellow lighten-3", "#fff59d")
+	ColorMap.put("yellow lighten-2", "#fff176")
+	ColorMap.put("yellow lighten-1", "#ffee58")
+	ColorMap.put("yellow", "#ffeb3b")
+	ColorMap.put("yellow darken-1", "#fdd835")
+	ColorMap.put("yellow darken-2", "#fbc02d")
+	ColorMap.put("yellow darken-3", "#f9a825")
+	ColorMap.put("yellow darken-4", "#f57f17")
+	ColorMap.put("yellow accent-1", "#ffff8d")
+	ColorMap.put("yellow accent-2", "#ffff00")
+	ColorMap.put("yellow accent-3", "#ffea00")
+	ColorMap.put("yellow accent-4", "#ffd600")
+	ColorMap.put("amber lighten-5", "#fff8e1")
+	ColorMap.put("amber lighten-4", "#ffecb3")
+	ColorMap.put("amber lighten-3", "#ffe082")
+	ColorMap.put("amber lighten-2", "#ffd54f")
+	ColorMap.put("amber lighten-1", "#ffca28")
+	ColorMap.put("amber", "#ffc107")
+	ColorMap.put("amber darken-1", "#ffb300")
+	ColorMap.put("amber darken-2", "#ffa000")
+	ColorMap.put("amber darken-3", "#ff8f00")
+	ColorMap.put("amber darken-4", "#ff6f00")
+	ColorMap.put("amber accent-1", "#ffe57f")
+	ColorMap.put("amber accent-2", "#ffd740")
+	ColorMap.put("amber accent-3", "#ffc400")
+	ColorMap.put("amber accent-4", "#ffab00")
+	ColorMap.put("orange lighten-5", "#fff3e0")
+	ColorMap.put("orange lighten-4", "#ffe0b2")
+	ColorMap.put("orange lighten-3", "#ffcc80")
+	ColorMap.put("orange lighten-2", "#ffb74d")
+	ColorMap.put("orange lighten-1", "#ffa726")
+	ColorMap.put("orange", "#ff9800")
+	ColorMap.put("orange darken-1", "#fb8c00")
+	ColorMap.put("orange darken-2", "#f57c00")
+	ColorMap.put("orange darken-3", "#ef6c00")
+	ColorMap.put("orange darken-4", "#e65100")
+	ColorMap.put("orange accent-1", "#ffd180")
+	ColorMap.put("orange accent-2", "#ffab40")
+	ColorMap.put("orange accent-3", "#ff9100")
+	ColorMap.put("orange accent-4", "#ff6d00")
+	ColorMap.put("deep-orange lighten-5", "#fbe9e7")
+	ColorMap.put("deep-orange lighten-4", "#ffccbc")
+	ColorMap.put("deep-orange lighten-3", "#ffab91")
+	ColorMap.put("deep-orange lighten-2", "#ff8a65")
+	ColorMap.put("deep-orange lighten-1", "#ff7043")
+	ColorMap.put("deep-orange", "#ff5722")
+	ColorMap.put("deep-orange darken-1", "#f4511e")
+	ColorMap.put("deep-orange darken-2", "#e64a19")
+	ColorMap.put("deep-orange darken-3", "#d84315")
+	ColorMap.put("deep-orange darken-4", "#bf360c")
+	ColorMap.put("deep-orange accent-1", "#ff9e80")
+	ColorMap.put("deep-orange accent-2", "#ff6e40")
+	ColorMap.put("deep-orange accent-3", "#ff3d00")
+	ColorMap.put("deep-orange accent-4", "#dd2c00")
+	ColorMap.put("brown lighten-5", "#efebe9")
+	ColorMap.put("brown lighten-4", "#d7ccc8")
+	ColorMap.put("brown lighten-3", "#bcaaa4")
+	ColorMap.put("brown lighten-2", "#a1887f")
+	ColorMap.put("brown lighten-1", "#8d6e63")
+	ColorMap.put("brown", "#795548")
+	ColorMap.put("brown darken-1", "#6d4c41")
+	ColorMap.put("brown darken-2", "#5d4037")
+	ColorMap.put("brown darken-3", "#4e342e")
+	ColorMap.put("brown darken-4", "#3e2723")
+	ColorMap.put("grey lighten-5", "#fafafa")
+	ColorMap.put("grey lighten-4", "#f5f5f5")
+	ColorMap.put("grey lighten-3", "#eeeeee")
+	ColorMap.put("grey lighten-2", "#e0e0e0")
+	ColorMap.put("grey lighten-1", "#bdbdbd")
+	ColorMap.put("grey", "#9e9e9e")
+	ColorMap.put("grey darken-1", "#757575")
+	ColorMap.put("grey darken-2", "#616161")
+	ColorMap.put("grey darken-3", "#424242")
+	ColorMap.put("grey darken-4", "#212121")
+	ColorMap.put("blue-grey lighten-5", "#eceff1")
+	ColorMap.put("blue-grey lighten-4", "#cfd8dc")
+	ColorMap.put("blue-grey lighten-3", "#b0bec5")
+	ColorMap.put("blue-grey lighten-2", "#90a4ae")
+	ColorMap.put("blue-grey lighten-1", "#78909c")
+	ColorMap.put("blue-grey", "#607d8b")
+	ColorMap.put("blue-grey darken-1", "#546e7a")
+	ColorMap.put("blue-grey darken-2", "#455a64")
+	ColorMap.put("blue-grey darken-3", "#37474f")
+	ColorMap.put("blue-grey darken-4", "#263238")
+	ColorMap.put("black", "#000000")
+	ColorMap.put("white", "#ffffff")
+	ColorMap.put("transparent", "transparent")
+End Sub
+
+
+'add a theme to use in the app
+Sub AddTheme(themeName As String, ForeColor As String, ForeColorIntensity As String, BackColor As String, BackColorIntensity As String)
+	themeName = themeName.ToLowerCase
+	'
+	Dim fc As String = $"${ForeColor}--text"$
+	Dim fci As String = $"text--${ForeColorIntensity}"$
+	Dim bc As String = $"${BackColor} ${BackColorIntensity}"$
+	'
+	fc = fc.trim
+	fci = fci.Trim
+	'
+	If fc = "--text" Then fc = ""
+	If fci = "text--" Then fci = ""
+	'
+	Dim classLine As String = $"${fc} ${fci} ${bc}"$
+	classLine = classLine.Trim
+	classLine = classLine.Replace("  "," ")
+	classLine = classLine.Trim
+	Themes.Put(themeName, classLine)
+End Sub
+
+
+'get a hex color from provided colors
+Sub GetColorHex(sColor As String) As String
+	sColor = sColor.tolowercase
+	If ColorMap.ContainsKey(sColor) Then
+		Dim xColor As String = ColorMap.Get(sColor)
+		Return xColor
+	End If
+	Return ""
+End Sub
+
+Sub ModuleExist(tagName As String) As Boolean
+	tagName = tagName.tolowercase
+	Dim b As Boolean = Modules.ContainsKey(tagName)
+	Return b
+End Sub
+
+'add a module from external parties
+Sub AddModule(tagName As String) As VueApp
+	tagName = tagName.tolowercase
+	Modules.Put(tagName, tagName)
+	Return Me
+End Sub
+
+'add a component we have defined internally
+Sub AddComponent(comp As VMElement) As VueApp
+	Dim sid As String = comp.mName
+	If components.ContainsKey(sid) = True Then Return Me
+	components.Put(sid, comp.Component)
+	Return Me
+End Sub
+
+'add a component from 3rd party
+Sub AddComponentBO(compName As String, comp As BANanoObject) As VueApp
+	If components.ContainsKey(compName) = True Then Return Me
+	components.Put(compName, comp)
+	Return Me
+End Sub
+
+'add a router
+Sub AddRoute(comp As VMElement)
+	If comp.mname = "" Then
+		Log("AddRoute: Please specify the name of the Route!")
+	End If
+	'
+	Dim eachroute As Map = CreateMap()
+	eachroute.Put("path", comp.path)
+	eachroute.Put("name", comp.mname)
+	eachroute.Put("component", comp.component)
+	'
+	routes.Add(eachroute)
+End Sub
+
+
+'register a component with options
+Sub RegisterComponent(compName As String, compOptions As Map) As VueApp
+	compName = compName.tolowercase
+	va.RunMethod("component", Array(compName, compOptions))
+	Return Me
+End Sub
+
+'add an error to the collection
+Sub AddError(vmodel As String, vError As String)
+	vmodel = vmodel.tolowercase
+	Errors.Put(vmodel, vError)
+End Sub
+
 
 'set master template for the page
 Sub SetTemplate(tmp As String) As VueApp
@@ -266,48 +624,6 @@ Sub SetCreated(module As Object, methodName As String) As VueApp
 End Sub
 
 
-Sub RegisterComponent(compName As String, compOptions As Map) As VueApp
-	compName = compName.tolowercase
-	va.RunMethod("component", Array(compName, compOptions))
-	Return Me
-End Sub
-
-
-'add component from module
-Sub AddComponentBO(compName As String, comp As BANanoObject) As VueApp
-	If components.ContainsKey(compName) = True Then Return Me
-	components.Put(compName, comp)
-	Return Me
-End Sub
-'
-Sub AddRoute(comp As VMElement) As VueApp
-	If comp.mname = "" Then
-		Log("AddRoute: Please specify the name of the Route!")
-	End If
-	'
-	Dim eachroute As Map = CreateMap()
-	eachroute.Put("path", comp.path)
-	eachroute.Put("name", comp.mname)
-	eachroute.Put("component", comp.component)
-	'
-	routes.Add(eachroute)
-	Return Me
-End Sub
-
-Sub AddModule(tagName As String) As VueApp
-	tagName = tagName.tolowercase
-	Modules.Put(tagName, tagName)
-	Return Me
-End Sub
-
-'for custom build components
-Sub ModuleExist(tagName As String) As Boolean
-	tagName = tagName.tolowercase
-	Dim b As Boolean = Modules.ContainsKey(tagName)
-	Return b
-End Sub
-
-
 'copy a state from one to another
 Sub State2Another(source As String, target As String, defaultValue As Object)
 	Dim readObj As Object = GetState(source)
@@ -426,6 +742,11 @@ Sub SetMethod(Module As Object, methodName As String) As VueApp
 	Return Me
 End Sub
 
+
+Sub SetCallBack(methodName As String, cb As BANanoObject)
+	methods.Put(methodName, cb)
+End Sub
+
 'set the state
 Sub SetState(m As Map) As VueApp
 	For Each k As String In m.Keys
@@ -449,7 +770,7 @@ Sub GetState(k As String) As Object
 	Return out
 End Sub
 
-
+'toggle the state value
 Sub ToggleState(stateName As String) As VueApp
 	Dim bcurrent As Boolean = GetState(stateName)
 	bcurrent = Not(bcurrent)
@@ -517,25 +838,6 @@ End Sub
 private Sub CStr(o As Object) As String
 	If o = BANano.UNDEFINED Then o = ""
 	Return "" & o
-End Sub
-
-
-Sub SetStateIncrement(k As String) As VueApp
-	Dim oldV As String = GetState(k)
-	oldV = CStr(oldV)
-	If oldV = "" Then oldV = "0"
-	oldV = BANano.parseInt(oldV) + 1
-	SetStateSingle(k, oldV)
-	Return Me
-End Sub
-
-Sub SetStateDecrement(k As String) As VueApp
-	Dim oldV As String = GetState(k)
-	oldV = CStr(oldV)
-	If oldV = "" Then oldV = "0"
-	oldV = BANano.parseInt(oldV) - 1
-	SetStateSingle(k, oldV)
-	Return Me
 End Sub
 
 'a single state change
@@ -647,34 +949,144 @@ Sub SetRTL(b As Boolean)
 	vuetify.SetField("rtl", b)
 End Sub
 
-'apply bindings, events for component
-Sub AddComponent(ve As VMElement) As VueApp
-	'apply the binding for the control
-	Dim bindings As Map = ve.bindings
-	For Each k As String In bindings.Keys
-		Dim v As String = bindings.Get(k)
-		SetData(k, v)
+'show a drawer
+Sub ShowDrawer(drwName As String)
+	SetData(drwName, True)
+End Sub
+
+'hide a drawer
+Sub HideDrawer(drwName As String)
+	SetData(drwName, False)
+End Sub
+
+
+'toggle a drawer
+Sub ToggleDrawer(drwName As String)
+	ToggleState(drwName)
+End Sub
+
+
+'return the first error in the list
+Sub GetError As String
+	Dim strError As String = Errors.GetValueAt(0)
+	Return strError
+End Sub
+
+Sub Validate(rec As Map, required As Map) As Boolean
+	Errors.Initialize
+	Dim iv As Int = 0
+	For Each k As String In required.Keys
+		Dim error As String = required.GetDefault(k, "")
+		If error = "" Then
+			error = $"The ${k} should be specified!"$
+		End If
+		'get the message
+		If rec.ContainsKey(k) Then
+			Dim v As String = rec.GetDefault(k,"")
+			v = CStr(v)
+			v = v.trim
+			If v = "" Then
+				iv = iv + 1
+				ShowError(k, error)
+				Errors.Put(k, error)
+			Else
+				HideError(k)
+			End If
+		End If
 	Next
-	'apply the events
-	Dim cmethods As Map = ve.methods
-	For Each k As String In cmethods.Keys
-		Dim cb As BANanoObject = cmethods.Get(k)
-		methods.Put(k,cb)
-	Next	
+	If iv = 0 Then
+		Return True
+	Else
+		Return False
+	End If
+End Sub
+
+Sub ShowError(elID As String, elError As String)
+	elID = elID.tolowercase
+	Dim pp As String = $"${elID}ErrorMessages"$
+	Dim nl As List
+	nl = BANanoShared.NewList
+	nl.Add(elError)
+	SetData(pp, nl)
+	Dim pp1 As String = $"${elID}Error"$
+	SetData(pp1, True)
+End Sub
+
+Sub HideError(elID As String)
+	elID = elID.tolowercase
+	Dim pp As String = $"${elID}ErrorMessages"$
+	Dim nl As List
+	nl = BANanoShared.NewList
+	SetData(pp, nl)
+	Dim pp1 As String = $"${elID}Error"$
+	SetData(pp1, False)
+End Sub
+
+Sub NotState(stateName As String) As Boolean
+	Dim bcurrent As Boolean = GetState(stateName)
+	If bcurrent = Null Then bcurrent = True
+	bcurrent = Not(bcurrent)
+	Return bcurrent
+End Sub
+
+Sub Increment(k As String) As VueApp
+	Dim oldV As String = GetState(k)
+	If oldV = "" Then oldV = "1"
+	oldV = BANano.parseInt(oldV) + 1
+	SetStateSingle(k, oldV)
 	Return Me
 End Sub
 
-'apply bindings, events for component
-Sub BindComponent(cbindings As Map, cmethods As Map) As VueApp
-	'apply the binding for the control
-	For Each k As String In cbindings.Keys
-		Dim v As String = cbindings.Get(k)
-		SetData(k, v)
-	Next
-	'apply the events
-	For Each k As String In cmethods.Keys
-		Dim cb As BANanoObject = cmethods.Get(k)
-		methods.Put(k,cb)
-	Next	
+Sub Decrement(k As String) As VueApp
+	Dim oldV As String = GetState(k)
+	If oldV = "" Then oldV = "0"
+	oldV = BANano.parseInt(oldV) - 1
+	SetStateSingle(k, oldV)
 	Return Me
+End Sub
+
+'create an element with a 'component' tag
+Sub CreateOwnComponent(id As String, compName As String) As VMElement
+	Dim elx As VMElement
+	elx.Initialize(Me, id, id)
+	elx.SetTag(compName)
+	Return elx
+End Sub
+
+'create a dynamic component
+Sub CreateDynamicComponent(id As String, viewID As String, compID As String) As VMElement
+	Dim elx As VMElement
+	elx.Initialize(Me, id, id)
+	elx.SetTag("component")
+	elx.BindDynamicComponent(viewID, compID)
+	Return elx
+End Sub
+
+Sub SetRequired(elID As String, b As Boolean)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}required"$, b)
+End Sub
+
+Sub Enable(elID As String)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}disabled"$, False)
+End Sub
+
+Sub Disable(elID As String)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}disabled"$, True)
+End Sub
+
+Sub SetEnabled(elID As String, b As Boolean)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}disabled"$, b)
+End Sub
+
+Sub Hide(elID As String)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}show"$, False)
+End Sub
+
+Sub Show(elID As String)
+	SetStateSingle($"${elID}show"$, True)
 End Sub

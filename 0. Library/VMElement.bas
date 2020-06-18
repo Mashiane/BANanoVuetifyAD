@@ -44,6 +44,7 @@ Sub Class_Globals
 	Private mElement As BANanoElement 'ignore
 	Private mVFor As String = ""
 	Private Attributes As StringBuilder
+	Public Errors As Map
 	'
 	Public Path As String = ""
 	Private data As Map
@@ -52,7 +53,7 @@ Sub Class_Globals
 	Private computed As Map
 	Private watches As Map
 	Private filters As Map
-	Private refs As Map
+	Private refs As BANanoObject
 	Private mprops As List
 	Private query As Map
 	Private template As String = ""
@@ -88,7 +89,6 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
 	data.Initialize 
 	opt.Initialize
 	data.Initialize
-	refs.Initialize
 	mprops.Initialize
 	methods.Initialize
 	computed.Initialize
@@ -96,6 +96,7 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
 	filters.Initialize
 	query.Initialize
 	Attributes.Initialize 
+	Errors.Initialize 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -137,10 +138,12 @@ Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
 	End If
 	
 	Dim exStyle As String = BuildExStyle
-	Dim exAttr As String = Attributes.Tostring
-	
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" class="${mClasses}" style="${exStyle}${mStyle}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
-	
+	AddAttr(Attributes, mClasses, "s", "class")
+	Dim style As String = $"${exStyle}${mStyle}"$
+	AddAttr(Attributes, style, "s", "style")
+	Dim exAttr As String = Attributes.ToString
+	mElement = mTarget.Append($"<${mTagName} id="${mName}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
+
 	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 	'mElement.HandleEvents("click", mCallBack, mEventName & "_click")
 	SetOnClick
@@ -150,6 +153,21 @@ End Sub
 Sub SetTag(nTag As String)
 	mTagName = nTag
 End Sub
+
+'bind dynamic component
+Sub BindDynamicComponent(viewID As String, compID As String)
+	viewID = viewID.ToLowerCase
+	compID = compID.tolowercase
+	SetVBindIs(viewID)
+	bindings.Put(viewID, compID)
+End Sub
+
+Sub SetVBindIs(t As String) As VMElement
+	t = t.tolowercase
+	SetAttr("v-bind:is", t)
+	Return Me
+End Sub
+
 
 'add component to parent
 public Sub AddToParent(targetID As String)
@@ -172,7 +190,7 @@ End Sub
 
 'set an event
 Sub SetVOn(event As String)
-	Dim methodName As String = BANanoSnippets.BeautifyName(event)
+	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
 	If SubExists(mCallBack, methodName) = False Then Return
@@ -233,6 +251,10 @@ private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, 
 			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
 		Case "s"
 			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
+			Select Case actProp
+				Case "v-model"
+					bindings.Put(varName, False)
+			End Select
 	End Select
 End Sub
 
@@ -555,7 +577,7 @@ Sub RenderTo(elID As String)
 	data = boVUE.GetField(dKey).Result
 	'get the refs
 	Dim rKey As String = "$refs"
-	refs = boVUE.GetField(rKey).result
+	refs = boVUE.GetField(rKey)
 End Sub
 
 'toggle a state
@@ -589,6 +611,7 @@ Sub SetStateList(mapKey As String, mapValues As List)
 	SetState(opt)
 End Sub
 
+'set multiple states to blank
 Sub SetStateListValues(mapValues As List) 
 	For Each lstValue As String In mapValues
 		lstValue = lstValue.tolowercase
@@ -598,6 +621,7 @@ Sub SetStateListValues(mapValues As List)
 	Next
 End Sub
 
+'get states as a map
 Sub GetStates(lst As List) As Map
 	Dim smm As Map = CreateMap()
 	For Each lstrec As String In lst
@@ -608,24 +632,14 @@ Sub GetStates(lst As List) As Map
 	Return smm
 End Sub
 
+'set state to true
 Sub SetStateTrue(k As String) 
 	SetStateSingle(k,True)
 End Sub
 
+'set state to false
 Sub SetStateFalse(k As String) 
 	SetStateSingle(k,False)
-End Sub
-
-Sub SetStateIncrement(k As String) 
-	Dim oldV As String = GetState(k, "0")
-	oldV = BANano.parseInt(oldV) + 1
-	SetStateSingle(k, oldV)
-End Sub
-
-Sub SetStateDecrement(k As String) 
-	Dim oldV As String = GetState(k, "0")
-	oldV = BANano.parseInt(oldV) - 1
-	SetStateSingle(k, oldV)
 End Sub
 
 'a single state change
@@ -653,6 +667,173 @@ Sub SetOnClickStop
 	SetAttr("v-on:click.stop", methodName)
 	SetMethod(mCallBack, methodName)
 End Sub
+
+'add a component to the app, this links bindings and events
+Sub AddToApp(va As VueApp)
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		va.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		va.SetCallBack(k, cb)
+	Next
+End Sub
+
+
+'add an error to the collection
+Sub AddError(vmodel As String, vError As String)
+	vmodel = vmodel.tolowercase
+	Errors.Put(vmodel, vError)
+End Sub
+
+
+'return the first error in the list
+Sub GetError As String
+	Dim strError As String = Errors.GetValueAt(0)
+	Return strError
+End Sub
+
+'validate entries
+Sub Validate(rec As Map, required As Map) As Boolean
+	Errors.Initialize
+	Dim iv As Int = 0
+	For Each k As String In required.Keys
+		Dim error As String = required.GetDefault(k, "")
+		If error = "" Then
+			error = $"The ${k} should be specified!"$
+		End If
+		'get the message
+		If rec.ContainsKey(k) Then
+			Dim v As String = rec.GetDefault(k,"")
+			v = BANanoShared.CStr(v)
+			v = v.trim
+			If v = "" Then
+				iv = iv + 1
+				ShowError(k, error)
+				Errors.Put(k, error)
+			Else
+				HideError(k)
+			End If
+		End If
+	Next
+	If iv = 0 Then
+		Return True
+	Else
+		Return False
+	End If
+End Sub
+
+Sub ShowError(elID As String, elError As String)
+	elID = elID.tolowercase
+	Dim pp As String = $"${elID}ErrorMessages"$
+	Dim nl As List
+	nl = BANanoShared.NewList
+	nl.Add(elError)
+	SetData(pp, nl)
+	Dim pp1 As String = $"${elID}Error"$
+	SetData(pp1, True)
+End Sub
+
+Sub HideError(elID As String)
+	elID = elID.tolowercase
+	Dim pp As String = $"${elID}ErrorMessages"$
+	Dim nl As List
+	nl = BANanoShared.NewList
+	SetData(pp, nl)
+	Dim pp1 As String = $"${elID}Error"$
+	SetData(pp1, False)
+End Sub
+
+
+Sub NotState(stateName As String) As Boolean
+	Dim bcurrent As Boolean = GetState(stateName,False)
+	If bcurrent = Null Then bcurrent = True
+	bcurrent = Not(bcurrent)
+	Return bcurrent
+End Sub
+
+Sub Increment(k As String) As VMElement
+	Dim oldV As String = GetState(k, "0")
+	oldV = BANano.parseInt(oldV) + 1
+	SetStateSingle(k, oldV)
+	Return Me
+End Sub
+
+Sub Decrement(k As String) As VMElement
+	Dim oldV As String = GetState(k, "0")
+	oldV = BANano.parseInt(oldV) - 1
+	SetStateSingle(k, oldV)
+	Return Me
+End Sub
+
+
+Sub SetRequired(elID As String, b As Boolean)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}required"$, b)
+End Sub
+
+Sub Enable(elID As String)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}disabled"$, False)
+End Sub
+
+Sub Disable(elID As String)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}disabled"$, True)
+End Sub
+
+Sub SetEnabled(elID As String, b As Boolean)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}disabled"$, b)
+End Sub
+
+Sub Hide(elID As String)
+	elID = elID.tolowercase
+	SetStateSingle($"${elID}show"$, False)
+End Sub
+
+Sub Show(elID As String)
+	SetStateSingle($"${elID}show"$, True)
+End Sub
+
+'focus on a ref
+Sub SetFocus(refID As String)
+	refID = refID.tolowercase
+	refs.GetField(refID).RunMethod("focus", Null)
+End Sub
+
+
+'nullify the file select
+Sub NullifyFileSelect(refID As String)
+	RefNull(refID)
+End Sub
+
+Sub RefNull(refID As String)
+	refID = refID.tolowercase
+	refs.GetField(refID).SetField("value", Null)
+End Sub
+
+
+'click a reference
+Sub RefClick(refID As String)
+	refID = refID.tolowercase
+	refs.GetField(refID).RunMethod("click", Null)
+End Sub
+
+Sub ShowFileSelect(fsName As String)
+	RefClick(fsName)
+End Sub
+
+'refresh the key of the element
+Sub RefreshKey(keyName As String) As VMElement
+	keyName = keyName.ToLowerCase
+	SetData(keyName, DateTime.now)
+	Return Me
+End Sub
+
 
 #End Region
 

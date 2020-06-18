@@ -2,7 +2,7 @@
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
-Version=8.31
+Version=8.3
 @EndOfDesignText@
 'Custom BANano View class: VDataTable
 #IgnoreWarnings:12
@@ -26,732 +26,987 @@ Version=8.31
 #Event: updatesortdesc (argument As Boolean)
 
 
-#DesignerProperty: Key: Text, DisplayName: Text, FieldType: String, DefaultValue: , Description: Text on the label 
-#DesignerProperty: Key: VText, DisplayName: VText, FieldType: String, DefaultValue: , Description: VText 
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, FieldType: String, DefaultValue: , Description: VHtml 
-#DesignerProperty: Key: VModel, DisplayName: VModel, FieldType: String, DefaultValue: , Description: VModel 
-#DesignerProperty: Key: RefName, DisplayName: RefName, FieldType: String, DefaultValue: , Description: RefName 
-#DesignerProperty: Key: VIf, DisplayName: VIf, FieldType: String, DefaultValue: , Description: VIf 
-#DesignerProperty: Key: VElse, DisplayName: VElse, FieldType: String, DefaultValue: , Description: VElse 
-#DesignerProperty: Key: VShow, DisplayName: VShow, FieldType: String, DefaultValue: , Description: VShow 
-#DesignerProperty: Key: VFor, DisplayName: VFor, FieldType: String, DefaultValue: , Description: VFor 
-#DesignerProperty: Key: KeyName, DisplayName: KeyName, FieldType: String, DefaultValue: , Description: KeyName
-#DesignerProperty: Key: CalculateWidths, DisplayName: CalculateWidths, FieldType: Boolean, DefaultValue: false , Description: Set calculate-widths
-#DesignerProperty: Key: Caption, DisplayName: Caption, FieldType: String, DefaultValue: , Description: Set caption
-#DesignerProperty: Key: Dark, DisplayName: Dark, FieldType: Boolean, DefaultValue: false , Description: Set dark
-#DesignerProperty: Key: Dense, DisplayName: Dense, FieldType: Boolean, DefaultValue: false , Description: Set dense
-#DesignerProperty: Key: DisableFiltering, DisplayName: DisableFiltering, FieldType: Boolean, DefaultValue: false , Description: Set disable-filtering
-#DesignerProperty: Key: DisablePagination, DisplayName: DisablePagination, FieldType: Boolean, DefaultValue: false , Description: Set disable-pagination
-#DesignerProperty: Key: DisableSort, DisplayName: DisableSort, FieldType: Boolean, DefaultValue: false , Description: Set disable-sort
-#DesignerProperty: Key: ExpandIcon, DisplayName: ExpandIcon, FieldType: String, DefaultValue: , Description: Set expand-icon
-#DesignerProperty: Key: FixedHeader, DisplayName: FixedHeader, FieldType: Boolean, DefaultValue: false , Description: Set fixed-header
-#DesignerProperty: Key: HeadersLength, DisplayName: HeadersLength, FieldType: String, DefaultValue: , Description: Set headers-length
-#DesignerProperty: Key: Height, DisplayName: Height, FieldType: String, DefaultValue: , Description: Set height
-#DesignerProperty: Key: HideDefaultFooter, DisplayName: HideDefaultFooter, FieldType: Boolean, DefaultValue: false , Description: Set hide-default-footer
-#DesignerProperty: Key: HideDefaultHeader, DisplayName: HideDefaultHeader, FieldType: Boolean, DefaultValue: false , Description: Set hide-default-header
-#DesignerProperty: Key: ItemKey, DisplayName: ItemKey, FieldType: String, DefaultValue: , Description: Set item-key
-#DesignerProperty: Key: ItemsPerPage, DisplayName: ItemsPerPage, FieldType: String, DefaultValue: , Description: Set items-per-page
-#DesignerProperty: Key: Light, DisplayName: Light, FieldType: Boolean, DefaultValue: false , Description: Set light
-#DesignerProperty: Key: Loading, DisplayName: Loading, FieldType: String, DefaultValue: , Description: Set loading
-#DesignerProperty: Key: LoadingText, DisplayName: LoadingText, FieldType: String, DefaultValue: , Description: Set loading-text
-#DesignerProperty: Key: Locale, DisplayName: Locale, FieldType: String, DefaultValue: , Description: Set locale
-#DesignerProperty: Key: MobileBreakpoint, DisplayName: MobileBreakpoint, FieldType: String, DefaultValue: , Description: Set mobile-breakpoint
-#DesignerProperty: Key: MultiSort, DisplayName: MultiSort, FieldType: Boolean, DefaultValue: false , Description: Set multi-sort
-#DesignerProperty: Key: MustSort, DisplayName: MustSort, FieldType: Boolean, DefaultValue: false , Description: Set must-sort
-#DesignerProperty: Key: NoDataText, DisplayName: NoDataText, FieldType: String, DefaultValue: , Description: Set no-data-text
-#DesignerProperty: Key: NoResultsText, DisplayName: NoResultsText, FieldType: String, DefaultValue: , Description: Set no-results-text
-#DesignerProperty: Key: Page, DisplayName: Page, FieldType: String, DefaultValue: , Description: Set page
-#DesignerProperty: Key: Search, DisplayName: Search, FieldType: String, DefaultValue: , Description: Set search
-#DesignerProperty: Key: SelectableKey, DisplayName: SelectableKey, FieldType: String, DefaultValue: , Description: Set selectable-key
-#DesignerProperty: Key: ServerItemsLength, DisplayName: ServerItemsLength, FieldType: String, DefaultValue: , Description: Set server-items-length
-#DesignerProperty: Key: ShowExpand, DisplayName: ShowExpand, FieldType: Boolean, DefaultValue: false , Description: Set show-expand
-#DesignerProperty: Key: ShowGroupBy, DisplayName: ShowGroupBy, FieldType: Boolean, DefaultValue: false , Description: Set show-group-by
-#DesignerProperty: Key: ShowSelect, DisplayName: ShowSelect, FieldType: Boolean, DefaultValue: false , Description: Set show-select
-#DesignerProperty: Key: SingleExpand, DisplayName: SingleExpand, FieldType: Boolean, DefaultValue: false , Description: Set single-expand
-#DesignerProperty: Key: SingleSelect, DisplayName: SingleSelect, FieldType: Boolean, DefaultValue: false , Description: Set single-select
+#DesignerProperty: Key: CalculateWidths, DisplayName: CalculateWidths, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Dense, DisplayName: Dense, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: DisableFiltering, DisplayName: DisableFiltering, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: DisablePagination, DisplayName: DisablePagination, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: DisableSort, DisplayName: DisableSort, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: ExpandIcon, DisplayName: ExpandIcon, Description: , DefaultValue: $expand, FieldType: String
+#DesignerProperty: Key: FixedHeader, DisplayName: FixedHeader, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: HeadersLength, DisplayName: HeadersLength, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Height, DisplayName: Height, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: HideDefaultFooter, DisplayName: HideDefaultFooter, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: HideDefaultHeader, DisplayName: HideDefaultHeader, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ItemKey, DisplayName: ItemKey, Description: , DefaultValue: id, FieldType: String
+#DesignerProperty: Key: ItemsPerPage, DisplayName: ItemsPerPage, Description: , DefaultValue: 10, FieldType: String
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Loading, DisplayName: Loading, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: LoadingText, DisplayName: LoadingText, Description: , DefaultValue: $vuetify.dataIterator.loadingText, FieldType: String
+#DesignerProperty: Key: Locale, DisplayName: Locale, Description: , DefaultValue: en-US, FieldType: String
+#DesignerProperty: Key: MobileBreakpoint, DisplayName: MobileBreakpoint, Description: , DefaultValue: 600, FieldType: String
+#DesignerProperty: Key: MultiSort, DisplayName: MultiSort, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: MustSort, DisplayName: MustSort, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: NoDataText, DisplayName: NoDataText, Description: , DefaultValue: $vuetify.noDataText, FieldType: String
+#DesignerProperty: Key: NoResultsText, DisplayName: NoResultsText, Description: , DefaultValue: $vuetify.dataIterator.noResultsText, FieldType: String
+#DesignerProperty: Key: Page, DisplayName: Page, Description: , DefaultValue: 1, FieldType: String
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Search, DisplayName: Search, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: SelectableKey, DisplayName: SelectableKey, Description: , DefaultValue: isSelectable, FieldType: String
+#DesignerProperty: Key: ServerItemsLength, DisplayName: ServerItemsLength, Description: , DefaultValue: -1, FieldType: String
+#DesignerProperty: Key: ShowExpand, DisplayName: ShowExpand, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ShowGroupBy, DisplayName: ShowGroupBy, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ShowSelect, DisplayName: ShowSelect, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: SingleExpand, DisplayName: SingleExpand, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: SingleSelect, DisplayName: SingleSelect, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
 #DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: MarginLeft, DisplayName: Margin Left, FieldType: String, DefaultValue: , Description: Margin Left 
-#DesignerProperty: Key: MarginRight, DisplayName: Margin Right, FieldType: String, DefaultValue: , Description: Margin Right 
-#DesignerProperty: Key: MarginTop, DisplayName: Margin Top, FieldType: String, DefaultValue: , Description: Margin Top 
-#DesignerProperty: Key: MarginBottom, DisplayName: Margin Bottom, FieldType: String, DefaultValue: , Description: Margin Bottom 
-#DesignerProperty: Key: PaddingLeft, DisplayName: Padding Left, FieldType: String, DefaultValue: , Description: Padding Left 
-#DesignerProperty: Key: PaddingRight, DisplayName: Padding Right, FieldType: String, DefaultValue: , Description: Padding Right 
-#DesignerProperty: Key: PaddingTop, DisplayName: Padding Top, FieldType: String, DefaultValue: , Description: Padding Top 
-#DesignerProperty: Key: PaddingBottom, DisplayName: Padding Bottom, FieldType: String, DefaultValue: , Description: Padding Bottom
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
 
-Sub Class_Globals
-	Private BANano As BANano 'ignore
-	Public mName As String 'ignore
-	Private mEventName As String 'ignore
-	Private mCallBack As Object 'ignore
-	Private mTarget As BANanoElement 'ignore
+Sub Class_Globals 
+	Private BANano As BANano 'ignore 
+	Private data As Map 
+	Public mName As String 'ignore 
+	Private mEventName As String 'ignore 
+	Private mCallBack As Object 'ignore 
+	Private mTarget As BANanoElement 'ignore 
 	Private mElement As BANanoElement 'ignore
 
-	Private mClasses As String = ""
+Private properties As Map
+Private styles As Map
+Private classList As Map
+Private mClasses As String = "" 
 	Private mStyle As String = ""
-	Public MarginLeft As String = ""
-	Public MarginRight As String = ""
-	Public MarginTop As String = ""
-	Public MarginBottom As String = ""
-	Public PaddingLeft As String = ""
-	Public PaddingRight As String = ""
-	Public PaddingTop As String = ""
-	Public PaddingBottom As String = ""
 
-	Private mText As String = ""
-	Private mTagName As String = "v-data-table"
-	Private mVModel As String = ""
-	Private mRefName As String = ""
-	Private mKeyName As String = ""
-	Private mVText As String = ""
-	Private mVIf As String = ""
-	Private mVElse As String = ""
-	Private mVShow As String = ""
-	Private mVHtml As String = ""
-	Private mVFor As String = ""
-	Private Attributes As StringBuilder
-	Public bindings As Map
+Private mTagName As String = "v-data-table" 
+	Public bindings As Map 
 	Public methods As Map
-	Public bCalculateWidths As Boolean = False
-	Public sCaption As String = ""
-	Public bDark As Boolean = False
-	Public bDense As Boolean = False
-	Public bDisableFiltering As Boolean = False
-	Public bDisablePagination As Boolean = False
-	Public bDisableSort As Boolean = False
-	Public sExpandIcon As String = "$expand"
-	Public bFixedHeader As Boolean = False
-	Public sHeadersLength As String = ""
-	Public sHeight As String = ""
-	Public bHideDefaultFooter As Boolean = False
-	Public bHideDefaultHeader As Boolean = False
-	Public sItemKey As String = "id"
-	Public sItemsPerPage As String = "10"
-	Public bLight As Boolean = False
-	Public sLoading As String = ""
-	Public sLoadingText As String = "$vuetify.dataIterator.loadingText"
-	Public sLocale As String = "en-US"
-	Public sMobileBreakpoint As String = "600"
-	Public bMultiSort As Boolean = False
-	Public bMustSort As Boolean = False
-	Public sNoDataText As String = "$vuetify.noDataText"
-	Public sNoResultsText As String = "$vuetify.dataIterator.noResultsText"
-	Public sPage As String = "1"
-	Public sSearch As String = ""
-	Public sSelectableKey As String = "isSelectable"
-	Public sServerItemsLength As String = "-1"
-	Public bShowExpand As Boolean = False
-	Public bShowGroupBy As Boolean = False
-	Public bShowSelect As Boolean = False
-	Public bSingleExpand As Boolean = False
-	Public bSingleSelect As Boolean = False
+Private bCalculateWidths As Boolean = false
+Private sCaption As String = ""
+Private bDark As Boolean = false
+Private bDense As Boolean = false
+Private bDisableFiltering As Boolean = false
+Private bDisablePagination As Boolean = false
+Private bDisableSort As Boolean = false
+Private sEnabled As String = ""
+Private sExpandIcon As String = "$expand"
+Private bFixedHeader As Boolean = false
+Private sHeadersLength As String = ""
+Private sHeight As String = ""
+Private bHideDefaultFooter As Boolean = false
+Private bHideDefaultHeader As Boolean = false
+Private sItemKey As String = "id"
+Private sItemsPerPage As String = "10"
+Private sKey As String = ""
+Private bLight As Boolean = false
+Private sLoading As String = ""
+Private sLoadingText As String = "$vuetify.dataIterator.loadingText"
+Private sLocale As String = "en-US"
+Private sMobileBreakpoint As String = "600"
+Private bMultiSort As Boolean = false
+Private bMustSort As Boolean = false
+Private sNoDataText As String = "$vuetify.noDataText"
+Private sNoResultsText As String = "$vuetify.dataIterator.noResultsText"
+Private sPage As String = "1"
+Private sReadonly As String = ""
+Private sRef As String = ""
+Private sRequired As String = ""
+Private sSearch As String = ""
+Private sSelectableKey As String = "isSelectable"
+Private sServerItemsLength As String = "-1"
+Private bShowExpand As Boolean = false
+Private bShowGroupBy As Boolean = false
+Private bShowSelect As Boolean = false
+Private bSingleExpand As Boolean = false
+Private bSingleSelect As Boolean = false
+Private bVCloak As Boolean = False
+Private sVElse As String = ""
+Private sVFor As String = ""
+Private sVHtml As String = ""
+Private sVIf As String = ""
+Private sVModel As String = ""
+Private bVOnce As Boolean = False
+Private bVPre As Boolean = False
+Private sVShow As String = ""
+Private sVText As String = ""
 
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
-	mName = Name
-	mEventName = EventName.ToLowerCase
-	mCallBack = CallBack
-	bindings.Initialize
-	methods.Initialize
-	Attributes.Initialize
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VDataTable 
+mName = Name 
+mEventName = EventName.ToLowerCase 
+mCallBack = CallBack 
+bindings.Initialize 
+methods.Initialize 
+properties.Initialize 
+styles.Initialize 
+classList.Initialize 
+Return Me 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
-Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
+Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
 
-	If props <> Null Then
-		mClasses = props.Get("Classes")
-		mStyle = props.Get("Style")
-		MarginLeft = props.Get("MarginLeft")
-		MarginRight = props.Get("MarginRight")
-		MarginTop = props.Get("MarginTop")
-		MarginBottom = props.Get("MarginBottom")
-		PaddingLeft = props.Get("PaddingLeft")
-		PaddingRight = props.Get("PaddingRight")
-		PaddingTop = props.Get("PaddingTop")
-		PaddingBottom = props.Get("PaddingBottom")
-		mText = props.Get("Text")
-		mVModel = props.Get("VModel")
-		mRefName = props.Get("RefName")
-		mKeyName = props.Get("KeyName")
-		mVText = props.Get("VText")
-		mVIf = props.Get("VIf")
-		mVElse = props.Get("VElse")
-		mVShow = props.Get("VShow")
-		mVHtml = props.Get("VHtml")
-		mVFor = props.Get("VFor")
-		bCalculateWidths = props.Get("CalculateWidths")
-		sCaption = props.Get("Caption")
-		bDark = props.Get("Dark")
-		bDense = props.Get("Dense")
-		bDisableFiltering = props.Get("DisableFiltering")
-		bDisablePagination = props.Get("DisablePagination")
-		bDisableSort = props.Get("DisableSort")
-		sExpandIcon = props.Get("ExpandIcon")
-		bFixedHeader = props.Get("FixedHeader")
-		sHeadersLength = props.Get("HeadersLength")
-		sHeight = props.Get("Height")
-		bHideDefaultFooter = props.Get("HideDefaultFooter")
-		bHideDefaultHeader = props.Get("HideDefaultHeader")
-		sItemKey = props.Get("ItemKey")
-		sItemsPerPage = props.Get("ItemsPerPage")
-		bLight = props.Get("Light")
-		sLoading = props.Get("Loading")
-		sLoadingText = props.Get("LoadingText")
-		sLocale = props.Get("Locale")
-		sMobileBreakpoint = props.Get("MobileBreakpoint")
-		bMultiSort = props.Get("MultiSort")
-		bMustSort = props.Get("MustSort")
-		sNoDataText = props.Get("NoDataText")
-		sNoResultsText = props.Get("NoResultsText")
-		sPage = props.Get("Page")
-		sSearch = props.Get("Search")
-		sSelectableKey = props.Get("SelectableKey")
-		sServerItemsLength = props.Get("ServerItemsLength")
-		bShowExpand = props.Get("ShowExpand")
-		bShowGroupBy = props.Get("ShowGroupBy")
-		bShowSelect = props.Get("ShowSelect")
-		bSingleExpand = props.Get("SingleExpand")
-		bSingleSelect = props.Get("SingleSelect")
+If props <> Null Then
+mClasses = props.Get("Classes") 
+mStyle = props.Get("Style")
+bCalculateWidths = props.Get("CalculateWidths")
+sCaption = props.Get("Caption")
+bDark = props.Get("Dark")
+bDense = props.Get("Dense")
+bDisableFiltering = props.Get("DisableFiltering")
+bDisablePagination = props.Get("DisablePagination")
+bDisableSort = props.Get("DisableSort")
+sEnabled = props.Get("Enabled")
+sExpandIcon = props.Get("ExpandIcon")
+bFixedHeader = props.Get("FixedHeader")
+sHeadersLength = props.Get("HeadersLength")
+sHeight = props.Get("Height")
+bHideDefaultFooter = props.Get("HideDefaultFooter")
+bHideDefaultHeader = props.Get("HideDefaultHeader")
+sItemKey = props.Get("ItemKey")
+sItemsPerPage = props.Get("ItemsPerPage")
+sKey = props.Get("Key")
+bLight = props.Get("Light")
+sLoading = props.Get("Loading")
+sLoadingText = props.Get("LoadingText")
+sLocale = props.Get("Locale")
+sMobileBreakpoint = props.Get("MobileBreakpoint")
+bMultiSort = props.Get("MultiSort")
+bMustSort = props.Get("MustSort")
+sNoDataText = props.Get("NoDataText")
+sNoResultsText = props.Get("NoResultsText")
+sPage = props.Get("Page")
+sReadonly = props.Get("Readonly")
+sRef = props.Get("Ref")
+sRequired = props.Get("Required")
+sSearch = props.Get("Search")
+sSelectableKey = props.Get("SelectableKey")
+sServerItemsLength = props.Get("ServerItemsLength")
+bShowExpand = props.Get("ShowExpand")
+bShowGroupBy = props.Get("ShowGroupBy")
+bShowSelect = props.Get("ShowSelect")
+bSingleExpand = props.Get("SingleExpand")
+bSingleSelect = props.Get("SingleSelect")
+bVCloak = props.Get("VCloak")
+sVElse = props.Get("VElse")
+sVFor = props.Get("VFor")
+sVHtml = props.Get("VHtml")
+sVIf = props.Get("VIf")
+sVModel = props.Get("VModel")
+bVOnce = props.Get("VOnce")
+bVPre = props.Get("VPre")
+sVShow = props.Get("VShow")
+sVText = props.Get("VText")
 
-		AddAttr(Attributes, mVModel, "s", "v-model")
-		AddAttr(Attributes, mRefName, "s", "ref")
-		AddAttr(Attributes, mKeyName, "s", "key")
-		AddAttr(Attributes, mVText, "s", "v-text")
-		AddAttr(Attributes, mVIf, "s", "v-if")
-		AddAttr(Attributes, mVElse, "s", "v-else")
-		AddAttr(Attributes, mVShow, "s", "v-show")
-		AddAttr(Attributes, mVHtml, "s", "v-html")
-		AddAttr(Attributes, mVFor, "s", "v-for")
-		AddAttr(Attributes, bCalculateWidths, "b", "calculate-widths")
-		AddAttr(Attributes, sCaption, "s", "caption")
-		AddAttr(Attributes, bDark, "b", "dark")
-		AddAttr(Attributes, bDense, "b", "dense")
-		AddAttr(Attributes, bDisableFiltering, "b", "disable-filtering")
-		AddAttr(Attributes, bDisablePagination, "b", "disable-pagination")
-		AddAttr(Attributes, bDisableSort, "b", "disable-sort")
-		AddAttr(Attributes, sExpandIcon, "s", "expand-icon")
-		AddAttr(Attributes, bFixedHeader, "b", "fixed-header")
-		AddAttr(Attributes, sHeadersLength, "s", "headers-length")
-		AddAttr(Attributes, sHeight, "s", "height")
-		AddAttr(Attributes, bHideDefaultFooter, "b", "hide-default-footer")
-		AddAttr(Attributes, bHideDefaultHeader, "b", "hide-default-header")
-		AddAttr(Attributes, sItemKey, "s", "item-key")
-		AddAttr(Attributes, sItemsPerPage, "s", "items-per-page")
-		AddAttr(Attributes, bLight, "b", "light")
-		AddAttr(Attributes, sLoading, "s", "loading")
-		AddAttr(Attributes, sLoadingText, "s", "loading-text")
-		AddAttr(Attributes, sLocale, "s", "locale")
-		AddAttr(Attributes, sMobileBreakpoint, "s", "mobile-breakpoint")
-		AddAttr(Attributes, bMultiSort, "b", "multi-sort")
-		AddAttr(Attributes, bMustSort, "b", "must-sort")
-		AddAttr(Attributes, sNoDataText, "s", "no-data-text")
-		AddAttr(Attributes, sNoResultsText, "s", "no-results-text")
-		AddAttr(Attributes, sPage, "s", "page")
-		AddAttr(Attributes, sSearch, "s", "search")
-		AddAttr(Attributes, sSelectableKey, "s", "selectable-key")
-		AddAttr(Attributes, sServerItemsLength, "s", "server-items-length")
-		AddAttr(Attributes, bShowExpand, "b", "show-expand")
-		AddAttr(Attributes, bShowGroupBy, "b", "show-group-by")
-		AddAttr(Attributes, bShowSelect, "b", "show-select")
-		AddAttr(Attributes, bSingleExpand, "b", "single-expand")
-		AddAttr(Attributes, bSingleSelect, "b", "single-select")
+End If
+Dim strHTML As String = ToString
+mElement = mTarget.Append(strHTML).Get("#" & mName)
 
-	End If
-	Dim exStyle As String = BuildExStyle
-	Dim exAttr As String = Attributes.ToString
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" class="${mClasses}" style="${exStyle}${mStyle}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
+' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
-
-	SetOnClickRow
-	SetOnCurrentItems
-	SetOnInput
-	SetOnItemExpanded
-	SetOnItemSelected
-	SetOnPageCount
-	SetOnPagination
-	SetOnToggleSelectAll
-	SetOnUpdateExpanded
-	SetOnUpdateGroupBy
-	SetOnUpdateGroupDesc
-	SetOnUpdateItemsPerPage
-	SetOnUpdateMultiSort
-	SetOnUpdateMustSort
-	SetOnUpdateOptions
-	SetOnUpdatePage
-	SetOnUpdateSortBy
-	SetOnUpdateSortDesc
+'This activates when the event exists on the module
+SetOnClickRow
+'This activates when the event exists on the module
+SetOnCurrentItems
+'This activates when the event exists on the module
+SetOnInput
+'This activates when the event exists on the module
+SetOnItemExpanded
+'This activates when the event exists on the module
+SetOnItemSelected
+'This activates when the event exists on the module
+SetOnPageCount
+'This activates when the event exists on the module
+SetOnPagination
+'This activates when the event exists on the module
+SetOnToggleSelectAll
+'This activates when the event exists on the module
+SetOnUpdateExpanded
+'This activates when the event exists on the module
+SetOnUpdateGroupBy
+'This activates when the event exists on the module
+SetOnUpdateGroupDesc
+'This activates when the event exists on the module
+SetOnUpdateItemsPerPage
+'This activates when the event exists on the module
+SetOnUpdateMultiSort
+'This activates when the event exists on the module
+SetOnUpdateMustSort
+'This activates when the event exists on the module
+SetOnUpdateOptions
+'This activates when the event exists on the module
+SetOnUpdatePage
+'This activates when the event exists on the module
+SetOnUpdateSortBy
+'This activates when the event exists on the module
+SetOnUpdateSortDesc
 
 
 End Sub
 
 'set calculate-widths
-Sub SetCalculateWidths(varCalculateWidths As Boolean)
-	bCalculateWidths = varCalculateWidths
-	mElement.SetAttr("calculate-widths", bCalculateWidths)
+Sub SetCalculateWidths(varCalculateWidths As Boolean) As VDataTable
+bCalculateWidths = varCalculateWidths
+SetAttr("calculate-widths", bCalculateWidths)
+Return Me
 End Sub
 
-'set caption
-Sub SetCaption(varCaption As String)
-	sCaption = varCaption
-	mElement.SetAttr("caption", sCaption)
+'set custom-filter
+Sub SetCustomFilter(varCustomFilter As Object) As VDataTable
+SetAttr("custom-filter", varCustomFilter)
+Return Me
+End Sub
+
+'set custom-group
+Sub SetCustomGroup(varCustomGroup As Object) As VDataTable
+SetAttr("custom-group", varCustomGroup)
+Return Me
+End Sub
+
+'set custom-sort
+Sub SetCustomSort(varCustomSort As Object) As VDataTable
+SetAttr("custom-sort", varCustomSort)
+Return Me
 End Sub
 
 'set dark
-Sub SetDark(varDark As Boolean)
-	bDark = varDark
-	mElement.SetAttr("dark", bDark)
+Sub SetDark(varDark As Boolean) As VDataTable
+bDark = varDark
+SetAttr("dark", bDark)
+Return Me
 End Sub
 
 'set dense
-Sub SetDense(varDense As Boolean)
-	bDense = varDense
-	mElement.SetAttr("dense", bDense)
+Sub SetDense(varDense As Boolean) As VDataTable
+bDense = varDense
+SetAttr("dense", bDense)
+Return Me
 End Sub
 
 'set disable-filtering
-Sub SetDisableFiltering(varDisableFiltering As Boolean)
-	bDisableFiltering = varDisableFiltering
-	mElement.SetAttr("disable-filtering", bDisableFiltering)
+Sub SetDisableFiltering(varDisableFiltering As Boolean) As VDataTable
+bDisableFiltering = varDisableFiltering
+SetAttr("disable-filtering", bDisableFiltering)
+Return Me
 End Sub
 
 'set disable-pagination
-Sub SetDisablePagination(varDisablePagination As Boolean)
-	bDisablePagination = varDisablePagination
-	mElement.SetAttr("disable-pagination", bDisablePagination)
+Sub SetDisablePagination(varDisablePagination As Boolean) As VDataTable
+bDisablePagination = varDisablePagination
+SetAttr("disable-pagination", bDisablePagination)
+Return Me
 End Sub
 
 'set disable-sort
-Sub SetDisableSort(varDisableSort As Boolean)
-	bDisableSort = varDisableSort
-	mElement.SetAttr("disable-sort", bDisableSort)
+Sub SetDisableSort(varDisableSort As Boolean) As VDataTable
+bDisableSort = varDisableSort
+SetAttr("disable-sort", bDisableSort)
+Return Me
+End Sub
+
+'set enabled
+Sub SetEnabled(varEnabled As String) As VDataTable
+sEnabled = varEnabled
+SetAttr("enabled", sEnabled)
+Return Me
 End Sub
 
 'set expand-icon
-Sub SetExpandIcon(varExpandIcon As String)
-	sExpandIcon = varExpandIcon
-	mElement.SetAttr("expand-icon", sExpandIcon)
+Sub SetExpandIcon(varExpandIcon As String) As VDataTable
+sExpandIcon = varExpandIcon
+SetAttr("expand-icon", sExpandIcon)
+Return Me
 End Sub
 
 'set expanded
-Sub SetExpanded(varExpanded As List)
-	mElement.SetAttr("expanded", varExpanded)
+Sub SetExpanded(varExpanded As Object) As VDataTable
+SetAttr("expanded", varExpanded)
+Return Me
 End Sub
 
 'set fixed-header
-Sub SetFixedHeader(varFixedHeader As Boolean)
-	bFixedHeader = varFixedHeader
-	mElement.SetAttr("fixed-header", bFixedHeader)
+Sub SetFixedHeader(varFixedHeader As Boolean) As VDataTable
+bFixedHeader = varFixedHeader
+SetAttr("fixed-header", bFixedHeader)
+Return Me
 End Sub
 
 'set footer-props
-Sub SetFooterProps(varFooterProps As Map)
-	mElement.SetAttr("footer-props", varFooterProps)
+Sub SetFooterProps(varFooterProps As Object) As VDataTable
+SetAttr("footer-props", varFooterProps)
+Return Me
 End Sub
 
 'set group-by
-Sub SetGroupBy(varGroupBy As Object)
-	mElement.SetAttr("group-by", varGroupBy)
+Sub SetGroupBy(varGroupBy As Object) As VDataTable
+SetAttr("group-by", varGroupBy)
+Return Me
 End Sub
 
 'set group-desc
-Sub SetGroupDesc(varGroupDesc As Object)
-	mElement.SetAttr("group-desc", varGroupDesc)
+Sub SetGroupDesc(varGroupDesc As Object) As VDataTable
+SetAttr("group-desc", varGroupDesc)
+Return Me
 End Sub
 
 'set header-props
-Sub SetHeaderProps(varHeaderProps As Map)
-	mElement.SetAttr("header-props", varHeaderProps)
+Sub SetHeaderProps(varHeaderProps As Object) As VDataTable
+SetAttr("header-props", varHeaderProps)
+Return Me
 End Sub
 
 'set headers
-Sub SetHeaders(varHeaders As Object)
-	mElement.SetAttr("headers", varHeaders)
+Sub SetHeaders(varHeaders As Object) As VDataTable
+SetAttr("headers", varHeaders)
+Return Me
 End Sub
 
 'set headers-length
-Sub SetHeadersLength(varHeadersLength As String)
-	sHeadersLength = varHeadersLength
-	mElement.SetAttr("headers-length", sHeadersLength)
+Sub SetHeadersLength(varHeadersLength As String) As VDataTable
+sHeadersLength = varHeadersLength
+SetAttr("headers-length", sHeadersLength)
+Return Me
 End Sub
 
 'set height
-Sub SetHeight(varHeight As String)
-	sHeight = varHeight
-	mElement.SetAttr("height", sHeight)
+Sub SetHeight(varHeight As String) As VDataTable
+sHeight = varHeight
+SetAttr("height", sHeight)
+Return Me
 End Sub
 
 'set hide-default-footer
-Sub SetHideDefaultFooter(varHideDefaultFooter As Boolean)
-	bHideDefaultFooter = varHideDefaultFooter
-	mElement.SetAttr("hide-default-footer", bHideDefaultFooter)
+Sub SetHideDefaultFooter(varHideDefaultFooter As Boolean) As VDataTable
+bHideDefaultFooter = varHideDefaultFooter
+SetAttr("hide-default-footer", bHideDefaultFooter)
+Return Me
 End Sub
 
 'set hide-default-header
-Sub SetHideDefaultHeader(varHideDefaultHeader As Boolean)
-	bHideDefaultHeader = varHideDefaultHeader
-	mElement.SetAttr("hide-default-header", bHideDefaultHeader)
+Sub SetHideDefaultHeader(varHideDefaultHeader As Boolean) As VDataTable
+bHideDefaultHeader = varHideDefaultHeader
+SetAttr("hide-default-header", bHideDefaultHeader)
+Return Me
 End Sub
 
 'set item-key
-Sub SetItemKey(varItemKey As String)
-	sItemKey = varItemKey
-	mElement.SetAttr("item-key", sItemKey)
+Sub SetItemKey(varItemKey As String) As VDataTable
+sItemKey = varItemKey
+SetAttr("item-key", sItemKey)
+Return Me
 End Sub
 
 'set items
-Sub SetItems(varItems As List)
-	mElement.SetAttr("items", varItems)
+Sub SetItems(varItems As Object) As VDataTable
+SetAttr("items", varItems)
+Return Me
 End Sub
 
 'set items-per-page
-Sub SetItemsPerPage(varItemsPerPage As String)
-	sItemsPerPage = varItemsPerPage
-	mElement.SetAttr("items-per-page", sItemsPerPage)
+Sub SetItemsPerPage(varItemsPerPage As String) As VDataTable
+sItemsPerPage = varItemsPerPage
+SetAttr("items-per-page", sItemsPerPage)
+Return Me
+End Sub
+
+'set key
+Sub SetKey(varKey As String) As VDataTable
+sKey = varKey
+SetAttr("key", sKey)
+Return Me
 End Sub
 
 'set light
-Sub SetLight(varLight As Boolean)
-	bLight = varLight
-	mElement.SetAttr("light", bLight)
+Sub SetLight(varLight As Boolean) As VDataTable
+bLight = varLight
+SetAttr("light", bLight)
+Return Me
 End Sub
 
 'set loading
-Sub SetLoading(varLoading As String)
-	sLoading = varLoading
-	mElement.SetAttr("loading", sLoading)
+Sub SetLoading(varLoading As String) As VDataTable
+sLoading = varLoading
+SetAttr("loading", sLoading)
+Return Me
 End Sub
 
 'set loading-text
-Sub SetLoadingText(varLoadingText As String)
-	sLoadingText = varLoadingText
-	mElement.SetAttr("loading-text", sLoadingText)
+Sub SetLoadingText(varLoadingText As String) As VDataTable
+sLoadingText = varLoadingText
+SetAttr("loading-text", sLoadingText)
+Return Me
 End Sub
 
 'set locale
-Sub SetLocale(varLocale As String)
-	sLocale = varLocale
-	mElement.SetAttr("locale", sLocale)
+Sub SetLocale(varLocale As String) As VDataTable
+sLocale = varLocale
+SetAttr("locale", sLocale)
+Return Me
 End Sub
 
 'set mobile-breakpoint
-Sub SetMobileBreakpoint(varMobileBreakpoint As String)
-	sMobileBreakpoint = varMobileBreakpoint
-	mElement.SetAttr("mobile-breakpoint", sMobileBreakpoint)
+Sub SetMobileBreakpoint(varMobileBreakpoint As String) As VDataTable
+sMobileBreakpoint = varMobileBreakpoint
+SetAttr("mobile-breakpoint", sMobileBreakpoint)
+Return Me
 End Sub
 
 'set multi-sort
-Sub SetMultiSort(varMultiSort As Boolean)
-	bMultiSort = varMultiSort
-	mElement.SetAttr("multi-sort", bMultiSort)
+Sub SetMultiSort(varMultiSort As Boolean) As VDataTable
+bMultiSort = varMultiSort
+SetAttr("multi-sort", bMultiSort)
+Return Me
 End Sub
 
 'set must-sort
-Sub SetMustSort(varMustSort As Boolean)
-	bMustSort = varMustSort
-	mElement.SetAttr("must-sort", bMustSort)
+Sub SetMustSort(varMustSort As Boolean) As VDataTable
+bMustSort = varMustSort
+SetAttr("must-sort", bMustSort)
+Return Me
 End Sub
 
 'set no-data-text
-Sub SetNoDataText(varNoDataText As String)
-	sNoDataText = varNoDataText
-	mElement.SetAttr("no-data-text", sNoDataText)
+Sub SetNoDataText(varNoDataText As String) As VDataTable
+sNoDataText = varNoDataText
+SetAttr("no-data-text", sNoDataText)
+Return Me
 End Sub
 
 'set no-results-text
-Sub SetNoResultsText(varNoResultsText As String)
-	sNoResultsText = varNoResultsText
-	mElement.SetAttr("no-results-text", sNoResultsText)
+Sub SetNoResultsText(varNoResultsText As String) As VDataTable
+sNoResultsText = varNoResultsText
+SetAttr("no-results-text", sNoResultsText)
+Return Me
 End Sub
 
 'set options
-Sub SetOptions(varOptions As Object)
-	mElement.SetAttr("options", varOptions)
+Sub SetOptions(varOptions As Object) As VDataTable
+SetAttr("options", varOptions)
+Return Me
 End Sub
 
 'set page
-Sub SetPage(varPage As String)
-	sPage = varPage
-	mElement.SetAttr("page", sPage)
+Sub SetPage(varPage As String) As VDataTable
+sPage = varPage
+SetAttr("page", sPage)
+Return Me
+End Sub
+
+'set readonly
+Sub SetReadonly(varReadonly As String) As VDataTable
+sReadonly = varReadonly
+SetAttr("readonly", sReadonly)
+Return Me
+End Sub
+
+'set ref
+Sub SetRef(varRef As String) As VDataTable
+sRef = varRef
+SetAttr("ref", sRef)
+Return Me
+End Sub
+
+'set required
+Sub SetRequired(varRequired As String) As VDataTable
+sRequired = varRequired
+SetAttr("required", sRequired)
+Return Me
 End Sub
 
 'set search
-Sub SetSearch(varSearch As String)
-	sSearch = varSearch
-	mElement.SetAttr("search", sSearch)
+Sub SetSearch(varSearch As String) As VDataTable
+sSearch = varSearch
+SetAttr("search", sSearch)
+Return Me
 End Sub
 
 'set selectable-key
-Sub SetSelectableKey(varSelectableKey As String)
-	sSelectableKey = varSelectableKey
-	mElement.SetAttr("selectable-key", sSelectableKey)
+Sub SetSelectableKey(varSelectableKey As String) As VDataTable
+sSelectableKey = varSelectableKey
+SetAttr("selectable-key", sSelectableKey)
+Return Me
 End Sub
 
 'set server-items-length
-Sub SetServerItemsLength(varServerItemsLength As String)
-	sServerItemsLength = varServerItemsLength
-	mElement.SetAttr("server-items-length", sServerItemsLength)
+Sub SetServerItemsLength(varServerItemsLength As String) As VDataTable
+sServerItemsLength = varServerItemsLength
+SetAttr("server-items-length", sServerItemsLength)
+Return Me
 End Sub
 
 'set show-expand
-Sub SetShowExpand(varShowExpand As Boolean)
-	bShowExpand = varShowExpand
-	mElement.SetAttr("show-expand", bShowExpand)
+Sub SetShowExpand(varShowExpand As Boolean) As VDataTable
+bShowExpand = varShowExpand
+SetAttr("show-expand", bShowExpand)
+Return Me
 End Sub
 
 'set show-group-by
-Sub SetShowGroupBy(varShowGroupBy As Boolean)
-	bShowGroupBy = varShowGroupBy
-	mElement.SetAttr("show-group-by", bShowGroupBy)
+Sub SetShowGroupBy(varShowGroupBy As Boolean) As VDataTable
+bShowGroupBy = varShowGroupBy
+SetAttr("show-group-by", bShowGroupBy)
+Return Me
 End Sub
 
 'set show-select
-Sub SetShowSelect(varShowSelect As Boolean)
-	bShowSelect = varShowSelect
-	mElement.SetAttr("show-select", bShowSelect)
+Sub SetShowSelect(varShowSelect As Boolean) As VDataTable
+bShowSelect = varShowSelect
+SetAttr("show-select", bShowSelect)
+Return Me
 End Sub
 
 'set single-expand
-Sub SetSingleExpand(varSingleExpand As Boolean)
-	bSingleExpand = varSingleExpand
-	mElement.SetAttr("single-expand", bSingleExpand)
+Sub SetSingleExpand(varSingleExpand As Boolean) As VDataTable
+bSingleExpand = varSingleExpand
+SetAttr("single-expand", bSingleExpand)
+Return Me
 End Sub
 
 'set single-select
-Sub SetSingleSelect(varSingleSelect As Boolean)
-	bSingleSelect = varSingleSelect
-	mElement.SetAttr("single-select", bSingleSelect)
+Sub SetSingleSelect(varSingleSelect As Boolean) As VDataTable
+bSingleSelect = varSingleSelect
+SetAttr("single-select", bSingleSelect)
+Return Me
 End Sub
 
 'set sort-by
-Sub SetSortBy(varSortBy As Object)
-	mElement.SetAttr("sort-by", varSortBy)
+Sub SetSortBy(varSortBy As Object) As VDataTable
+SetAttr("sort-by", varSortBy)
+Return Me
 End Sub
 
 'set sort-desc
-Sub SetSortDesc(varSortDesc As Object)
-	mElement.SetAttr("sort-desc", varSortDesc)
+Sub SetSortDesc(varSortDesc As Object) As VDataTable
+SetAttr("sort-desc", varSortDesc)
+Return Me
+End Sub
+
+'set v-cloak
+Sub SetVCloak(varVCloak As Boolean) As VDataTable
+bVCloak = varVCloak
+SetAttr("v-cloak", bVCloak)
+Return Me
+End Sub
+
+'set v-else
+Sub SetVElse(varVElse As String) As VDataTable
+sVElse = varVElse
+SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-for
+Sub SetVFor(varVFor As String) As VDataTable
+sVFor = varVFor
+SetAttr("v-for", sVFor)
+Return Me
+End Sub
+
+'set v-html
+Sub SetVHtml(varVHtml As String) As VDataTable
+sVHtml = varVHtml
+SetAttr("v-html", sVHtml)
+Return Me
+End Sub
+
+'set v-if
+Sub SetVIf(varVIf As String) As VDataTable
+sVIf = varVIf
+SetAttr("v-if", sVIf)
+Return Me
+End Sub
+
+'set v-model
+Sub SetVModel(varVModel As String) As VDataTable
+sVModel = varVModel
+SetAttr("v-model", sVModel)
+Return Me
+End Sub
+
+'set v-once
+Sub SetVOnce(varVOnce As Boolean) As VDataTable
+bVOnce = varVOnce
+SetAttr("v-once", bVOnce)
+Return Me
+End Sub
+
+'set v-pre
+Sub SetVPre(varVPre As Boolean) As VDataTable
+bVPre = varVPre
+SetAttr("v-pre", bVPre)
+Return Me
+End Sub
+
+'set v-show
+Sub SetVShow(varVShow As String) As VDataTable
+sVShow = varVShow
+SetAttr("v-show", sVShow)
+Return Me
+End Sub
+
+'set v-text
+Sub SetVText(varVText As String) As VDataTable
+sVText = varVText
+SetAttr("v-text", sVText)
+Return Me
 End Sub
 
 'set value
-Sub SetValue(varValue As List)
-	mElement.SetAttr("value", varValue)
+Sub SetValue(varValue As Object) As VDataTable
+SetAttr("value", varValue)
+Return Me
 End Sub
 
 
-'set on clickrow event
-Sub SetOnClickRow
-	Dim mName As String = $"${mEventName}_clickrow"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:click:row", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on clickrow event, updates the master events records
+Sub SetOnClickRow() As VDataTable
+Dim sName As String = $"${mEventName}_clickrow"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:click:row", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on currentitems event
-Sub SetOnCurrentItems
-	Dim mName As String = $"${mEventName}_currentitems"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:current-items", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on currentitems event, updates the master events records
+Sub SetOnCurrentItems() As VDataTable
+Dim sName As String = $"${mEventName}_currentitems"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:current-items", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on input event
-Sub SetOnInput
-	Dim mName As String = $"${mEventName}_input"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:input", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on input event, updates the master events records
+Sub SetOnInput() As VDataTable
+Dim sName As String = $"${mEventName}_input"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:input", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on itemexpanded event
-Sub SetOnItemExpanded
-	Dim mName As String = $"${mEventName}_itemexpanded"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:item-expanded", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on itemexpanded event, updates the master events records
+Sub SetOnItemExpanded() As VDataTable
+Dim sName As String = $"${mEventName}_itemexpanded"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:item-expanded", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on itemselected event
-Sub SetOnItemSelected
-	Dim mName As String = $"${mEventName}_itemselected"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:item-selected", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on itemselected event, updates the master events records
+Sub SetOnItemSelected() As VDataTable
+Dim sName As String = $"${mEventName}_itemselected"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:item-selected", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on pagecount event
-Sub SetOnPageCount
-	Dim mName As String = $"${mEventName}_pagecount"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:page-count", mName)
-	Dim argument As Int 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on pagecount event, updates the master events records
+Sub SetOnPageCount() As VDataTable
+Dim sName As String = $"${mEventName}_pagecount"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:page-count", sName)
+Dim argument As Int 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on pagination event
-Sub SetOnPagination
-	Dim mName As String = $"${mEventName}_pagination"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:pagination", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on pagination event, updates the master events records
+Sub SetOnPagination() As VDataTable
+Dim sName As String = $"${mEventName}_pagination"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:pagination", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on toggleselectall event
-Sub SetOnToggleSelectAll
-	Dim mName As String = $"${mEventName}_toggleselectall"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:toggle-select-all", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on toggleselectall event, updates the master events records
+Sub SetOnToggleSelectAll() As VDataTable
+Dim sName As String = $"${mEventName}_toggleselectall"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:toggle-select-all", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updateexpanded event
-Sub SetOnUpdateExpanded
-	Dim mName As String = $"${mEventName}_updateexpanded"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:expanded", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updateexpanded event, updates the master events records
+Sub SetOnUpdateExpanded() As VDataTable
+Dim sName As String = $"${mEventName}_updateexpanded"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:expanded", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updategroupby event
-Sub SetOnUpdateGroupBy
-	Dim mName As String = $"${mEventName}_updategroupby"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:group-by", mName)
-	Dim argument As String 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updategroupby event, updates the master events records
+Sub SetOnUpdateGroupBy() As VDataTable
+Dim sName As String = $"${mEventName}_updategroupby"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:group-by", sName)
+Dim argument As String 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updategroupdesc event
-Sub SetOnUpdateGroupDesc
-	Dim mName As String = $"${mEventName}_updategroupdesc"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:group-desc", mName)
-	Dim argument As Boolean 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updategroupdesc event, updates the master events records
+Sub SetOnUpdateGroupDesc() As VDataTable
+Dim sName As String = $"${mEventName}_updategroupdesc"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:group-desc", sName)
+Dim argument As Boolean 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updateitemsperpage event
-Sub SetOnUpdateItemsPerPage
-	Dim mName As String = $"${mEventName}_updateitemsperpage"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:items-per-page", mName)
-	Dim argument As Int 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updateitemsperpage event, updates the master events records
+Sub SetOnUpdateItemsPerPage() As VDataTable
+Dim sName As String = $"${mEventName}_updateitemsperpage"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:items-per-page", sName)
+Dim argument As Int 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatemultisort event
-Sub SetOnUpdateMultiSort
-	Dim mName As String = $"${mEventName}_updatemultisort"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:multi-sort", mName)
-	Dim argument As Boolean 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatemultisort event, updates the master events records
+Sub SetOnUpdateMultiSort() As VDataTable
+Dim sName As String = $"${mEventName}_updatemultisort"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:multi-sort", sName)
+Dim argument As Boolean 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatemustsort event
-Sub SetOnUpdateMustSort
-	Dim mName As String = $"${mEventName}_updatemustsort"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:must-sort", mName)
-	Dim argument As Boolean 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatemustsort event, updates the master events records
+Sub SetOnUpdateMustSort() As VDataTable
+Dim sName As String = $"${mEventName}_updatemustsort"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:must-sort", sName)
+Dim argument As Boolean 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updateoptions event
-Sub SetOnUpdateOptions
-	Dim mName As String = $"${mEventName}_updateoptions"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:options", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updateoptions event, updates the master events records
+Sub SetOnUpdateOptions() As VDataTable
+Dim sName As String = $"${mEventName}_updateoptions"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:options", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatepage event
-Sub SetOnUpdatePage
-	Dim mName As String = $"${mEventName}_updatepage"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:page", mName)
-	Dim argument As Int 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatepage event, updates the master events records
+Sub SetOnUpdatePage() As VDataTable
+Dim sName As String = $"${mEventName}_updatepage"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:page", sName)
+Dim argument As Int 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatesortby event
-Sub SetOnUpdateSortBy
-	Dim mName As String = $"${mEventName}_updatesortby"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:sort-by", mName)
-	Dim argument As String 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatesortby event, updates the master events records
+Sub SetOnUpdateSortBy() As VDataTable
+Dim sName As String = $"${mEventName}_updatesortby"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:sort-by", sName)
+Dim argument As String 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatesortdesc event
-Sub SetOnUpdateSortDesc
-	Dim mName As String = $"${mEventName}_updatesortdesc"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:sort-desc", mName)
-	Dim argument As Boolean 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatesortdesc event, updates the master events records
+Sub SetOnUpdateSortDesc() As VDataTable
+Dim sName As String = $"${mEventName}_updatesortdesc"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:sort-desc", sName)
+Dim argument As Boolean 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
 
+'return the generated html
+Sub ToString As String
+AddAttr(bCalculateWidths, "calculate-widths")
+AddAttr(sCaption, "caption")
+AddAttr(bDark, "dark")
+AddAttr(bDense, "dense")
+AddAttr(bDisableFiltering, "disable-filtering")
+AddAttr(bDisablePagination, "disable-pagination")
+AddAttr(bDisableSort, "disable-sort")
+AddAttr(sEnabled, "enabled")
+AddAttr(sExpandIcon, "expand-icon")
+AddAttr(bFixedHeader, "fixed-header")
+AddAttr(sHeadersLength, "headers-length")
+AddAttr(sHeight, "height")
+AddAttr(bHideDefaultFooter, "hide-default-footer")
+AddAttr(bHideDefaultHeader, "hide-default-header")
+AddAttr(sItemKey, "item-key")
+AddAttr(sItemsPerPage, "items-per-page")
+AddAttr(sKey, "key")
+AddAttr(bLight, "light")
+AddAttr(sLoading, "loading")
+AddAttr(sLoadingText, "loading-text")
+AddAttr(sLocale, "locale")
+AddAttr(sMobileBreakpoint, "mobile-breakpoint")
+AddAttr(bMultiSort, "multi-sort")
+AddAttr(bMustSort, "must-sort")
+AddAttr(sNoDataText, "no-data-text")
+AddAttr(sNoResultsText, "no-results-text")
+AddAttr(sPage, "page")
+AddAttr(sReadonly, "readonly")
+AddAttr(sRef, "ref")
+AddAttr(sRequired, "required")
+AddAttr(sSearch, "search")
+AddAttr(sSelectableKey, "selectable-key")
+AddAttr(sServerItemsLength, "server-items-length")
+AddAttr(bShowExpand, "show-expand")
+AddAttr(bShowGroupBy, "show-group-by")
+AddAttr(bShowSelect, "show-select")
+AddAttr(bSingleExpand, "single-expand")
+AddAttr(bSingleSelect, "single-select")
+AddAttr(bVCloak, "v-cloak")
+AddAttr(sVElse, "v-else")
+AddAttr(sVFor, "v-for")
+AddAttr(sVHtml, "v-html")
+AddAttr(sVIf, "v-if")
+AddAttr(sVModel, "v-model")
+AddAttr(bVOnce, "v-once")
+AddAttr(bVPre, "v-pre")
+AddAttr(sVShow, "v-show")
+AddAttr(sVText, "v-text")
+
+'build the class list
+Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
+cKeys = cKeys & " " & mClasses
+cKeys = cKeys.trim
+AddAttr(cKeys, "class")
+'build the style list
+Dim sKeys As String = BANanoShared.BuildStyle(styles)
+sKeys = sKeys & " " & mStyle
+sKeys = sKeys.trim
+AddAttr(sKeys, "style")
+Dim exattr As String = BANanoShared.BuildAttributes(properties)
+
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Return strRes
+End Sub
+
+'add a child component
+Sub AddComponent(child As String) As VDataTable
+	mElement.Append(child)
+	sCaption = mElement.GetText
+	Return Me
+End Sub
+
+'change the id of the element, ONLY execute this after a manual Initialize
+Sub SetID(varText As String) As VDataTable
+	mname = varText
+	Return Me
+End Sub
+
+'get the text of the component
+public Sub GetCaption() As String
+	Return sCaption
+End Sub
 
 'add component to parent
-public Sub AddToParent(targetID As String)
+public Sub AddToParent(targetID As String) As VDataTable
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
+	Return Me
+End Sub
+
+'add component to app, this binds events and states
+Sub AddToApp(va As VueApp) As VDataTable
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		va.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		va.SetCallBack(k, cb)
+	Next
+	data = va.data	
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop as string, value as object)
+	data.put(prop, value)
 End Sub
 
 'remove component
 public Sub Remove()
-	mTarget.Empty
+	mElement.Empty
 	BANano.SetMeToNull
 End Sub
 
@@ -763,92 +1018,42 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String)
-	Dim methodName As String = BANanoSnippets.BeautifyName(event)
+Sub SetVOn(event As String) As VDataTable
+	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
-	If SubExists(mCallBack, methodName) = False Then Return
+	If SubExists(mCallBack, methodName) = False Then Return Me
 	SetAttr($"v-on:${event}"$, methodName)
 	SetMethod(mCallBack, methodName)
+	Return Me
 End Sub
 
-Sub SetVFor(vfor As String)
-	mVFor = vfor
-	mElement.SetAttr("v-for", mVFor)
+'change the text of the element
+Sub SetCaption(varText As String) As VDataTable
+	If mElement <> Null Then
+		mElement.SetHTML(BANano.SF(varText))
+	End If
+	sCaption = varText
+	Return Me
 End Sub
 
-Sub SetVHtml(vhtml As String)
-	mVHtml = vhtml
-	mVHtml = BANano.SF(mVHtml)
-	mElement.SetAttr("v-html", mVHtml)
-End Sub
-
-Sub SetVShow(vshow As String)
-	mVShow = vshow
-	mElement.SetAttr("v-show", vshow)
-End Sub
-
-Sub SetVIf(vif As String)
-	mVIf = vif
-	mElement.SetAttr("v-if", mVIf)
-End Sub
-
-Sub SetVElse(velse As String)
-	mVElse = velse
-	mElement.SetAttr("v-else", mVElse)
-End Sub
-
-Sub SetVText(vtext As String)
-	mVText = vtext
-	mElement.SetAttr("v-text", mVText)
-End Sub
-
-Sub SetKey(skey As String)
-	mKeyName = skey
-	mElement.SetAttr("key", skey)
-End Sub
-
-Sub SetRef(ref As String)
-	mRefName = ref
-	mElement.SetAttr("ref", ref)
-End Sub
-
-Sub SetVModel(vmodel As String)
-	mVModel = vmodel
-	mElement.SetAttr("v-model", vmodel)
-End Sub
-
-'will add properties to attributes, s for strings an b for booleans
-private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, actProp As String)
-	Select Case varType
-		Case "b"
-			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
-		Case "s"
-			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
+'will add properties to attributes
+private Sub AddAttr(varName As String, actProp As String) As VDataTable
+	If varName <> "" Then properties.put(actprop, varname)
+	Select Case actProp
+	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
+		bindings.Put(varName, False)
 	End Select
-End Sub
-
-'build styles
-private Sub BuildExStyle() As String
-	Dim sb As StringBuilder
-	sb.Initialize
-	If MarginLeft <> "" Then sb.Append("margin-left: " & MarginLeft & ";")
-	If MarginRight <> "" Then sb.Append("margin-right: " & MarginRight & ";")
-	If MarginTop <> "" Then sb.Append("margin-top: " & MarginTop & ";")
-	If MarginBottom <> "" Then sb.Append("margin-bottom: " & MarginBottom & ";")
-	If PaddingLeft <> "" Then sb.Append("padding-left: " & PaddingLeft & ";")
-	If PaddingRight <> "" Then sb.Append("padding-right: " & PaddingRight & ";")
-	If PaddingTop <> "" Then sb.Append("padding-top: " & PaddingTop & ";")
-	If PaddingBottom <> "" Then sb.Append("padding-bottom: " & PaddingBottom & ";")
-	Return sb.ToString
+	Return Me
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String)
+public Sub SetClasses(Classes As String) As VDataTable
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
 	mClasses = Classes
+	Return Me
 End Sub
 
 public Sub GetClasses() As String
@@ -857,98 +1062,96 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String)
+public Sub SetStyle(Style As String) As VDataTable
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
 	mStyle = Style
+	Return Me
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List)
+Sub AddClass(classNames As List) As VDataTable
 	For Each k As String In classNames
-		mElement.AddClass(k)
+		classList.put(k, k)
 	Next
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
+	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map)
+Sub SetStyles(m As Map) As VDataTable
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
+		styles.put(k, v)
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map)
+Sub SetAttrs(props As Map) As VDataTable
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
-		mElement.SetAttr(k, v)
+		SetAttr(k, v)
 	Next
+	Return Me
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String)
-	mElement.SetAttr(prop, value)
-End Sub
-
-'stop compilation
-Sub SetVPre
-	mElement.SetAttr("v-pre", True)
+Sub SetAttr(prop As String, value As String) As VDataTable
+	properties.put(prop, value)
+	If mElement <> Null Then 
+		mElement.SetAttr(prop, value)
+	End If
+	Return Me
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String)
+Sub SetVBind(prop As String, value As String) As VDataTable
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
-	mElement.SetAttr(prop,value)
+	SetAttr(prop,value)
 	bindings.Put(value, Null)
+	Return Me
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String)
-	Dim m As Map = CreateMap()
-	m.Put(prop, value)
+Sub SetStyleSingle(prop As String, value As String) As VDataTable
+	styles.put(prop, value)
+	dim m as map = createmap()
+	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List)
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VDataTable
 	If loose <> Null Then
 		For Each k As String In loose
-			mElement.SetAttr(k, True)
+			SetAttr(k, True)
 		Next
 	End If
 	If props <> Null Then
 		For Each k As String In props.Keys
 			Dim v As String = props.Get(k)
-			mElement.SetAttr(k, v)
+			SetAttr(k, v)
 		Next
 	End If
 	If styleProps <> Null Then
-		Dim jsonStyle As String = BANano.ToJson(styleProps)
-		mElement.SetStyle(jsonStyle)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
+			SetStyleSingle(k, v)
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
 	End If
-End Sub
-
-'get text
-public Sub GetText() As String
-	Return mElement.GetText
-End Sub
-
-'hide until compilation finishes
-Sub SetVCloak
-	If mElement <> Null Then
-		mElement.SetAttr("v-cloak", True)
-	End If
-End Sub
-
-'compile once
-Sub SetVOnce
-	mElement.SetAttr("v-once", True)
+	Return Me
 End Sub
 
 'get html
@@ -957,44 +1160,47 @@ Public Sub GetHtml() As String
 End Sub
 
 'set color
-Sub SetColor(varColor As String)
-	If varColor = "" Then Return
+Sub SetColor1(varColor As String) As VDataTable
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, varColor)
+	Return Me
 End Sub
 
 'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String)
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VDataTable
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, scolor)
+	Return Me
 End Sub
 
 'set text color
-Sub SetTextColor(varColor As String)
+Sub SetTextColor1(varColor As String) As VDataTable
 	Dim sColor As String = $"${varColor}--text"$
-	mElement.AddClass(sColor)
+	AddClass(array(sColor))
+	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String)
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VDataTable
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	mElement.AddClass(mcolor)
+	AddClass(array(mcolor))
+	Return Me
 End Sub
 
-
 'set direct method
-Sub SetMethod(Module As Object,methodName As String)
+Sub SetMethod(Module As Object,methodName As String) As VDataTable
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
 		methods.Put(methodName, cb)
 	End If
+	Return Me
 End Sub

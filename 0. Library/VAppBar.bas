@@ -2,503 +2,707 @@
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
-Version=8.31
+Version=8.3
 @EndOfDesignText@
-'Custom BANano View class
+'Custom BANano View class: VAppBar
 #IgnoreWarnings:12
 
 
-#DesignerProperty: Key: Text, DisplayName: Text, FieldType: String, DefaultValue: , Description: Text on the label 
-#DesignerProperty: Key: VText, DisplayName: VText, FieldType: String, DefaultValue: , Description: VText 
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, FieldType: String, DefaultValue: , Description: VHtml 
-#DesignerProperty: Key: VModel, DisplayName: VModel, FieldType: String, DefaultValue: , Description: VModel 
-#DesignerProperty: Key: RefName, DisplayName: RefName, FieldType: String, DefaultValue: , Description: RefName 
-#DesignerProperty: Key: VIf, DisplayName: VIf, FieldType: String, DefaultValue: , Description: VIf 
-#DesignerProperty: Key: VElse, DisplayName: VElse, FieldType: String, DefaultValue: , Description: VElse 
-#DesignerProperty: Key: VShow, DisplayName: VShow, FieldType: String, DefaultValue: , Description: VShow 
-#DesignerProperty: Key: VFor, DisplayName: VFor, FieldType: String, DefaultValue: , Description: VFor 
-#DesignerProperty: Key: KeyName, DisplayName: KeyName, FieldType: String, DefaultValue: , Description: KeyName
-#DesignerProperty: Key: Absolute, DisplayName: Absolute, FieldType: Boolean, DefaultValue: false , Description: Set absolute
-#DesignerProperty: Key: App, DisplayName: App, FieldType: Boolean, DefaultValue: false , Description: Set app
-#DesignerProperty: Key: Bottom, DisplayName: Bottom, FieldType: Boolean, DefaultValue: false , Description: Set bottom
-#DesignerProperty: Key: ClippedLeft, DisplayName: ClippedLeft, FieldType: Boolean, DefaultValue: false , Description: Set clipped-left
-#DesignerProperty: Key: ClippedRight, DisplayName: ClippedRight, FieldType: Boolean, DefaultValue: false , Description: Set clipped-right
-#DesignerProperty: Key: Collapse, DisplayName: Collapse, FieldType: Boolean, DefaultValue: false , Description: Set collapse
-#DesignerProperty: Key: CollapseOnScroll, DisplayName: CollapseOnScroll, FieldType: Boolean, DefaultValue: false , Description: Set collapse-on-scroll
-#DesignerProperty: Key: Color, DisplayName: Color, FieldType: String, DefaultValue: , Description: Set color
-#DesignerProperty: Key: Dark, DisplayName: Dark, FieldType: Boolean, DefaultValue: false , Description: Set dark
-#DesignerProperty: Key: Dense, DisplayName: Dense, FieldType: Boolean, DefaultValue: false , Description: Set dense
-#DesignerProperty: Key: ElevateOnScroll, DisplayName: ElevateOnScroll, FieldType: Boolean, DefaultValue: false , Description: Set elevate-on-scroll
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, DefaultValue: , Description: Set elevation
-#DesignerProperty: Key: Extended, DisplayName: Extended, FieldType: Boolean, DefaultValue: false , Description: Set extended
-#DesignerProperty: Key: ExtensionHeight, DisplayName: ExtensionHeight, FieldType: String, DefaultValue: , Description: Set extension-height
-#DesignerProperty: Key: FadeImgOnScroll, DisplayName: FadeImgOnScroll, FieldType: Boolean, DefaultValue: false , Description: Set fade-img-on-scroll
-#DesignerProperty: Key: Fixed, DisplayName: Fixed, FieldType: Boolean, DefaultValue: false , Description: Set fixed
-#DesignerProperty: Key: Flat, DisplayName: Flat, FieldType: Boolean, DefaultValue: false , Description: Set flat
-#DesignerProperty: Key: Floating, DisplayName: Floating, FieldType: Boolean, DefaultValue: false , Description: Set floating
-#DesignerProperty: Key: Height, DisplayName: Height, FieldType: String, DefaultValue: , Description: Set height
-#DesignerProperty: Key: HideOnScroll, DisplayName: HideOnScroll, FieldType: Boolean, DefaultValue: false , Description: Set hide-on-scroll
-#DesignerProperty: Key: InvertedScroll, DisplayName: InvertedScroll, FieldType: Boolean, DefaultValue: false , Description: Set inverted-scroll
-#DesignerProperty: Key: Light, DisplayName: Light, FieldType: Boolean, DefaultValue: false , Description: Set light
-#DesignerProperty: Key: MaxHeight, DisplayName: MaxHeight, FieldType: String, DefaultValue: , Description: Set max-height
-#DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, FieldType: String, DefaultValue: , Description: Set max-width
-#DesignerProperty: Key: MinHeight, DisplayName: MinHeight, FieldType: String, DefaultValue: , Description: Set min-height
-#DesignerProperty: Key: MinWidth, DisplayName: MinWidth, FieldType: String, DefaultValue: , Description: Set min-width
-#DesignerProperty: Key: Prominent, DisplayName: Prominent, FieldType: Boolean, DefaultValue: false , Description: Set prominent
-#DesignerProperty: Key: ScrollOffScreen, DisplayName: ScrollOffScreen, FieldType: Boolean, DefaultValue: false , Description: Set scroll-off-screen
-#DesignerProperty: Key: ScrollTarget, DisplayName: ScrollTarget, FieldType: String, DefaultValue: , Description: Set scroll-target
-#DesignerProperty: Key: ScrollThreshold, DisplayName: ScrollThreshold, FieldType: String, DefaultValue: , Description: Set scroll-threshold
-#DesignerProperty: Key: Short, DisplayName: Short, FieldType: Boolean, DefaultValue: false , Description: Set short
-#DesignerProperty: Key: ShrinkOnScroll, DisplayName: ShrinkOnScroll, FieldType: Boolean, DefaultValue: false , Description: Set shrink-on-scroll
-#DesignerProperty: Key: Tag, DisplayName: Tag, FieldType: String, DefaultValue: , Description: Set tag
-#DesignerProperty: Key: Tile, DisplayName: Tile, FieldType: Boolean, DefaultValue: true , Description: Set tile
-#DesignerProperty: Key: Value, DisplayName: Value, FieldType: Boolean, DefaultValue: true , Description: Set value
-#DesignerProperty: Key: Width, DisplayName: Width, FieldType: String, DefaultValue: , Description: Set width
+#DesignerProperty: Key: Absolute, DisplayName: Absolute, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: App, DisplayName: App, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Bottom, DisplayName: Bottom, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: ClippedLeft, DisplayName: ClippedLeft, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ClippedRight, DisplayName: ClippedRight, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Collapse, DisplayName: Collapse, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: CollapseOnScroll, DisplayName: CollapseOnScroll, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Dense, DisplayName: Dense, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ElevateOnScroll, DisplayName: ElevateOnScroll, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, DefaultValue: 0, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String
+#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Extended, DisplayName: Extended, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ExtensionHeight, DisplayName: ExtensionHeight, Description: , DefaultValue: 48, FieldType: String
+#DesignerProperty: Key: FadeImgOnScroll, DisplayName: FadeImgOnScroll, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Fixed, DisplayName: Fixed, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Floating, DisplayName: Floating, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Height, DisplayName: Height, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: HideOnScroll, DisplayName: HideOnScroll, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: InvertedScroll, DisplayName: InvertedScroll, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: MaxHeight, DisplayName: MaxHeight, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Prominent, DisplayName: Prominent, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: ScrollOffScreen, DisplayName: ScrollOffScreen, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ScrollTarget, DisplayName: ScrollTarget, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: ScrollThreshold, DisplayName: ScrollThreshold, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Short, DisplayName: Short, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ShrinkOnScroll, DisplayName: ShrinkOnScroll, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Tag, DisplayName: Tag, Description: , DefaultValue: header, FieldType: String
+#DesignerProperty: Key: Tile, DisplayName: Tile, Description: , DefaultValue: true, FieldType: Boolean
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Value, DisplayName: Value, Description: , DefaultValue: true, FieldType: Boolean
+#DesignerProperty: Key: Width, DisplayName: Width, Description: , DefaultValue: , FieldType: String
 #DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: MarginLeft, DisplayName: Margin Left, FieldType: String, DefaultValue: , Description: Margin Left 
-#DesignerProperty: Key: MarginRight, DisplayName: Margin Right, FieldType: String, DefaultValue: , Description: Margin Right 
-#DesignerProperty: Key: MarginTop, DisplayName: Margin Top, FieldType: String, DefaultValue: , Description: Margin Top 
-#DesignerProperty: Key: MarginBottom, DisplayName: Margin Bottom, FieldType: String, DefaultValue: , Description: Margin Bottom 
-#DesignerProperty: Key: PaddingLeft, DisplayName: Padding Left, FieldType: String, DefaultValue: , Description: Padding Left 
-#DesignerProperty: Key: PaddingRight, DisplayName: Padding Right, FieldType: String, DefaultValue: , Description: Padding Right 
-#DesignerProperty: Key: PaddingTop, DisplayName: Padding Top, FieldType: String, DefaultValue: , Description: Padding Top 
-#DesignerProperty: Key: PaddingBottom, DisplayName: Padding Bottom, FieldType: String, DefaultValue: , Description: Padding Bottom
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
 
-Sub Class_Globals
-	Private BANano As BANano 'ignore
-	Public mName As String 'ignore
-	Private mEventName As String 'ignore
-	Private mCallBack As Object 'ignore
-	Private mTarget As BANanoElement 'ignore
+Sub Class_Globals 
+	Private BANano As BANano 'ignore 
+	Private data As Map 
+	Public mName As String 'ignore 
+	Private mEventName As String 'ignore 
+	Private mCallBack As Object 'ignore 
+	Private mTarget As BANanoElement 'ignore 
 	Private mElement As BANanoElement 'ignore
 
-	Private mClasses As String = ""
+Private properties As Map
+Private styles As Map
+Private classList As Map
+Private mClasses As String = "" 
 	Private mStyle As String = ""
-	Public MarginLeft As String = ""
-	Public MarginRight As String = ""
-	Public MarginTop As String = ""
-	Public MarginBottom As String = ""
-	Public PaddingLeft As String = ""
-	Public PaddingRight As String = ""
-	Public PaddingTop As String = ""
-	Public PaddingBottom As String = ""
 
-	Private mText As String = ""
-	Private mTagName As String = "v-app-bar"
-	Private mVModel As String = ""
-	Private mRefName As String = ""
-	Private mKeyName As String = ""
-	Private mVText As String = ""
-	Private mVIf As String = ""
-	Private mVElse As String = ""
-	Private mVShow As String = ""
-	Private mVHtml As String = ""
-	Private mVFor As String = ""
-	Private Attributes As StringBuilder
-	Public bindings As Map
+Private mTagName As String = "v-app-bar" 
+	Public bindings As Map 
 	Public methods As Map
-	Public bAbsolute As Boolean = False
-	Public bApp As Boolean = False
-	Public bBottom As Boolean = False
-	Public bClippedLeft As Boolean = False
-	Public bClippedRight As Boolean = False
-	Public bCollapse As Boolean = False
-	Public bCollapseOnScroll As Boolean = False
-	Public sColor As String = ""
-	Public bDark As Boolean = False
-	Public bDense As Boolean = False
-	Public bElevateOnScroll As Boolean = False
-	Public sElevation As String = ""
-	Public bExtended As Boolean = False
-	Public sExtensionHeight As String = "48"
-	Public bFadeImgOnScroll As Boolean = False
-	Public bFixed As Boolean = False
-	Public bFlat As Boolean = False
-	Public bFloating As Boolean = False
-	Public sHeight As String = ""
-	Public bHideOnScroll As Boolean = False
-	Public bInvertedScroll As Boolean = False
-	Public bLight As Boolean = False
-	Public sMaxHeight As String = ""
-	Public sMaxWidth As String = ""
-	Public sMinHeight As String = ""
-	Public sMinWidth As String = ""
-	Public bProminent As Boolean = False
-	Public bScrollOffScreen As Boolean = False
-	Public sScrollTarget As String = ""
-	Public sScrollThreshold As String = ""
-	Public bShort As Boolean = False
-	Public bShrinkOnScroll As Boolean = False
-	Public sTag As String = "header"
-	Public bTile As Boolean = True
-	Public bValue As Boolean = True
-	Public sWidth As String = ""
+Private bAbsolute As Boolean = false
+Private bApp As Boolean = false
+Private bBottom As Boolean = false
+Private sCaption As String = ""
+Private bClippedLeft As Boolean = false
+Private bClippedRight As Boolean = false
+Private bCollapse As Boolean = false
+Private bCollapseOnScroll As Boolean = false
+Private sColor As String = ""
+Private bDark As Boolean = false
+Private bDense As Boolean = false
+Private bElevateOnScroll As Boolean = false
+Private sElevation As String = ""
+Private sEnabled As String = ""
+Private bExtended As Boolean = false
+Private sExtensionHeight As String = "48"
+Private bFadeImgOnScroll As Boolean = false
+Private bFixed As Boolean = false
+Private bFlat As Boolean = false
+Private bFloating As Boolean = false
+Private sHeight As String = ""
+Private bHideOnScroll As Boolean = false
+Private bInvertedScroll As Boolean = false
+Private sKey As String = ""
+Private bLight As Boolean = false
+Private sMaxHeight As String = ""
+Private sMaxWidth As String = ""
+Private sMinHeight As String = ""
+Private sMinWidth As String = ""
+Private bProminent As Boolean = false
+Private sReadonly As String = ""
+Private sRef As String = ""
+Private sRequired As String = ""
+Private bScrollOffScreen As Boolean = false
+Private sScrollTarget As String = ""
+Private sScrollThreshold As String = ""
+Private bShort As Boolean = false
+Private bShrinkOnScroll As Boolean = false
+Private sTag As String = "header"
+Private bTile As Boolean = true
+Private bVCloak As Boolean = False
+Private sVElse As String = ""
+Private sVFor As String = ""
+Private sVHtml As String = ""
+Private sVIf As String = ""
+Private sVModel As String = ""
+Private bVOnce As Boolean = False
+Private bVPre As Boolean = False
+Private sVShow As String = ""
+Private sVText As String = ""
+Private bValue As Boolean = true
+Private sWidth As String = ""
 
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
-	mName = Name
-	mEventName = EventName.ToLowerCase
-	mCallBack = CallBack
-	bindings.Initialize
-	methods.Initialize
-	Attributes.Initialize
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VAppBar 
+mName = Name 
+mEventName = EventName.ToLowerCase 
+mCallBack = CallBack 
+bindings.Initialize 
+methods.Initialize 
+properties.Initialize 
+styles.Initialize 
+classList.Initialize 
+Return Me 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
-Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
+Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
 
-	If props <> Null Then
-		mClasses = props.Get("Classes")
-		mStyle = props.Get("Style")
-		MarginLeft = props.Get("MarginLeft")
-		MarginRight = props.Get("MarginRight")
-		MarginTop = props.Get("MarginTop")
-		MarginBottom = props.Get("MarginBottom")
-		PaddingLeft = props.Get("PaddingLeft")
-		PaddingRight = props.Get("PaddingRight")
-		PaddingTop = props.Get("PaddingTop")
-		PaddingBottom = props.Get("PaddingBottom")
-		mText = props.Get("Text")
-		mVModel = props.Get("VModel")
-		mRefName = props.Get("RefName")
-		mKeyName = props.Get("KeyName")
-		mVText = props.Get("VText")
-		mVIf = props.Get("VIf")
-		mVElse = props.Get("VElse")
-		mVShow = props.Get("VShow")
-		mVHtml = props.Get("VHtml")
-		mVFor = props.Get("VFor")
-		bAbsolute = props.Get("Absolute")
-		bApp = props.Get("App")
-		bBottom = props.Get("Bottom")
-		bClippedLeft = props.Get("ClippedLeft")
-		bClippedRight = props.Get("ClippedRight")
-		bCollapse = props.Get("Collapse")
-		bCollapseOnScroll = props.Get("CollapseOnScroll")
-		sColor = props.Get("Color")
-		bDark = props.Get("Dark")
-		bDense = props.Get("Dense")
-		bElevateOnScroll = props.Get("ElevateOnScroll")
-		sElevation = props.Get("Elevation")
-		bExtended = props.Get("Extended")
-		sExtensionHeight = props.Get("ExtensionHeight")
-		bFadeImgOnScroll = props.Get("FadeImgOnScroll")
-		bFixed = props.Get("Fixed")
-		bFlat = props.Get("Flat")
-		bFloating = props.Get("Floating")
-		sHeight = props.Get("Height")
-		bHideOnScroll = props.Get("HideOnScroll")
-		bInvertedScroll = props.Get("InvertedScroll")
-		bLight = props.Get("Light")
-		sMaxHeight = props.Get("MaxHeight")
-		sMaxWidth = props.Get("MaxWidth")
-		sMinHeight = props.Get("MinHeight")
-		sMinWidth = props.Get("MinWidth")
-		bProminent = props.Get("Prominent")
-		bScrollOffScreen = props.Get("ScrollOffScreen")
-		sScrollTarget = props.Get("ScrollTarget")
-		sScrollThreshold = props.Get("ScrollThreshold")
-		bShort = props.Get("Short")
-		bShrinkOnScroll = props.Get("ShrinkOnScroll")
-		sTag = props.Get("Tag")
-		bTile = props.Get("Tile")
-		bValue = props.Get("Value")
-		sWidth = props.Get("Width")
+If props <> Null Then
+mClasses = props.Get("Classes") 
+mStyle = props.Get("Style")
+bAbsolute = props.Get("Absolute")
+bApp = props.Get("App")
+bBottom = props.Get("Bottom")
+sCaption = props.Get("Caption")
+bClippedLeft = props.Get("ClippedLeft")
+bClippedRight = props.Get("ClippedRight")
+bCollapse = props.Get("Collapse")
+bCollapseOnScroll = props.Get("CollapseOnScroll")
+sColor = props.Get("Color")
+bDark = props.Get("Dark")
+bDense = props.Get("Dense")
+bElevateOnScroll = props.Get("ElevateOnScroll")
+sElevation = props.Get("Elevation")
+sEnabled = props.Get("Enabled")
+bExtended = props.Get("Extended")
+sExtensionHeight = props.Get("ExtensionHeight")
+bFadeImgOnScroll = props.Get("FadeImgOnScroll")
+bFixed = props.Get("Fixed")
+bFlat = props.Get("Flat")
+bFloating = props.Get("Floating")
+sHeight = props.Get("Height")
+bHideOnScroll = props.Get("HideOnScroll")
+bInvertedScroll = props.Get("InvertedScroll")
+sKey = props.Get("Key")
+bLight = props.Get("Light")
+sMaxHeight = props.Get("MaxHeight")
+sMaxWidth = props.Get("MaxWidth")
+sMinHeight = props.Get("MinHeight")
+sMinWidth = props.Get("MinWidth")
+bProminent = props.Get("Prominent")
+sReadonly = props.Get("Readonly")
+sRef = props.Get("Ref")
+sRequired = props.Get("Required")
+bScrollOffScreen = props.Get("ScrollOffScreen")
+sScrollTarget = props.Get("ScrollTarget")
+sScrollThreshold = props.Get("ScrollThreshold")
+bShort = props.Get("Short")
+bShrinkOnScroll = props.Get("ShrinkOnScroll")
+sTag = props.Get("Tag")
+bTile = props.Get("Tile")
+bVCloak = props.Get("VCloak")
+sVElse = props.Get("VElse")
+sVFor = props.Get("VFor")
+sVHtml = props.Get("VHtml")
+sVIf = props.Get("VIf")
+sVModel = props.Get("VModel")
+bVOnce = props.Get("VOnce")
+bVPre = props.Get("VPre")
+sVShow = props.Get("VShow")
+sVText = props.Get("VText")
+bValue = props.Get("Value")
+sWidth = props.Get("Width")
 
-		AddAttr(Attributes, mVModel, "s", "v-model")
-		AddAttr(Attributes, mRefName, "s", "ref")
-		AddAttr(Attributes, mKeyName, "s", "key")
-		AddAttr(Attributes, mVText, "s", "v-text")
-		AddAttr(Attributes, mVIf, "s", "v-if")
-		AddAttr(Attributes, mVElse, "s", "v-else")
-		AddAttr(Attributes, mVShow, "s", "v-show")
-		AddAttr(Attributes, mVHtml, "s", "v-html")
-		AddAttr(Attributes, mVFor, "s", "v-for")
-		AddAttr(Attributes, bAbsolute, "b", "absolute")
-		AddAttr(Attributes, bApp, "b", "app")
-		AddAttr(Attributes, bBottom, "b", "bottom")
-		AddAttr(Attributes, bClippedLeft, "b", "clipped-left")
-		AddAttr(Attributes, bClippedRight, "b", "clipped-right")
-		AddAttr(Attributes, bCollapse, "b", "collapse")
-		AddAttr(Attributes, bCollapseOnScroll, "b", "collapse-on-scroll")
-		AddAttr(Attributes, sColor, "s", "color")
-		AddAttr(Attributes, bDark, "b", "dark")
-		AddAttr(Attributes, bDense, "b", "dense")
-		AddAttr(Attributes, bElevateOnScroll, "b", "elevate-on-scroll")
-		AddAttr(Attributes, sElevation, "s", "elevation")
-		AddAttr(Attributes, bExtended, "b", "extended")
-		AddAttr(Attributes, sExtensionHeight, "s", "extension-height")
-		AddAttr(Attributes, bFadeImgOnScroll, "b", "fade-img-on-scroll")
-		AddAttr(Attributes, bFixed, "b", "fixed")
-		AddAttr(Attributes, bFlat, "b", "flat")
-		AddAttr(Attributes, bFloating, "b", "floating")
-		AddAttr(Attributes, sHeight, "s", "height")
-		AddAttr(Attributes, bHideOnScroll, "b", "hide-on-scroll")
-		AddAttr(Attributes, bInvertedScroll, "b", "inverted-scroll")
-		AddAttr(Attributes, bLight, "b", "light")
-		AddAttr(Attributes, sMaxHeight, "s", "max-height")
-		AddAttr(Attributes, sMaxWidth, "s", "max-width")
-		AddAttr(Attributes, sMinHeight, "s", "min-height")
-		AddAttr(Attributes, sMinWidth, "s", "min-width")
-		AddAttr(Attributes, bProminent, "b", "prominent")
-		AddAttr(Attributes, bScrollOffScreen, "b", "scroll-off-screen")
-		AddAttr(Attributes, sScrollTarget, "s", "scroll-target")
-		AddAttr(Attributes, sScrollThreshold, "s", "scroll-threshold")
-		AddAttr(Attributes, bShort, "b", "short")
-		AddAttr(Attributes, bShrinkOnScroll, "b", "shrink-on-scroll")
-		AddAttr(Attributes, sTag, "s", "tag")
-		AddAttr(Attributes, bTile, "b", "tile")
-		AddAttr(Attributes, bValue, "b", "value")
-		AddAttr(Attributes, sWidth, "s", "width")
+End If
+Dim strHTML As String = ToString
+mElement = mTarget.Append(strHTML).Get("#" & mName)
 
-	End If
-	Dim exStyle As String = BuildExStyle
-	Dim exAttr As String = Attributes.ToString
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" class="${mClasses}" style="${exStyle}${mStyle}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
-
-	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
+' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
 
 
 End Sub
 
-'***** ALL SETTERS
 'set absolute
-Sub SetAbsolute(varAbsolute As Boolean)
-	bAbsolute = varAbsolute
-	mElement.SetAttr("absolute", bAbsolute)
+Sub SetAbsolute(varAbsolute As Boolean) As VAppBar
+bAbsolute = varAbsolute
+SetAttr("absolute", bAbsolute)
+Return Me
 End Sub
 
 'set app
-Sub SetApp(varApp As Boolean)
-	bApp = varApp
-	mElement.SetAttr("app", bApp)
+Sub SetApp(varApp As Boolean) As VAppBar
+bApp = varApp
+SetAttr("app", bApp)
+Return Me
 End Sub
 
 'set bottom
-Sub SetBottom(varBottom As Boolean)
-	bBottom = varBottom
-	mElement.SetAttr("bottom", bBottom)
+Sub SetBottom(varBottom As Boolean) As VAppBar
+bBottom = varBottom
+SetAttr("bottom", bBottom)
+Return Me
 End Sub
 
 'set clipped-left
-Sub SetClippedLeft(varClippedLeft As Boolean)
-	bClippedLeft = varClippedLeft
-	mElement.SetAttr("clipped-left", bClippedLeft)
+Sub SetClippedLeft(varClippedLeft As Boolean) As VAppBar
+bClippedLeft = varClippedLeft
+SetAttr("clipped-left", bClippedLeft)
+Return Me
 End Sub
 
 'set clipped-right
-Sub SetClippedRight(varClippedRight As Boolean)
-	bClippedRight = varClippedRight
-	mElement.SetAttr("clipped-right", bClippedRight)
+Sub SetClippedRight(varClippedRight As Boolean) As VAppBar
+bClippedRight = varClippedRight
+SetAttr("clipped-right", bClippedRight)
+Return Me
 End Sub
 
 'set collapse
-Sub SetCollapse(varCollapse As Boolean)
-	bCollapse = varCollapse
-	mElement.SetAttr("collapse", bCollapse)
+Sub SetCollapse(varCollapse As Boolean) As VAppBar
+bCollapse = varCollapse
+SetAttr("collapse", bCollapse)
+Return Me
 End Sub
 
 'set collapse-on-scroll
-Sub SetCollapseOnScroll(varCollapseOnScroll As Boolean)
-	bCollapseOnScroll = varCollapseOnScroll
-	mElement.SetAttr("collapse-on-scroll", bCollapseOnScroll)
+Sub SetCollapseOnScroll(varCollapseOnScroll As Boolean) As VAppBar
+bCollapseOnScroll = varCollapseOnScroll
+SetAttr("collapse-on-scroll", bCollapseOnScroll)
+Return Me
 End Sub
 
 'set color
-Sub SetColor(varColor As String)
-	sColor = varColor
-	mElement.SetAttr("color", sColor)
+Sub SetColor(varColor As String) As VAppBar
+sColor = varColor
+SetAttr("color", sColor)
+Return Me
 End Sub
 
 'set dark
-Sub SetDark(varDark As Boolean)
-	bDark = varDark
-	mElement.SetAttr("dark", bDark)
+Sub SetDark(varDark As Boolean) As VAppBar
+bDark = varDark
+SetAttr("dark", bDark)
+Return Me
 End Sub
 
 'set dense
-Sub SetDense(varDense As Boolean)
-	bDense = varDense
-	mElement.SetAttr("dense", bDense)
+Sub SetDense(varDense As Boolean) As VAppBar
+bDense = varDense
+SetAttr("dense", bDense)
+Return Me
 End Sub
 
 'set elevate-on-scroll
-Sub SetElevateOnScroll(varElevateOnScroll As Boolean)
-	bElevateOnScroll = varElevateOnScroll
-	mElement.SetAttr("elevate-on-scroll", bElevateOnScroll)
+Sub SetElevateOnScroll(varElevateOnScroll As Boolean) As VAppBar
+bElevateOnScroll = varElevateOnScroll
+SetAttr("elevate-on-scroll", bElevateOnScroll)
+Return Me
 End Sub
 
 'set elevation
-Sub SetElevation(varElevation As String)
-	sElevation = varElevation
-	mElement.SetAttr("elevation", sElevation)
+Sub SetElevation(varElevation As String) As VAppBar
+sElevation = varElevation
+SetAttr("elevation", sElevation)
+Return Me
+End Sub
+
+'set enabled
+Sub SetEnabled(varEnabled As String) As VAppBar
+sEnabled = varEnabled
+SetAttr("enabled", sEnabled)
+Return Me
 End Sub
 
 'set extended
-Sub SetExtended(varExtended As Boolean)
-	bExtended = varExtended
-	mElement.SetAttr("extended", bExtended)
+Sub SetExtended(varExtended As Boolean) As VAppBar
+bExtended = varExtended
+SetAttr("extended", bExtended)
+Return Me
 End Sub
 
 'set extension-height
-Sub SetExtensionHeight(varExtensionHeight As String)
-	sExtensionHeight = varExtensionHeight
-	mElement.SetAttr("extension-height", sExtensionHeight)
+Sub SetExtensionHeight(varExtensionHeight As String) As VAppBar
+sExtensionHeight = varExtensionHeight
+SetAttr("extension-height", sExtensionHeight)
+Return Me
 End Sub
 
 'set fade-img-on-scroll
-Sub SetFadeImgOnScroll(varFadeImgOnScroll As Boolean)
-	bFadeImgOnScroll = varFadeImgOnScroll
-	mElement.SetAttr("fade-img-on-scroll", bFadeImgOnScroll)
+Sub SetFadeImgOnScroll(varFadeImgOnScroll As Boolean) As VAppBar
+bFadeImgOnScroll = varFadeImgOnScroll
+SetAttr("fade-img-on-scroll", bFadeImgOnScroll)
+Return Me
 End Sub
 
 'set fixed
-Sub SetFixed(varFixed As Boolean)
-	bFixed = varFixed
-	mElement.SetAttr("fixed", bFixed)
+Sub SetFixed(varFixed As Boolean) As VAppBar
+bFixed = varFixed
+SetAttr("fixed", bFixed)
+Return Me
 End Sub
 
 'set flat
-Sub SetFlat(varFlat As Boolean)
-	bFlat = varFlat
-	mElement.SetAttr("flat", bFlat)
+Sub SetFlat(varFlat As Boolean) As VAppBar
+bFlat = varFlat
+SetAttr("flat", bFlat)
+Return Me
 End Sub
 
 'set floating
-Sub SetFloating(varFloating As Boolean)
-	bFloating = varFloating
-	mElement.SetAttr("floating", bFloating)
+Sub SetFloating(varFloating As Boolean) As VAppBar
+bFloating = varFloating
+SetAttr("floating", bFloating)
+Return Me
 End Sub
 
 'set height
-Sub SetHeight(varHeight As String)
-	sHeight = varHeight
-	mElement.SetAttr("height", sHeight)
+Sub SetHeight(varHeight As String) As VAppBar
+sHeight = varHeight
+SetAttr("height", sHeight)
+Return Me
 End Sub
 
 'set hide-on-scroll
-Sub SetHideOnScroll(varHideOnScroll As Boolean)
-	bHideOnScroll = varHideOnScroll
-	mElement.SetAttr("hide-on-scroll", bHideOnScroll)
+Sub SetHideOnScroll(varHideOnScroll As Boolean) As VAppBar
+bHideOnScroll = varHideOnScroll
+SetAttr("hide-on-scroll", bHideOnScroll)
+Return Me
 End Sub
 
 'set inverted-scroll
-Sub SetInvertedScroll(varInvertedScroll As Boolean)
-	bInvertedScroll = varInvertedScroll
-	mElement.SetAttr("inverted-scroll", bInvertedScroll)
+Sub SetInvertedScroll(varInvertedScroll As Boolean) As VAppBar
+bInvertedScroll = varInvertedScroll
+SetAttr("inverted-scroll", bInvertedScroll)
+Return Me
+End Sub
+
+'set key
+Sub SetKey(varKey As String) As VAppBar
+sKey = varKey
+SetAttr("key", sKey)
+Return Me
 End Sub
 
 'set light
-Sub SetLight(varLight As Boolean)
-	bLight = varLight
-	mElement.SetAttr("light", bLight)
+Sub SetLight(varLight As Boolean) As VAppBar
+bLight = varLight
+SetAttr("light", bLight)
+Return Me
 End Sub
 
 'set max-height
-Sub SetMaxHeight(varMaxHeight As String)
-	sMaxHeight = varMaxHeight
-	mElement.SetAttr("max-height", sMaxHeight)
+Sub SetMaxHeight(varMaxHeight As String) As VAppBar
+sMaxHeight = varMaxHeight
+SetAttr("max-height", sMaxHeight)
+Return Me
 End Sub
 
 'set max-width
-Sub SetMaxWidth(varMaxWidth As String)
-	sMaxWidth = varMaxWidth
-	mElement.SetAttr("max-width", sMaxWidth)
+Sub SetMaxWidth(varMaxWidth As String) As VAppBar
+sMaxWidth = varMaxWidth
+SetAttr("max-width", sMaxWidth)
+Return Me
 End Sub
 
 'set min-height
-Sub SetMinHeight(varMinHeight As String)
-	sMinHeight = varMinHeight
-	mElement.SetAttr("min-height", sMinHeight)
+Sub SetMinHeight(varMinHeight As String) As VAppBar
+sMinHeight = varMinHeight
+SetAttr("min-height", sMinHeight)
+Return Me
 End Sub
 
 'set min-width
-Sub SetMinWidth(varMinWidth As String)
-	sMinWidth = varMinWidth
-	mElement.SetAttr("min-width", sMinWidth)
+Sub SetMinWidth(varMinWidth As String) As VAppBar
+sMinWidth = varMinWidth
+SetAttr("min-width", sMinWidth)
+Return Me
 End Sub
 
 'set prominent
-Sub SetProminent(varProminent As Boolean)
-	bProminent = varProminent
-	mElement.SetAttr("prominent", bProminent)
+Sub SetProminent(varProminent As Boolean) As VAppBar
+bProminent = varProminent
+SetAttr("prominent", bProminent)
+Return Me
+End Sub
+
+'set readonly
+Sub SetReadonly(varReadonly As String) As VAppBar
+sReadonly = varReadonly
+SetAttr("readonly", sReadonly)
+Return Me
+End Sub
+
+'set ref
+Sub SetRef(varRef As String) As VAppBar
+sRef = varRef
+SetAttr("ref", sRef)
+Return Me
+End Sub
+
+'set required
+Sub SetRequired(varRequired As String) As VAppBar
+sRequired = varRequired
+SetAttr("required", sRequired)
+Return Me
 End Sub
 
 'set scroll-off-screen
-Sub SetScrollOffScreen(varScrollOffScreen As Boolean)
-	bScrollOffScreen = varScrollOffScreen
-	mElement.SetAttr("scroll-off-screen", bScrollOffScreen)
+Sub SetScrollOffScreen(varScrollOffScreen As Boolean) As VAppBar
+bScrollOffScreen = varScrollOffScreen
+SetAttr("scroll-off-screen", bScrollOffScreen)
+Return Me
 End Sub
 
 'set scroll-target
-Sub SetScrollTarget(varScrollTarget As String)
-	sScrollTarget = varScrollTarget
-	mElement.SetAttr("scroll-target", sScrollTarget)
+Sub SetScrollTarget(varScrollTarget As String) As VAppBar
+sScrollTarget = varScrollTarget
+SetAttr("scroll-target", sScrollTarget)
+Return Me
 End Sub
 
 'set scroll-threshold
-Sub SetScrollThreshold(varScrollThreshold As String)
-	sScrollThreshold = varScrollThreshold
-	mElement.SetAttr("scroll-threshold", sScrollThreshold)
+Sub SetScrollThreshold(varScrollThreshold As String) As VAppBar
+sScrollThreshold = varScrollThreshold
+SetAttr("scroll-threshold", sScrollThreshold)
+Return Me
 End Sub
 
 'set short
-Sub SetShort(varShort As Boolean)
-	bShort = varShort
-	mElement.SetAttr("short", bShort)
+Sub SetShort(varShort As Boolean) As VAppBar
+bShort = varShort
+SetAttr("short", bShort)
+Return Me
 End Sub
 
 'set shrink-on-scroll
-Sub SetShrinkOnScroll(varShrinkOnScroll As Boolean)
-	bShrinkOnScroll = varShrinkOnScroll
-	mElement.SetAttr("shrink-on-scroll", bShrinkOnScroll)
+Sub SetShrinkOnScroll(varShrinkOnScroll As Boolean) As VAppBar
+bShrinkOnScroll = varShrinkOnScroll
+SetAttr("shrink-on-scroll", bShrinkOnScroll)
+Return Me
 End Sub
 
 'set src
-Sub SetSrc(varSrc As Object)
-	mElement.SetAttr("src", varSrc)
+Sub SetSrc(varSrc As Object) As VAppBar
+SetAttr("src", varSrc)
+Return Me
 End Sub
 
 'set tag
-Sub SetTag(varTag As String)
-	sTag = varTag
-	mElement.SetAttr("tag", sTag)
+Sub SetTag(varTag As String) As VAppBar
+sTag = varTag
+SetAttr("tag", sTag)
+Return Me
 End Sub
 
 'set tile
-Sub SetTile(varTile As Boolean)
-	bTile = varTile
-	mElement.SetAttr("tile", bTile)
+Sub SetTile(varTile As Boolean) As VAppBar
+bTile = varTile
+SetAttr("tile", bTile)
+Return Me
+End Sub
+
+'set v-cloak
+Sub SetVCloak(varVCloak As Boolean) As VAppBar
+bVCloak = varVCloak
+SetAttr("v-cloak", bVCloak)
+Return Me
+End Sub
+
+'set v-else
+Sub SetVElse(varVElse As String) As VAppBar
+sVElse = varVElse
+SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-for
+Sub SetVFor(varVFor As String) As VAppBar
+sVFor = varVFor
+SetAttr("v-for", sVFor)
+Return Me
+End Sub
+
+'set v-html
+Sub SetVHtml(varVHtml As String) As VAppBar
+sVHtml = varVHtml
+SetAttr("v-html", sVHtml)
+Return Me
+End Sub
+
+'set v-if
+Sub SetVIf(varVIf As String) As VAppBar
+sVIf = varVIf
+SetAttr("v-if", sVIf)
+Return Me
+End Sub
+
+'set v-model
+Sub SetVModel(varVModel As String) As VAppBar
+sVModel = varVModel
+SetAttr("v-model", sVModel)
+Return Me
+End Sub
+
+'set v-once
+Sub SetVOnce(varVOnce As Boolean) As VAppBar
+bVOnce = varVOnce
+SetAttr("v-once", bVOnce)
+Return Me
+End Sub
+
+'set v-pre
+Sub SetVPre(varVPre As Boolean) As VAppBar
+bVPre = varVPre
+SetAttr("v-pre", bVPre)
+Return Me
+End Sub
+
+'set v-show
+Sub SetVShow(varVShow As String) As VAppBar
+sVShow = varVShow
+SetAttr("v-show", sVShow)
+Return Me
+End Sub
+
+'set v-text
+Sub SetVText(varVText As String) As VAppBar
+sVText = varVText
+SetAttr("v-text", sVText)
+Return Me
 End Sub
 
 'set value
-Sub SetValue(varValue As Boolean)
-	bValue = varValue
-	mElement.SetAttr("value", bValue)
+Sub SetValue(varValue As Boolean) As VAppBar
+bValue = varValue
+SetAttr("value", bValue)
+Return Me
 End Sub
 
 'set width
-Sub SetWidth(varWidth As String)
-	sWidth = varWidth
-	mElement.SetAttr("width", sWidth)
+Sub SetWidth(varWidth As String) As VAppBar
+sWidth = varWidth
+SetAttr("width", sWidth)
+Return Me
 End Sub
 
 
 
+'return the generated html
+Sub ToString As String
+AddAttr(bAbsolute, "absolute")
+AddAttr(bApp, "app")
+AddAttr(bBottom, "bottom")
+AddAttr(sCaption, "caption")
+AddAttr(bClippedLeft, "clipped-left")
+AddAttr(bClippedRight, "clipped-right")
+AddAttr(bCollapse, "collapse")
+AddAttr(bCollapseOnScroll, "collapse-on-scroll")
+AddAttr(sColor, "color")
+AddAttr(bDark, "dark")
+AddAttr(bDense, "dense")
+AddAttr(bElevateOnScroll, "elevate-on-scroll")
+AddAttr(sElevation, "elevation")
+AddAttr(sEnabled, "enabled")
+AddAttr(bExtended, "extended")
+AddAttr(sExtensionHeight, "extension-height")
+AddAttr(bFadeImgOnScroll, "fade-img-on-scroll")
+AddAttr(bFixed, "fixed")
+AddAttr(bFlat, "flat")
+AddAttr(bFloating, "floating")
+AddAttr(sHeight, "height")
+AddAttr(bHideOnScroll, "hide-on-scroll")
+AddAttr(bInvertedScroll, "inverted-scroll")
+AddAttr(sKey, "key")
+AddAttr(bLight, "light")
+AddAttr(sMaxHeight, "max-height")
+AddAttr(sMaxWidth, "max-width")
+AddAttr(sMinHeight, "min-height")
+AddAttr(sMinWidth, "min-width")
+AddAttr(bProminent, "prominent")
+AddAttr(sReadonly, "readonly")
+AddAttr(sRef, "ref")
+AddAttr(sRequired, "required")
+AddAttr(bScrollOffScreen, "scroll-off-screen")
+AddAttr(sScrollTarget, "scroll-target")
+AddAttr(sScrollThreshold, "scroll-threshold")
+AddAttr(bShort, "short")
+AddAttr(bShrinkOnScroll, "shrink-on-scroll")
+AddAttr(sTag, "tag")
+AddAttr(bTile, "tile")
+AddAttr(bVCloak, "v-cloak")
+AddAttr(sVElse, "v-else")
+AddAttr(sVFor, "v-for")
+AddAttr(sVHtml, "v-html")
+AddAttr(sVIf, "v-if")
+AddAttr(sVModel, "v-model")
+AddAttr(bVOnce, "v-once")
+AddAttr(bVPre, "v-pre")
+AddAttr(sVShow, "v-show")
+AddAttr(sVText, "v-text")
+AddAttr(bValue, "value")
+AddAttr(sWidth, "width")
+
+'build the class list
+Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
+cKeys = cKeys & " " & mClasses
+cKeys = cKeys.trim
+AddAttr(cKeys, "class")
+'build the style list
+Dim sKeys As String = BANanoShared.BuildStyle(styles)
+sKeys = sKeys & " " & mStyle
+sKeys = sKeys.trim
+AddAttr(sKeys, "style")
+Dim exattr As String = BANanoShared.BuildAttributes(properties)
+
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Return strRes
+End Sub
+
+'add a child component
+Sub AddComponent(child As String) As VAppBar
+	mElement.Append(child)
+	sCaption = mElement.GetText
+	Return Me
+End Sub
+
+'change the id of the element, ONLY execute this after a manual Initialize
+Sub SetID(varText As String) As VAppBar
+	mname = varText
+	Return Me
+End Sub
+
+'get the text of the component
+public Sub GetCaption() As String
+	Return sCaption
+End Sub
 
 'add component to parent
-public Sub AddToParent(targetID As String)
+public Sub AddToParent(targetID As String) As VAppBar
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
+	Return Me
+End Sub
+
+'add component to app, this binds events and states
+Sub AddToApp(va As VueApp) As VAppBar
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		va.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		va.SetCallBack(k, cb)
+	Next
+	data = va.data	
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop as string, value as object)
+	data.put(prop, value)
 End Sub
 
 'remove component
 public Sub Remove()
-	mTarget.Empty
+	mElement.Empty
 	BANano.SetMeToNull
 End Sub
 
@@ -510,92 +714,42 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String)
-	Dim methodName As String = BANanoSnippets.BeautifyName(event)
+Sub SetVOn(event As String) As VAppBar
+	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
-	If SubExists(mCallBack, methodName) = False Then Return
+	If SubExists(mCallBack, methodName) = False Then Return Me
 	SetAttr($"v-on:${event}"$, methodName)
 	SetMethod(mCallBack, methodName)
+	Return Me
 End Sub
 
-Sub SetVFor(vfor As String)
-	mVFor = vfor
-	mElement.SetAttr("v-for", mVFor)
+'change the text of the element
+Sub SetCaption(varText As String) As VAppBar
+	If mElement <> Null Then
+		mElement.SetHTML(BANano.SF(varText))
+	End If
+	sCaption = varText
+	Return Me
 End Sub
 
-Sub SetVHtml(vhtml As String)
-	mVHtml = vhtml
-	mVHtml = BANano.SF(mVHtml)
-	mElement.SetAttr("v-html", mVHtml)
-End Sub
-
-Sub SetVShow(vshow As String)
-	mVShow = vshow
-	mElement.SetAttr("v-show", vshow)
-End Sub
-
-Sub SetVIf(vif As String)
-	mVIf = vif
-	mElement.SetAttr("v-if", mVIf)
-End Sub
-
-Sub SetVElse(velse As String)
-	mVElse = velse
-	mElement.SetAttr("v-else", mVElse)
-End Sub
-
-Sub SetVText(vtext As String)
-	mVText = vtext
-	mElement.SetAttr("v-text", mVText)
-End Sub
-
-Sub SetKey(skey As String)
-	mKeyName = skey
-	mElement.SetAttr("key", skey)
-End Sub
-
-Sub SetRef(ref As String)
-	mRefName = ref
-	mElement.SetAttr("ref", ref)
-End Sub
-
-Sub SetVModel(vmodel As String)
-	mVModel = vmodel
-	mElement.SetAttr("v-model", vmodel)
-End Sub
-
-'will add properties to attributes, s for strings an b for booleans
-private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, actProp As String)
-	Select Case varType
-		Case "b"
-			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
-		Case "s"
-			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
+'will add properties to attributes
+private Sub AddAttr(varName As String, actProp As String) As VAppBar
+	If varName <> "" Then properties.put(actprop, varname)
+	Select Case actProp
+	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
+		bindings.Put(varName, False)
 	End Select
-End Sub
-
-'build styles
-private Sub BuildExStyle() As String
-	Dim sb As StringBuilder
-	sb.Initialize
-	If MarginLeft <> "" Then sb.Append("margin-left: " & MarginLeft & ";")
-	If MarginRight <> "" Then sb.Append("margin-right: " & MarginRight & ";")
-	If MarginTop <> "" Then sb.Append("margin-top: " & MarginTop & ";")
-	If MarginBottom <> "" Then sb.Append("margin-bottom: " & MarginBottom & ";")
-	If PaddingLeft <> "" Then sb.Append("padding-left: " & PaddingLeft & ";")
-	If PaddingRight <> "" Then sb.Append("padding-right: " & PaddingRight & ";")
-	If PaddingTop <> "" Then sb.Append("padding-top: " & PaddingTop & ";")
-	If PaddingBottom <> "" Then sb.Append("padding-bottom: " & PaddingBottom & ";")
-	Return sb.ToString
+	Return Me
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String)
+public Sub SetClasses(Classes As String) As VAppBar
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
 	mClasses = Classes
+	Return Me
 End Sub
 
 public Sub GetClasses() As String
@@ -604,98 +758,96 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String)
+public Sub SetStyle(Style As String) As VAppBar
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
 	mStyle = Style
+	Return Me
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List)
+Sub AddClass(classNames As List) As VAppBar
 	For Each k As String In classNames
-		mElement.AddClass(k)
+		classList.put(k, k)
 	Next
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
+	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map)
+Sub SetStyles(m As Map) As VAppBar
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
+		styles.put(k, v)
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map)
+Sub SetAttrs(props As Map) As VAppBar
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
-		mElement.SetAttr(k, v)
+		SetAttr(k, v)
 	Next
+	Return Me
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String)
-	mElement.SetAttr(prop, value)
-End Sub
-
-'stop compilation
-Sub SetVPre
-	mElement.SetAttr("v-pre", True)
+Sub SetAttr(prop As String, value As String) As VAppBar
+	properties.put(prop, value)
+	If mElement <> Null Then 
+		mElement.SetAttr(prop, value)
+	End If
+	Return Me
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String)
+Sub SetVBind(prop As String, value As String) As VAppBar
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
-	mElement.SetAttr(prop,value)
+	SetAttr(prop,value)
 	bindings.Put(value, Null)
+	Return Me
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String)
-	Dim m As Map = CreateMap()
-	m.Put(prop, value)
+Sub SetStyleSingle(prop As String, value As String) As VAppBar
+	styles.put(prop, value)
+	dim m as map = createmap()
+	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List)
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VAppBar
 	If loose <> Null Then
 		For Each k As String In loose
-			mElement.SetAttr(k, True)
+			SetAttr(k, True)
 		Next
 	End If
 	If props <> Null Then
 		For Each k As String In props.Keys
 			Dim v As String = props.Get(k)
-			mElement.SetAttr(k, v)
+			SetAttr(k, v)
 		Next
 	End If
 	If styleProps <> Null Then
-		Dim jsonStyle As String = BANano.ToJson(styleProps)
-		mElement.SetStyle(jsonStyle)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
+			SetStyleSingle(k, v)
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
 	End If
-End Sub
-
-'get text
-public Sub GetText() As String
-	Return mElement.GetText
-End Sub
-
-'hide until compilation finishes
-Sub SetVCloak
-	If mElement <> Null Then
-		mElement.SetAttr("v-cloak", True)
-	End If
-End Sub
-
-'compile once
-Sub SetVOnce
-	mElement.SetAttr("v-once", True)
+	Return Me
 End Sub
 
 'get html
@@ -703,36 +855,48 @@ Public Sub GetHtml() As String
 	Return mElement.GetHtml
 End Sub
 
-'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String)
-	Dim sColor As String = $"${varColor} ${varIntensity}"$
+'set color
+Sub SetColor1(varColor As String) As VAppBar
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, varColor)
+	Return Me
+End Sub
+
+'set color intensity
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VAppBar
+	Dim scolor As String = $"${varColor} ${varIntensity}"$
+	Dim pp As String = $"${mName}color"$
+	SetAttr(":color", pp)
+	'store the bindings
+	bindings.Put(pp, scolor)
+	Return Me
 End Sub
 
 'set text color
-Sub SetTextColor(varColor As String)
+Sub SetTextColor1(varColor As String) As VAppBar
 	Dim sColor As String = $"${varColor}--text"$
-	mElement.AddClass(sColor)
+	AddClass(array(sColor))
+	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String)
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VAppBar
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	mElement.AddClass(mcolor)
+	AddClass(array(mcolor))
+	Return Me
 End Sub
 
-
 'set direct method
-Sub SetMethod(Module As Object,methodName As String)
+Sub SetMethod(Module As Object,methodName As String) As VAppBar
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
 		methods.Put(methodName, cb)
 	End If
+	Return Me
 End Sub

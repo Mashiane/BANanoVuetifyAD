@@ -2,7 +2,7 @@
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
-Version=8.31
+Version=8.3
 @EndOfDesignText@
 'Custom BANano View class: VColorPicker
 #IgnoreWarnings:12
@@ -11,307 +11,496 @@ Version=8.31
 #Event: updatemode (argument As String)
 
 
-#DesignerProperty: Key: Text, DisplayName: Text, FieldType: String, DefaultValue: , Description: Text on the label 
-#DesignerProperty: Key: VText, DisplayName: VText, FieldType: String, DefaultValue: , Description: VText 
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, FieldType: String, DefaultValue: , Description: VHtml 
-#DesignerProperty: Key: VModel, DisplayName: VModel, FieldType: String, DefaultValue: , Description: VModel 
-#DesignerProperty: Key: RefName, DisplayName: RefName, FieldType: String, DefaultValue: , Description: RefName 
-#DesignerProperty: Key: VIf, DisplayName: VIf, FieldType: String, DefaultValue: , Description: VIf 
-#DesignerProperty: Key: VElse, DisplayName: VElse, FieldType: String, DefaultValue: , Description: VElse 
-#DesignerProperty: Key: VShow, DisplayName: VShow, FieldType: String, DefaultValue: , Description: VShow 
-#DesignerProperty: Key: VFor, DisplayName: VFor, FieldType: String, DefaultValue: , Description: VFor 
-#DesignerProperty: Key: KeyName, DisplayName: KeyName, FieldType: String, DefaultValue: , Description: KeyName
-#DesignerProperty: Key: CanvasHeight, DisplayName: CanvasHeight, FieldType: String, DefaultValue: , Description: Set canvas-height
-#DesignerProperty: Key: Dark, DisplayName: Dark, FieldType: Boolean, DefaultValue: false , Description: Set dark
-#DesignerProperty: Key: Disabled, DisplayName: Disabled, FieldType: Boolean, DefaultValue: false , Description: Set disabled
-#DesignerProperty: Key: DotSize, DisplayName: DotSize, FieldType: String, DefaultValue: , Description: Set dot-size
-#DesignerProperty: Key: Flat, DisplayName: Flat, FieldType: Boolean, DefaultValue: false , Description: Set flat
-#DesignerProperty: Key: HideCanvas, DisplayName: HideCanvas, FieldType: Boolean, DefaultValue: false , Description: Set hide-canvas
-#DesignerProperty: Key: HideInputs, DisplayName: HideInputs, FieldType: Boolean, DefaultValue: false , Description: Set hide-inputs
-#DesignerProperty: Key: HideModeSwitch, DisplayName: HideModeSwitch, FieldType: Boolean, DefaultValue: false , Description: Set hide-mode-switch
-#DesignerProperty: Key: Light, DisplayName: Light, FieldType: Boolean, DefaultValue: false , Description: Set light
-#DesignerProperty: Key: Mode, DisplayName: Mode, FieldType: String, DefaultValue: , Description: Set mode
-#DesignerProperty: Key: ShowSwatches, DisplayName: ShowSwatches, FieldType: Boolean, DefaultValue: false , Description: Set show-swatches
-#DesignerProperty: Key: SwatchesMaxHeight, DisplayName: SwatchesMaxHeight, FieldType: String, DefaultValue: , Description: Set swatches-max-height
-#DesignerProperty: Key: Width, DisplayName: Width, FieldType: String, DefaultValue: , Description: Set width
+#DesignerProperty: Key: CanvasHeight, DisplayName: CanvasHeight, Description: , DefaultValue: 150, FieldType: String
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: DotSize, DisplayName: DotSize, Description: , DefaultValue: 10, FieldType: String
+#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: HideCanvas, DisplayName: HideCanvas, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: HideInputs, DisplayName: HideInputs, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: HideModeSwitch, DisplayName: HideModeSwitch, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Mode, DisplayName: Mode, Description: , DefaultValue: rgba, FieldType: String
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: ShowSwatches, DisplayName: ShowSwatches, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: SwatchesMaxHeight, DisplayName: SwatchesMaxHeight, Description: , DefaultValue: 150, FieldType: String
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Width, DisplayName: Width, Description: , DefaultValue: 300, FieldType: String
 #DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: MarginLeft, DisplayName: Margin Left, FieldType: String, DefaultValue: , Description: Margin Left 
-#DesignerProperty: Key: MarginRight, DisplayName: Margin Right, FieldType: String, DefaultValue: , Description: Margin Right 
-#DesignerProperty: Key: MarginTop, DisplayName: Margin Top, FieldType: String, DefaultValue: , Description: Margin Top 
-#DesignerProperty: Key: MarginBottom, DisplayName: Margin Bottom, FieldType: String, DefaultValue: , Description: Margin Bottom 
-#DesignerProperty: Key: PaddingLeft, DisplayName: Padding Left, FieldType: String, DefaultValue: , Description: Padding Left 
-#DesignerProperty: Key: PaddingRight, DisplayName: Padding Right, FieldType: String, DefaultValue: , Description: Padding Right 
-#DesignerProperty: Key: PaddingTop, DisplayName: Padding Top, FieldType: String, DefaultValue: , Description: Padding Top 
-#DesignerProperty: Key: PaddingBottom, DisplayName: Padding Bottom, FieldType: String, DefaultValue: , Description: Padding Bottom
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
 
-Sub Class_Globals
-	Private BANano As BANano 'ignore
-	Public mName As String 'ignore
-	Private mEventName As String 'ignore
-	Private mCallBack As Object 'ignore
-	Private mTarget As BANanoElement 'ignore
+Sub Class_Globals 
+	Private BANano As BANano 'ignore 
+	Private data As Map 
+	Public mName As String 'ignore 
+	Private mEventName As String 'ignore 
+	Private mCallBack As Object 'ignore 
+	Private mTarget As BANanoElement 'ignore 
 	Private mElement As BANanoElement 'ignore
 
-	Private mClasses As String = ""
+Private properties As Map
+Private styles As Map
+Private classList As Map
+Private mClasses As String = "" 
 	Private mStyle As String = ""
-	Public MarginLeft As String = ""
-	Public MarginRight As String = ""
-	Public MarginTop As String = ""
-	Public MarginBottom As String = ""
-	Public PaddingLeft As String = ""
-	Public PaddingRight As String = ""
-	Public PaddingTop As String = ""
-	Public PaddingBottom As String = ""
 
-	Private mText As String = ""
-	Private mTagName As String = "v-color-picker"
-	Private mVModel As String = ""
-	Private mRefName As String = ""
-	Private mKeyName As String = ""
-	Private mVText As String = ""
-	Private mVIf As String = ""
-	Private mVElse As String = ""
-	Private mVShow As String = ""
-	Private mVHtml As String = ""
-	Private mVFor As String = ""
-	Private Attributes as StringBuilder
-	Public bindings As Map
+Private mTagName As String = "v-color-picker" 
+	Public bindings As Map 
 	Public methods As Map
-	Public sCanvasHeight As String = "150"
-	Public bDark As Boolean = false
-	Public bDisabled As Boolean = false
-	Public sDotSize As String = "10"
-	Public bFlat As Boolean = false
-	Public bHideCanvas As Boolean = false
-	Public bHideInputs As Boolean = false
-	Public bHideModeSwitch As Boolean = false
-	Public bLight As Boolean = false
-	Public sMode As String = "rgba"
-	Public bShowSwatches As Boolean = false
-	Public sSwatchesMaxHeight As String = "150"
-	Public sWidth As String = "300"
+Private sCanvasHeight As String = "150"
+Private sCaption As String = ""
+Private bDark As Boolean = false
+Private bDisabled As Boolean = false
+Private sDotSize As String = "10"
+Private sEnabled As String = ""
+Private bFlat As Boolean = false
+Private bHideCanvas As Boolean = false
+Private bHideInputs As Boolean = false
+Private bHideModeSwitch As Boolean = false
+Private sKey As String = ""
+Private bLight As Boolean = false
+Private sMode As String = "rgba"
+Private sReadonly As String = ""
+Private sRef As String = ""
+Private sRequired As String = ""
+Private bShowSwatches As Boolean = false
+Private sSwatchesMaxHeight As String = "150"
+Private bVCloak As Boolean = False
+Private sVElse As String = ""
+Private sVFor As String = ""
+Private sVHtml As String = ""
+Private sVIf As String = ""
+Private sVModel As String = ""
+Private bVOnce As Boolean = False
+Private bVPre As Boolean = False
+Private sVShow As String = ""
+Private sVText As String = ""
+Private sWidth As String = "300"
 
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
-	mName = Name
-	mEventName = EventName.ToLowerCase
-	mCallBack = CallBack
-	bindings.Initialize
-	methods.Initialize
-	Attributes.Initialize
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VColorPicker 
+mName = Name 
+mEventName = EventName.ToLowerCase 
+mCallBack = CallBack 
+bindings.Initialize 
+methods.Initialize 
+properties.Initialize 
+styles.Initialize 
+classList.Initialize 
+Return Me 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
-Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
+Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
 
-	If props <> Null Then
-		mClasses = props.Get("Classes")
-		mStyle = props.Get("Style")
-		MarginLeft = props.Get("MarginLeft")
-		MarginRight = props.Get("MarginRight")
-		MarginTop = props.Get("MarginTop")
-		MarginBottom = props.Get("MarginBottom")
-		PaddingLeft = props.Get("PaddingLeft")
-		PaddingRight = props.Get("PaddingRight")
-		PaddingTop = props.Get("PaddingTop")
-		PaddingBottom = props.Get("PaddingBottom")
-		mText = props.Get("Text")
-		mVModel = props.Get("VModel")
-		mRefName = props.Get("RefName")
-		mKeyName = props.Get("KeyName")
-		mVText = props.Get("VText")
-		mVIf = props.Get("VIf")
-		mVElse = props.Get("VElse")
-		mVShow = props.Get("VShow")
-		mVHtml = props.Get("VHtml")
-		mVFor = props.Get("VFor")
-		sCanvasHeight = props.Get("CanvasHeight")
-		bDark = props.Get("Dark")
-		bDisabled = props.Get("Disabled")
-		sDotSize = props.Get("DotSize")
-		bFlat = props.Get("Flat")
-		bHideCanvas = props.Get("HideCanvas")
-		bHideInputs = props.Get("HideInputs")
-		bHideModeSwitch = props.Get("HideModeSwitch")
-		bLight = props.Get("Light")
-		sMode = props.Get("Mode")
-		bShowSwatches = props.Get("ShowSwatches")
-		sSwatchesMaxHeight = props.Get("SwatchesMaxHeight")
-		sWidth = props.Get("Width")
+If props <> Null Then
+mClasses = props.Get("Classes") 
+mStyle = props.Get("Style")
+sCanvasHeight = props.Get("CanvasHeight")
+sCaption = props.Get("Caption")
+bDark = props.Get("Dark")
+bDisabled = props.Get("Disabled")
+sDotSize = props.Get("DotSize")
+sEnabled = props.Get("Enabled")
+bFlat = props.Get("Flat")
+bHideCanvas = props.Get("HideCanvas")
+bHideInputs = props.Get("HideInputs")
+bHideModeSwitch = props.Get("HideModeSwitch")
+sKey = props.Get("Key")
+bLight = props.Get("Light")
+sMode = props.Get("Mode")
+sReadonly = props.Get("Readonly")
+sRef = props.Get("Ref")
+sRequired = props.Get("Required")
+bShowSwatches = props.Get("ShowSwatches")
+sSwatchesMaxHeight = props.Get("SwatchesMaxHeight")
+bVCloak = props.Get("VCloak")
+sVElse = props.Get("VElse")
+sVFor = props.Get("VFor")
+sVHtml = props.Get("VHtml")
+sVIf = props.Get("VIf")
+sVModel = props.Get("VModel")
+bVOnce = props.Get("VOnce")
+bVPre = props.Get("VPre")
+sVShow = props.Get("VShow")
+sVText = props.Get("VText")
+sWidth = props.Get("Width")
 
-		AddAttr(Attributes, mVModel, "s", "v-model")
-		AddAttr(Attributes, mRefName, "s", "ref")
-		AddAttr(Attributes, mKeyName, "s", "key")
-		AddAttr(Attributes, mVText, "s", "v-text")
-		AddAttr(Attributes, mVIf, "s", "v-if")
-		AddAttr(Attributes, mVElse, "s", "v-else")
-		AddAttr(Attributes, mVShow, "s", "v-show")
-		AddAttr(Attributes, mVHtml, "s", "v-html")
-		AddAttr(Attributes, mVFor, "s", "v-for")
-		AddAttr(Attributes, sCanvasHeight, "s", "canvas-height")
-		AddAttr(Attributes, bDark, "b", "dark")
-		AddAttr(Attributes, bDisabled, "b", "disabled")
-		AddAttr(Attributes, sDotSize, "s", "dot-size")
-		AddAttr(Attributes, bFlat, "b", "flat")
-		AddAttr(Attributes, bHideCanvas, "b", "hide-canvas")
-		AddAttr(Attributes, bHideInputs, "b", "hide-inputs")
-		AddAttr(Attributes, bHideModeSwitch, "b", "hide-mode-switch")
-		AddAttr(Attributes, bLight, "b", "light")
-		AddAttr(Attributes, sMode, "s", "mode")
-		AddAttr(Attributes, bShowSwatches, "b", "show-swatches")
-		AddAttr(Attributes, sSwatchesMaxHeight, "s", "swatches-max-height")
-		AddAttr(Attributes, sWidth, "s", "width")
+End If
+Dim strHTML As String = ToString
+mElement = mTarget.Append(strHTML).Get("#" & mName)
 
-	End If
-	Dim exStyle As String = BuildExStyle
-	Dim exAttr As String = Attributes.ToString
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" class="${mClasses}" style="${exStyle}${mStyle}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
+' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
-
-	SetOnInput
-	SetOnUpdateColor
-	SetOnUpdateMode
+'This activates when the event exists on the module
+SetOnInput
+'This activates when the event exists on the module
+SetOnUpdateColor
+'This activates when the event exists on the module
+SetOnUpdateMode
 
 
 End Sub
 
 'set canvas-height
-Sub SetCanvasHeight(varCanvasHeight As String)
-	sCanvasHeight = varCanvasHeight
-	mElement.SetAttr("canvas-height", sCanvasHeight)
+Sub SetCanvasHeight(varCanvasHeight As String) As VColorPicker
+sCanvasHeight = varCanvasHeight
+SetAttr("canvas-height", sCanvasHeight)
+Return Me
 End Sub
 
 'set dark
-Sub SetDark(varDark As Boolean)
-	bDark = varDark
-	mElement.SetAttr("dark", bDark)
+Sub SetDark(varDark As Boolean) As VColorPicker
+bDark = varDark
+SetAttr("dark", bDark)
+Return Me
 End Sub
 
 'set disabled
-Sub SetDisabled(varDisabled As Boolean)
-	bDisabled = varDisabled
-	mElement.SetAttr("disabled", bDisabled)
+Sub SetDisabled(varDisabled As Boolean) As VColorPicker
+bDisabled = varDisabled
+SetAttr("disabled", bDisabled)
+Return Me
 End Sub
 
 'set dot-size
-Sub SetDotSize(varDotSize As String)
-	sDotSize = varDotSize
-	mElement.SetAttr("dot-size", sDotSize)
+Sub SetDotSize(varDotSize As String) As VColorPicker
+sDotSize = varDotSize
+SetAttr("dot-size", sDotSize)
+Return Me
+End Sub
+
+'set enabled
+Sub SetEnabled(varEnabled As String) As VColorPicker
+sEnabled = varEnabled
+SetAttr("enabled", sEnabled)
+Return Me
 End Sub
 
 'set flat
-Sub SetFlat(varFlat As Boolean)
-	bFlat = varFlat
-	mElement.SetAttr("flat", bFlat)
+Sub SetFlat(varFlat As Boolean) As VColorPicker
+bFlat = varFlat
+SetAttr("flat", bFlat)
+Return Me
 End Sub
 
 'set hide-canvas
-Sub SetHideCanvas(varHideCanvas As Boolean)
-	bHideCanvas = varHideCanvas
-	mElement.SetAttr("hide-canvas", bHideCanvas)
+Sub SetHideCanvas(varHideCanvas As Boolean) As VColorPicker
+bHideCanvas = varHideCanvas
+SetAttr("hide-canvas", bHideCanvas)
+Return Me
 End Sub
 
 'set hide-inputs
-Sub SetHideInputs(varHideInputs As Boolean)
-	bHideInputs = varHideInputs
-	mElement.SetAttr("hide-inputs", bHideInputs)
+Sub SetHideInputs(varHideInputs As Boolean) As VColorPicker
+bHideInputs = varHideInputs
+SetAttr("hide-inputs", bHideInputs)
+Return Me
 End Sub
 
 'set hide-mode-switch
-Sub SetHideModeSwitch(varHideModeSwitch As Boolean)
-	bHideModeSwitch = varHideModeSwitch
-	mElement.SetAttr("hide-mode-switch", bHideModeSwitch)
+Sub SetHideModeSwitch(varHideModeSwitch As Boolean) As VColorPicker
+bHideModeSwitch = varHideModeSwitch
+SetAttr("hide-mode-switch", bHideModeSwitch)
+Return Me
+End Sub
+
+'set key
+Sub SetKey(varKey As String) As VColorPicker
+sKey = varKey
+SetAttr("key", sKey)
+Return Me
 End Sub
 
 'set light
-Sub SetLight(varLight As Boolean)
-	bLight = varLight
-	mElement.SetAttr("light", bLight)
+Sub SetLight(varLight As Boolean) As VColorPicker
+bLight = varLight
+SetAttr("light", bLight)
+Return Me
 End Sub
 
 'set mode
-Sub SetMode(varMode As String)
-	sMode = varMode
-	mElement.SetAttr("mode", sMode)
+Sub SetMode(varMode As String) As VColorPicker
+sMode = varMode
+SetAttr("mode", sMode)
+Return Me
+End Sub
+
+'set readonly
+Sub SetReadonly(varReadonly As String) As VColorPicker
+sReadonly = varReadonly
+SetAttr("readonly", sReadonly)
+Return Me
+End Sub
+
+'set ref
+Sub SetRef(varRef As String) As VColorPicker
+sRef = varRef
+SetAttr("ref", sRef)
+Return Me
+End Sub
+
+'set required
+Sub SetRequired(varRequired As String) As VColorPicker
+sRequired = varRequired
+SetAttr("required", sRequired)
+Return Me
 End Sub
 
 'set show-swatches
-Sub SetShowSwatches(varShowSwatches As Boolean)
-	bShowSwatches = varShowSwatches
-	mElement.SetAttr("show-swatches", bShowSwatches)
+Sub SetShowSwatches(varShowSwatches As Boolean) As VColorPicker
+bShowSwatches = varShowSwatches
+SetAttr("show-swatches", bShowSwatches)
+Return Me
 End Sub
 
 'set swatches
-Sub SetSwatches(varSwatches As List)
-	mElement.SetAttr("swatches", varSwatches)
+Sub SetSwatches(varSwatches As Object) As VColorPicker
+SetAttr("swatches", varSwatches)
+Return Me
 End Sub
 
 'set swatches-max-height
-Sub SetSwatchesMaxHeight(varSwatchesMaxHeight As String)
-	sSwatchesMaxHeight = varSwatchesMaxHeight
-	mElement.SetAttr("swatches-max-height", sSwatchesMaxHeight)
+Sub SetSwatchesMaxHeight(varSwatchesMaxHeight As String) As VColorPicker
+sSwatchesMaxHeight = varSwatchesMaxHeight
+SetAttr("swatches-max-height", sSwatchesMaxHeight)
+Return Me
+End Sub
+
+'set v-cloak
+Sub SetVCloak(varVCloak As Boolean) As VColorPicker
+bVCloak = varVCloak
+SetAttr("v-cloak", bVCloak)
+Return Me
+End Sub
+
+'set v-else
+Sub SetVElse(varVElse As String) As VColorPicker
+sVElse = varVElse
+SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-for
+Sub SetVFor(varVFor As String) As VColorPicker
+sVFor = varVFor
+SetAttr("v-for", sVFor)
+Return Me
+End Sub
+
+'set v-html
+Sub SetVHtml(varVHtml As String) As VColorPicker
+sVHtml = varVHtml
+SetAttr("v-html", sVHtml)
+Return Me
+End Sub
+
+'set v-if
+Sub SetVIf(varVIf As String) As VColorPicker
+sVIf = varVIf
+SetAttr("v-if", sVIf)
+Return Me
+End Sub
+
+'set v-model
+Sub SetVModel(varVModel As String) As VColorPicker
+sVModel = varVModel
+SetAttr("v-model", sVModel)
+Return Me
+End Sub
+
+'set v-once
+Sub SetVOnce(varVOnce As Boolean) As VColorPicker
+bVOnce = varVOnce
+SetAttr("v-once", bVOnce)
+Return Me
+End Sub
+
+'set v-pre
+Sub SetVPre(varVPre As Boolean) As VColorPicker
+bVPre = varVPre
+SetAttr("v-pre", bVPre)
+Return Me
+End Sub
+
+'set v-show
+Sub SetVShow(varVShow As String) As VColorPicker
+sVShow = varVShow
+SetAttr("v-show", sVShow)
+Return Me
+End Sub
+
+'set v-text
+Sub SetVText(varVText As String) As VColorPicker
+sVText = varVText
+SetAttr("v-text", sVText)
+Return Me
 End Sub
 
 'set value
-Sub SetValue(varValue As Object)
-	mElement.SetAttr("value", varValue)
+Sub SetValue(varValue As Object) As VColorPicker
+SetAttr("value", varValue)
+Return Me
 End Sub
 
 'set width
-Sub SetWidth(varWidth As String)
-	sWidth = varWidth
-	mElement.SetAttr("width", sWidth)
+Sub SetWidth(varWidth As String) As VColorPicker
+sWidth = varWidth
+SetAttr("width", sWidth)
+Return Me
 End Sub
 
 
-'set on input event
-Sub SetOnInput
-	Dim mName As String = $"${mEventName}_input"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:input", mName)
-	Dim argument As String 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on input event, updates the master events records
+Sub SetOnInput() As VColorPicker
+Dim sName As String = $"${mEventName}_input"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:input", sName)
+Dim argument As String 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatecolor event
-Sub SetOnUpdateColor
-	Dim mName As String = $"${mEventName}_updatecolor"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:color", mName)
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatecolor event, updates the master events records
+Sub SetOnUpdateColor() As VColorPicker
+Dim sName As String = $"${mEventName}_updatecolor"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:color", sName)
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
-'set on updatemode event
-Sub SetOnUpdateMode
-	Dim mName As String = $"${mEventName}_updatemode"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:update:mode", mName)
-	Dim argument As String 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on updatemode event, updates the master events records
+Sub SetOnUpdateMode() As VColorPicker
+Dim sName As String = $"${mEventName}_updatemode"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:update:mode", sName)
+Dim argument As String 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
 
+'return the generated html
+Sub ToString As String
+AddAttr(sCanvasHeight, "canvas-height")
+AddAttr(sCaption, "caption")
+AddAttr(bDark, "dark")
+AddAttr(bDisabled, "disabled")
+AddAttr(sDotSize, "dot-size")
+AddAttr(sEnabled, "enabled")
+AddAttr(bFlat, "flat")
+AddAttr(bHideCanvas, "hide-canvas")
+AddAttr(bHideInputs, "hide-inputs")
+AddAttr(bHideModeSwitch, "hide-mode-switch")
+AddAttr(sKey, "key")
+AddAttr(bLight, "light")
+AddAttr(sMode, "mode")
+AddAttr(sReadonly, "readonly")
+AddAttr(sRef, "ref")
+AddAttr(sRequired, "required")
+AddAttr(bShowSwatches, "show-swatches")
+AddAttr(sSwatchesMaxHeight, "swatches-max-height")
+AddAttr(bVCloak, "v-cloak")
+AddAttr(sVElse, "v-else")
+AddAttr(sVFor, "v-for")
+AddAttr(sVHtml, "v-html")
+AddAttr(sVIf, "v-if")
+AddAttr(sVModel, "v-model")
+AddAttr(bVOnce, "v-once")
+AddAttr(bVPre, "v-pre")
+AddAttr(sVShow, "v-show")
+AddAttr(sVText, "v-text")
+AddAttr(sWidth, "width")
+
+'build the class list
+Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
+cKeys = cKeys & " " & mClasses
+cKeys = cKeys.trim
+AddAttr(cKeys, "class")
+'build the style list
+Dim sKeys As String = BANanoShared.BuildStyle(styles)
+sKeys = sKeys & " " & mStyle
+sKeys = sKeys.trim
+AddAttr(sKeys, "style")
+Dim exattr As String = BANanoShared.BuildAttributes(properties)
+
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Return strRes
+End Sub
+
+'add a child component
+Sub AddComponent(child As String) As VColorPicker
+	mElement.Append(child)
+	sCaption = mElement.GetText
+	Return Me
+End Sub
+
+'change the id of the element, ONLY execute this after a manual Initialize
+Sub SetID(varText As String) As VColorPicker
+	mname = varText
+	Return Me
+End Sub
+
+'get the text of the component
+public Sub GetCaption() As String
+	Return sCaption
+End Sub
 
 'add component to parent
-public Sub AddToParent(targetID As String)
+public Sub AddToParent(targetID As String) As VColorPicker
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
+	Return Me
+End Sub
+
+'add component to app, this binds events and states
+Sub AddToApp(va As VueApp) As VColorPicker
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		va.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		va.SetCallBack(k, cb)
+	Next
+	data = va.data	
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop as string, value as object)
+	data.put(prop, value)
 End Sub
 
 'remove component
 public Sub Remove()
-	mTarget.Empty
+	mElement.Empty
 	BANano.SetMeToNull
 End Sub
 
@@ -323,92 +512,42 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String)
-	Dim methodName As String = BANanoSnippets.BeautifyName(event)
+Sub SetVOn(event As String) As VColorPicker
+	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
-	If SubExists(mCallBack, methodName) = False Then Return
+	If SubExists(mCallBack, methodName) = False Then Return Me
 	SetAttr($"v-on:${event}"$, methodName)
 	SetMethod(mCallBack, methodName)
+	Return Me
 End Sub
 
-Sub SetVFor(vfor As String)
-	mVFor = vfor
-	mElement.SetAttr("v-for", mVFor)
+'change the text of the element
+Sub SetCaption(varText As String) As VColorPicker
+	If mElement <> Null Then
+		mElement.SetHTML(BANano.SF(varText))
+	End If
+	sCaption = varText
+	Return Me
 End Sub
 
-Sub SetVHtml(vhtml As String)
-	mVHtml = vhtml
-	mVHtml = BANano.SF(mVHtml)
-	mElement.SetAttr("v-html", mVHtml)
-End Sub
-
-Sub SetVShow(vshow As String)
-	mVShow = vshow
-	mElement.SetAttr("v-show", vshow)
-End Sub
-
-Sub SetVIf(vif As String)
-	mVIf = vif
-	mElement.SetAttr("v-if", mVIf)
-End Sub
-
-Sub SetVElse(velse As String)
-	mVElse = velse
-	mElement.SetAttr("v-else", mVElse)
-End Sub
-
-Sub SetVText(vtext As String)
-	mVText = vtext
-	mElement.SetAttr("v-text", mVText)
-End Sub
-
-Sub SetKey(skey As String)
-	mKeyName = skey
-	mElement.SetAttr("key", skey)
-End Sub
-
-Sub SetRef(ref As String)
-	mRefName = ref
-	mElement.SetAttr("ref", ref)
-End Sub
-
-Sub SetVModel(vmodel As String)
-	mVModel = vmodel
-	mElement.SetAttr("v-model", vmodel)
-End Sub
-
-'will add properties to attributes, s for strings an b for booleans
-private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, actProp As String)
-	Select Case varType
-		Case "b"
-			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
-		Case "s"
-			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
+'will add properties to attributes
+private Sub AddAttr(varName As String, actProp As String) As VColorPicker
+	If varName <> "" Then properties.put(actprop, varname)
+	Select Case actProp
+	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
+		bindings.Put(varName, False)
 	End Select
-End Sub
-
-'build styles
-private Sub BuildExStyle() As String
-	Dim sb As StringBuilder
-	sb.Initialize
-	If MarginLeft <> "" Then sb.Append("margin-left: " & MarginLeft & ";")
-	If MarginRight <> "" Then sb.Append("margin-right: " & MarginRight & ";")
-	If MarginTop <> "" Then sb.Append("margin-top: " & MarginTop & ";")
-	If MarginBottom <> "" Then sb.Append("margin-bottom: " & MarginBottom & ";")
-	If PaddingLeft <> "" Then sb.Append("padding-left: " & PaddingLeft & ";")
-	If PaddingRight <> "" Then sb.Append("padding-right: " & PaddingRight & ";")
-	If PaddingTop <> "" Then sb.Append("padding-top: " & PaddingTop & ";")
-	If PaddingBottom <> "" Then sb.Append("padding-bottom: " & PaddingBottom & ";")
-	Return sb.ToString
+	Return Me
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String)
+public Sub SetClasses(Classes As String) As VColorPicker
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
 	mClasses = Classes
+	Return Me
 End Sub
 
 public Sub GetClasses() As String
@@ -417,98 +556,96 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String)
+public Sub SetStyle(Style As String) As VColorPicker
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
 	mStyle = Style
+	Return Me
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List)
+Sub AddClass(classNames As List) As VColorPicker
 	For Each k As String In classNames
-		mElement.AddClass(k)
+		classList.put(k, k)
 	Next
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
+	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map)
+Sub SetStyles(m As Map) As VColorPicker
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
+		styles.put(k, v)
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map)
+Sub SetAttrs(props As Map) As VColorPicker
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
-		mElement.SetAttr(k, v)
+		SetAttr(k, v)
 	Next
+	Return Me
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String)
-	mElement.SetAttr(prop, value)
-End Sub
-
-'stop compilation
-Sub SetVPre
-	mElement.SetAttr("v-pre", True)
+Sub SetAttr(prop As String, value As String) As VColorPicker
+	properties.put(prop, value)
+	If mElement <> Null Then 
+		mElement.SetAttr(prop, value)
+	End If
+	Return Me
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String)
+Sub SetVBind(prop As String, value As String) As VColorPicker
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
-	mElement.SetAttr(prop,value)
+	SetAttr(prop,value)
 	bindings.Put(value, Null)
+	Return Me
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String)
-	Dim m As Map = CreateMap()
-	m.Put(prop, value)
+Sub SetStyleSingle(prop As String, value As String) As VColorPicker
+	styles.put(prop, value)
+	dim m as map = createmap()
+	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List)
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VColorPicker
 	If loose <> Null Then
 		For Each k As String In loose
-			mElement.SetAttr(k, True)
+			SetAttr(k, True)
 		Next
 	End If
 	If props <> Null Then
 		For Each k As String In props.Keys
 			Dim v As String = props.Get(k)
-			mElement.SetAttr(k, v)
+			SetAttr(k, v)
 		Next
 	End If
 	If styleProps <> Null Then
-		Dim jsonStyle As String = BANano.ToJson(styleProps)
-		mElement.SetStyle(jsonStyle)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
+			SetStyleSingle(k, v)
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
 	End If
-End Sub
-
-'get text
-public Sub GetText() As String
-	Return mElement.GetText
-End Sub
-
-'hide until compilation finishes
-Sub SetVCloak
-	If mElement <> Null Then
-		mElement.SetAttr("v-cloak", True)
-	End If
-End Sub
-
-'compile once
-Sub SetVOnce
-	mElement.SetAttr("v-once", True)
+	Return Me
 End Sub
 
 'get html
@@ -517,44 +654,47 @@ Public Sub GetHtml() As String
 End Sub
 
 'set color
-Sub SetColor(varColor As String)
-	If varColor = "" Then Return
+Sub SetColor1(varColor As String) As VColorPicker
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, varColor)
+	Return Me
 End Sub
 
 'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String)
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VColorPicker
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, scolor)
+	Return Me
 End Sub
 
 'set text color
-Sub SetTextColor(varColor As String)
+Sub SetTextColor1(varColor As String) As VColorPicker
 	Dim sColor As String = $"${varColor}--text"$
-	mElement.AddClass(sColor)
+	AddClass(array(sColor))
+	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String)
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VColorPicker
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	mElement.AddClass(mcolor)
+	AddClass(array(mcolor))
+	Return Me
 End Sub
 
-
 'set direct method
-Sub SetMethod(Module As Object,methodName As String)
+Sub SetMethod(Module As Object,methodName As String) As VColorPicker
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
 		methods.Put(methodName, cb)
 	End If
+	Return Me
 End Sub

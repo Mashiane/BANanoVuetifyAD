@@ -2,380 +2,573 @@
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
-Version=8.31
+Version=8.3
 @EndOfDesignText@
 'Custom BANano View class: VTabs
 #IgnoreWarnings:12
 #Event: change (argument As Int)
 
 
-#DesignerProperty: Key: Text, DisplayName: Text, FieldType: String, DefaultValue: , Description: Text on the label 
-#DesignerProperty: Key: VText, DisplayName: VText, FieldType: String, DefaultValue: , Description: VText 
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, FieldType: String, DefaultValue: , Description: VHtml 
-#DesignerProperty: Key: VModel, DisplayName: VModel, FieldType: String, DefaultValue: , Description: VModel 
-#DesignerProperty: Key: RefName, DisplayName: RefName, FieldType: String, DefaultValue: , Description: RefName 
-#DesignerProperty: Key: VIf, DisplayName: VIf, FieldType: String, DefaultValue: , Description: VIf 
-#DesignerProperty: Key: VElse, DisplayName: VElse, FieldType: String, DefaultValue: , Description: VElse 
-#DesignerProperty: Key: VShow, DisplayName: VShow, FieldType: String, DefaultValue: , Description: VShow 
-#DesignerProperty: Key: VFor, DisplayName: VFor, FieldType: String, DefaultValue: , Description: VFor 
-#DesignerProperty: Key: KeyName, DisplayName: KeyName, FieldType: String, DefaultValue: , Description: KeyName
-#DesignerProperty: Key: ActiveClass, DisplayName: ActiveClass, FieldType: String, DefaultValue: , Description: Set active-class
-#DesignerProperty: Key: AlignWithTitle, DisplayName: AlignWithTitle, FieldType: Boolean, DefaultValue: false , Description: Set align-with-title
-#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, FieldType: String, DefaultValue: , Description: Set background-color
-#DesignerProperty: Key: CenterActive, DisplayName: CenterActive, FieldType: Boolean, DefaultValue: false , Description: Set center-active
-#DesignerProperty: Key: Centered, DisplayName: Centered, FieldType: Boolean, DefaultValue: false , Description: Set centered
-#DesignerProperty: Key: Color, DisplayName: Color, FieldType: String, DefaultValue: , Description: Set color
-#DesignerProperty: Key: Dark, DisplayName: Dark, FieldType: Boolean, DefaultValue: false , Description: Set dark
-#DesignerProperty: Key: FixedTabs, DisplayName: FixedTabs, FieldType: Boolean, DefaultValue: false , Description: Set fixed-tabs
-#DesignerProperty: Key: Grow, DisplayName: Grow, FieldType: Boolean, DefaultValue: false , Description: Set grow
-#DesignerProperty: Key: Height, DisplayName: Height, FieldType: String, DefaultValue: , Description: Set height
-#DesignerProperty: Key: HideSlider, DisplayName: HideSlider, FieldType: Boolean, DefaultValue: false , Description: Set hide-slider
-#DesignerProperty: Key: IconsAndText, DisplayName: IconsAndText, FieldType: Boolean, DefaultValue: false , Description: Set icons-and-text
-#DesignerProperty: Key: Light, DisplayName: Light, FieldType: Boolean, DefaultValue: false , Description: Set light
-#DesignerProperty: Key: MobileBreakPoint, DisplayName: MobileBreakPoint, FieldType: String, DefaultValue: , Description: Set mobile-break-point
-#DesignerProperty: Key: NextIcon, DisplayName: NextIcon, FieldType: String, DefaultValue: , Description: Set next-icon
-#DesignerProperty: Key: Optional, DisplayName: Optional, FieldType: Boolean, DefaultValue: false , Description: Set optional
-#DesignerProperty: Key: PrevIcon, DisplayName: PrevIcon, FieldType: String, DefaultValue: , Description: Set prev-icon
-#DesignerProperty: Key: Right, DisplayName: Right, FieldType: Boolean, DefaultValue: false , Description: Set right
-#DesignerProperty: Key: ShowArrows, DisplayName: ShowArrows, FieldType: Boolean, DefaultValue: false , Description: Set show-arrows
-#DesignerProperty: Key: SliderColor, DisplayName: SliderColor, FieldType: String, DefaultValue: , Description: Set slider-color
-#DesignerProperty: Key: SliderSize, DisplayName: SliderSize, FieldType: String, DefaultValue: , Description: Set slider-size
-#DesignerProperty: Key: Value, DisplayName: Value, FieldType: String, DefaultValue: , Description: Set value
-#DesignerProperty: Key: Vertical, DisplayName: Vertical, FieldType: Boolean, DefaultValue: false , Description: Set vertical
+#DesignerProperty: Key: ActiveClass, DisplayName: ActiveClass, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignWithTitle, DisplayName: AlignWithTitle, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, Description: , DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: CenterActive, DisplayName: CenterActive, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Centered, DisplayName: Centered, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: FixedTabs, DisplayName: FixedTabs, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Grow, DisplayName: Grow, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Height, DisplayName: Height, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: HideSlider, DisplayName: HideSlider, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: IconsAndText, DisplayName: IconsAndText, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: MobileBreakPoint, DisplayName: MobileBreakPoint, Description: , DefaultValue: 1264, FieldType: String
+#DesignerProperty: Key: NextIcon, DisplayName: NextIcon, Description: , DefaultValue: $next, FieldType: String
+#DesignerProperty: Key: Optional, DisplayName: Optional, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: PrevIcon, DisplayName: PrevIcon, Description: , DefaultValue: $prev, FieldType: String
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Right, DisplayName: Right, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: ShowArrows, DisplayName: ShowArrows, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: SliderColor, DisplayName: SliderColor, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: SliderSize, DisplayName: SliderSize, Description: , DefaultValue: 2, FieldType: String
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Value, DisplayName: Value, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Vertical, DisplayName: Vertical, Description: , DefaultValue: false, FieldType: Boolean
 #DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: MarginLeft, DisplayName: Margin Left, FieldType: String, DefaultValue: , Description: Margin Left 
-#DesignerProperty: Key: MarginRight, DisplayName: Margin Right, FieldType: String, DefaultValue: , Description: Margin Right 
-#DesignerProperty: Key: MarginTop, DisplayName: Margin Top, FieldType: String, DefaultValue: , Description: Margin Top 
-#DesignerProperty: Key: MarginBottom, DisplayName: Margin Bottom, FieldType: String, DefaultValue: , Description: Margin Bottom 
-#DesignerProperty: Key: PaddingLeft, DisplayName: Padding Left, FieldType: String, DefaultValue: , Description: Padding Left 
-#DesignerProperty: Key: PaddingRight, DisplayName: Padding Right, FieldType: String, DefaultValue: , Description: Padding Right 
-#DesignerProperty: Key: PaddingTop, DisplayName: Padding Top, FieldType: String, DefaultValue: , Description: Padding Top 
-#DesignerProperty: Key: PaddingBottom, DisplayName: Padding Bottom, FieldType: String, DefaultValue: , Description: Padding Bottom
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
 
-Sub Class_Globals
-	Private BANano As BANano 'ignore
-	Public mName As String 'ignore
-	Private mEventName As String 'ignore
-	Private mCallBack As Object 'ignore
-	Private mTarget As BANanoElement 'ignore
+Sub Class_Globals 
+	Private BANano As BANano 'ignore 
+	Private data As Map 
+	Public mName As String 'ignore 
+	Private mEventName As String 'ignore 
+	Private mCallBack As Object 'ignore 
+	Private mTarget As BANanoElement 'ignore 
 	Private mElement As BANanoElement 'ignore
 
-	Private mClasses As String = ""
+Private properties As Map
+Private styles As Map
+Private classList As Map
+Private mClasses As String = "" 
 	Private mStyle As String = ""
-	Public MarginLeft As String = ""
-	Public MarginRight As String = ""
-	Public MarginTop As String = ""
-	Public MarginBottom As String = ""
-	Public PaddingLeft As String = ""
-	Public PaddingRight As String = ""
-	Public PaddingTop As String = ""
-	Public PaddingBottom As String = ""
 
-	Private mText As String = ""
-	Private mTagName As String = "v-tabs"
-	Private mVModel As String = ""
-	Private mRefName As String = ""
-	Private mKeyName As String = ""
-	Private mVText As String = ""
-	Private mVIf As String = ""
-	Private mVElse As String = ""
-	Private mVShow As String = ""
-	Private mVHtml As String = ""
-	Private mVFor As String = ""
-	Private Attributes as StringBuilder
-	Public bindings As Map
+Private mTagName As String = "v-tabs" 
+	Public bindings As Map 
 	Public methods As Map
-	Public sActiveClass As String = ""
-	Public bAlignWithTitle As Boolean = false
-	Public sBackgroundColor As String = ""
-	Public bCenterActive As Boolean = false
-	Public bCentered As Boolean = false
-	Public sColor As String = ""
-	Public bDark As Boolean = false
-	Public bFixedTabs As Boolean = false
-	Public bGrow As Boolean = false
-	Public sHeight As String = ""
-	Public bHideSlider As Boolean = false
-	Public bIconsAndText As Boolean = false
-	Public bLight As Boolean = false
-	Public sMobileBreakPoint As String = "1264"
-	Public sNextIcon As String = "$next"
-	Public bOptional As Boolean = false
-	Public sPrevIcon As String = "$prev"
-	Public bRight As Boolean = false
-	Public bShowArrows As Boolean = false
-	Public sSliderColor As String = ""
-	Public sSliderSize As String = "2"
-	Public sValue As String = ""
-	Public bVertical As Boolean = false
+Private sActiveClass As String = ""
+Private bAlignWithTitle As Boolean = false
+Private sBackgroundColor As String = ""
+Private sCaption As String = ""
+Private bCenterActive As Boolean = false
+Private bCentered As Boolean = false
+Private sColor As String = ""
+Private bDark As Boolean = false
+Private sEnabled As String = ""
+Private bFixedTabs As Boolean = false
+Private bGrow As Boolean = false
+Private sHeight As String = ""
+Private bHideSlider As Boolean = false
+Private bIconsAndText As Boolean = false
+Private sKey As String = ""
+Private bLight As Boolean = false
+Private sMobileBreakPoint As String = "1264"
+Private sNextIcon As String = "$next"
+Private bOptional As Boolean = false
+Private sPrevIcon As String = "$prev"
+Private sReadonly As String = ""
+Private sRef As String = ""
+Private sRequired As String = ""
+Private bRight As Boolean = false
+Private bShowArrows As Boolean = false
+Private sSliderColor As String = ""
+Private sSliderSize As String = "2"
+Private bVCloak As Boolean = False
+Private sVElse As String = ""
+Private sVFor As String = ""
+Private sVHtml As String = ""
+Private sVIf As String = ""
+Private sVModel As String = ""
+Private bVOnce As Boolean = False
+Private bVPre As Boolean = False
+Private sVShow As String = ""
+Private sVText As String = ""
+Private sValue As String = ""
+Private bVertical As Boolean = false
 
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
-	mName = Name
-	mEventName = EventName.ToLowerCase
-	mCallBack = CallBack
-	bindings.Initialize
-	methods.Initialize
-	Attributes.Initialize
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VTabs 
+mName = Name 
+mEventName = EventName.ToLowerCase 
+mCallBack = CallBack 
+bindings.Initialize 
+methods.Initialize 
+properties.Initialize 
+styles.Initialize 
+classList.Initialize 
+Return Me 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
-Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
+Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
 
-	If props <> Null Then
-		mClasses = props.Get("Classes")
-		mStyle = props.Get("Style")
-		MarginLeft = props.Get("MarginLeft")
-		MarginRight = props.Get("MarginRight")
-		MarginTop = props.Get("MarginTop")
-		MarginBottom = props.Get("MarginBottom")
-		PaddingLeft = props.Get("PaddingLeft")
-		PaddingRight = props.Get("PaddingRight")
-		PaddingTop = props.Get("PaddingTop")
-		PaddingBottom = props.Get("PaddingBottom")
-		mText = props.Get("Text")
-		mVModel = props.Get("VModel")
-		mRefName = props.Get("RefName")
-		mKeyName = props.Get("KeyName")
-		mVText = props.Get("VText")
-		mVIf = props.Get("VIf")
-		mVElse = props.Get("VElse")
-		mVShow = props.Get("VShow")
-		mVHtml = props.Get("VHtml")
-		mVFor = props.Get("VFor")
-		sActiveClass = props.Get("ActiveClass")
-		bAlignWithTitle = props.Get("AlignWithTitle")
-		sBackgroundColor = props.Get("BackgroundColor")
-		bCenterActive = props.Get("CenterActive")
-		bCentered = props.Get("Centered")
-		sColor = props.Get("Color")
-		bDark = props.Get("Dark")
-		bFixedTabs = props.Get("FixedTabs")
-		bGrow = props.Get("Grow")
-		sHeight = props.Get("Height")
-		bHideSlider = props.Get("HideSlider")
-		bIconsAndText = props.Get("IconsAndText")
-		bLight = props.Get("Light")
-		sMobileBreakPoint = props.Get("MobileBreakPoint")
-		sNextIcon = props.Get("NextIcon")
-		bOptional = props.Get("Optional")
-		sPrevIcon = props.Get("PrevIcon")
-		bRight = props.Get("Right")
-		bShowArrows = props.Get("ShowArrows")
-		sSliderColor = props.Get("SliderColor")
-		sSliderSize = props.Get("SliderSize")
-		sValue = props.Get("Value")
-		bVertical = props.Get("Vertical")
+If props <> Null Then
+mClasses = props.Get("Classes") 
+mStyle = props.Get("Style")
+sActiveClass = props.Get("ActiveClass")
+bAlignWithTitle = props.Get("AlignWithTitle")
+sBackgroundColor = props.Get("BackgroundColor")
+sCaption = props.Get("Caption")
+bCenterActive = props.Get("CenterActive")
+bCentered = props.Get("Centered")
+sColor = props.Get("Color")
+bDark = props.Get("Dark")
+sEnabled = props.Get("Enabled")
+bFixedTabs = props.Get("FixedTabs")
+bGrow = props.Get("Grow")
+sHeight = props.Get("Height")
+bHideSlider = props.Get("HideSlider")
+bIconsAndText = props.Get("IconsAndText")
+sKey = props.Get("Key")
+bLight = props.Get("Light")
+sMobileBreakPoint = props.Get("MobileBreakPoint")
+sNextIcon = props.Get("NextIcon")
+bOptional = props.Get("Optional")
+sPrevIcon = props.Get("PrevIcon")
+sReadonly = props.Get("Readonly")
+sRef = props.Get("Ref")
+sRequired = props.Get("Required")
+bRight = props.Get("Right")
+bShowArrows = props.Get("ShowArrows")
+sSliderColor = props.Get("SliderColor")
+sSliderSize = props.Get("SliderSize")
+bVCloak = props.Get("VCloak")
+sVElse = props.Get("VElse")
+sVFor = props.Get("VFor")
+sVHtml = props.Get("VHtml")
+sVIf = props.Get("VIf")
+sVModel = props.Get("VModel")
+bVOnce = props.Get("VOnce")
+bVPre = props.Get("VPre")
+sVShow = props.Get("VShow")
+sVText = props.Get("VText")
+sValue = props.Get("Value")
+bVertical = props.Get("Vertical")
 
-		AddAttr(Attributes, mVModel, "s", "v-model")
-		AddAttr(Attributes, mRefName, "s", "ref")
-		AddAttr(Attributes, mKeyName, "s", "key")
-		AddAttr(Attributes, mVText, "s", "v-text")
-		AddAttr(Attributes, mVIf, "s", "v-if")
-		AddAttr(Attributes, mVElse, "s", "v-else")
-		AddAttr(Attributes, mVShow, "s", "v-show")
-		AddAttr(Attributes, mVHtml, "s", "v-html")
-		AddAttr(Attributes, mVFor, "s", "v-for")
-		AddAttr(Attributes, sActiveClass, "s", "active-class")
-		AddAttr(Attributes, bAlignWithTitle, "b", "align-with-title")
-		AddAttr(Attributes, sBackgroundColor, "s", "background-color")
-		AddAttr(Attributes, bCenterActive, "b", "center-active")
-		AddAttr(Attributes, bCentered, "b", "centered")
-		AddAttr(Attributes, sColor, "s", "color")
-		AddAttr(Attributes, bDark, "b", "dark")
-		AddAttr(Attributes, bFixedTabs, "b", "fixed-tabs")
-		AddAttr(Attributes, bGrow, "b", "grow")
-		AddAttr(Attributes, sHeight, "s", "height")
-		AddAttr(Attributes, bHideSlider, "b", "hide-slider")
-		AddAttr(Attributes, bIconsAndText, "b", "icons-and-text")
-		AddAttr(Attributes, bLight, "b", "light")
-		AddAttr(Attributes, sMobileBreakPoint, "s", "mobile-break-point")
-		AddAttr(Attributes, sNextIcon, "s", "next-icon")
-		AddAttr(Attributes, bOptional, "b", "optional")
-		AddAttr(Attributes, sPrevIcon, "s", "prev-icon")
-		AddAttr(Attributes, bRight, "b", "right")
-		AddAttr(Attributes, bShowArrows, "b", "show-arrows")
-		AddAttr(Attributes, sSliderColor, "s", "slider-color")
-		AddAttr(Attributes, sSliderSize, "s", "slider-size")
-		AddAttr(Attributes, sValue, "s", "value")
-		AddAttr(Attributes, bVertical, "b", "vertical")
+End If
+Dim strHTML As String = ToString
+mElement = mTarget.Append(strHTML).Get("#" & mName)
 
-	End If
-	Dim exStyle As String = BuildExStyle
-	Dim exAttr As String = Attributes.ToString
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" class="${mClasses}" style="${exStyle}${mStyle}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
+' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
-
-	SetOnChange
+'This activates when the event exists on the module
+SetOnChange
 
 
 End Sub
 
 'set active-class
-Sub SetActiveClass(varActiveClass As String)
-	sActiveClass = varActiveClass
-	mElement.SetAttr("active-class", sActiveClass)
+Sub SetActiveClass(varActiveClass As String) As VTabs
+sActiveClass = varActiveClass
+SetAttr("active-class", sActiveClass)
+Return Me
 End Sub
 
 'set align-with-title
-Sub SetAlignWithTitle(varAlignWithTitle As Boolean)
-	bAlignWithTitle = varAlignWithTitle
-	mElement.SetAttr("align-with-title", bAlignWithTitle)
+Sub SetAlignWithTitle(varAlignWithTitle As Boolean) As VTabs
+bAlignWithTitle = varAlignWithTitle
+SetAttr("align-with-title", bAlignWithTitle)
+Return Me
 End Sub
 
 'set background-color
-Sub SetBackgroundColor(varBackgroundColor As String)
-	sBackgroundColor = varBackgroundColor
-	mElement.SetAttr("background-color", sBackgroundColor)
+Sub SetBackgroundColor(varBackgroundColor As String) As VTabs
+sBackgroundColor = varBackgroundColor
+SetAttr("background-color", sBackgroundColor)
+Return Me
 End Sub
 
 'set center-active
-Sub SetCenterActive(varCenterActive As Boolean)
-	bCenterActive = varCenterActive
-	mElement.SetAttr("center-active", bCenterActive)
+Sub SetCenterActive(varCenterActive As Boolean) As VTabs
+bCenterActive = varCenterActive
+SetAttr("center-active", bCenterActive)
+Return Me
 End Sub
 
 'set centered
-Sub SetCentered(varCentered As Boolean)
-	bCentered = varCentered
-	mElement.SetAttr("centered", bCentered)
+Sub SetCentered(varCentered As Boolean) As VTabs
+bCentered = varCentered
+SetAttr("centered", bCentered)
+Return Me
 End Sub
 
 'set color
-Sub SetColor(varColor As String)
-	sColor = varColor
-	mElement.SetAttr("color", sColor)
+Sub SetColor(varColor As String) As VTabs
+sColor = varColor
+SetAttr("color", sColor)
+Return Me
 End Sub
 
 'set dark
-Sub SetDark(varDark As Boolean)
-	bDark = varDark
-	mElement.SetAttr("dark", bDark)
+Sub SetDark(varDark As Boolean) As VTabs
+bDark = varDark
+SetAttr("dark", bDark)
+Return Me
+End Sub
+
+'set enabled
+Sub SetEnabled(varEnabled As String) As VTabs
+sEnabled = varEnabled
+SetAttr("enabled", sEnabled)
+Return Me
 End Sub
 
 'set fixed-tabs
-Sub SetFixedTabs(varFixedTabs As Boolean)
-	bFixedTabs = varFixedTabs
-	mElement.SetAttr("fixed-tabs", bFixedTabs)
+Sub SetFixedTabs(varFixedTabs As Boolean) As VTabs
+bFixedTabs = varFixedTabs
+SetAttr("fixed-tabs", bFixedTabs)
+Return Me
 End Sub
 
 'set grow
-Sub SetGrow(varGrow As Boolean)
-	bGrow = varGrow
-	mElement.SetAttr("grow", bGrow)
+Sub SetGrow(varGrow As Boolean) As VTabs
+bGrow = varGrow
+SetAttr("grow", bGrow)
+Return Me
 End Sub
 
 'set height
-Sub SetHeight(varHeight As String)
-	sHeight = varHeight
-	mElement.SetAttr("height", sHeight)
+Sub SetHeight(varHeight As String) As VTabs
+sHeight = varHeight
+SetAttr("height", sHeight)
+Return Me
 End Sub
 
 'set hide-slider
-Sub SetHideSlider(varHideSlider As Boolean)
-	bHideSlider = varHideSlider
-	mElement.SetAttr("hide-slider", bHideSlider)
+Sub SetHideSlider(varHideSlider As Boolean) As VTabs
+bHideSlider = varHideSlider
+SetAttr("hide-slider", bHideSlider)
+Return Me
 End Sub
 
 'set icons-and-text
-Sub SetIconsAndText(varIconsAndText As Boolean)
-	bIconsAndText = varIconsAndText
-	mElement.SetAttr("icons-and-text", bIconsAndText)
+Sub SetIconsAndText(varIconsAndText As Boolean) As VTabs
+bIconsAndText = varIconsAndText
+SetAttr("icons-and-text", bIconsAndText)
+Return Me
+End Sub
+
+'set key
+Sub SetKey(varKey As String) As VTabs
+sKey = varKey
+SetAttr("key", sKey)
+Return Me
 End Sub
 
 'set light
-Sub SetLight(varLight As Boolean)
-	bLight = varLight
-	mElement.SetAttr("light", bLight)
+Sub SetLight(varLight As Boolean) As VTabs
+bLight = varLight
+SetAttr("light", bLight)
+Return Me
 End Sub
 
 'set mobile-break-point
-Sub SetMobileBreakPoint(varMobileBreakPoint As String)
-	sMobileBreakPoint = varMobileBreakPoint
-	mElement.SetAttr("mobile-break-point", sMobileBreakPoint)
+Sub SetMobileBreakPoint(varMobileBreakPoint As String) As VTabs
+sMobileBreakPoint = varMobileBreakPoint
+SetAttr("mobile-break-point", sMobileBreakPoint)
+Return Me
 End Sub
 
 'set next-icon
-Sub SetNextIcon(varNextIcon As String)
-	sNextIcon = varNextIcon
-	mElement.SetAttr("next-icon", sNextIcon)
+Sub SetNextIcon(varNextIcon As String) As VTabs
+sNextIcon = varNextIcon
+SetAttr("next-icon", sNextIcon)
+Return Me
 End Sub
 
 'set optional
-Sub SetOptional(varOptional As Boolean)
-	bOptional = varOptional
-	mElement.SetAttr("optional", bOptional)
+Sub SetOptional(varOptional As Boolean) As VTabs
+bOptional = varOptional
+SetAttr("optional", bOptional)
+Return Me
 End Sub
 
 'set prev-icon
-Sub SetPrevIcon(varPrevIcon As String)
-	sPrevIcon = varPrevIcon
-	mElement.SetAttr("prev-icon", sPrevIcon)
+Sub SetPrevIcon(varPrevIcon As String) As VTabs
+sPrevIcon = varPrevIcon
+SetAttr("prev-icon", sPrevIcon)
+Return Me
+End Sub
+
+'set readonly
+Sub SetReadonly(varReadonly As String) As VTabs
+sReadonly = varReadonly
+SetAttr("readonly", sReadonly)
+Return Me
+End Sub
+
+'set ref
+Sub SetRef(varRef As String) As VTabs
+sRef = varRef
+SetAttr("ref", sRef)
+Return Me
+End Sub
+
+'set required
+Sub SetRequired(varRequired As String) As VTabs
+sRequired = varRequired
+SetAttr("required", sRequired)
+Return Me
 End Sub
 
 'set right
-Sub SetRight(varRight As Boolean)
-	bRight = varRight
-	mElement.SetAttr("right", bRight)
+Sub SetRight(varRight As Boolean) As VTabs
+bRight = varRight
+SetAttr("right", bRight)
+Return Me
 End Sub
 
 'set show-arrows
-Sub SetShowArrows(varShowArrows As Boolean)
-	bShowArrows = varShowArrows
-	mElement.SetAttr("show-arrows", bShowArrows)
+Sub SetShowArrows(varShowArrows As Boolean) As VTabs
+bShowArrows = varShowArrows
+SetAttr("show-arrows", bShowArrows)
+Return Me
 End Sub
 
 'set slider-color
-Sub SetSliderColor(varSliderColor As String)
-	sSliderColor = varSliderColor
-	mElement.SetAttr("slider-color", sSliderColor)
+Sub SetSliderColor(varSliderColor As String) As VTabs
+sSliderColor = varSliderColor
+SetAttr("slider-color", sSliderColor)
+Return Me
 End Sub
 
 'set slider-size
-Sub SetSliderSize(varSliderSize As String)
-	sSliderSize = varSliderSize
-	mElement.SetAttr("slider-size", sSliderSize)
+Sub SetSliderSize(varSliderSize As String) As VTabs
+sSliderSize = varSliderSize
+SetAttr("slider-size", sSliderSize)
+Return Me
+End Sub
+
+'set v-cloak
+Sub SetVCloak(varVCloak As Boolean) As VTabs
+bVCloak = varVCloak
+SetAttr("v-cloak", bVCloak)
+Return Me
+End Sub
+
+'set v-else
+Sub SetVElse(varVElse As String) As VTabs
+sVElse = varVElse
+SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-for
+Sub SetVFor(varVFor As String) As VTabs
+sVFor = varVFor
+SetAttr("v-for", sVFor)
+Return Me
+End Sub
+
+'set v-html
+Sub SetVHtml(varVHtml As String) As VTabs
+sVHtml = varVHtml
+SetAttr("v-html", sVHtml)
+Return Me
+End Sub
+
+'set v-if
+Sub SetVIf(varVIf As String) As VTabs
+sVIf = varVIf
+SetAttr("v-if", sVIf)
+Return Me
+End Sub
+
+'set v-model
+Sub SetVModel(varVModel As String) As VTabs
+sVModel = varVModel
+SetAttr("v-model", sVModel)
+Return Me
+End Sub
+
+'set v-once
+Sub SetVOnce(varVOnce As Boolean) As VTabs
+bVOnce = varVOnce
+SetAttr("v-once", bVOnce)
+Return Me
+End Sub
+
+'set v-pre
+Sub SetVPre(varVPre As Boolean) As VTabs
+bVPre = varVPre
+SetAttr("v-pre", bVPre)
+Return Me
+End Sub
+
+'set v-show
+Sub SetVShow(varVShow As String) As VTabs
+sVShow = varVShow
+SetAttr("v-show", sVShow)
+Return Me
+End Sub
+
+'set v-text
+Sub SetVText(varVText As String) As VTabs
+sVText = varVText
+SetAttr("v-text", sVText)
+Return Me
 End Sub
 
 'set value
-Sub SetValue(varValue As String)
-	sValue = varValue
-	mElement.SetAttr("value", sValue)
+Sub SetValue(varValue As String) As VTabs
+sValue = varValue
+SetAttr("value", sValue)
+Return Me
 End Sub
 
 'set vertical
-Sub SetVertical(varVertical As Boolean)
-	bVertical = varVertical
-	mElement.SetAttr("vertical", bVertical)
+Sub SetVertical(varVertical As Boolean) As VTabs
+bVertical = varVertical
+SetAttr("vertical", bVertical)
+Return Me
 End Sub
 
 
-'set on change event
-Sub SetOnChange
-	Dim mName As String = $"${mEventName}_change"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:change", mName)
-	Dim argument As Int 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, mName, Array(argument))
-	methods.Put(mName, cb)
+'set on change event, updates the master events records
+Sub SetOnChange() As VTabs
+Dim sName As String = $"${mEventName}_change"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+SetAttr("v-on:change", sName)
+Dim argument As Int 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
 
+'return the generated html
+Sub ToString As String
+AddAttr(sActiveClass, "active-class")
+AddAttr(bAlignWithTitle, "align-with-title")
+AddAttr(sBackgroundColor, "background-color")
+AddAttr(sCaption, "caption")
+AddAttr(bCenterActive, "center-active")
+AddAttr(bCentered, "centered")
+AddAttr(sColor, "color")
+AddAttr(bDark, "dark")
+AddAttr(sEnabled, "enabled")
+AddAttr(bFixedTabs, "fixed-tabs")
+AddAttr(bGrow, "grow")
+AddAttr(sHeight, "height")
+AddAttr(bHideSlider, "hide-slider")
+AddAttr(bIconsAndText, "icons-and-text")
+AddAttr(sKey, "key")
+AddAttr(bLight, "light")
+AddAttr(sMobileBreakPoint, "mobile-break-point")
+AddAttr(sNextIcon, "next-icon")
+AddAttr(bOptional, "optional")
+AddAttr(sPrevIcon, "prev-icon")
+AddAttr(sReadonly, "readonly")
+AddAttr(sRef, "ref")
+AddAttr(sRequired, "required")
+AddAttr(bRight, "right")
+AddAttr(bShowArrows, "show-arrows")
+AddAttr(sSliderColor, "slider-color")
+AddAttr(sSliderSize, "slider-size")
+AddAttr(bVCloak, "v-cloak")
+AddAttr(sVElse, "v-else")
+AddAttr(sVFor, "v-for")
+AddAttr(sVHtml, "v-html")
+AddAttr(sVIf, "v-if")
+AddAttr(sVModel, "v-model")
+AddAttr(bVOnce, "v-once")
+AddAttr(bVPre, "v-pre")
+AddAttr(sVShow, "v-show")
+AddAttr(sVText, "v-text")
+AddAttr(sValue, "value")
+AddAttr(bVertical, "vertical")
+
+'build the class list
+Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
+cKeys = cKeys & " " & mClasses
+cKeys = cKeys.trim
+AddAttr(cKeys, "class")
+'build the style list
+Dim sKeys As String = BANanoShared.BuildStyle(styles)
+sKeys = sKeys & " " & mStyle
+sKeys = sKeys.trim
+AddAttr(sKeys, "style")
+Dim exattr As String = BANanoShared.BuildAttributes(properties)
+
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Return strRes
+End Sub
+
+'add a child component
+Sub AddComponent(child As String) As VTabs
+	mElement.Append(child)
+	sCaption = mElement.GetText
+	Return Me
+End Sub
+
+'change the id of the element, ONLY execute this after a manual Initialize
+Sub SetID(varText As String) As VTabs
+	mname = varText
+	Return Me
+End Sub
+
+'get the text of the component
+public Sub GetCaption() As String
+	Return sCaption
+End Sub
 
 'add component to parent
-public Sub AddToParent(targetID As String)
+public Sub AddToParent(targetID As String) As VTabs
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
+	Return Me
+End Sub
+
+'add component to app, this binds events and states
+Sub AddToApp(va As VueApp) As VTabs
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		va.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		va.SetCallBack(k, cb)
+	Next
+	data = va.data	
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop as string, value as object)
+	data.put(prop, value)
 End Sub
 
 'remove component
 public Sub Remove()
-	mTarget.Empty
+	mElement.Empty
 	BANano.SetMeToNull
 End Sub
 
@@ -387,92 +580,42 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String)
-	Dim methodName As String = BANanoSnippets.BeautifyName(event)
+Sub SetVOn(event As String) As VTabs
+	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
-	If SubExists(mCallBack, methodName) = False Then Return
+	If SubExists(mCallBack, methodName) = False Then Return Me
 	SetAttr($"v-on:${event}"$, methodName)
 	SetMethod(mCallBack, methodName)
+	Return Me
 End Sub
 
-Sub SetVFor(vfor As String)
-	mVFor = vfor
-	mElement.SetAttr("v-for", mVFor)
+'change the text of the element
+Sub SetCaption(varText As String) As VTabs
+	If mElement <> Null Then
+		mElement.SetHTML(BANano.SF(varText))
+	End If
+	sCaption = varText
+	Return Me
 End Sub
 
-Sub SetVHtml(vhtml As String)
-	mVHtml = vhtml
-	mVHtml = BANano.SF(mVHtml)
-	mElement.SetAttr("v-html", mVHtml)
-End Sub
-
-Sub SetVShow(vshow As String)
-	mVShow = vshow
-	mElement.SetAttr("v-show", vshow)
-End Sub
-
-Sub SetVIf(vif As String)
-	mVIf = vif
-	mElement.SetAttr("v-if", mVIf)
-End Sub
-
-Sub SetVElse(velse As String)
-	mVElse = velse
-	mElement.SetAttr("v-else", mVElse)
-End Sub
-
-Sub SetVText(vtext As String)
-	mVText = vtext
-	mElement.SetAttr("v-text", mVText)
-End Sub
-
-Sub SetKey(skey As String)
-	mKeyName = skey
-	mElement.SetAttr("key", skey)
-End Sub
-
-Sub SetRef(ref As String)
-	mRefName = ref
-	mElement.SetAttr("ref", ref)
-End Sub
-
-Sub SetVModel(vmodel As String)
-	mVModel = vmodel
-	mElement.SetAttr("v-model", vmodel)
-End Sub
-
-'will add properties to attributes, s for strings an b for booleans
-private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, actProp As String)
-	Select Case varType
-		Case "b"
-			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
-		Case "s"
-			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
+'will add properties to attributes
+private Sub AddAttr(varName As String, actProp As String) As VTabs
+	If varName <> "" Then properties.put(actprop, varname)
+	Select Case actProp
+	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
+		bindings.Put(varName, False)
 	End Select
-End Sub
-
-'build styles
-private Sub BuildExStyle() As String
-	Dim sb As StringBuilder
-	sb.Initialize
-	If MarginLeft <> "" Then sb.Append("margin-left: " & MarginLeft & ";")
-	If MarginRight <> "" Then sb.Append("margin-right: " & MarginRight & ";")
-	If MarginTop <> "" Then sb.Append("margin-top: " & MarginTop & ";")
-	If MarginBottom <> "" Then sb.Append("margin-bottom: " & MarginBottom & ";")
-	If PaddingLeft <> "" Then sb.Append("padding-left: " & PaddingLeft & ";")
-	If PaddingRight <> "" Then sb.Append("padding-right: " & PaddingRight & ";")
-	If PaddingTop <> "" Then sb.Append("padding-top: " & PaddingTop & ";")
-	If PaddingBottom <> "" Then sb.Append("padding-bottom: " & PaddingBottom & ";")
-	Return sb.ToString
+	Return Me
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String)
+public Sub SetClasses(Classes As String) As VTabs
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
 	mClasses = Classes
+	Return Me
 End Sub
 
 public Sub GetClasses() As String
@@ -481,98 +624,96 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String)
+public Sub SetStyle(Style As String) As VTabs
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
 	mStyle = Style
+	Return Me
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List)
+Sub AddClass(classNames As List) As VTabs
 	For Each k As String In classNames
-		mElement.AddClass(k)
+		classList.put(k, k)
 	Next
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
+	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map)
+Sub SetStyles(m As Map) As VTabs
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
+		styles.put(k, v)
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map)
+Sub SetAttrs(props As Map) As VTabs
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
-		mElement.SetAttr(k, v)
+		SetAttr(k, v)
 	Next
+	Return Me
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String)
-	mElement.SetAttr(prop, value)
-End Sub
-
-'stop compilation
-Sub SetVPre
-	mElement.SetAttr("v-pre", True)
+Sub SetAttr(prop As String, value As String) As VTabs
+	properties.put(prop, value)
+	If mElement <> Null Then 
+		mElement.SetAttr(prop, value)
+	End If
+	Return Me
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String)
+Sub SetVBind(prop As String, value As String) As VTabs
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
-	mElement.SetAttr(prop,value)
+	SetAttr(prop,value)
 	bindings.Put(value, Null)
+	Return Me
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String)
-	Dim m As Map = CreateMap()
-	m.Put(prop, value)
+Sub SetStyleSingle(prop As String, value As String) As VTabs
+	styles.put(prop, value)
+	dim m as map = createmap()
+	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List)
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VTabs
 	If loose <> Null Then
 		For Each k As String In loose
-			mElement.SetAttr(k, True)
+			SetAttr(k, True)
 		Next
 	End If
 	If props <> Null Then
 		For Each k As String In props.Keys
 			Dim v As String = props.Get(k)
-			mElement.SetAttr(k, v)
+			SetAttr(k, v)
 		Next
 	End If
 	If styleProps <> Null Then
-		Dim jsonStyle As String = BANano.ToJson(styleProps)
-		mElement.SetStyle(jsonStyle)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
+			SetStyleSingle(k, v)
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
 	End If
-End Sub
-
-'get text
-public Sub GetText() As String
-	Return mElement.GetText
-End Sub
-
-'hide until compilation finishes
-Sub SetVCloak
-	If mElement <> Null Then
-		mElement.SetAttr("v-cloak", True)
-	End If
-End Sub
-
-'compile once
-Sub SetVOnce
-	mElement.SetAttr("v-once", True)
+	Return Me
 End Sub
 
 'get html
@@ -580,36 +721,48 @@ Public Sub GetHtml() As String
 	Return mElement.GetHtml
 End Sub
 
-'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String)
-	Dim sColor As String = $"${varColor} ${varIntensity}"$
+'set color
+Sub SetColor1(varColor As String) As VTabs
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, varColor)
+	Return Me
+End Sub
+
+'set color intensity
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VTabs
+	Dim scolor As String = $"${varColor} ${varIntensity}"$
+	Dim pp As String = $"${mName}color"$
+	SetAttr(":color", pp)
+	'store the bindings
+	bindings.Put(pp, scolor)
+	Return Me
 End Sub
 
 'set text color
-Sub SetTextColor(varColor As String)
+Sub SetTextColor1(varColor As String) As VTabs
 	Dim sColor As String = $"${varColor}--text"$
-	mElement.AddClass(sColor)
+	AddClass(array(sColor))
+	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String)
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VTabs
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	mElement.AddClass(mcolor)
+	AddClass(array(mcolor))
+	Return Me
 End Sub
 
-
 'set direct method
-Sub SetMethod(Module As Object,methodName As String) 
+Sub SetMethod(Module As Object,methodName As String) As VTabs
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
 		methods.Put(methodName, cb)
 	End If
+	Return Me
 End Sub

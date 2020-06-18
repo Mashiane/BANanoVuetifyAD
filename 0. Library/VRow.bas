@@ -2,316 +2,503 @@
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
-Version=8.31
+Version=8.3
 @EndOfDesignText@
 'Custom BANano View class: VRow
 #IgnoreWarnings:12
 
-#DesignerProperty: Key: Align, DisplayName: Align, FieldType: String, DefaultValue: , Description: Set align
-#DesignerProperty: Key: AlignContent, DisplayName: AlignContent, FieldType: String, DefaultValue: , Description: Set align-content
-#DesignerProperty: Key: AlignContentLg, DisplayName: AlignContentLg, FieldType: String, DefaultValue: , Description: Set align-content-lg
-#DesignerProperty: Key: AlignContentMd, DisplayName: AlignContentMd, FieldType: String, DefaultValue: , Description: Set align-content-md
-#DesignerProperty: Key: AlignContentSm, DisplayName: AlignContentSm, FieldType: String, DefaultValue: , Description: Set align-content-sm
-#DesignerProperty: Key: AlignContentXl, DisplayName: AlignContentXl, FieldType: String, DefaultValue: , Description: Set align-content-xl
-#DesignerProperty: Key: AlignLg, DisplayName: AlignLg, FieldType: String, DefaultValue: , Description: Set align-lg
-#DesignerProperty: Key: AlignMd, DisplayName: AlignMd, FieldType: String, DefaultValue: , Description: Set align-md
-#DesignerProperty: Key: AlignSm, DisplayName: AlignSm, FieldType: String, DefaultValue: , Description: Set align-sm
-#DesignerProperty: Key: AlignXl, DisplayName: AlignXl, FieldType: String, DefaultValue: , Description: Set align-xl
-#DesignerProperty: Key: Dense, DisplayName: Dense, FieldType: Boolean, DefaultValue: false , Description: Set dense
-#DesignerProperty: Key: Justify, DisplayName: Justify, FieldType: String, DefaultValue: , Description: Set justify
-#DesignerProperty: Key: JustifyLg, DisplayName: JustifyLg, FieldType: String, DefaultValue: , Description: Set justify-lg
-#DesignerProperty: Key: JustifyMd, DisplayName: JustifyMd, FieldType: String, DefaultValue: , Description: Set justify-md
-#DesignerProperty: Key: JustifySm, DisplayName: JustifySm, FieldType: String, DefaultValue: , Description: Set justify-sm
-#DesignerProperty: Key: JustifyXl, DisplayName: JustifyXl, FieldType: String, DefaultValue: , Description: Set justify-xl
-#DesignerProperty: Key: NoGutters, DisplayName: NoGutters, FieldType: Boolean, DefaultValue: false , Description: Set no-gutters
-#DesignerProperty: Key: Text, DisplayName: Text, FieldType: String, DefaultValue: , Description: Text on the label 
-#DesignerProperty: Key: VText, DisplayName: VText, FieldType: String, DefaultValue: , Description: VText 
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, FieldType: String, DefaultValue: , Description: VHtml 
-#DesignerProperty: Key: VModel, DisplayName: VModel, FieldType: String, DefaultValue: , Description: VModel 
-#DesignerProperty: Key: RefName, DisplayName: RefName, FieldType: String, DefaultValue: , Description: RefName 
-#DesignerProperty: Key: VIf, DisplayName: VIf, FieldType: String, DefaultValue: , Description: VIf 
-#DesignerProperty: Key: VElse, DisplayName: VElse, FieldType: String, DefaultValue: , Description: VElse 
-#DesignerProperty: Key: VShow, DisplayName: VShow, FieldType: String, DefaultValue: , Description: VShow 
-#DesignerProperty: Key: VFor, DisplayName: VFor, FieldType: String, DefaultValue: , Description: VFor 
-#DesignerProperty: Key: KeyName, DisplayName: KeyName, FieldType: String, DefaultValue: , Description: KeyName
-#DesignerProperty: Key: Tag, DisplayName: Tag, FieldType: String, DefaultValue: , Description: Set tag
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: MarginLeft, DisplayName: Margin Left, FieldType: String, DefaultValue: , Description: Margin Left 
-#DesignerProperty: Key: MarginRight, DisplayName: Margin Right, FieldType: String, DefaultValue: , Description: Margin Right 
-#DesignerProperty: Key: MarginTop, DisplayName: Margin Top, FieldType: String, DefaultValue: , Description: Margin Top 
-#DesignerProperty: Key: MarginBottom, DisplayName: Margin Bottom, FieldType: String, DefaultValue: , Description: Margin Bottom 
-#DesignerProperty: Key: PaddingLeft, DisplayName: Padding Left, FieldType: String, DefaultValue: , Description: Padding Left 
-#DesignerProperty: Key: PaddingRight, DisplayName: Padding Right, FieldType: String, DefaultValue: , Description: Padding Right 
-#DesignerProperty: Key: PaddingTop, DisplayName: Padding Top, FieldType: String, DefaultValue: , Description: Padding Top 
-#DesignerProperty: Key: PaddingBottom, DisplayName: Padding Bottom, FieldType: String, DefaultValue: , Description: Padding Bottom
 
-Sub Class_Globals
-	Private BANano As BANano 'ignore
-	Public mName As String 'ignore
-	Private mEventName As String 'ignore
-	Private mCallBack As Object 'ignore
-	Private mTarget As BANanoElement 'ignore
+#DesignerProperty: Key: Align, DisplayName: Align, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignContent, DisplayName: AlignContent, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignContentLg, DisplayName: AlignContentLg, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignContentMd, DisplayName: AlignContentMd, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignContentSm, DisplayName: AlignContentSm, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignContentXl, DisplayName: AlignContentXl, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignLg, DisplayName: AlignLg, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignMd, DisplayName: AlignMd, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignSm, DisplayName: AlignSm, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: AlignXl, DisplayName: AlignXl, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Dense, DisplayName: Dense, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Justify, DisplayName: Justify, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: JustifyLg, DisplayName: JustifyLg, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: JustifyMd, DisplayName: JustifyMd, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: JustifySm, DisplayName: JustifySm, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: JustifyXl, DisplayName: JustifyXl, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: NoGutters, DisplayName: NoGutters, Description: , DefaultValue: false, FieldType: Boolean
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Tag, DisplayName: Tag, Description: , DefaultValue: div, FieldType: String
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
+
+Sub Class_Globals 
+	Private BANano As BANano 'ignore 
+	Private data As Map 
+	Public mName As String 'ignore 
+	Private mEventName As String 'ignore 
+	Private mCallBack As Object 'ignore 
+	Private mTarget As BANanoElement 'ignore 
 	Private mElement As BANanoElement 'ignore
 
-	Private mClasses As String = ""
+Private properties As Map
+Private styles As Map
+Private classList As Map
+Private mClasses As String = "" 
 	Private mStyle As String = ""
-	Public MarginLeft As String = ""
-	Public MarginRight As String = ""
-	Public MarginTop As String = ""
-	Public MarginBottom As String = ""
-	Public PaddingLeft As String = ""
-	Public PaddingRight As String = ""
-	Public PaddingTop As String = ""
-	Public PaddingBottom As String = ""
 
-	Private mText As String = ""
-	Private mTagName As String = "v-row"
-	Private mVModel As String = ""
-	Private mRefName As String = ""
-	Private mKeyName As String = ""
-	Private mVText As String = ""
-	Private mVIf As String = ""
-	Private mVElse As String = ""
-	Private mVShow As String = ""
-	Private mVHtml As String = ""
-	Private mVFor As String = ""
-	Private Attributes As StringBuilder
-	Public bindings As Map
+Private mTagName As String = "v-row" 
+	Public bindings As Map 
 	Public methods As Map
-	Public sAlign As String = ""
-	Public sAlignContent As String = ""
-	Public sAlignContentLg As String = ""
-	Public sAlignContentMd As String = ""
-	Public sAlignContentSm As String = ""
-	Public sAlignContentXl As String = ""
-	Public sAlignLg As String = ""
-	Public sAlignMd As String = ""
-	Public sAlignSm As String = ""
-	Public sAlignXl As String = ""
-	Public bDense As Boolean = False
-	Public sJustify As String = ""
-	Public sJustifyLg As String = ""
-	Public sJustifyMd As String = ""
-	Public sJustifySm As String = ""
-	Public sJustifyXl As String = ""
-	Public bNoGutters As Boolean = False
-	Public sTag As String = "div"
+Private sAlign As String = ""
+Private sAlignContent As String = ""
+Private sAlignContentLg As String = ""
+Private sAlignContentMd As String = ""
+Private sAlignContentSm As String = ""
+Private sAlignContentXl As String = ""
+Private sAlignLg As String = ""
+Private sAlignMd As String = ""
+Private sAlignSm As String = ""
+Private sAlignXl As String = ""
+Private sCaption As String = ""
+Private bDense As Boolean = false
+Private sEnabled As String = ""
+Private sJustify As String = ""
+Private sJustifyLg As String = ""
+Private sJustifyMd As String = ""
+Private sJustifySm As String = ""
+Private sJustifyXl As String = ""
+Private sKey As String = ""
+Private bNoGutters As Boolean = false
+Private sReadonly As String = ""
+Private sRef As String = ""
+Private sRequired As String = ""
+Private sTag As String = "div"
+Private bVCloak As Boolean = False
+Private sVElse As String = ""
+Private sVFor As String = ""
+Private sVHtml As String = ""
+Private sVIf As String = ""
+Private sVModel As String = ""
+Private bVOnce As Boolean = False
+Private bVPre As Boolean = False
+Private sVShow As String = ""
+Private sVText As String = ""
 
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
-	mName = Name
-	mEventName = EventName.ToLowerCase
-	mCallBack = CallBack
-	bindings.Initialize
-	methods.Initialize
-	Attributes.Initialize
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VRow 
+mName = Name 
+mEventName = EventName.ToLowerCase 
+mCallBack = CallBack 
+bindings.Initialize 
+methods.Initialize 
+properties.Initialize 
+styles.Initialize 
+classList.Initialize 
+Return Me 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
-Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
+Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
 
-	If props <> Null Then
-		mClasses = props.Get("Classes")
-		mStyle = props.Get("Style")
-		MarginLeft = props.Get("MarginLeft")
-		MarginRight = props.Get("MarginRight")
-		MarginTop = props.Get("MarginTop")
-		MarginBottom = props.Get("MarginBottom")
-		PaddingLeft = props.Get("PaddingLeft")
-		PaddingRight = props.Get("PaddingRight")
-		PaddingTop = props.Get("PaddingTop")
-		PaddingBottom = props.Get("PaddingBottom")
-		mText = props.Get("Text")
-		mVModel = props.Get("VModel")
-		mRefName = props.Get("RefName")
-		mKeyName = props.Get("KeyName")
-		mVText = props.Get("VText")
-		mVIf = props.Get("VIf")
-		mVElse = props.Get("VElse")
-		mVShow = props.Get("VShow")
-		mVHtml = props.Get("VHtml")
-		mVFor = props.Get("VFor")
-		sAlign = props.Get("Align")
-		sAlignContent = props.Get("AlignContent")
-		sAlignContentLg = props.Get("AlignContentLg")
-		sAlignContentMd = props.Get("AlignContentMd")
-		sAlignContentSm = props.Get("AlignContentSm")
-		sAlignContentXl = props.Get("AlignContentXl")
-		sAlignLg = props.Get("AlignLg")
-		sAlignMd = props.Get("AlignMd")
-		sAlignSm = props.Get("AlignSm")
-		sAlignXl = props.Get("AlignXl")
-		bDense = props.Get("Dense")
-		sJustify = props.Get("Justify")
-		sJustifyLg = props.Get("JustifyLg")
-		sJustifyMd = props.Get("JustifyMd")
-		sJustifySm = props.Get("JustifySm")
-		sJustifyXl = props.Get("JustifyXl")
-		bNoGutters = props.Get("NoGutters")
-		sTag = props.Get("Tag")
+If props <> Null Then
+mClasses = props.Get("Classes") 
+mStyle = props.Get("Style")
+sAlign = props.Get("Align")
+sAlignContent = props.Get("AlignContent")
+sAlignContentLg = props.Get("AlignContentLg")
+sAlignContentMd = props.Get("AlignContentMd")
+sAlignContentSm = props.Get("AlignContentSm")
+sAlignContentXl = props.Get("AlignContentXl")
+sAlignLg = props.Get("AlignLg")
+sAlignMd = props.Get("AlignMd")
+sAlignSm = props.Get("AlignSm")
+sAlignXl = props.Get("AlignXl")
+sCaption = props.Get("Caption")
+bDense = props.Get("Dense")
+sEnabled = props.Get("Enabled")
+sJustify = props.Get("Justify")
+sJustifyLg = props.Get("JustifyLg")
+sJustifyMd = props.Get("JustifyMd")
+sJustifySm = props.Get("JustifySm")
+sJustifyXl = props.Get("JustifyXl")
+sKey = props.Get("Key")
+bNoGutters = props.Get("NoGutters")
+sReadonly = props.Get("Readonly")
+sRef = props.Get("Ref")
+sRequired = props.Get("Required")
+sTag = props.Get("Tag")
+bVCloak = props.Get("VCloak")
+sVElse = props.Get("VElse")
+sVFor = props.Get("VFor")
+sVHtml = props.Get("VHtml")
+sVIf = props.Get("VIf")
+sVModel = props.Get("VModel")
+bVOnce = props.Get("VOnce")
+bVPre = props.Get("VPre")
+sVShow = props.Get("VShow")
+sVText = props.Get("VText")
 
-		AddAttr(Attributes, mVModel, "s", "v-model")
-		AddAttr(Attributes, mRefName, "s", "ref")
-		AddAttr(Attributes, mKeyName, "s", "key")
-		AddAttr(Attributes, mVText, "s", "v-text")
-		AddAttr(Attributes, mVIf, "s", "v-if")
-		AddAttr(Attributes, mVElse, "s", "v-else")
-		AddAttr(Attributes, mVShow, "s", "v-show")
-		AddAttr(Attributes, mVHtml, "s", "v-html")
-		AddAttr(Attributes, mVFor, "s", "v-for")
-		AddAttr(Attributes, sAlign, "s", "align")
-		AddAttr(Attributes, sAlignContent, "s", "align-content")
-		AddAttr(Attributes, sAlignContentLg, "s", "align-content-lg")
-		AddAttr(Attributes, sAlignContentMd, "s", "align-content-md")
-		AddAttr(Attributes, sAlignContentSm, "s", "align-content-sm")
-		AddAttr(Attributes, sAlignContentXl, "s", "align-content-xl")
-		AddAttr(Attributes, sAlignLg, "s", "align-lg")
-		AddAttr(Attributes, sAlignMd, "s", "align-md")
-		AddAttr(Attributes, sAlignSm, "s", "align-sm")
-		AddAttr(Attributes, sAlignXl, "s", "align-xl")
-		AddAttr(Attributes, bDense, "b", "dense")
-		AddAttr(Attributes, sJustify, "s", "justify")
-		AddAttr(Attributes, sJustifyLg, "s", "justify-lg")
-		AddAttr(Attributes, sJustifyMd, "s", "justify-md")
-		AddAttr(Attributes, sJustifySm, "s", "justify-sm")
-		AddAttr(Attributes, sJustifyXl, "s", "justify-xl")
-		AddAttr(Attributes, bNoGutters, "b", "no-gutters")
-		AddAttr(Attributes, sTag, "s", "tag")
+End If
+Dim strHTML As String = ToString
+mElement = mTarget.Append(strHTML).Get("#" & mName)
 
-	End If
-	Dim exStyle As String = BuildExStyle
-	Dim exAttr As String = Attributes.ToString
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" class="${mClasses}" style="${exStyle}${mStyle}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
-
-	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
+' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
 
 
 End Sub
 
 'set align
-Sub SetAlign(varAlign As String)
-	sAlign = varAlign
-	mElement.SetAttr("align", sAlign)
+Sub SetAlign(varAlign As String) As VRow
+sAlign = varAlign
+SetAttr("align", sAlign)
+Return Me
 End Sub
 
 'set align-content
-Sub SetAlignContent(varAlignContent As String)
-	sAlignContent = varAlignContent
-	mElement.SetAttr("align-content", sAlignContent)
+Sub SetAlignContent(varAlignContent As String) As VRow
+sAlignContent = varAlignContent
+SetAttr("align-content", sAlignContent)
+Return Me
 End Sub
 
 'set align-content-lg
-Sub SetAlignContentLg(varAlignContentLg As String)
-	sAlignContentLg = varAlignContentLg
-	mElement.SetAttr("align-content-lg", sAlignContentLg)
+Sub SetAlignContentLg(varAlignContentLg As String) As VRow
+sAlignContentLg = varAlignContentLg
+SetAttr("align-content-lg", sAlignContentLg)
+Return Me
 End Sub
 
 'set align-content-md
-Sub SetAlignContentMd(varAlignContentMd As String)
-	sAlignContentMd = varAlignContentMd
-	mElement.SetAttr("align-content-md", sAlignContentMd)
+Sub SetAlignContentMd(varAlignContentMd As String) As VRow
+sAlignContentMd = varAlignContentMd
+SetAttr("align-content-md", sAlignContentMd)
+Return Me
 End Sub
 
 'set align-content-sm
-Sub SetAlignContentSm(varAlignContentSm As String)
-	sAlignContentSm = varAlignContentSm
-	mElement.SetAttr("align-content-sm", sAlignContentSm)
+Sub SetAlignContentSm(varAlignContentSm As String) As VRow
+sAlignContentSm = varAlignContentSm
+SetAttr("align-content-sm", sAlignContentSm)
+Return Me
 End Sub
 
 'set align-content-xl
-Sub SetAlignContentXl(varAlignContentXl As String)
-	sAlignContentXl = varAlignContentXl
-	mElement.SetAttr("align-content-xl", sAlignContentXl)
+Sub SetAlignContentXl(varAlignContentXl As String) As VRow
+sAlignContentXl = varAlignContentXl
+SetAttr("align-content-xl", sAlignContentXl)
+Return Me
 End Sub
 
 'set align-lg
-Sub SetAlignLg(varAlignLg As String)
-	sAlignLg = varAlignLg
-	mElement.SetAttr("align-lg", sAlignLg)
+Sub SetAlignLg(varAlignLg As String) As VRow
+sAlignLg = varAlignLg
+SetAttr("align-lg", sAlignLg)
+Return Me
 End Sub
 
 'set align-md
-Sub SetAlignMd(varAlignMd As String)
-	sAlignMd = varAlignMd
-	mElement.SetAttr("align-md", sAlignMd)
+Sub SetAlignMd(varAlignMd As String) As VRow
+sAlignMd = varAlignMd
+SetAttr("align-md", sAlignMd)
+Return Me
 End Sub
 
 'set align-sm
-Sub SetAlignSm(varAlignSm As String)
-	sAlignSm = varAlignSm
-	mElement.SetAttr("align-sm", sAlignSm)
+Sub SetAlignSm(varAlignSm As String) As VRow
+sAlignSm = varAlignSm
+SetAttr("align-sm", sAlignSm)
+Return Me
 End Sub
 
 'set align-xl
-Sub SetAlignXl(varAlignXl As String)
-	sAlignXl = varAlignXl
-	mElement.SetAttr("align-xl", sAlignXl)
+Sub SetAlignXl(varAlignXl As String) As VRow
+sAlignXl = varAlignXl
+SetAttr("align-xl", sAlignXl)
+Return Me
 End Sub
 
 'set dense
-Sub SetDense(varDense As Boolean)
-	bDense = varDense
-	mElement.SetAttr("dense", bDense)
+Sub SetDense(varDense As Boolean) As VRow
+bDense = varDense
+SetAttr("dense", bDense)
+Return Me
+End Sub
+
+'set enabled
+Sub SetEnabled(varEnabled As String) As VRow
+sEnabled = varEnabled
+SetAttr("enabled", sEnabled)
+Return Me
 End Sub
 
 'set justify
-Sub SetJustify(varJustify As String)
-	sJustify = varJustify
-	mElement.SetAttr("justify", sJustify)
+Sub SetJustify(varJustify As String) As VRow
+sJustify = varJustify
+SetAttr("justify", sJustify)
+Return Me
 End Sub
 
 'set justify-lg
-Sub SetJustifyLg(varJustifyLg As String)
-	sJustifyLg = varJustifyLg
-	mElement.SetAttr("justify-lg", sJustifyLg)
+Sub SetJustifyLg(varJustifyLg As String) As VRow
+sJustifyLg = varJustifyLg
+SetAttr("justify-lg", sJustifyLg)
+Return Me
 End Sub
 
 'set justify-md
-Sub SetJustifyMd(varJustifyMd As String)
-	sJustifyMd = varJustifyMd
-	mElement.SetAttr("justify-md", sJustifyMd)
+Sub SetJustifyMd(varJustifyMd As String) As VRow
+sJustifyMd = varJustifyMd
+SetAttr("justify-md", sJustifyMd)
+Return Me
 End Sub
 
 'set justify-sm
-Sub SetJustifySm(varJustifySm As String)
-	sJustifySm = varJustifySm
-	mElement.SetAttr("justify-sm", sJustifySm)
+Sub SetJustifySm(varJustifySm As String) As VRow
+sJustifySm = varJustifySm
+SetAttr("justify-sm", sJustifySm)
+Return Me
 End Sub
 
 'set justify-xl
-Sub SetJustifyXl(varJustifyXl As String)
-	sJustifyXl = varJustifyXl
-	mElement.SetAttr("justify-xl", sJustifyXl)
+Sub SetJustifyXl(varJustifyXl As String) As VRow
+sJustifyXl = varJustifyXl
+SetAttr("justify-xl", sJustifyXl)
+Return Me
+End Sub
+
+'set key
+Sub SetKey(varKey As String) As VRow
+sKey = varKey
+SetAttr("key", sKey)
+Return Me
 End Sub
 
 'set no-gutters
-Sub SetNoGutters(varNoGutters As Boolean)
-	bNoGutters = varNoGutters
-	mElement.SetAttr("no-gutters", bNoGutters)
+Sub SetNoGutters(varNoGutters As Boolean) As VRow
+bNoGutters = varNoGutters
+SetAttr("no-gutters", bNoGutters)
+Return Me
+End Sub
+
+'set readonly
+Sub SetReadonly(varReadonly As String) As VRow
+sReadonly = varReadonly
+SetAttr("readonly", sReadonly)
+Return Me
+End Sub
+
+'set ref
+Sub SetRef(varRef As String) As VRow
+sRef = varRef
+SetAttr("ref", sRef)
+Return Me
+End Sub
+
+'set required
+Sub SetRequired(varRequired As String) As VRow
+sRequired = varRequired
+SetAttr("required", sRequired)
+Return Me
 End Sub
 
 'set tag
-Sub SetTag(varTag As String)
-	sTag = varTag
-	mElement.SetAttr("tag", sTag)
+Sub SetTag(varTag As String) As VRow
+sTag = varTag
+SetAttr("tag", sTag)
+Return Me
+End Sub
+
+'set v-cloak
+Sub SetVCloak(varVCloak As Boolean) As VRow
+bVCloak = varVCloak
+SetAttr("v-cloak", bVCloak)
+Return Me
+End Sub
+
+'set v-else
+Sub SetVElse(varVElse As String) As VRow
+sVElse = varVElse
+SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-for
+Sub SetVFor(varVFor As String) As VRow
+sVFor = varVFor
+SetAttr("v-for", sVFor)
+Return Me
+End Sub
+
+'set v-html
+Sub SetVHtml(varVHtml As String) As VRow
+sVHtml = varVHtml
+SetAttr("v-html", sVHtml)
+Return Me
+End Sub
+
+'set v-if
+Sub SetVIf(varVIf As String) As VRow
+sVIf = varVIf
+SetAttr("v-if", sVIf)
+Return Me
+End Sub
+
+'set v-model
+Sub SetVModel(varVModel As String) As VRow
+sVModel = varVModel
+SetAttr("v-model", sVModel)
+Return Me
+End Sub
+
+'set v-once
+Sub SetVOnce(varVOnce As Boolean) As VRow
+bVOnce = varVOnce
+SetAttr("v-once", bVOnce)
+Return Me
+End Sub
+
+'set v-pre
+Sub SetVPre(varVPre As Boolean) As VRow
+bVPre = varVPre
+SetAttr("v-pre", bVPre)
+Return Me
+End Sub
+
+'set v-show
+Sub SetVShow(varVShow As String) As VRow
+sVShow = varVShow
+SetAttr("v-show", sVShow)
+Return Me
+End Sub
+
+'set v-text
+Sub SetVText(varVText As String) As VRow
+sVText = varVText
+SetAttr("v-text", sVText)
+Return Me
 End Sub
 
 
 
+'return the generated html
+Sub ToString As String
+AddAttr(sAlign, "align")
+AddAttr(sAlignContent, "align-content")
+AddAttr(sAlignContentLg, "align-content-lg")
+AddAttr(sAlignContentMd, "align-content-md")
+AddAttr(sAlignContentSm, "align-content-sm")
+AddAttr(sAlignContentXl, "align-content-xl")
+AddAttr(sAlignLg, "align-lg")
+AddAttr(sAlignMd, "align-md")
+AddAttr(sAlignSm, "align-sm")
+AddAttr(sAlignXl, "align-xl")
+AddAttr(sCaption, "caption")
+AddAttr(bDense, "dense")
+AddAttr(sEnabled, "enabled")
+AddAttr(sJustify, "justify")
+AddAttr(sJustifyLg, "justify-lg")
+AddAttr(sJustifyMd, "justify-md")
+AddAttr(sJustifySm, "justify-sm")
+AddAttr(sJustifyXl, "justify-xl")
+AddAttr(sKey, "key")
+AddAttr(bNoGutters, "no-gutters")
+AddAttr(sReadonly, "readonly")
+AddAttr(sRef, "ref")
+AddAttr(sRequired, "required")
+AddAttr(sTag, "tag")
+AddAttr(bVCloak, "v-cloak")
+AddAttr(sVElse, "v-else")
+AddAttr(sVFor, "v-for")
+AddAttr(sVHtml, "v-html")
+AddAttr(sVIf, "v-if")
+AddAttr(sVModel, "v-model")
+AddAttr(bVOnce, "v-once")
+AddAttr(bVPre, "v-pre")
+AddAttr(sVShow, "v-show")
+AddAttr(sVText, "v-text")
+
+'build the class list
+Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
+cKeys = cKeys & " " & mClasses
+cKeys = cKeys.trim
+AddAttr(cKeys, "class")
+'build the style list
+Dim sKeys As String = BANanoShared.BuildStyle(styles)
+sKeys = sKeys & " " & mStyle
+sKeys = sKeys.trim
+AddAttr(sKeys, "style")
+Dim exattr As String = BANanoShared.BuildAttributes(properties)
+
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Return strRes
+End Sub
+
+'add a child component
+Sub AddComponent(child As String) As VRow
+	mElement.Append(child)
+	sCaption = mElement.GetText
+	Return Me
+End Sub
+
+'change the id of the element, ONLY execute this after a manual Initialize
+Sub SetID(varText As String) As VRow
+	mname = varText
+	Return Me
+End Sub
+
+'get the text of the component
+public Sub GetCaption() As String
+	Return sCaption
+End Sub
 
 'add component to parent
-public Sub AddToParent(targetID As String)
+public Sub AddToParent(targetID As String) As VRow
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
+	Return Me
+End Sub
+
+'add component to app, this binds events and states
+Sub AddToApp(va As VueApp) As VRow
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		va.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		va.SetCallBack(k, cb)
+	Next
+	data = va.data	
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop as string, value as object)
+	data.put(prop, value)
 End Sub
 
 'remove component
 public Sub Remove()
-	mTarget.Empty
+	mElement.Empty
 	BANano.SetMeToNull
 End Sub
 
@@ -323,92 +510,42 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String)
-	Dim methodName As String = BANanoSnippets.BeautifyName(event)
+Sub SetVOn(event As String) As VRow
+	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
-	If SubExists(mCallBack, methodName) = False Then Return
+	If SubExists(mCallBack, methodName) = False Then Return Me
 	SetAttr($"v-on:${event}"$, methodName)
 	SetMethod(mCallBack, methodName)
+	Return Me
 End Sub
 
-Sub SetVFor(vfor As String)
-	mVFor = vfor
-	mElement.SetAttr("v-for", mVFor)
+'change the text of the element
+Sub SetCaption(varText As String) As VRow
+	If mElement <> Null Then
+		mElement.SetHTML(BANano.SF(varText))
+	End If
+	sCaption = varText
+	Return Me
 End Sub
 
-Sub SetVHtml(vhtml As String)
-	mVHtml = vhtml
-	mVHtml = BANano.SF(mVHtml)
-	mElement.SetAttr("v-html", mVHtml)
-End Sub
-
-Sub SetVShow(vshow As String)
-	mVShow = vshow
-	mElement.SetAttr("v-show", vshow)
-End Sub
-
-Sub SetVIf(vif As String)
-	mVIf = vif
-	mElement.SetAttr("v-if", mVIf)
-End Sub
-
-Sub SetVElse(velse As String)
-	mVElse = velse
-	mElement.SetAttr("v-else", mVElse)
-End Sub
-
-Sub SetVText(vtext As String)
-	mVText = vtext
-	mElement.SetAttr("v-text", mVText)
-End Sub
-
-Sub SetKey(skey As String)
-	mKeyName = skey
-	mElement.SetAttr("key", skey)
-End Sub
-
-Sub SetRef(ref As String)
-	mRefName = ref
-	mElement.SetAttr("ref", ref)
-End Sub
-
-Sub SetVModel(vmodel As String)
-	mVModel = vmodel
-	mElement.SetAttr("v-model", vmodel)
-End Sub
-
-'will add properties to attributes, s for strings an b for booleans
-private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, actProp As String)
-	Select Case varType
-		Case "b"
-			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
-		Case "s"
-			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
+'will add properties to attributes
+private Sub AddAttr(varName As String, actProp As String) As VRow
+	If varName <> "" Then properties.put(actprop, varname)
+	Select Case actProp
+	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
+		bindings.Put(varName, False)
 	End Select
-End Sub
-
-'build styles
-private Sub BuildExStyle() As String
-	Dim sb As StringBuilder
-	sb.Initialize
-	If MarginLeft <> "" Then sb.Append("margin-left: " & MarginLeft & ";")
-	If MarginRight <> "" Then sb.Append("margin-right: " & MarginRight & ";")
-	If MarginTop <> "" Then sb.Append("margin-top: " & MarginTop & ";")
-	If MarginBottom <> "" Then sb.Append("margin-bottom: " & MarginBottom & ";")
-	If PaddingLeft <> "" Then sb.Append("padding-left: " & PaddingLeft & ";")
-	If PaddingRight <> "" Then sb.Append("padding-right: " & PaddingRight & ";")
-	If PaddingTop <> "" Then sb.Append("padding-top: " & PaddingTop & ";")
-	If PaddingBottom <> "" Then sb.Append("padding-bottom: " & PaddingBottom & ";")
-	Return sb.ToString
+	Return Me
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String)
+public Sub SetClasses(Classes As String) As VRow
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
 	mClasses = Classes
+	Return Me
 End Sub
 
 public Sub GetClasses() As String
@@ -417,98 +554,96 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String)
+public Sub SetStyle(Style As String) As VRow
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
 	mStyle = Style
+	Return Me
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List)
+Sub AddClass(classNames As List) As VRow
 	For Each k As String In classNames
-		mElement.AddClass(k)
+		classList.put(k, k)
 	Next
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
+	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map)
+Sub SetStyles(m As Map) As VRow
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
+		styles.put(k, v)
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map)
+Sub SetAttrs(props As Map) As VRow
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
-		mElement.SetAttr(k, v)
+		SetAttr(k, v)
 	Next
+	Return Me
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String)
-	mElement.SetAttr(prop, value)
-End Sub
-
-'stop compilation
-Sub SetVPre
-	mElement.SetAttr("v-pre", True)
+Sub SetAttr(prop As String, value As String) As VRow
+	properties.put(prop, value)
+	If mElement <> Null Then 
+		mElement.SetAttr(prop, value)
+	End If
+	Return Me
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String)
+Sub SetVBind(prop As String, value As String) As VRow
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
-	mElement.SetAttr(prop,value)
+	SetAttr(prop,value)
 	bindings.Put(value, Null)
+	Return Me
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String)
-	Dim m As Map = CreateMap()
-	m.Put(prop, value)
+Sub SetStyleSingle(prop As String, value As String) As VRow
+	styles.put(prop, value)
+	dim m as map = createmap()
+	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List)
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VRow
 	If loose <> Null Then
 		For Each k As String In loose
-			mElement.SetAttr(k, True)
+			SetAttr(k, True)
 		Next
 	End If
 	If props <> Null Then
 		For Each k As String In props.Keys
 			Dim v As String = props.Get(k)
-			mElement.SetAttr(k, v)
+			SetAttr(k, v)
 		Next
 	End If
 	If styleProps <> Null Then
-		Dim jsonStyle As String = BANano.ToJson(styleProps)
-		mElement.SetStyle(jsonStyle)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
+			SetStyleSingle(k, v)
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
 	End If
-End Sub
-
-'get text
-public Sub GetText() As String
-	Return mElement.GetText
-End Sub
-
-'hide until compilation finishes
-Sub SetVCloak
-	If mElement <> Null Then
-		mElement.SetAttr("v-cloak", True)
-	End If
-End Sub
-
-'compile once
-Sub SetVOnce
-	mElement.SetAttr("v-once", True)
+	Return Me
 End Sub
 
 'get html
@@ -517,44 +652,47 @@ Public Sub GetHtml() As String
 End Sub
 
 'set color
-Sub SetColor(varColor As String)
-	If varColor = "" Then Return
+Sub SetColor1(varColor As String) As VRow
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, varColor)
+	Return Me
 End Sub
 
 'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String)
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VRow
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, scolor)
+	Return Me
 End Sub
 
 'set text color
-Sub SetTextColor(varColor As String)
+Sub SetTextColor1(varColor As String) As VRow
 	Dim sColor As String = $"${varColor}--text"$
-	mElement.AddClass(sColor)
+	AddClass(array(sColor))
+	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String)
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VRow
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	mElement.AddClass(mcolor)
+	AddClass(array(mcolor))
+	Return Me
 End Sub
 
-
 'set direct method
-Sub SetMethod(Module As Object,methodName As String)
+Sub SetMethod(Module As Object,methodName As String) As VRow
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
 		methods.Put(methodName, cb)
 	End If
+	Return Me
 End Sub
