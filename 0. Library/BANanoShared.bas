@@ -16,6 +16,8 @@ Sub NewList As List
 	Return elx
 End Sub
 
+
+
 'get id from event
 Sub GetIDFromEvent(e As BANanoEvent) As String
 	Dim curEve As BANanoElement = BANano.ToElement(e.OtherField("currentTarget"))
@@ -88,9 +90,13 @@ Sub Capitalize(t As String) As String
 End Sub
 
 Sub StrParse(delim As String, inputString As String) As List
-	Dim values() As String = BANano.Split(delim,inputString)
 	Dim nl As List
 	nl.Initialize
+	inputString = CStr(inputString)
+	If inputString = "null" Then inputString = ""
+	If inputString = "undefined" Then inputString = ""
+	If inputString = "" Then Return nl
+	Dim values() As String = BANano.Split(delim,inputString)
 	nl.AddAll(values)
 	Return nl
 End Sub
@@ -234,67 +240,40 @@ End Sub
 Sub BuildStyle(styles As Map) As String
 	Dim sbx As StringBuilder
 	sbx.Initialize
-	Dim kCnt As Int
-	Dim kTot As Int = styles.Size - 1
-	
-	Dim strKey As String = styles.GetKeyAt(0)
-	Dim strValue As String = styles.Get(strKey)
-	Dim strLine As String = ToStyle(strKey,strValue)
-	sbx.Append(strLine)
-	For kCnt = 1 To kTot
-		Dim strKey As String = styles.GetKeyAt(kCnt)
-		Dim strValue As String = styles.Get(strKey)
-		Dim strLine As String = ToStyle(strKey,strValue)
-		sbx.Append(" ")
-		sbx.Append(strLine)
+	For Each k As String In styles.keys
+		Dim v As String = styles.get(k)
+		If BANano.IsUndefined(v) Then v = ""
+		If BANano.IsNull(v) Then v = ""
+		k = k.trim
+		v = v.trim
+		If k = "" Then Exit
+		If v = "" Then Exit
+		sbx.Append($"${k}:${v};"$)
 	Next
 	Return sbx.tostring
 End Sub
 
 Sub BuildAttributes(properties As Map) As String
+	If properties.ContainsKey("tagname") Then
+		properties.remove("tagname")
+	End If
 	Dim sbx As StringBuilder
 	sbx.Initialize
-	Dim kTot As Int = properties.Size - 1
-	Dim kCnt As Int
-	Dim strKey As String = properties.GetKeyAt(0)
-	Dim strValue As String = properties.Get(strKey)
-	sbx.Append(ToProperty(strKey,strValue))
-	For kCnt = 1 To kTot
-		strKey = properties.GetKeyAt(kCnt)
-		strValue = properties.Get(strKey)
-		sbx.Append(" ")
-		sbx.Append(ToProperty(strKey,strValue))
+	For Each k As String In properties.keys
+		Dim v As String = properties.get(k)
+		If BANano.IsUndefined(v) Then v = ""
+		If BANano.IsNull(v) Then v = ""
+		If BANano.IsBoolean(v) Then
+			sbx.Append($"${k}="${v}" "$)
+		Else
+			k = k.trim
+			v = v.trim
+			If k = "" Then Exit
+			If v = "" Then Exit
+			sbx.Append($"${k}="${v}" "$)
+		End If
 	Next
 	Return sbx.tostring
-End Sub
-
-'return a key value string for an attribute
-Sub ToProperty(sName As String, svalue As String) As String
-	sName = CStr(sName)
-	sName = sName.Trim
-	Dim script As String = ""
-	If sName.Length > 0 Then
-		script = $"${sName}="${svalue}""$
-		script = script.trim
-		Return script
-	Else
-		Return ""
-	End If
-End Sub
-
-'convert such to property
-Sub ToStyle(sName As String, svalue As String) As String
-	If sName.Length > 0 And svalue.Length > 0 Then
-		Dim ew As Boolean = sName.EndsWith(":")
-		If ew Then
-			sName = MvField(sName,1,":")
-		End If
-		Dim sout As String = $"${sName}:${svalue};"$
-		If sout = ":;" Then sout = ""
-		Return sout
-	Else
-		Return ""
-	End If
 End Sub
 
 Sub JoinMapKeys(m As Map, delim As String) As String
@@ -467,8 +446,8 @@ private Sub DoUpload(fileObj As Object) As String   'ignore
 		Else
 			Dim err As Map = CreateMap()
 			err.Put("status", "error")
-			Dim serr As String = BANAno.ToJson(err)
-			BANAno.ReturnElse(serr)
+			Dim serr As String = BANano.ToJson(err)
+			BANano.ReturnElse(serr)
 		End If
 	End If
 	xhr.CloseEventListener
@@ -484,7 +463,7 @@ Sub HTTPUpload(fileObj As Object, module As Object, methodname As String)
 	' call the http request
 	promise.CallSub(Me, "DoUpload", Array(fileObj))
 	promise.ThenWait(json)
-	BANAno.CallSub(module, methodname, Array(fileObj, json))
+	BANano.CallSub(module, methodname, Array(fileObj, json))
 	promise.ElseWait(Error)  'ignore
 	BANano.CallSub(module, methodname, Array(fileObj, Error))
 	promise.End
@@ -641,7 +620,7 @@ Public Sub MonthNow() As String
 End Sub
 
 Sub DateAdd(mDate As String, HowManyDays As Int) As String
-	HowManyDays = BANAno.parseInt(HowManyDays)
+	HowManyDays = BANano.parseInt(HowManyDays)
 	Dim ConvertDate, NewDateDay As Long
 	ConvertDate = DateTime.DateParse(mDate)
 	NewDateDay = DateTime.Add(ConvertDate, 0, 0, HowManyDays)
@@ -1547,7 +1526,7 @@ End Sub
 
 'convert object to string
 Sub CStr(o As Object) As String
-	If o = BANAno.UNDEFINED Then o = ""
+	If o = BANano.UNDEFINED Then o = ""
 	Return "" & o
 End Sub
 

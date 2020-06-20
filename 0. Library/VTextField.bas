@@ -1,4 +1,4 @@
-﻿B4J=true
+2020-06-20 16:37:48 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -22,127 +22,152 @@ Version=8.3
 #Event: updateerror (argument As Boolean)
 
 
-#DesignerProperty: Key: AppendIcon, DisplayName: AppendIcon, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: AppendOuterIcon, DisplayName: AppendOuterIcon, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Autofocus, DisplayName: Autofocus, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, Description: , DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String
-#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: ClearIcon, DisplayName: ClearIcon, Description: , DefaultValue: $clear, FieldType: String
-#DesignerProperty: Key: Clearable, DisplayName: Clearable, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String
-#DesignerProperty: Key: Counter, DisplayName: Counter, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Dense, DisplayName: Dense, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Error, DisplayName: Error, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: ErrorCount, DisplayName: ErrorCount, Description: , DefaultValue: 1, FieldType: String
-#DesignerProperty: Key: Filled, DisplayName: Filled, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: FullWidth, DisplayName: FullWidth, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Height, DisplayName: Height, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: HideDetails, DisplayName: HideDetails, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Hint, DisplayName: Hint, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Label, DisplayName: Label, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Light, DisplayName: Light, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: LoaderHeight, DisplayName: LoaderHeight, Description: , DefaultValue: 2, FieldType: String
-#DesignerProperty: Key: Loading, DisplayName: Loading, Description: , DefaultValue: false, FieldType: String
-#DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: PersistentHint, DisplayName: PersistentHint, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Placeholder, DisplayName: Placeholder, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Prefix, DisplayName: Prefix, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: PrependIcon, DisplayName: PrependIcon, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: PrependInnerIcon, DisplayName: PrependInnerIcon, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Reverse, DisplayName: Reverse, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Shaped, DisplayName: Shaped, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: SingleLine, DisplayName: SingleLine, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Solo, DisplayName: Solo, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: SoloInverted, DisplayName: SoloInverted, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Success, DisplayName: Success, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Suffix, DisplayName: Suffix, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Type, DisplayName: Type, Description: , DefaultValue: text, FieldType: String
-#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
-#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
-#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
-#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: ValidateOnBlur, DisplayName: ValidateOnBlur, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Value, DisplayName: Value, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: AppendIcon, DisplayName: AppendIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: AppendOuterIcon, DisplayName: AppendOuterIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Autofocus, DisplayName: Autofocus, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ClearIcon, DisplayName: ClearIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Clearable, DisplayName: Clearable, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Counter, DisplayName: Counter, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: CounterValue, DisplayName: CounterValue, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Dense, DisplayName: Dense, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Error, DisplayName: Error, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ErrorCount, DisplayName: ErrorCount, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ErrorMessages, DisplayName: ErrorMessages, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Filled, DisplayName: Filled, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: FullWidth, DisplayName: FullWidth, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: HideDetails, DisplayName: HideDetails, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Hint, DisplayName: Hint, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Label, DisplayName: Label, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: LoaderHeight, DisplayName: LoaderHeight, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Loading, DisplayName: Loading, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Messages, DisplayName: Messages, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: PersistentHint, DisplayName: PersistentHint, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Placeholder, DisplayName: Placeholder, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Prefix, DisplayName: Prefix, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PrependIcon, DisplayName: PrependIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PrependInnerIcon, DisplayName: PrependInnerIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Reverse, DisplayName: Reverse, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Shaped, DisplayName: Shaped, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: SingleLine, DisplayName: SingleLine, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Solo, DisplayName: Solo, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: SoloInverted, DisplayName: SoloInverted, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Success, DisplayName: Success, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: SuccessMessages, DisplayName: SuccessMessages, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Suffix, DisplayName: Suffix, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Type, DisplayName: Type, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ValidateOnBlur, DisplayName: ValidateOnBlur, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
+#DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginTop, DisplayName: MarginTop, Description: Set margin-top, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginRight, DisplayName: MarginRight, Description: Set margin-right, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginBottom, DisplayName: MarginBottom, Description: Set margin-bottom, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginLeft, DisplayName: MarginLeft, Description: Set margin-left, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingTop, DisplayName: PaddingTop, Description: Set padding-top, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
 
 Sub Class_Globals 
-	Private BANano As BANano 'ignore 
-	Private data As Map 
-	Public mName As String 'ignore 
-	Private mEventName As String 'ignore 
-	Private mCallBack As Object 'ignore 
-	Private mTarget As BANanoElement 'ignore 
-	Private mElement As BANanoElement 'ignore
+Private BANano As BANano 'ignore 
+Private data As Map 
+private appLink As VueApp 'ignore 
+Public mName As String 'ignore 
+Private mEventName As String 'ignore 
+Private mCallBack As Object 'ignore 
+Private mTarget As BANanoElement 'ignore 
+Private mElement As BANanoElement 'ignore
 
 Private properties As Map
 Private styles As Map
 Private classList As Map
 Private mClasses As String = "" 
-	Private mStyle As String = ""
+	Private mStyle As String = "" 
+	Private mAttributes As String = ""
 
 Private mTagName As String = "v-text-field" 
 	Public bindings As Map 
 	Public methods As Map
 Private sAppendIcon As String = ""
 Private sAppendOuterIcon As String = ""
-Private bAutofocus As Boolean = false
+Private bAutofocus As Boolean = False
 Private sBackgroundColor As String = ""
 Private sCaption As String = ""
-Private sClearIcon As String = "$clear"
-Private bClearable As Boolean = false
+Private sClearIcon As String = ""
+Private bClearable As Boolean = False
 Private sColor As String = ""
 Private sCounter As String = ""
-Private bDark As Boolean = false
-Private bDense As Boolean = false
-Private bDisabled As Boolean = false
-Private sEnabled As String = ""
-Private bError As Boolean = false
-Private sErrorCount As String = "1"
-Private bFilled As Boolean = false
-Private bFlat As Boolean = false
-Private bFullWidth As Boolean = false
+Private sCounterValue As String = ""
+Private bDark As Boolean = False
+Private bDense As Boolean = False
+Private bDisabled As Boolean = False
+Private bError As Boolean = False
+Private sErrorCount As String = ""
+Private sErrorMessages As String = ""
+Private bFilled As Boolean = False
+Private bFlat As Boolean = False
+Private bFullWidth As Boolean = False
 Private sHeight As String = ""
 Private sHideDetails As String = ""
 Private sHint As String = ""
 Private sKey As String = ""
 Private sLabel As String = ""
-Private bLight As Boolean = false
-Private sLoaderHeight As String = "2"
-Private sLoading As String = "false"
-Private bOutlined As Boolean = false
-Private bPersistentHint As Boolean = false
+Private bLight As Boolean = False
+Private sLoaderHeight As String = ""
+Private sLoading As String = ""
+Private sMessages As String = ""
+Private bOutlined As Boolean = False
+Private bPersistentHint As Boolean = False
 Private sPlaceholder As String = ""
 Private sPrefix As String = ""
 Private sPrependIcon As String = ""
 Private sPrependInnerIcon As String = ""
-Private bReadonly As Boolean = false
+Private bReadonly As Boolean = False
 Private sRef As String = ""
 Private sRequired As String = ""
-Private bReverse As Boolean = false
-Private bRounded As Boolean = false
-Private bShaped As Boolean = false
-Private bSingleLine As Boolean = false
-Private bSolo As Boolean = false
-Private bSoloInverted As Boolean = false
-Private bSuccess As Boolean = false
+Private bReverse As Boolean = False
+Private bRounded As Boolean = False
+Private bShaped As Boolean = False
+Private bSingleLine As Boolean = False
+Private bSolo As Boolean = False
+Private bSoloInverted As Boolean = False
+Private bSuccess As Boolean = False
+Private sSuccessMessages As String = ""
 Private sSuffix As String = ""
-Private sType As String = "text"
+Private sType As String = ""
+Private sVBindClass As String = ""
+Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
 Private sVFor As String = ""
@@ -153,8 +178,20 @@ Private bVOnce As Boolean = False
 Private bVPre As Boolean = False
 Private sVShow As String = ""
 Private sVText As String = ""
-Private bValidateOnBlur As Boolean = false
+Private bValidateOnBlur As Boolean = False
 Private sValue As String = ""
+Private sBorderColor As String = ""
+Private sBorderStyle As String = ""
+Private sBorderWidth As String = ""
+Private sBorderRadius As String = ""
+Private sMarginTop As String = ""
+Private sMarginRight As String = ""
+Private sMarginBottom As String = ""
+Private sMarginLeft As String = ""
+Private sPaddingTop As String = ""
+Private sPaddingRight As String = ""
+Private sPaddingBottom As String = ""
+Private sPaddingLeft As String = ""
 
 End Sub
 
@@ -176,6 +213,7 @@ Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
 
 If props <> Null Then
 mClasses = props.Get("Classes") 
+mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
 sAppendIcon = props.Get("AppendIcon")
 sAppendOuterIcon = props.Get("AppendOuterIcon")
@@ -186,12 +224,13 @@ sClearIcon = props.Get("ClearIcon")
 bClearable = props.Get("Clearable")
 sColor = props.Get("Color")
 sCounter = props.Get("Counter")
+sCounterValue = props.Get("CounterValue")
 bDark = props.Get("Dark")
 bDense = props.Get("Dense")
 bDisabled = props.Get("Disabled")
-sEnabled = props.Get("Enabled")
 bError = props.Get("Error")
 sErrorCount = props.Get("ErrorCount")
+sErrorMessages = props.Get("ErrorMessages")
 bFilled = props.Get("Filled")
 bFlat = props.Get("Flat")
 bFullWidth = props.Get("FullWidth")
@@ -203,6 +242,7 @@ sLabel = props.Get("Label")
 bLight = props.Get("Light")
 sLoaderHeight = props.Get("LoaderHeight")
 sLoading = props.Get("Loading")
+sMessages = props.Get("Messages")
 bOutlined = props.Get("Outlined")
 bPersistentHint = props.Get("PersistentHint")
 sPlaceholder = props.Get("Placeholder")
@@ -219,8 +259,11 @@ bSingleLine = props.Get("SingleLine")
 bSolo = props.Get("Solo")
 bSoloInverted = props.Get("SoloInverted")
 bSuccess = props.Get("Success")
+sSuccessMessages = props.Get("SuccessMessages")
 sSuffix = props.Get("Suffix")
 sType = props.Get("Type")
+sVBindClass = props.Get("VBindClass")
+sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
 sVFor = props.Get("VFor")
@@ -233,6 +276,18 @@ sVShow = props.Get("VShow")
 sVText = props.Get("VText")
 bValidateOnBlur = props.Get("ValidateOnBlur")
 sValue = props.Get("Value")
+sBorderColor = props.Get("BorderColor")
+sBorderStyle = props.Get("BorderStyle")
+sBorderWidth = props.Get("BorderWidth")
+sBorderRadius = props.Get("BorderRadius")
+sMarginTop = props.Get("MarginTop")
+sMarginRight = props.Get("MarginRight")
+sMarginBottom = props.Get("MarginBottom")
+sMarginLeft = props.Get("MarginLeft")
+sPaddingTop = props.Get("PaddingTop")
+sPaddingRight = props.Get("PaddingRight")
+sPaddingBottom = props.Get("PaddingBottom")
+sPaddingLeft = props.Get("PaddingLeft")
 
 End If
 Dim strHTML As String = ToString
@@ -329,8 +384,9 @@ Return Me
 End Sub
 
 'set counter-value
-Sub SetCounterValue(varCounterValue As Object) As VTextField
-SetAttr("counter-value", varCounterValue)
+Sub SetCounterValue(varCounterValue As String) As VTextField
+sCounterValue = varCounterValue
+SetAttr("counter-value", sCounterValue)
 Return Me
 End Sub
 
@@ -355,13 +411,6 @@ SetAttr("disabled", bDisabled)
 Return Me
 End Sub
 
-'set enabled
-Sub SetEnabled(varEnabled As String) As VTextField
-sEnabled = varEnabled
-SetAttr("enabled", sEnabled)
-Return Me
-End Sub
-
 'set error
 Sub SetError(varError As Boolean) As VTextField
 bError = varError
@@ -377,8 +426,9 @@ Return Me
 End Sub
 
 'set error-messages
-Sub SetErrorMessages(varErrorMessages As Object) As VTextField
-SetAttr("error-messages", varErrorMessages)
+Sub SetErrorMessages(varErrorMessages As String) As VTextField
+sErrorMessages = varErrorMessages
+SetAttr("error-messages", sErrorMessages)
 Return Me
 End Sub
 
@@ -460,8 +510,9 @@ Return Me
 End Sub
 
 'set messages
-Sub SetMessages(varMessages As Object) As VTextField
-SetAttr("messages", varMessages)
+Sub SetMessages(varMessages As String) As VTextField
+sMessages = varMessages
+SetAttr("messages", sMessages)
 Return Me
 End Sub
 
@@ -584,8 +635,9 @@ Return Me
 End Sub
 
 'set success-messages
-Sub SetSuccessMessages(varSuccessMessages As Object) As VTextField
-SetAttr("success-messages", varSuccessMessages)
+Sub SetSuccessMessages(varSuccessMessages As String) As VTextField
+sSuccessMessages = varSuccessMessages
+SetAttr("success-messages", sSuccessMessages)
 Return Me
 End Sub
 
@@ -600,6 +652,20 @@ End Sub
 Sub SetType(varType As String) As VTextField
 sType = varType
 SetAttr("type", sType)
+Return Me
+End Sub
+
+'set v-bind:class
+Sub SetVBindClass(varVBindClass As String) As VTextField
+sVBindClass = varVBindClass
+SetAttr("v-bind:class", sVBindClass)
+Return Me
+End Sub
+
+'set v-bind:style
+Sub SetVBindStyle(varVBindStyle As String) As VTextField
+sVBindStyle = varVBindStyle
+SetAttr("v-bind:style", sVBindStyle)
 Return Me
 End Sub
 
@@ -687,6 +753,90 @@ SetAttr("value", sValue)
 Return Me
 End Sub
 
+'set border-color
+Sub SetBorderColor(varBorderColor As String) As VTextField
+sBorderColor = varBorderColor
+SetStyleSingle("border-color", sBorderColor)
+Return Me
+End Sub
+
+'set border-style
+Sub SetBorderStyle(varBorderStyle As String) As VTextField
+sBorderStyle = varBorderStyle
+SetStyleSingle("border-style", sBorderStyle)
+Return Me
+End Sub
+
+'set border-width
+Sub SetBorderWidth(varBorderWidth As String) As VTextField
+sBorderWidth = varBorderWidth
+SetStyleSingle("border-width", sBorderWidth)
+Return Me
+End Sub
+
+'set border-radius
+Sub SetBorderRadius(varBorderRadius As String) As VTextField
+sBorderRadius = varBorderRadius
+SetStyleSingle("border-radius", sBorderRadius)
+Return Me
+End Sub
+
+'set margin-top
+Sub SetMarginTop(varMarginTop As String) As VTextField
+sMarginTop = varMarginTop
+SetStyleSingle("margin-top", sMarginTop)
+Return Me
+End Sub
+
+'set margin-right
+Sub SetMarginRight(varMarginRight As String) As VTextField
+sMarginRight = varMarginRight
+SetStyleSingle("margin-right", sMarginRight)
+Return Me
+End Sub
+
+'set margin-bottom
+Sub SetMarginBottom(varMarginBottom As String) As VTextField
+sMarginBottom = varMarginBottom
+SetStyleSingle("margin-bottom", sMarginBottom)
+Return Me
+End Sub
+
+'set margin-left
+Sub SetMarginLeft(varMarginLeft As String) As VTextField
+sMarginLeft = varMarginLeft
+SetStyleSingle("margin-left", sMarginLeft)
+Return Me
+End Sub
+
+'set padding-top
+Sub SetPaddingTop(varPaddingTop As String) As VTextField
+sPaddingTop = varPaddingTop
+SetStyleSingle("padding-top", sPaddingTop)
+Return Me
+End Sub
+
+'set padding-right
+Sub SetPaddingRight(varPaddingRight As String) As VTextField
+sPaddingRight = varPaddingRight
+SetStyleSingle("padding-right", sPaddingRight)
+Return Me
+End Sub
+
+'set padding-bottom
+Sub SetPaddingBottom(varPaddingBottom As String) As VTextField
+sPaddingBottom = varPaddingBottom
+SetStyleSingle("padding-bottom", sPaddingBottom)
+Return Me
+End Sub
+
+'set padding-left
+Sub SetPaddingLeft(varPaddingLeft As String) As VTextField
+sPaddingLeft = varPaddingLeft
+SetStyleSingle("padding-left", sPaddingLeft)
+Return Me
+End Sub
+
 
 'set on blur event, updates the master events records
 Sub SetOnBlur() As VTextField
@@ -694,6 +844,7 @@ Dim sName As String = $"${mEventName}_blur"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:blur", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -706,6 +857,7 @@ Dim sName As String = $"${mEventName}_change"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:change", sName)
+'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -718,6 +870,7 @@ Dim sName As String = $"${mEventName}_click"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:click", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -730,6 +883,7 @@ Dim sName As String = $"${mEventName}_clickappend"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:click:append", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -742,6 +896,7 @@ Dim sName As String = $"${mEventName}_clickappendouter"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:click:append-outer", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -754,6 +909,7 @@ Dim sName As String = $"${mEventName}_clickclear"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:click:clear", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -766,6 +922,7 @@ Dim sName As String = $"${mEventName}_clickprepend"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:click:prepend", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -778,6 +935,7 @@ Dim sName As String = $"${mEventName}_clickprependinner"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:click:prepend-inner", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -790,6 +948,7 @@ Dim sName As String = $"${mEventName}_focus"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:focus", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -802,6 +961,7 @@ Dim sName As String = $"${mEventName}_input"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:input", sName)
+'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -814,6 +974,7 @@ Dim sName As String = $"${mEventName}_keydown"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:keydown", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -826,6 +987,7 @@ Dim sName As String = $"${mEventName}_mousedown"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:mousedown", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -838,6 +1000,7 @@ Dim sName As String = $"${mEventName}_mouseup"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:mouseup", sName)
+'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -850,6 +1013,7 @@ Dim sName As String = $"${mEventName}_updateerror"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 SetAttr("v-on:update:error", sName)
+'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
@@ -868,12 +1032,13 @@ AddAttr(sClearIcon, "clear-icon")
 AddAttr(bClearable, "clearable")
 AddAttr(sColor, "color")
 AddAttr(sCounter, "counter")
+AddAttr(sCounterValue, "counter-value")
 AddAttr(bDark, "dark")
 AddAttr(bDense, "dense")
 AddAttr(bDisabled, "disabled")
-AddAttr(sEnabled, "enabled")
 AddAttr(bError, "error")
 AddAttr(sErrorCount, "error-count")
+AddAttr(sErrorMessages, "error-messages")
 AddAttr(bFilled, "filled")
 AddAttr(bFlat, "flat")
 AddAttr(bFullWidth, "full-width")
@@ -885,6 +1050,7 @@ AddAttr(sLabel, "label")
 AddAttr(bLight, "light")
 AddAttr(sLoaderHeight, "loader-height")
 AddAttr(sLoading, "loading")
+AddAttr(sMessages, "messages")
 AddAttr(bOutlined, "outlined")
 AddAttr(bPersistentHint, "persistent-hint")
 AddAttr(sPlaceholder, "placeholder")
@@ -901,8 +1067,11 @@ AddAttr(bSingleLine, "single-line")
 AddAttr(bSolo, "solo")
 AddAttr(bSoloInverted, "solo-inverted")
 AddAttr(bSuccess, "success")
+AddAttr(sSuccessMessages, "success-messages")
 AddAttr(sSuffix, "suffix")
 AddAttr(sType, "type")
+AddAttr(sVBindClass, "v-bind:class")
+AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
 AddAttr(sVFor, "v-for")
@@ -915,6 +1084,18 @@ AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
 AddAttr(bValidateOnBlur, "validate-on-blur")
 AddAttr(sValue, "value")
+SetStyleSingle("border-color", sBorderColor)
+SetStyleSingle("border-style", sBorderStyle)
+SetStyleSingle("border-width", sBorderWidth)
+SetStyleSingle("border-radius", sBorderRadius)
+SetStyleSingle("margin-top", sMarginTop)
+SetStyleSingle("margin-right", sMarginRight)
+SetStyleSingle("margin-bottom", sMarginBottom)
+SetStyleSingle("margin-left", sMarginLeft)
+SetStyleSingle("padding-top", sPaddingTop)
+SetStyleSingle("padding-right", sPaddingRight)
+SetStyleSingle("padding-bottom", sPaddingBottom)
+SetStyleSingle("padding-left", sPaddingLeft)
 
 'build the class list
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
@@ -922,10 +1103,30 @@ cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
 AddAttr(cKeys, "class")
 'build the style list
+If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
+If mStyle.StartsWith("{") Then mStyle = ""
+If mStyle <> "" Then
+Dim sItems As List = BANanoShared.StrParse(",",mStyle)
+For Each st As String In sItems
+Dim k As String = BANanoShared.MvField(st,1,":")
+Dim v As String = BANanoShared.MvField(st,2,":")
+SetStyleSingle(k, v)
+Next
+End If
 Dim sKeys As String = BANanoShared.BuildStyle(styles)
-sKeys = sKeys & " " & mStyle
 sKeys = sKeys.trim
 AddAttr(sKeys, "style")
+'build the attributes
+If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
+If mAttributes.StartsWith("{") Then mAttributes = ""
+If mAttributes <> "" Then
+Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+For Each mt As String In mItems
+Dim k As String = BANanoShared.MvField(mt,1,":")
+Dim v As String = BANanoShared.MvField(mt,2,":")
+AddAttr(k, v)
+Next
+End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
@@ -958,24 +1159,26 @@ public Sub AddToParent(targetID As String) As VTextField
 End Sub
 
 'add component to app, this binds events and states
-Sub AddToApp(va As VueApp) As VTextField
+Sub AddToApp(vap As VueApp) As VTextField
+	appLink = vap
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
-		va.SetData(k, v)
+		vap.SetData(k, v)
 	Next
 	'apply the events
 	For Each k As String In methods.Keys
 		Dim cb As BANanoObject = methods.Get(k)
-		va.SetCallBack(k, cb)
+		vap.SetCallBack(k, cb)
 	Next
-	data = va.data	
 	Return Me
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object)
+Sub SetData(prop as string, value as object) As VTextField
 	data.put(prop, value)
+	Return Me
 End Sub
 
 'remove component
@@ -1013,11 +1216,34 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VTextField
-	If varName <> "" Then properties.put(actprop, varname)
-	Select Case actProp
-	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
-		bindings.Put(varName, False)
-	End Select
+	If actProp = "caption" Then Return Me
+	Try
+		If BANano.IsBoolean(varName) Then
+			If varName = True Then properties.put(actProp, varName)
+		Else	
+			If varName.StartsWith(":") Then
+				'this is a binding
+				'get the real name
+				Dim rname As String = BANanoShared.MidString2(varName, 2)
+				If rname.Contains(".") Then
+					'we are linked to a for loop
+					properties.Put($":${actProp}"$, rname)
+				Else
+					properties.Put($":${actProp}"$, rname)
+					bindings.Put(rname, Null)
+				End If
+			Else
+				If varName <> "" Then properties.put(actProp, varName)
+				Select Case actProp
+				Case "v-model", "v-show", "v-if", "required", "disabled", "readonly"
+					bindings.Put(varName, False)
+				End Select
+			End If
+		End If
+	Catch
+		Log(LastException)
+	
+	End Try
 	Return Me
 End Sub
 
@@ -1076,6 +1302,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VTextField
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -1095,6 +1324,9 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VTextField
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
 	dim m as map = createmap()
 	m.put(prop, value)
@@ -1131,6 +1363,18 @@ End Sub
 'get html
 Public Sub GetHtml() As String
 	Return mElement.GetHtml
+End Sub
+
+'bind classes
+Sub SetVClass(classObj as string) As VTextField
+	SetVBind("class", classObj)
+	Return Me
+End Sub
+
+'bind styles
+Sub SetVStyle(styleObj as string) As VTextField
+	SetVBind("style", styleObj)
+	Return Me
 End Sub
 
 'set color
@@ -1178,3 +1422,96 @@ Sub SetMethod(Module As Object,methodName As String) As VTextField
 	End If
 	Return Me
 End Sub
+
+'toggle
+Sub Toggle As VTextField
+	If sVShow = "" Then
+		Log($"VTextField.Toggle - the v-show for ${mName} has not been set!"$)
+		Return Me
+	End If
+	'get the current state
+	Dim cs As Boolean = data.Get(sVShow)
+	If cs = Null Then cs = False
+	cs = Not(cs)
+	data.Put(sVShow, cs)
+	Return Me
+End Sub
+
+'hide
+Sub Hide As VTextField
+	If sVShow = "" Then
+		Log($"VTextField.Hide - the v-show for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sVShow, False)
+	Return Me
+End Sub
+
+'show
+Sub Show As VTextField
+	If sVShow = "" Then
+		Log($"VTextField.Show - the v-show for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sVShow, True)
+	Return Me
+End Sub
+
+'set a class on and off
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VTextField
+	if svBindClass = "" then
+		Log($"VTextField.VBindClass - the v-bind:class for ${mName} has not been set!"$)
+		Return Me
+	end if
+	dim obj As Map = data.get(svBindClass)
+	obj.put(clsName, clsValue)
+	data.put(svBindClass, obj)
+	Return Me
+End Sub
+
+'set style 
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VTextField
+	if svBindStyle = "" then
+		Log($"VTextField.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
+		Return Me
+	end if
+	dim obj As Map = data.get(svBindStyle)
+	obj.put(styleName, styleValue)
+	data.put(svBindStyle, obj)
+	Return Me
+End Sub
+
+'required
+Sub SetRequiredOnOff(b As Boolean) As VTextField
+	If sRequired = "" Then
+		Log($"VTextField.Required - the required for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sRequired, b)
+	Return Me
+End Sub
+
+'read only
+Sub SetReadOnlyOnOff(b As Boolean) As VTextField
+	If sReadonly = "" Then
+		Log($"VTextField.ReadOnly - the readonly for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sReadonly, b)
+	Return Me
+End Sub
+
+'disabled
+Sub SetDisabledOnOff(b As Boolean) As VTextField
+	If sDisabled = "" Then
+		Log($"VTextField.Disabled - the disabled for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sDisabled, b)
+	Return Me
+End Sub
+
+
+
+
+

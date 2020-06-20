@@ -669,16 +669,16 @@ Sub SetOnClickStop
 End Sub
 
 'add a component to the app, this links bindings and events
-Sub AddToApp(va As VueApp)
+Sub AddToApp(vap As VueApp)
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
-		va.SetData(k, v)
+		vap.SetData(k, v)
 	Next
 	'apply the events
 	For Each k As String In methods.Keys
 		Dim cb As BANanoObject = methods.Get(k)
-		va.SetCallBack(k, cb)
+		vap.SetCallBack(k, cb)
 	Next
 End Sub
 

@@ -25,7 +25,7 @@ Sub Class_Globals
 	Private routes As List
 	Public components As Map
 	Public Options As Map
-	Public va As BANanoObject
+	Public vap As BANanoObject
 	Public Template As String
 	Public vuetify As BANanoObject
 	Public RTL As Boolean
@@ -130,7 +130,7 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	Errors.Initialize 
 	Themes.Initialize 
 	ColorMap.Initialize 
-	va.Initialize("Vue")
+	vap.Initialize("Vue")
 	'
 	SetBeforeCreate(Module, "BeforeCreate")
 	SetCreated(Module, "Created")
@@ -410,6 +410,19 @@ Sub InitColors
 End Sub
 
 
+'new list
+Sub NewList As List
+	Dim elx As List
+	elx.Initialize
+	Return elx
+End Sub
+
+'new map
+Sub NewMap As List
+	Dim elx As Map = CreateMap()
+	Return elx
+End Sub
+
 'add a theme to use in the app
 Sub AddTheme(themeName As String, ForeColor As String, ForeColorIntensity As String, BackColor As String, BackColorIntensity As String)
 	themeName = themeName.ToLowerCase
@@ -488,7 +501,7 @@ End Sub
 'register a component with options
 Sub RegisterComponent(compName As String, compOptions As Map) As VueApp
 	compName = compName.tolowercase
-	va.RunMethod("component", Array(compName, compOptions))
+	vap.RunMethod("component", Array(compName, compOptions))
 	Return Me
 End Sub
 
@@ -508,13 +521,13 @@ End Sub
 'force the update of the ux
 Sub ForceUpdate
 	Dim fu As String = "$forceUpdate"
-	va.RunMethod(fu, Null)
+	vap.RunMethod(fu, Null)
 	'get the state
 	Dim dKey As String = "$data"
-	data = va.GetField(dKey).Result
+	data = vap.GetField(dKey).Result
 	'get the refs
 	Dim rKey As String = "$refs"
-	refs = va.GetField(rKey)
+	refs = vap.GetField(rKey)
 End Sub
 
 'set mounted
@@ -851,16 +864,16 @@ End Sub
 
 Sub CallComputed(methodName As String) As Object
 	methodName = methodName.tolowercase
-	Return va.GetField(methodName)
+	Return vap.GetField(methodName)
 End Sub
 
 Sub CallMethod(methodName As String)
 	methodName = methodName.tolowercase
-	va.RunMethod(methodName, Null)
+	vap.RunMethod(methodName, Null)
 End Sub
 
 Sub RunMethod(methodName As String, params As Object) As BANanoObject
-	Return va.RunMethod(methodName, params)
+	Return vap.RunMethod(methodName, params)
 End Sub
 
 'get an element
@@ -917,31 +930,31 @@ Sub Serve
 	If watches.Size > 0 Then Options.Put("watch", watches)
 	If components.Size > 0 Then Options.Put("components", components)
 	Options.Put("template", Template)
-	va.Initialize2("Vue", Options)
+	vap.Initialize2("Vue", Options)
 	'get the state
 	Dim dKey As String = "$data"
-	data = va.GetField(dKey).Result
+	data = vap.GetField(dKey).Result
 	'get the refs
 	Dim rKey As String = "$refs"
-	refs = va.GetField(rKey)
+	refs = vap.GetField(rKey)
 	Dim elKey As String = "$el"
-	el = va.GetField(elKey)
+	el = vap.GetField(elKey)
 	Dim emitKey As String = "$emit"
-	emit = va.GetField(emitKey)
+	emit = vap.GetField(emitKey)
 	Dim svuetify As String = "$vuetify"
-	vuetify = va.GetField(svuetify)
+	vuetify = vap.GetField(svuetify)
 	'enable data to be available globally
 	'BOVue.GetField("prototype").SetField("$store", store)
 End Sub
 
 'use a component module
 Sub Use(bo As BANanoObject)
-	va.RunMethod("use", bo)
+	vap.RunMethod("use", bo)
 End Sub
 
 'use a component module
 Sub Use1(bo As BANanoObject, uopt As Map)
-	va.RunMethod("use", Array(bo, uopt))
+	vap.RunMethod("use", Array(bo, uopt))
 End Sub
 
 'set right to left

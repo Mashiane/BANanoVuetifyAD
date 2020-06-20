@@ -1,4 +1,4 @@
-﻿B4J=true
+2020-06-20 16:36:17 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -8,78 +8,95 @@ Version=8.3
 #IgnoreWarnings:12
 
 
-#DesignerProperty: Key: Accordion, DisplayName: Accordion, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: ActiveClass, DisplayName: ActiveClass, Description: , DefaultValue: v-item--active, FieldType: String
-#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Enabled, DisplayName: Enabled, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Focusable, DisplayName: Focusable, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Hover, DisplayName: Hover, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Inset, DisplayName: Inset, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Key, DisplayName: Key, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Light, DisplayName: Light, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Mandatory, DisplayName: Mandatory, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Max, DisplayName: Max, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Multiple, DisplayName: Multiple, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Popout, DisplayName: Popout, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Required, DisplayName: Required, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Tile, DisplayName: Tile, Description: , DefaultValue: false, FieldType: Boolean
-#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , DefaultValue: False, FieldType: Boolean
-#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , DefaultValue: False, FieldType: Boolean
-#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , DefaultValue: False, FieldType: Boolean
-#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: VText, DisplayName: VText, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Value, DisplayName: Value, Description: , DefaultValue: , FieldType: String
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Accordion, DisplayName: Accordion, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ActiveClass, DisplayName: ActiveClass, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Focusable, DisplayName: Focusable, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Hover, DisplayName: Hover, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Inset, DisplayName: Inset, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Mandatory, DisplayName: Mandatory, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Max, DisplayName: Max, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Multiple, DisplayName: Multiple, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Popout, DisplayName: Popout, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Tile, DisplayName: Tile, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
+#DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginTop, DisplayName: MarginTop, Description: Set margin-top, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginRight, DisplayName: MarginRight, Description: Set margin-right, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginBottom, DisplayName: MarginBottom, Description: Set margin-bottom, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MarginLeft, DisplayName: MarginLeft, Description: Set margin-left, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingTop, DisplayName: PaddingTop, Description: Set padding-top, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
 
 Sub Class_Globals 
-	Private BANano As BANano 'ignore 
-	Private data As Map 
-	Public mName As String 'ignore 
-	Private mEventName As String 'ignore 
-	Private mCallBack As Object 'ignore 
-	Private mTarget As BANanoElement 'ignore 
-	Private mElement As BANanoElement 'ignore
+Private BANano As BANano 'ignore 
+Private data As Map 
+private appLink As VueApp 'ignore 
+Public mName As String 'ignore 
+Private mEventName As String 'ignore 
+Private mCallBack As Object 'ignore 
+Private mTarget As BANanoElement 'ignore 
+Private mElement As BANanoElement 'ignore
 
 Private properties As Map
 Private styles As Map
 Private classList As Map
 Private mClasses As String = "" 
-	Private mStyle As String = ""
+	Private mStyle As String = "" 
+	Private mAttributes As String = ""
 
 Private mTagName As String = "v-expansion-panels" 
 	Public bindings As Map 
 	Public methods As Map
-Private bAccordion As Boolean = false
-Private sActiveClass As String = "v-item--active"
+Private bAccordion As Boolean = False
+Private sActiveClass As String = ""
 Private sCaption As String = ""
-Private bDark As Boolean = false
-Private bDisabled As Boolean = false
-Private sEnabled As String = ""
-Private bFlat As Boolean = false
-Private bFocusable As Boolean = false
-Private bHover As Boolean = false
-Private bInset As Boolean = false
+Private bDark As Boolean = False
+Private bDisabled As Boolean = False
+Private bFlat As Boolean = False
+Private bFocusable As Boolean = False
+Private bHover As Boolean = False
+Private bInset As Boolean = False
 Private sKey As String = ""
-Private bLight As Boolean = false
-Private bMandatory As Boolean = false
+Private bLight As Boolean = False
+Private bMandatory As Boolean = False
 Private sMax As String = ""
-Private bMultiple As Boolean = false
-Private bPopout As Boolean = false
-Private bReadonly As Boolean = false
+Private bMultiple As Boolean = False
+Private bPopout As Boolean = False
+Private bReadonly As Boolean = False
 Private sRef As String = ""
 Private sRequired As String = ""
-Private bTile As Boolean = false
+Private bTile As Boolean = False
+Private sVBindClass As String = ""
+Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
 Private sVFor As String = ""
@@ -91,6 +108,18 @@ Private bVPre As Boolean = False
 Private sVShow As String = ""
 Private sVText As String = ""
 Private sValue As String = ""
+Private sBorderColor As String = ""
+Private sBorderStyle As String = ""
+Private sBorderWidth As String = ""
+Private sBorderRadius As String = ""
+Private sMarginTop As String = ""
+Private sMarginRight As String = ""
+Private sMarginBottom As String = ""
+Private sMarginLeft As String = ""
+Private sPaddingTop As String = ""
+Private sPaddingRight As String = ""
+Private sPaddingBottom As String = ""
+Private sPaddingLeft As String = ""
 
 End Sub
 
@@ -112,13 +141,13 @@ Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
 
 If props <> Null Then
 mClasses = props.Get("Classes") 
+mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
 bAccordion = props.Get("Accordion")
 sActiveClass = props.Get("ActiveClass")
 sCaption = props.Get("Caption")
 bDark = props.Get("Dark")
 bDisabled = props.Get("Disabled")
-sEnabled = props.Get("Enabled")
 bFlat = props.Get("Flat")
 bFocusable = props.Get("Focusable")
 bHover = props.Get("Hover")
@@ -133,6 +162,8 @@ bReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
 bTile = props.Get("Tile")
+sVBindClass = props.Get("VBindClass")
+sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
 sVFor = props.Get("VFor")
@@ -144,6 +175,18 @@ bVPre = props.Get("VPre")
 sVShow = props.Get("VShow")
 sVText = props.Get("VText")
 sValue = props.Get("Value")
+sBorderColor = props.Get("BorderColor")
+sBorderStyle = props.Get("BorderStyle")
+sBorderWidth = props.Get("BorderWidth")
+sBorderRadius = props.Get("BorderRadius")
+sMarginTop = props.Get("MarginTop")
+sMarginRight = props.Get("MarginRight")
+sMarginBottom = props.Get("MarginBottom")
+sMarginLeft = props.Get("MarginLeft")
+sPaddingTop = props.Get("PaddingTop")
+sPaddingRight = props.Get("PaddingRight")
+sPaddingBottom = props.Get("PaddingBottom")
+sPaddingLeft = props.Get("PaddingLeft")
 
 End If
 Dim strHTML As String = ToString
@@ -180,13 +223,6 @@ End Sub
 Sub SetDisabled(varDisabled As Boolean) As VExpansionPanels
 bDisabled = varDisabled
 SetAttr("disabled", bDisabled)
-Return Me
-End Sub
-
-'set enabled
-Sub SetEnabled(varEnabled As String) As VExpansionPanels
-sEnabled = varEnabled
-SetAttr("enabled", sEnabled)
 Return Me
 End Sub
 
@@ -288,6 +324,20 @@ SetAttr("tile", bTile)
 Return Me
 End Sub
 
+'set v-bind:class
+Sub SetVBindClass(varVBindClass As String) As VExpansionPanels
+sVBindClass = varVBindClass
+SetAttr("v-bind:class", sVBindClass)
+Return Me
+End Sub
+
+'set v-bind:style
+Sub SetVBindStyle(varVBindStyle As String) As VExpansionPanels
+sVBindStyle = varVBindStyle
+SetAttr("v-bind:style", sVBindStyle)
+Return Me
+End Sub
+
 'set v-cloak
 Sub SetVCloak(varVCloak As Boolean) As VExpansionPanels
 bVCloak = varVCloak
@@ -365,6 +415,90 @@ SetAttr("value", sValue)
 Return Me
 End Sub
 
+'set border-color
+Sub SetBorderColor(varBorderColor As String) As VExpansionPanels
+sBorderColor = varBorderColor
+SetStyleSingle("border-color", sBorderColor)
+Return Me
+End Sub
+
+'set border-style
+Sub SetBorderStyle(varBorderStyle As String) As VExpansionPanels
+sBorderStyle = varBorderStyle
+SetStyleSingle("border-style", sBorderStyle)
+Return Me
+End Sub
+
+'set border-width
+Sub SetBorderWidth(varBorderWidth As String) As VExpansionPanels
+sBorderWidth = varBorderWidth
+SetStyleSingle("border-width", sBorderWidth)
+Return Me
+End Sub
+
+'set border-radius
+Sub SetBorderRadius(varBorderRadius As String) As VExpansionPanels
+sBorderRadius = varBorderRadius
+SetStyleSingle("border-radius", sBorderRadius)
+Return Me
+End Sub
+
+'set margin-top
+Sub SetMarginTop(varMarginTop As String) As VExpansionPanels
+sMarginTop = varMarginTop
+SetStyleSingle("margin-top", sMarginTop)
+Return Me
+End Sub
+
+'set margin-right
+Sub SetMarginRight(varMarginRight As String) As VExpansionPanels
+sMarginRight = varMarginRight
+SetStyleSingle("margin-right", sMarginRight)
+Return Me
+End Sub
+
+'set margin-bottom
+Sub SetMarginBottom(varMarginBottom As String) As VExpansionPanels
+sMarginBottom = varMarginBottom
+SetStyleSingle("margin-bottom", sMarginBottom)
+Return Me
+End Sub
+
+'set margin-left
+Sub SetMarginLeft(varMarginLeft As String) As VExpansionPanels
+sMarginLeft = varMarginLeft
+SetStyleSingle("margin-left", sMarginLeft)
+Return Me
+End Sub
+
+'set padding-top
+Sub SetPaddingTop(varPaddingTop As String) As VExpansionPanels
+sPaddingTop = varPaddingTop
+SetStyleSingle("padding-top", sPaddingTop)
+Return Me
+End Sub
+
+'set padding-right
+Sub SetPaddingRight(varPaddingRight As String) As VExpansionPanels
+sPaddingRight = varPaddingRight
+SetStyleSingle("padding-right", sPaddingRight)
+Return Me
+End Sub
+
+'set padding-bottom
+Sub SetPaddingBottom(varPaddingBottom As String) As VExpansionPanels
+sPaddingBottom = varPaddingBottom
+SetStyleSingle("padding-bottom", sPaddingBottom)
+Return Me
+End Sub
+
+'set padding-left
+Sub SetPaddingLeft(varPaddingLeft As String) As VExpansionPanels
+sPaddingLeft = varPaddingLeft
+SetStyleSingle("padding-left", sPaddingLeft)
+Return Me
+End Sub
+
 
 
 'return the generated html
@@ -374,7 +508,6 @@ AddAttr(sActiveClass, "active-class")
 AddAttr(sCaption, "caption")
 AddAttr(bDark, "dark")
 AddAttr(bDisabled, "disabled")
-AddAttr(sEnabled, "enabled")
 AddAttr(bFlat, "flat")
 AddAttr(bFocusable, "focusable")
 AddAttr(bHover, "hover")
@@ -389,6 +522,8 @@ AddAttr(bReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
 AddAttr(bTile, "tile")
+AddAttr(sVBindClass, "v-bind:class")
+AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
 AddAttr(sVFor, "v-for")
@@ -400,6 +535,18 @@ AddAttr(bVPre, "v-pre")
 AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
 AddAttr(sValue, "value")
+SetStyleSingle("border-color", sBorderColor)
+SetStyleSingle("border-style", sBorderStyle)
+SetStyleSingle("border-width", sBorderWidth)
+SetStyleSingle("border-radius", sBorderRadius)
+SetStyleSingle("margin-top", sMarginTop)
+SetStyleSingle("margin-right", sMarginRight)
+SetStyleSingle("margin-bottom", sMarginBottom)
+SetStyleSingle("margin-left", sMarginLeft)
+SetStyleSingle("padding-top", sPaddingTop)
+SetStyleSingle("padding-right", sPaddingRight)
+SetStyleSingle("padding-bottom", sPaddingBottom)
+SetStyleSingle("padding-left", sPaddingLeft)
 
 'build the class list
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
@@ -407,10 +554,30 @@ cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
 AddAttr(cKeys, "class")
 'build the style list
+If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
+If mStyle.StartsWith("{") Then mStyle = ""
+If mStyle <> "" Then
+Dim sItems As List = BANanoShared.StrParse(",",mStyle)
+For Each st As String In sItems
+Dim k As String = BANanoShared.MvField(st,1,":")
+Dim v As String = BANanoShared.MvField(st,2,":")
+SetStyleSingle(k, v)
+Next
+End If
 Dim sKeys As String = BANanoShared.BuildStyle(styles)
-sKeys = sKeys & " " & mStyle
 sKeys = sKeys.trim
 AddAttr(sKeys, "style")
+'build the attributes
+If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
+If mAttributes.StartsWith("{") Then mAttributes = ""
+If mAttributes <> "" Then
+Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+For Each mt As String In mItems
+Dim k As String = BANanoShared.MvField(mt,1,":")
+Dim v As String = BANanoShared.MvField(mt,2,":")
+AddAttr(k, v)
+Next
+End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
@@ -443,24 +610,26 @@ public Sub AddToParent(targetID As String) As VExpansionPanels
 End Sub
 
 'add component to app, this binds events and states
-Sub AddToApp(va As VueApp) As VExpansionPanels
+Sub AddToApp(vap As VueApp) As VExpansionPanels
+	appLink = vap
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
-		va.SetData(k, v)
+		vap.SetData(k, v)
 	Next
 	'apply the events
 	For Each k As String In methods.Keys
 		Dim cb As BANanoObject = methods.Get(k)
-		va.SetCallBack(k, cb)
+		vap.SetCallBack(k, cb)
 	Next
-	data = va.data	
 	Return Me
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object)
+Sub SetData(prop as string, value as object) As VExpansionPanels
 	data.put(prop, value)
+	Return Me
 End Sub
 
 'remove component
@@ -498,11 +667,34 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VExpansionPanels
-	If varName <> "" Then properties.put(actprop, varname)
-	Select Case actProp
-	Case "v-model", "v-show", "v-if", "required", "enabled", "readonly"
-		bindings.Put(varName, False)
-	End Select
+	If actProp = "caption" Then Return Me
+	Try
+		If BANano.IsBoolean(varName) Then
+			If varName = True Then properties.put(actProp, varName)
+		Else	
+			If varName.StartsWith(":") Then
+				'this is a binding
+				'get the real name
+				Dim rname As String = BANanoShared.MidString2(varName, 2)
+				If rname.Contains(".") Then
+					'we are linked to a for loop
+					properties.Put($":${actProp}"$, rname)
+				Else
+					properties.Put($":${actProp}"$, rname)
+					bindings.Put(rname, Null)
+				End If
+			Else
+				If varName <> "" Then properties.put(actProp, varName)
+				Select Case actProp
+				Case "v-model", "v-show", "v-if", "required", "disabled", "readonly"
+					bindings.Put(varName, False)
+				End Select
+			End If
+		End If
+	Catch
+		Log(LastException)
+	
+	End Try
 	Return Me
 End Sub
 
@@ -561,6 +753,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VExpansionPanels
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -580,6 +775,9 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VExpansionPanels
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
 	dim m as map = createmap()
 	m.put(prop, value)
@@ -616,6 +814,18 @@ End Sub
 'get html
 Public Sub GetHtml() As String
 	Return mElement.GetHtml
+End Sub
+
+'bind classes
+Sub SetVClass(classObj as string) As VExpansionPanels
+	SetVBind("class", classObj)
+	Return Me
+End Sub
+
+'bind styles
+Sub SetVStyle(styleObj as string) As VExpansionPanels
+	SetVBind("style", styleObj)
+	Return Me
 End Sub
 
 'set color
@@ -663,3 +873,96 @@ Sub SetMethod(Module As Object,methodName As String) As VExpansionPanels
 	End If
 	Return Me
 End Sub
+
+'toggle
+Sub Toggle As VExpansionPanels
+	If sVShow = "" Then
+		Log($"VExpansionPanels.Toggle - the v-show for ${mName} has not been set!"$)
+		Return Me
+	End If
+	'get the current state
+	Dim cs As Boolean = data.Get(sVShow)
+	If cs = Null Then cs = False
+	cs = Not(cs)
+	data.Put(sVShow, cs)
+	Return Me
+End Sub
+
+'hide
+Sub Hide As VExpansionPanels
+	If sVShow = "" Then
+		Log($"VExpansionPanels.Hide - the v-show for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sVShow, False)
+	Return Me
+End Sub
+
+'show
+Sub Show As VExpansionPanels
+	If sVShow = "" Then
+		Log($"VExpansionPanels.Show - the v-show for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sVShow, True)
+	Return Me
+End Sub
+
+'set a class on and off
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VExpansionPanels
+	if svBindClass = "" then
+		Log($"VExpansionPanels.VBindClass - the v-bind:class for ${mName} has not been set!"$)
+		Return Me
+	end if
+	dim obj As Map = data.get(svBindClass)
+	obj.put(clsName, clsValue)
+	data.put(svBindClass, obj)
+	Return Me
+End Sub
+
+'set style 
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VExpansionPanels
+	if svBindStyle = "" then
+		Log($"VExpansionPanels.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
+		Return Me
+	end if
+	dim obj As Map = data.get(svBindStyle)
+	obj.put(styleName, styleValue)
+	data.put(svBindStyle, obj)
+	Return Me
+End Sub
+
+'required
+Sub SetRequiredOnOff(b As Boolean) As VExpansionPanels
+	If sRequired = "" Then
+		Log($"VExpansionPanels.Required - the required for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sRequired, b)
+	Return Me
+End Sub
+
+'read only
+Sub SetReadOnlyOnOff(b As Boolean) As VExpansionPanels
+	If sReadonly = "" Then
+		Log($"VExpansionPanels.ReadOnly - the readonly for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sReadonly, b)
+	Return Me
+End Sub
+
+'disabled
+Sub SetDisabledOnOff(b As Boolean) As VExpansionPanels
+	If sDisabled = "" Then
+		Log($"VExpansionPanels.Disabled - the disabled for ${mName} has not been set!"$)
+		Return Me
+	End If
+	data.Put(sDisabled, b)
+	Return Me
+End Sub
+
+
+
+
+
