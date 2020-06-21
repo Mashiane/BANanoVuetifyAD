@@ -1,4 +1,4 @@
-2020-06-20 16:35:43 B4J=true
+2020-06-21 22:39:43 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -54,9 +54,12 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Oninput, DisplayName: Oninput, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatecolor, DisplayName: Onupdatecolor, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatemode, DisplayName: Onupdatemode, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -121,6 +124,9 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOninput As String = ""
+Private eOnupdatecolor As String = ""
+Private eOnupdatemode As String = ""
 
 End Sub
 
@@ -187,6 +193,9 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOninput = props.Get("Oninput")
+eOnupdatecolor = props.Get("Onupdatecolor")
+eOnupdatemode = props.Get("Onupdatemode")
 
 End If
 Dim strHTML As String = ToString
@@ -194,11 +203,11 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates Input the event exists on the module
 SetOnInput
-'This activates when the event exists on the module
+'This activates UpdateColor the event exists on the module
 SetOnUpdateColor
-'This activates when the event exists on the module
+'This activates UpdateMode the event exists on the module
 SetOnUpdateMode
 
 
@@ -510,7 +519,8 @@ Sub SetOnInput() As VColorPicker
 Dim sName As String = $"${mEventName}_input"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:input", sName)
+Dim sCode As String = $"${sName}(${eOninput})"$
+SetAttr("v-on:input", sCode)
 'arguments for the event
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -523,7 +533,8 @@ Sub SetOnUpdateColor() As VColorPicker
 Dim sName As String = $"${mEventName}_updatecolor"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:color", sName)
+Dim sCode As String = $"${sName}(${eOnupdatecolor})"$
+SetAttr("v-on:update:color", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -536,7 +547,8 @@ Sub SetOnUpdateMode() As VColorPicker
 Dim sName As String = $"${mEventName}_updatemode"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:mode", sName)
+Dim sCode As String = $"${sName}(${eOnupdatemode})"$
+SetAttr("v-on:update:mode", sCode)
 'arguments for the event
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -643,6 +655,26 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VColorPicker
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent

@@ -47,7 +47,9 @@ Sub Class_Globals
 	Public Errors As Map
 	'
 	Public Path As String = ""
-	Private data As Map
+	Public Title As String = ""
+	Public Icon As String = ""
+	Public data As Map
 	Private opt As Map
 	Public methods As Map
 	Private computed As Map
@@ -81,7 +83,7 @@ Sub Class_Globals
 	Public bindings As Map
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VMElement
 	mName = Name
 	mEventName = EventName.ToLowerCase
 	mCallBack = CallBack
@@ -96,7 +98,33 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String)
 	filters.Initialize
 	query.Initialize
 	Attributes.Initialize 
-	Errors.Initialize 
+	Errors.Initialize
+	Path = $"/${Name}"$
+	Icon = ""
+	Title = "" 
+	Return Me
+End Sub
+
+Sub BindElement(emethods As Map, ebindings As Map)
+	'apply the binding for the control
+	For Each k As String In ebindings.Keys
+		Dim v As String = ebindings.Get(k)
+		SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In emethods.Keys
+		Dim cb As BANanoObject = emethods.Get(k)
+		SetCallBack(k, cb)
+	Next
+End Sub
+
+'get a drawer item for this route
+Sub GetDrawerItem As Map
+	Dim elx As Map = CreateMap()
+	elx.Put("icon", Icon)
+	elx.Put("title", Title)
+	elx.Put("link", Path)
+	Return elx
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -148,6 +176,24 @@ Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
 	'mElement.HandleEvents("click", mCallBack, mEventName & "_click")
 	SetOnClick
 	SetOnClickStop
+End Sub
+
+'set the title of the route
+Sub SetTitle(sTitle As String) As VMElement
+	Title = sTitle
+	Return Me
+End Sub
+
+'set the icon of the route
+Sub SetIcon(sIcon As String) As VMElement
+	Icon = sIcon
+	Return Me
+End Sub
+
+'set the path for router
+Sub SetPath(sPath As String) As VMElement
+	Path = $"/${sPath}"$
+	Return Me
 End Sub
 
 Sub SetTag(nTag As String)
@@ -420,10 +466,12 @@ End Sub
 
 
 'return the component
-Sub Component() As Map
-	If data.Size > 0 Then
-		Dim cb As BANanoObject = BANano.CallBack(Me, "returnData", Null)
+Sub Component(bRoute As Boolean) As Map
+	If bRoute = False Then
+		Dim cb As BANanoObject = BANano.CallBack(Me, "returndata", Null)
 		opt.Put("data", cb)
+	Else
+		opt.Put("data", data)
 	End If
 	opt.Put("methods", methods)
 	opt.Put("computed", computed)
@@ -441,7 +489,7 @@ End Sub
 
 
 'use for components
-private Sub ReturnData As Map
+private Sub returndata As Map
 	Return data
 End Sub
 
@@ -496,6 +544,7 @@ Sub SetComputed(k As String, module As Object, methodName As String)
 	k = k.tolowercase
 	methodName = methodName.ToLowerCase
 	If SubExists(module, methodName) Then
+		data.Put(k, Null)
 		Dim cb As BANanoObject = BANano.CallBack(module, methodName, Null)
 		computed.Put(k, cb.Result)
 	End If
@@ -514,6 +563,7 @@ Sub SetWatch(Module As Object, k As String, bImmediate As Boolean, bDeep As Bool
 		deepit.Put("immediate", bImmediate)
 		watches.Put(k, deepit)
 		methods.Put(methodName, cb)
+		data.Put(k, Null)
 	End If
 End Sub
 
@@ -570,7 +620,7 @@ Sub RenderTo(elID As String)
 	'
 	Dim boVUE As BANanoObject
 	opt.Put("el", $"#${elID}"$)
-	Component
+	Component(False)
 	boVUE.Initialize2("Vue", opt)
 	'get the state
 	Dim dKey As String = "$data"

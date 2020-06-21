@@ -1,4 +1,4 @@
-2020-06-20 16:35:51 B4J=true
+2020-06-21 22:40:30 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -68,9 +68,21 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Oncurrentitems, DisplayName: Oncurrentitems, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onpagecount, DisplayName: Onpagecount, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onpagination, DisplayName: Onpagination, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdategroupby, DisplayName: Onupdategroupby, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdategroupdesc, DisplayName: Onupdategroupdesc, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdateitemsperpage, DisplayName: Onupdateitemsperpage, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatemultisort, DisplayName: Onupdatemultisort, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatemustsort, DisplayName: Onupdatemustsort, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdateoptions, DisplayName: Onupdateoptions, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatepage, DisplayName: Onupdatepage, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatesortby, DisplayName: Onupdatesortby, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdatesortdesc, DisplayName: Onupdatesortdesc, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -140,6 +152,18 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOncurrentitems As String = ""
+Private eOnpagecount As String = ""
+Private eOnpagination As String = ""
+Private eOnupdategroupby As String = ""
+Private eOnupdategroupdesc As String = ""
+Private eOnupdateitemsperpage As String = ""
+Private eOnupdatemultisort As String = ""
+Private eOnupdatemustsort As String = ""
+Private eOnupdateoptions As String = ""
+Private eOnupdatepage As String = ""
+Private eOnupdatesortby As String = ""
+Private eOnupdatesortdesc As String = ""
 
 End Sub
 
@@ -211,6 +235,18 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOncurrentitems = props.Get("Oncurrentitems")
+eOnpagecount = props.Get("Onpagecount")
+eOnpagination = props.Get("Onpagination")
+eOnupdategroupby = props.Get("Onupdategroupby")
+eOnupdategroupdesc = props.Get("Onupdategroupdesc")
+eOnupdateitemsperpage = props.Get("Onupdateitemsperpage")
+eOnupdatemultisort = props.Get("Onupdatemultisort")
+eOnupdatemustsort = props.Get("Onupdatemustsort")
+eOnupdateoptions = props.Get("Onupdateoptions")
+eOnupdatepage = props.Get("Onupdatepage")
+eOnupdatesortby = props.Get("Onupdatesortby")
+eOnupdatesortdesc = props.Get("Onupdatesortdesc")
 
 End If
 Dim strHTML As String = ToString
@@ -218,29 +254,29 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates CurrentItems the event exists on the module
 SetOnCurrentItems
-'This activates when the event exists on the module
+'This activates PageCount the event exists on the module
 SetOnPageCount
-'This activates when the event exists on the module
+'This activates Pagination the event exists on the module
 SetOnPagination
-'This activates when the event exists on the module
+'This activates UpdateGroupBy the event exists on the module
 SetOnUpdateGroupBy
-'This activates when the event exists on the module
+'This activates UpdateGroupDesc the event exists on the module
 SetOnUpdateGroupDesc
-'This activates when the event exists on the module
+'This activates UpdateItemsPerPage the event exists on the module
 SetOnUpdateItemsPerPage
-'This activates when the event exists on the module
+'This activates UpdateMultiSort the event exists on the module
 SetOnUpdateMultiSort
-'This activates when the event exists on the module
+'This activates UpdateMustSort the event exists on the module
 SetOnUpdateMustSort
-'This activates when the event exists on the module
+'This activates UpdateOptions the event exists on the module
 SetOnUpdateOptions
-'This activates when the event exists on the module
+'This activates UpdatePage the event exists on the module
 SetOnUpdatePage
-'This activates when the event exists on the module
+'This activates UpdateSortBy the event exists on the module
 SetOnUpdateSortBy
-'This activates when the event exists on the module
+'This activates UpdateSortDesc the event exists on the module
 SetOnUpdateSortDesc
 
 
@@ -593,7 +629,8 @@ Sub SetOnCurrentItems() As VData
 Dim sName As String = $"${mEventName}_currentitems"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:current-items", sName)
+Dim sCode As String = $"${sName}(${eOncurrentitems})"$
+SetAttr("v-on:current-items", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -606,7 +643,8 @@ Sub SetOnPageCount() As VData
 Dim sName As String = $"${mEventName}_pagecount"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:page-count", sName)
+Dim sCode As String = $"${sName}(${eOnpagecount})"$
+SetAttr("v-on:page-count", sCode)
 'arguments for the event
 Dim argument As Int 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -619,7 +657,8 @@ Sub SetOnPagination() As VData
 Dim sName As String = $"${mEventName}_pagination"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:pagination", sName)
+Dim sCode As String = $"${sName}(${eOnpagination})"$
+SetAttr("v-on:pagination", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -632,7 +671,8 @@ Sub SetOnUpdateGroupBy() As VData
 Dim sName As String = $"${mEventName}_updategroupby"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:group-by", sName)
+Dim sCode As String = $"${sName}(${eOnupdategroupby})"$
+SetAttr("v-on:update:group-by", sCode)
 'arguments for the event
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -645,7 +685,8 @@ Sub SetOnUpdateGroupDesc() As VData
 Dim sName As String = $"${mEventName}_updategroupdesc"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:group-desc", sName)
+Dim sCode As String = $"${sName}(${eOnupdategroupdesc})"$
+SetAttr("v-on:update:group-desc", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -658,7 +699,8 @@ Sub SetOnUpdateItemsPerPage() As VData
 Dim sName As String = $"${mEventName}_updateitemsperpage"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:items-per-page", sName)
+Dim sCode As String = $"${sName}(${eOnupdateitemsperpage})"$
+SetAttr("v-on:update:items-per-page", sCode)
 'arguments for the event
 Dim argument As Int 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -671,7 +713,8 @@ Sub SetOnUpdateMultiSort() As VData
 Dim sName As String = $"${mEventName}_updatemultisort"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:multi-sort", sName)
+Dim sCode As String = $"${sName}(${eOnupdatemultisort})"$
+SetAttr("v-on:update:multi-sort", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -684,7 +727,8 @@ Sub SetOnUpdateMustSort() As VData
 Dim sName As String = $"${mEventName}_updatemustsort"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:must-sort", sName)
+Dim sCode As String = $"${sName}(${eOnupdatemustsort})"$
+SetAttr("v-on:update:must-sort", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -697,7 +741,8 @@ Sub SetOnUpdateOptions() As VData
 Dim sName As String = $"${mEventName}_updateoptions"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:options", sName)
+Dim sCode As String = $"${sName}(${eOnupdateoptions})"$
+SetAttr("v-on:update:options", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -710,7 +755,8 @@ Sub SetOnUpdatePage() As VData
 Dim sName As String = $"${mEventName}_updatepage"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:page", sName)
+Dim sCode As String = $"${sName}(${eOnupdatepage})"$
+SetAttr("v-on:update:page", sCode)
 'arguments for the event
 Dim argument As Int 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -723,7 +769,8 @@ Sub SetOnUpdateSortBy() As VData
 Dim sName As String = $"${mEventName}_updatesortby"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:sort-by", sName)
+Dim sCode As String = $"${sName}(${eOnupdatesortby})"$
+SetAttr("v-on:update:sort-by", sCode)
 'arguments for the event
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -736,7 +783,8 @@ Sub SetOnUpdateSortDesc() As VData
 Dim sName As String = $"${mEventName}_updatesortdesc"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:sort-desc", sName)
+Dim sCode As String = $"${sName}(${eOnupdatesortdesc})"$
+SetAttr("v-on:update:sort-desc", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -848,6 +896,26 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VData
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent

@@ -68,14 +68,17 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Oninput, DisplayName: Oninput, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontransitionend, DisplayName: Ontransitionend, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdateminivariant, DisplayName: Onupdateminivariant, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -150,6 +153,9 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOninput As String = ""
+Private eOntransitionend As String = ""
+Private eOnupdateminivariant As String = ""
 
 End Sub
 
@@ -231,6 +237,9 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOninput = props.Get("Oninput")
+eOntransitionend = props.Get("Ontransitionend")
+eOnupdateminivariant = props.Get("Onupdateminivariant")
 
 End If
 Dim strHTML As String = ToString
@@ -238,11 +247,11 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates Input the event exists on the module
 SetOnInput
-'This activates when the event exists on the module
+'This activates Transitionend the event exists on the module
 SetOnTransitionend
-'This activates when the event exists on the module
+'This activates UpdateMiniVariant the event exists on the module
 SetOnUpdateMiniVariant
 
 
@@ -653,7 +662,8 @@ Sub SetOnInput() As VNavigationDrawer
 Dim sName As String = $"${mEventName}_input"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:input", sName)
+Dim sCode As String = $"${sName}(${eOninput})"$
+SetAttr("v-on:input", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -666,7 +676,8 @@ Sub SetOnTransitionend() As VNavigationDrawer
 Dim sName As String = $"${mEventName}_transitionend"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:transitionend", sName)
+Dim sCode As String = $"${sName}(${eOntransitionend})"$
+SetAttr("v-on:transitionend", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -679,7 +690,8 @@ Sub SetOnUpdateMiniVariant() As VNavigationDrawer
 Dim sName As String = $"${mEventName}_updateminivariant"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:mini-variant", sName)
+Dim sCode As String = $"${sName}(${eOnupdateminivariant})"$
+SetAttr("v-on:update:mini-variant", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -781,7 +793,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -794,13 +806,33 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VNavigationDrawer
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VNavigationDrawer
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent
@@ -927,17 +959,17 @@ Sub AddClass(classNames As List) As VNavigationDrawer
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VNavigationDrawer
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -976,11 +1008,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VNavigationDrawer
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then return me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	styles.put(prop, value)
-	dim m as map = createmap()
+	Dim m As Map = CreateMap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -1001,10 +1033,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		for each k as string in styleprops.Keys
-			dim v as string = styleprops.get(k)
+		For Each k As String In styleProps.Keys
+			Dim v As String = styleProps.get(k)
 			SetStyleSingle(k, v)
-		next
+		Next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -1018,13 +1050,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj as string) As VNavigationDrawer
+Sub SetVClass(classObj As String) As VNavigationDrawer
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VNavigationDrawer
+Sub SetVStyle(styleObj As String) As VNavigationDrawer
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -1040,18 +1072,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VNavigationDrawer
-	Dim scolor As String = $"${varColor} ${varIntensity}"$
+	Dim sColor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, scolor)
+	bindings.Put(pp, sColor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VNavigationDrawer
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -1060,7 +1092,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VNaviga
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 
@@ -1095,7 +1127,7 @@ Sub Hide As VNavigationDrawer
 		Log($"VNavigationDrawer.Hide - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVModel, False)
+	data.Put(sVShow, False)
 	Return Me
 End Sub
 
@@ -1114,22 +1146,22 @@ Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VNavigationDrawer
 	If sVBindClass = "" Then
 		Log($"VNavigationDrawer.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VNavigationDrawer
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VNavigationDrawer
+	if svBindStyle = "" then
 		Log($"VNavigationDrawer.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 

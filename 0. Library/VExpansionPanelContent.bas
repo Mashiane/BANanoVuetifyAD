@@ -1,4 +1,4 @@
-2020-06-20 16:36:14 B4J=true
+2020-06-21 22:42:56 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -40,9 +40,9 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -468,6 +468,26 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VExpansionPanelContent
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent

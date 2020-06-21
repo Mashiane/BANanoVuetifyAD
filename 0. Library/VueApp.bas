@@ -409,6 +409,12 @@ Sub InitColors
 	ColorMap.put("transparent", "transparent")
 End Sub
 
+'get the name of the breakpoint
+Sub GetBreakPointName As String
+	Dim bp As BANanoObject = vuetify.GetField("breakpoint")
+	Dim res As String = bp.GetField("name").Result
+	Return res
+End Sub
 
 'new list
 Sub NewList As List
@@ -471,8 +477,10 @@ End Sub
 'add a component we have defined internally
 Sub AddComponent(comp As VMElement) As VueApp
 	Dim sid As String = comp.mName
-	If components.ContainsKey(sid) = True Then Return Me
-	components.Put(sid, comp.Component)
+	If components.ContainsKey(sid) = True Then 
+		Return Me
+	End If
+	components.Put(sid, comp.Component(False))
 	Return Me
 End Sub
 
@@ -492,8 +500,7 @@ Sub AddRoute(comp As VMElement)
 	Dim eachroute As Map = CreateMap()
 	eachroute.Put("path", comp.path)
 	eachroute.Put("name", comp.mname)
-	eachroute.Put("component", comp.component)
-	'
+	eachroute.Put("component", comp.component(True))
 	routes.Add(eachroute)
 End Sub
 
@@ -721,6 +728,7 @@ Sub SetComputed(k As String, module As Object, methodName As String) As VueApp
 	k = k.tolowercase
 	methodName = methodName.ToLowerCase
 	If SubExists(module, methodName) Then
+		SetData(k, Null)
 		Dim cb As BANanoObject = BANano.CallBack(module, methodName, Null)
 		computed.Put(k, cb.Result)
 	End If
@@ -732,6 +740,7 @@ Sub SetWatch(Module As Object, k As String, bImmediate As Boolean, bDeep As Bool
 	methodName = methodName.tolowercase
 	k = k.tolowercase
 	If SubExists(Module, methodName) Then
+		SetData(k, Null)
 		Dim newVal As Object
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(newVal))
 		Dim deepit As Map = CreateMap()

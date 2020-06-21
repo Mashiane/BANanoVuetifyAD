@@ -61,14 +61,16 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Onclick, DisplayName: Onclick, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onkeydown, DisplayName: Onkeydown, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -137,6 +139,8 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOnclick As String = ""
+Private eOnkeydown As String = ""
 
 End Sub
 
@@ -212,6 +216,8 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOnclick = props.Get("Onclick")
+eOnkeydown = props.Get("Onkeydown")
 
 End If
 Dim strHTML As String = ToString
@@ -219,9 +225,9 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates Click the event exists on the module
 SetOnClick
-'This activates when the event exists on the module
+'This activates Keydown the event exists on the module
 SetOnKeydown
 
 
@@ -587,20 +593,16 @@ End Sub
 
 'set on click event, updates the master events records
 Sub SetOnClick() As VListItem
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then 
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-	End If
-	SetAttr("v-on:click", sName)
-	'arguments for the event
-	Dim argument As BANanoEvent 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	Return Me
+Dim sName As String = $"${mEventName}_click"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnclick})"$
+SetAttr("v-on:click", sCode)
+'arguments for the event
+Dim argument As BANanoEvent 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
 End Sub
 
 'set on keydown event, updates the master events records
@@ -608,7 +610,8 @@ Sub SetOnKeydown() As VListItem
 Dim sName As String = $"${mEventName}_keydown"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:keydown", sName)
+Dim sCode As String = $"${sName}(${eOnkeydown})"$
+SetAttr("v-on:keydown", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -704,7 +707,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -717,13 +720,33 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VListItem
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VListItem
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent
@@ -1085,8 +1108,8 @@ End Sub
 '	data.Put(sDisabled, b)
 '	Return Me
 'End Sub
-'
-'
-'
+
+
+
 
 

@@ -1,4 +1,4 @@
-2020-06-20 16:36:20 B4J=true
+2020-06-21 22:43:27 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -102,9 +102,23 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Onblur, DisplayName: Onblur, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onchange, DisplayName: Onchange, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclick, DisplayName: Onclick, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickappend, DisplayName: Onclickappend, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickappendouter, DisplayName: Onclickappendouter, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickclear, DisplayName: Onclickclear, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickprepend, DisplayName: Onclickprepend, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickprependinner, DisplayName: Onclickprependinner, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onfocus, DisplayName: Onfocus, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oninput, DisplayName: Oninput, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onkeydown, DisplayName: Onkeydown, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousedown, DisplayName: Onmousedown, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseup, DisplayName: Onmouseup, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onupdateerror, DisplayName: Onupdateerror, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -206,6 +220,20 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOnblur As String = ""
+Private eOnchange As String = ""
+Private eOnclick As String = ""
+Private eOnclickappend As String = ""
+Private eOnclickappendouter As String = ""
+Private eOnclickclear As String = ""
+Private eOnclickprepend As String = ""
+Private eOnclickprependinner As String = ""
+Private eOnfocus As String = ""
+Private eOninput As String = ""
+Private eOnkeydown As String = ""
+Private eOnmousedown As String = ""
+Private eOnmouseup As String = ""
+Private eOnupdateerror As String = ""
 
 End Sub
 
@@ -309,6 +337,20 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOnblur = props.Get("Onblur")
+eOnchange = props.Get("Onchange")
+eOnclick = props.Get("Onclick")
+eOnclickappend = props.Get("Onclickappend")
+eOnclickappendouter = props.Get("Onclickappendouter")
+eOnclickclear = props.Get("Onclickclear")
+eOnclickprepend = props.Get("Onclickprepend")
+eOnclickprependinner = props.Get("Onclickprependinner")
+eOnfocus = props.Get("Onfocus")
+eOninput = props.Get("Oninput")
+eOnkeydown = props.Get("Onkeydown")
+eOnmousedown = props.Get("Onmousedown")
+eOnmouseup = props.Get("Onmouseup")
+eOnupdateerror = props.Get("Onupdateerror")
 
 End If
 Dim strHTML As String = ToString
@@ -316,33 +358,33 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates Blur the event exists on the module
 SetOnBlur
-'This activates when the event exists on the module
+'This activates Change the event exists on the module
 SetOnChange
-'This activates when the event exists on the module
+'This activates Click the event exists on the module
 SetOnClick
-'This activates when the event exists on the module
+'This activates ClickAppend the event exists on the module
 SetOnClickAppend
-'This activates when the event exists on the module
+'This activates ClickAppendOuter the event exists on the module
 SetOnClickAppendOuter
-'This activates when the event exists on the module
+'This activates ClickClear the event exists on the module
 SetOnClickClear
-'This activates when the event exists on the module
+'This activates ClickPrepend the event exists on the module
 SetOnClickPrepend
-'This activates when the event exists on the module
+'This activates ClickPrependInner the event exists on the module
 SetOnClickPrependInner
-'This activates when the event exists on the module
+'This activates Focus the event exists on the module
 SetOnFocus
-'This activates when the event exists on the module
+'This activates Input the event exists on the module
 SetOnInput
-'This activates when the event exists on the module
+'This activates Keydown the event exists on the module
 SetOnKeydown
-'This activates when the event exists on the module
+'This activates Mousedown the event exists on the module
 SetOnMousedown
-'This activates when the event exists on the module
+'This activates Mouseup the event exists on the module
 SetOnMouseup
-'This activates when the event exists on the module
+'This activates UpdateError the event exists on the module
 SetOnUpdateError
 
 
@@ -913,7 +955,8 @@ Sub SetOnBlur() As VFileInput
 Dim sName As String = $"${mEventName}_blur"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:blur", sName)
+Dim sCode As String = $"${sName}(${eOnblur})"$
+SetAttr("v-on:blur", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -926,7 +969,8 @@ Sub SetOnChange() As VFileInput
 Dim sName As String = $"${mEventName}_change"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:change", sName)
+Dim sCode As String = $"${sName}(${eOnchange})"$
+SetAttr("v-on:change", sCode)
 'arguments for the event
 Dim argument As List 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -939,7 +983,8 @@ Sub SetOnClick() As VFileInput
 Dim sName As String = $"${mEventName}_click"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click", sName)
+Dim sCode As String = $"${sName}(${eOnclick})"$
+SetAttr("v-on:click", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -952,7 +997,8 @@ Sub SetOnClickAppend() As VFileInput
 Dim sName As String = $"${mEventName}_clickappend"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:append", sName)
+Dim sCode As String = $"${sName}(${eOnclickappend})"$
+SetAttr("v-on:click:append", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -965,7 +1011,8 @@ Sub SetOnClickAppendOuter() As VFileInput
 Dim sName As String = $"${mEventName}_clickappendouter"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:append-outer", sName)
+Dim sCode As String = $"${sName}(${eOnclickappendouter})"$
+SetAttr("v-on:click:append-outer", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -978,7 +1025,8 @@ Sub SetOnClickClear() As VFileInput
 Dim sName As String = $"${mEventName}_clickclear"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:clear", sName)
+Dim sCode As String = $"${sName}(${eOnclickclear})"$
+SetAttr("v-on:click:clear", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -991,7 +1039,8 @@ Sub SetOnClickPrepend() As VFileInput
 Dim sName As String = $"${mEventName}_clickprepend"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:prepend", sName)
+Dim sCode As String = $"${sName}(${eOnclickprepend})"$
+SetAttr("v-on:click:prepend", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1004,7 +1053,8 @@ Sub SetOnClickPrependInner() As VFileInput
 Dim sName As String = $"${mEventName}_clickprependinner"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:prepend-inner", sName)
+Dim sCode As String = $"${sName}(${eOnclickprependinner})"$
+SetAttr("v-on:click:prepend-inner", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1017,7 +1067,8 @@ Sub SetOnFocus() As VFileInput
 Dim sName As String = $"${mEventName}_focus"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:focus", sName)
+Dim sCode As String = $"${sName}(${eOnfocus})"$
+SetAttr("v-on:focus", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1030,7 +1081,8 @@ Sub SetOnInput() As VFileInput
 Dim sName As String = $"${mEventName}_input"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:input", sName)
+Dim sCode As String = $"${sName}(${eOninput})"$
+SetAttr("v-on:input", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1043,7 +1095,8 @@ Sub SetOnKeydown() As VFileInput
 Dim sName As String = $"${mEventName}_keydown"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:keydown", sName)
+Dim sCode As String = $"${sName}(${eOnkeydown})"$
+SetAttr("v-on:keydown", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1056,7 +1109,8 @@ Sub SetOnMousedown() As VFileInput
 Dim sName As String = $"${mEventName}_mousedown"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousedown", sName)
+Dim sCode As String = $"${sName}(${eOnmousedown})"$
+SetAttr("v-on:mousedown", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1069,7 +1123,8 @@ Sub SetOnMouseup() As VFileInput
 Dim sName As String = $"${mEventName}_mouseup"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseup", sName)
+Dim sCode As String = $"${sName}(${eOnmouseup})"$
+SetAttr("v-on:mouseup", sCode)
 'arguments for the event
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1082,7 +1137,8 @@ Sub SetOnUpdateError() As VFileInput
 Dim sName As String = $"${mEventName}_updateerror"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:update:error", sName)
+Dim sCode As String = $"${sName}(${eOnupdateerror})"$
+SetAttr("v-on:update:error", sCode)
 'arguments for the event
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1226,6 +1282,26 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VFileInput
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent

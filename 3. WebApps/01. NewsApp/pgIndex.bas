@@ -27,6 +27,11 @@ Sub Init
 	BANano.loadlayout("#pgcontainer", "newsarticles")
 	'load the newssource layout with list
 	BANano.loadlayout("#navdrawer", "newssource")
+	'bind component states and events
+	'
+	Log(BANano.getelement("#navdrawer").Gethtml)
+	
+	BindComponents
 	'show the drawer when the app opens
 	navdrawer.Show
 	'keep errors and sources for the news
@@ -37,8 +42,6 @@ Sub Init
 	MyApp.SetCreated(Me, "GetNewsAndSources")
 	'register the method to get avatars
 	MyApp.SetMethod(Me, "getimgurl")
-	'bind component states and events
-	BindComponents
 	'serve the webapp
 	MyApp.Serve
 End Sub
@@ -64,33 +67,39 @@ Sub GetNewsAndSources
 	' we will use php getjson
 	bPHP.Initialize
 	Dim articlesJSON As String = BANano.CallInlinePHPWait(bPHP.FILE_GETJSON, bPHP.BuildFileGetJSON(fKey))
-	If BANano.IsJson(articlesJSON) Then
+	If articlesJSON.startswith("{") Then
 		Dim articlesMAP As Map = BANano.FromJson(articlesJSON)
 		articles = articlesMAP.get("articles")
+		'save for offline use
+		BANano.SetLocalStorage("articles", articlesJSON)
 	End If
 	'get the sources
 	Dim sKey As String = $"https://newsapi.org/v2/sources?language=en&apiKey=${apiKey}"$
 	Dim sourcesJSON As String = BANano.CallInlinePHPWait(bPHP.FILE_GETJSON, bPHP.BuildFileGetJSON(sKey))
-	If BANano.isjson(sourcesJSON) Then
+	If sourcesJSON.startswith("{") Then
 		Dim sourcesMAP As Map = BANano.FromJson(sourcesJSON)
 		sources = sourcesMAP.get("sources")
+		'save for offline use
+		BANano.SetLocalStorage("sources", sourcesJSON)
 	End If
 	MyApp.SetData("articles", articles)
 	MyApp.SetData("sources", sources)
+	Log(sources)
 End Sub
 
 'fire when a source is changed
 Sub SetSource(sSource As String)
 	'get the top headlines
-	sources = MyApp.newlist
+	articles = MyApp.newlist
 	Dim sKey As String = $"https://newsapi.org/v2/top-headlines?sources=${sSource}&apiKey=${apiKey}"$
 	' we will use php getjson
 	bPHP.Initialize
 	Dim articlesJSON As String = BANano.CallInlinePHPWait(bPHP.FILE_GETJSON, bPHP.BuildFileGetJSON(sKey))
-	Dim articles As List = MyApp.newlist
-	If BANano.isjson(articlesJSON) Then
+	If articlesJSON.startswith("{") Then
 		Dim articlesMAP As Map = BANano.FromJson(articlesJSON)
 		articles = articlesMAP.get("articles")
+		'save for offline use
+		BANano.SetLocalStorage(sSource, articlesJSON)
 	End If
 	MyApp.SetData("articles", articles)
 End Sub
@@ -112,6 +121,6 @@ Sub BindComponents
 End Sub
 
 'when each news source is clicked, update the articles
-Sub newssource_click (argument As Object)
+Sub newssource_click(argument As Object)
 	SetSource(argument)
 End Sub

@@ -1,4 +1,4 @@
-2020-06-20 16:36:10 B4J=true
+2020-06-21 22:42:23 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -51,9 +51,13 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Oncancel, DisplayName: Oncancel, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclose, DisplayName: Onclose, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onopen, DisplayName: Onopen, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onsave, DisplayName: Onsave, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -114,6 +118,10 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOncancel As String = ""
+Private eOnclose As String = ""
+Private eOnopen As String = ""
+Private eOnsave As String = ""
 
 End Sub
 
@@ -176,6 +184,10 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOncancel = props.Get("Oncancel")
+eOnclose = props.Get("Onclose")
+eOnopen = props.Get("Onopen")
+eOnsave = props.Get("Onsave")
 
 End If
 Dim strHTML As String = ToString
@@ -183,13 +195,13 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates Cancel the event exists on the module
 SetOnCancel
-'This activates when the event exists on the module
+'This activates Close the event exists on the module
 SetOnClose
-'This activates when the event exists on the module
+'This activates Open the event exists on the module
 SetOnOpen
-'This activates when the event exists on the module
+'This activates Save the event exists on the module
 SetOnSave
 
 
@@ -467,7 +479,8 @@ Sub SetOnCancel() As VEditDialog
 Dim sName As String = $"${mEventName}_cancel"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:cancel", sName)
+Dim sCode As String = $"${sName}(${eOncancel})"$
+SetAttr("v-on:cancel", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -480,7 +493,8 @@ Sub SetOnClose() As VEditDialog
 Dim sName As String = $"${mEventName}_close"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:close", sName)
+Dim sCode As String = $"${sName}(${eOnclose})"$
+SetAttr("v-on:close", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -493,7 +507,8 @@ Sub SetOnOpen() As VEditDialog
 Dim sName As String = $"${mEventName}_open"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:open", sName)
+Dim sCode As String = $"${sName}(${eOnopen})"$
+SetAttr("v-on:open", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -506,7 +521,8 @@ Sub SetOnSave() As VEditDialog
 Dim sName As String = $"${mEventName}_save"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:save", sName)
+Dim sCode As String = $"${sName}(${eOnsave})"$
+SetAttr("v-on:save", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -609,6 +625,26 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VEditDialog
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent

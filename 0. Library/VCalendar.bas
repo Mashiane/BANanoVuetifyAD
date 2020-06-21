@@ -1,4 +1,4 @@
-2020-06-20 16:35:23 B4J=true
+2020-06-21 22:37:39 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -114,9 +114,45 @@ Version=8.3
 #DesignerProperty: Key: PaddingRight, DisplayName: PaddingRight, Description: Set padding-right, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingBottom, DisplayName: PaddingBottom, Description: Set padding-bottom, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PaddingLeft, DisplayName: PaddingLeft, Description: Set padding-left, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: Null, Description: Classes added to the HTML tag. 
-#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: Null, Description: Styles added to the HTML tag. Must be a json String. 
-#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: Null, Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
+#DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Onchange, DisplayName: Onchange, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickdate, DisplayName: Onclickdate, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickday, DisplayName: Onclickday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickinterval, DisplayName: Onclickinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickmore, DisplayName: Onclickmore, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclicktime, DisplayName: Onclicktime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenudate, DisplayName: Oncontextmenudate, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenuday, DisplayName: Oncontextmenuday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenuinterval, DisplayName: Oncontextmenuinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenutime, DisplayName: Oncontextmenutime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oninput, DisplayName: Oninput, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousedownday, DisplayName: Onmousedownday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousedowninterval, DisplayName: Onmousedowninterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousedowntime, DisplayName: Onmousedowntime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseenterday, DisplayName: Onmouseenterday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseenterinterval, DisplayName: Onmouseenterinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseentertime, DisplayName: Onmouseentertime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseleaveday, DisplayName: Onmouseleaveday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseleaveinterval, DisplayName: Onmouseleaveinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseleavetime, DisplayName: Onmouseleavetime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousemoveday, DisplayName: Onmousemoveday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousemoveinterval, DisplayName: Onmousemoveinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousemovetime, DisplayName: Onmousemovetime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseupday, DisplayName: Onmouseupday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseupinterval, DisplayName: Onmouseupinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseuptime, DisplayName: Onmouseuptime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmoved, DisplayName: Onmoved, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchendday, DisplayName: Ontouchendday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchendinterval, DisplayName: Ontouchendinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchendtime, DisplayName: Ontouchendtime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchmoveday, DisplayName: Ontouchmoveday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchmoveinterval, DisplayName: Ontouchmoveinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchmovetime, DisplayName: Ontouchmovetime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchstartday, DisplayName: Ontouchstartday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchstartinterval, DisplayName: Ontouchstartinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchstarttime, DisplayName: Ontouchstarttime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -208,6 +244,42 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
+Private eOnchange As String = ""
+Private eOnclickdate As String = ""
+Private eOnclickday As String = ""
+Private eOnclickinterval As String = ""
+Private eOnclickmore As String = ""
+Private eOnclicktime As String = ""
+Private eOncontextmenudate As String = ""
+Private eOncontextmenuday As String = ""
+Private eOncontextmenuinterval As String = ""
+Private eOncontextmenutime As String = ""
+Private eOninput As String = ""
+Private eOnmousedownday As String = ""
+Private eOnmousedowninterval As String = ""
+Private eOnmousedowntime As String = ""
+Private eOnmouseenterday As String = ""
+Private eOnmouseenterinterval As String = ""
+Private eOnmouseentertime As String = ""
+Private eOnmouseleaveday As String = ""
+Private eOnmouseleaveinterval As String = ""
+Private eOnmouseleavetime As String = ""
+Private eOnmousemoveday As String = ""
+Private eOnmousemoveinterval As String = ""
+Private eOnmousemovetime As String = ""
+Private eOnmouseupday As String = ""
+Private eOnmouseupinterval As String = ""
+Private eOnmouseuptime As String = ""
+Private eOnmoved As String = ""
+Private eOntouchendday As String = ""
+Private eOntouchendinterval As String = ""
+Private eOntouchendtime As String = ""
+Private eOntouchmoveday As String = ""
+Private eOntouchmoveinterval As String = ""
+Private eOntouchmovetime As String = ""
+Private eOntouchstartday As String = ""
+Private eOntouchstartinterval As String = ""
+Private eOntouchstarttime As String = ""
 
 End Sub
 
@@ -301,6 +373,42 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
+eOnchange = props.Get("Onchange")
+eOnclickdate = props.Get("Onclickdate")
+eOnclickday = props.Get("Onclickday")
+eOnclickinterval = props.Get("Onclickinterval")
+eOnclickmore = props.Get("Onclickmore")
+eOnclicktime = props.Get("Onclicktime")
+eOncontextmenudate = props.Get("Oncontextmenudate")
+eOncontextmenuday = props.Get("Oncontextmenuday")
+eOncontextmenuinterval = props.Get("Oncontextmenuinterval")
+eOncontextmenutime = props.Get("Oncontextmenutime")
+eOninput = props.Get("Oninput")
+eOnmousedownday = props.Get("Onmousedownday")
+eOnmousedowninterval = props.Get("Onmousedowninterval")
+eOnmousedowntime = props.Get("Onmousedowntime")
+eOnmouseenterday = props.Get("Onmouseenterday")
+eOnmouseenterinterval = props.Get("Onmouseenterinterval")
+eOnmouseentertime = props.Get("Onmouseentertime")
+eOnmouseleaveday = props.Get("Onmouseleaveday")
+eOnmouseleaveinterval = props.Get("Onmouseleaveinterval")
+eOnmouseleavetime = props.Get("Onmouseleavetime")
+eOnmousemoveday = props.Get("Onmousemoveday")
+eOnmousemoveinterval = props.Get("Onmousemoveinterval")
+eOnmousemovetime = props.Get("Onmousemovetime")
+eOnmouseupday = props.Get("Onmouseupday")
+eOnmouseupinterval = props.Get("Onmouseupinterval")
+eOnmouseuptime = props.Get("Onmouseuptime")
+eOnmoved = props.Get("Onmoved")
+eOntouchendday = props.Get("Ontouchendday")
+eOntouchendinterval = props.Get("Ontouchendinterval")
+eOntouchendtime = props.Get("Ontouchendtime")
+eOntouchmoveday = props.Get("Ontouchmoveday")
+eOntouchmoveinterval = props.Get("Ontouchmoveinterval")
+eOntouchmovetime = props.Get("Ontouchmovetime")
+eOntouchstartday = props.Get("Ontouchstartday")
+eOntouchstartinterval = props.Get("Ontouchstartinterval")
+eOntouchstarttime = props.Get("Ontouchstarttime")
 
 End If
 Dim strHTML As String = ToString
@@ -308,77 +416,77 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates when the event exists on the module
+'This activates Change the event exists on the module
 SetOnChange
-'This activates when the event exists on the module
+'This activates ClickDate the event exists on the module
 SetOnClickDate
-'This activates when the event exists on the module
+'This activates ClickDay the event exists on the module
 SetOnClickDay
-'This activates when the event exists on the module
+'This activates ClickInterval the event exists on the module
 SetOnClickInterval
-'This activates when the event exists on the module
+'This activates ClickMore the event exists on the module
 SetOnClickMore
-'This activates when the event exists on the module
+'This activates ClickTime the event exists on the module
 SetOnClickTime
-'This activates when the event exists on the module
+'This activates ContextmenuDate the event exists on the module
 SetOnContextmenuDate
-'This activates when the event exists on the module
+'This activates ContextmenuDay the event exists on the module
 SetOnContextmenuDay
-'This activates when the event exists on the module
+'This activates ContextmenuInterval the event exists on the module
 SetOnContextmenuInterval
-'This activates when the event exists on the module
+'This activates ContextmenuTime the event exists on the module
 SetOnContextmenuTime
-'This activates when the event exists on the module
+'This activates Input the event exists on the module
 SetOnInput
-'This activates when the event exists on the module
+'This activates MousedownDay the event exists on the module
 SetOnMousedownDay
-'This activates when the event exists on the module
+'This activates MousedownInterval the event exists on the module
 SetOnMousedownInterval
-'This activates when the event exists on the module
+'This activates MousedownTime the event exists on the module
 SetOnMousedownTime
-'This activates when the event exists on the module
+'This activates MouseenterDay the event exists on the module
 SetOnMouseenterDay
-'This activates when the event exists on the module
+'This activates MouseenterInterval the event exists on the module
 SetOnMouseenterInterval
-'This activates when the event exists on the module
+'This activates MouseenterTime the event exists on the module
 SetOnMouseenterTime
-'This activates when the event exists on the module
+'This activates MouseleaveDay the event exists on the module
 SetOnMouseleaveDay
-'This activates when the event exists on the module
+'This activates MouseleaveInterval the event exists on the module
 SetOnMouseleaveInterval
-'This activates when the event exists on the module
+'This activates MouseleaveTime the event exists on the module
 SetOnMouseleaveTime
-'This activates when the event exists on the module
+'This activates MousemoveDay the event exists on the module
 SetOnMousemoveDay
-'This activates when the event exists on the module
+'This activates MousemoveInterval the event exists on the module
 SetOnMousemoveInterval
-'This activates when the event exists on the module
+'This activates MousemoveTime the event exists on the module
 SetOnMousemoveTime
-'This activates when the event exists on the module
+'This activates MouseupDay the event exists on the module
 SetOnMouseupDay
-'This activates when the event exists on the module
+'This activates MouseupInterval the event exists on the module
 SetOnMouseupInterval
-'This activates when the event exists on the module
+'This activates MouseupTime the event exists on the module
 SetOnMouseupTime
-'This activates when the event exists on the module
+'This activates Moved the event exists on the module
 SetOnMoved
-'This activates when the event exists on the module
+'This activates TouchendDay the event exists on the module
 SetOnTouchendDay
-'This activates when the event exists on the module
+'This activates TouchendInterval the event exists on the module
 SetOnTouchendInterval
-'This activates when the event exists on the module
+'This activates TouchendTime the event exists on the module
 SetOnTouchendTime
-'This activates when the event exists on the module
+'This activates TouchmoveDay the event exists on the module
 SetOnTouchmoveDay
-'This activates when the event exists on the module
+'This activates TouchmoveInterval the event exists on the module
 SetOnTouchmoveInterval
-'This activates when the event exists on the module
+'This activates TouchmoveTime the event exists on the module
 SetOnTouchmoveTime
-'This activates when the event exists on the module
+'This activates TouchstartDay the event exists on the module
 SetOnTouchstartDay
-'This activates when the event exists on the module
+'This activates TouchstartInterval the event exists on the module
 SetOnTouchstartInterval
-'This activates when the event exists on the module
+'This activates TouchstartTime the event exists on the module
 SetOnTouchstartTime
 
 
@@ -879,7 +987,8 @@ Sub SetOnChange() As VCalendar
 Dim sName As String = $"${mEventName}_change"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:change", sName)
+Dim sCode As String = $"${sName}(${eOnchange})"$
+SetAttr("v-on:change", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -892,7 +1001,8 @@ Sub SetOnClickDate() As VCalendar
 Dim sName As String = $"${mEventName}_clickdate"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:date", sName)
+Dim sCode As String = $"${sName}(${eOnclickdate})"$
+SetAttr("v-on:click:date", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -905,7 +1015,8 @@ Sub SetOnClickDay() As VCalendar
 Dim sName As String = $"${mEventName}_clickday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:day", sName)
+Dim sCode As String = $"${sName}(${eOnclickday})"$
+SetAttr("v-on:click:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -918,7 +1029,8 @@ Sub SetOnClickInterval() As VCalendar
 Dim sName As String = $"${mEventName}_clickinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:interval", sName)
+Dim sCode As String = $"${sName}(${eOnclickinterval})"$
+SetAttr("v-on:click:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -931,7 +1043,8 @@ Sub SetOnClickMore() As VCalendar
 Dim sName As String = $"${mEventName}_clickmore"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:more", sName)
+Dim sCode As String = $"${sName}(${eOnclickmore})"$
+SetAttr("v-on:click:more", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -944,7 +1057,8 @@ Sub SetOnClickTime() As VCalendar
 Dim sName As String = $"${mEventName}_clicktime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:click:time", sName)
+Dim sCode As String = $"${sName}(${eOnclicktime})"$
+SetAttr("v-on:click:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -957,7 +1071,8 @@ Sub SetOnContextmenuDate() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenudate"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:contextmenu:date", sName)
+Dim sCode As String = $"${sName}(${eOncontextmenudate})"$
+SetAttr("v-on:contextmenu:date", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -970,7 +1085,8 @@ Sub SetOnContextmenuDay() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenuday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:contextmenu:day", sName)
+Dim sCode As String = $"${sName}(${eOncontextmenuday})"$
+SetAttr("v-on:contextmenu:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -983,7 +1099,8 @@ Sub SetOnContextmenuInterval() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenuinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:contextmenu:interval", sName)
+Dim sCode As String = $"${sName}(${eOncontextmenuinterval})"$
+SetAttr("v-on:contextmenu:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -996,7 +1113,8 @@ Sub SetOnContextmenuTime() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenutime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:contextmenu:time", sName)
+Dim sCode As String = $"${sName}(${eOncontextmenutime})"$
+SetAttr("v-on:contextmenu:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1009,7 +1127,8 @@ Sub SetOnInput() As VCalendar
 Dim sName As String = $"${mEventName}_input"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:input", sName)
+Dim sCode As String = $"${sName}(${eOninput})"$
+SetAttr("v-on:input", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1022,7 +1141,8 @@ Sub SetOnMousedownDay() As VCalendar
 Dim sName As String = $"${mEventName}_mousedownday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousedown:day", sName)
+Dim sCode As String = $"${sName}(${eOnmousedownday})"$
+SetAttr("v-on:mousedown:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1035,7 +1155,8 @@ Sub SetOnMousedownInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mousedowninterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousedown:interval", sName)
+Dim sCode As String = $"${sName}(${eOnmousedowninterval})"$
+SetAttr("v-on:mousedown:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1048,7 +1169,8 @@ Sub SetOnMousedownTime() As VCalendar
 Dim sName As String = $"${mEventName}_mousedowntime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousedown:time", sName)
+Dim sCode As String = $"${sName}(${eOnmousedowntime})"$
+SetAttr("v-on:mousedown:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1061,7 +1183,8 @@ Sub SetOnMouseenterDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseenterday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseenter:day", sName)
+Dim sCode As String = $"${sName}(${eOnmouseenterday})"$
+SetAttr("v-on:mouseenter:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1074,7 +1197,8 @@ Sub SetOnMouseenterInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mouseenterinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseenter:interval", sName)
+Dim sCode As String = $"${sName}(${eOnmouseenterinterval})"$
+SetAttr("v-on:mouseenter:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1087,7 +1211,8 @@ Sub SetOnMouseenterTime() As VCalendar
 Dim sName As String = $"${mEventName}_mouseentertime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseenter:time", sName)
+Dim sCode As String = $"${sName}(${eOnmouseentertime})"$
+SetAttr("v-on:mouseenter:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1100,7 +1225,8 @@ Sub SetOnMouseleaveDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleaveday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseleave:day", sName)
+Dim sCode As String = $"${sName}(${eOnmouseleaveday})"$
+SetAttr("v-on:mouseleave:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1113,7 +1239,8 @@ Sub SetOnMouseleaveInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleaveinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseleave:interval", sName)
+Dim sCode As String = $"${sName}(${eOnmouseleaveinterval})"$
+SetAttr("v-on:mouseleave:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1126,7 +1253,8 @@ Sub SetOnMouseleaveTime() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleavetime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseleave:time", sName)
+Dim sCode As String = $"${sName}(${eOnmouseleavetime})"$
+SetAttr("v-on:mouseleave:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1139,7 +1267,8 @@ Sub SetOnMousemoveDay() As VCalendar
 Dim sName As String = $"${mEventName}_mousemoveday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousemove:day", sName)
+Dim sCode As String = $"${sName}(${eOnmousemoveday})"$
+SetAttr("v-on:mousemove:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1152,7 +1281,8 @@ Sub SetOnMousemoveInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mousemoveinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousemove:interval", sName)
+Dim sCode As String = $"${sName}(${eOnmousemoveinterval})"$
+SetAttr("v-on:mousemove:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1165,7 +1295,8 @@ Sub SetOnMousemoveTime() As VCalendar
 Dim sName As String = $"${mEventName}_mousemovetime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mousemove:time", sName)
+Dim sCode As String = $"${sName}(${eOnmousemovetime})"$
+SetAttr("v-on:mousemove:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1178,7 +1309,8 @@ Sub SetOnMouseupDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseupday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseup:day", sName)
+Dim sCode As String = $"${sName}(${eOnmouseupday})"$
+SetAttr("v-on:mouseup:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1191,7 +1323,8 @@ Sub SetOnMouseupInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mouseupinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseup:interval", sName)
+Dim sCode As String = $"${sName}(${eOnmouseupinterval})"$
+SetAttr("v-on:mouseup:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1204,7 +1337,8 @@ Sub SetOnMouseupTime() As VCalendar
 Dim sName As String = $"${mEventName}_mouseuptime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:mouseup:time", sName)
+Dim sCode As String = $"${sName}(${eOnmouseuptime})"$
+SetAttr("v-on:mouseup:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1217,7 +1351,8 @@ Sub SetOnMoved() As VCalendar
 Dim sName As String = $"${mEventName}_moved"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:moved", sName)
+Dim sCode As String = $"${sName}(${eOnmoved})"$
+SetAttr("v-on:moved", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1230,7 +1365,8 @@ Sub SetOnTouchendDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchendday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchend:day", sName)
+Dim sCode As String = $"${sName}(${eOntouchendday})"$
+SetAttr("v-on:touchend:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1243,7 +1379,8 @@ Sub SetOnTouchendInterval() As VCalendar
 Dim sName As String = $"${mEventName}_touchendinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchend:interval", sName)
+Dim sCode As String = $"${sName}(${eOntouchendinterval})"$
+SetAttr("v-on:touchend:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1256,7 +1393,8 @@ Sub SetOnTouchendTime() As VCalendar
 Dim sName As String = $"${mEventName}_touchendtime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchend:time", sName)
+Dim sCode As String = $"${sName}(${eOntouchendtime})"$
+SetAttr("v-on:touchend:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1269,7 +1407,8 @@ Sub SetOnTouchmoveDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchmoveday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchmove:day", sName)
+Dim sCode As String = $"${sName}(${eOntouchmoveday})"$
+SetAttr("v-on:touchmove:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1282,7 +1421,8 @@ Sub SetOnTouchmoveInterval() As VCalendar
 Dim sName As String = $"${mEventName}_touchmoveinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchmove:interval", sName)
+Dim sCode As String = $"${sName}(${eOntouchmoveinterval})"$
+SetAttr("v-on:touchmove:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1295,7 +1435,8 @@ Sub SetOnTouchmoveTime() As VCalendar
 Dim sName As String = $"${mEventName}_touchmovetime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchmove:time", sName)
+Dim sCode As String = $"${sName}(${eOntouchmovetime})"$
+SetAttr("v-on:touchmove:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1308,7 +1449,8 @@ Sub SetOnTouchstartDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchstartday"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchstart:day", sName)
+Dim sCode As String = $"${sName}(${eOntouchstartday})"$
+SetAttr("v-on:touchstart:day", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1321,7 +1463,8 @@ Sub SetOnTouchstartInterval() As VCalendar
 Dim sName As String = $"${mEventName}_touchstartinterval"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchstart:interval", sName)
+Dim sCode As String = $"${sName}(${eOntouchstartinterval})"$
+SetAttr("v-on:touchstart:interval", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1334,7 +1477,8 @@ Sub SetOnTouchstartTime() As VCalendar
 Dim sName As String = $"${mEventName}_touchstarttime"$
 sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
-SetAttr("v-on:touchstart:time", sName)
+Dim sCode As String = $"${sName}(${eOntouchstarttime})"$
+SetAttr("v-on:touchstart:time", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1468,6 +1612,26 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
+End Sub
+
+'set on click event, updates the master events records
+Sub SetOnClick1() As VCalendar
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	'arguments for the event
+	Dim argument As Object 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	'link event to item
+	Dim rName As String = sKey
+	If sKey.StartsWith(":") Then
+		rName = BANanoShared.MidString2(sKey, 2)
+		sName = $"${mEventName}_click(${rName})"$
+		sName = sName.tolowercase
+	End If
+	SetAttr("v-on:click", sName)
+	Return Me
 End Sub
 
 'add component to parent
