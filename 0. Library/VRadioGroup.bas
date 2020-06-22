@@ -870,7 +870,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -883,7 +883,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VRadioGroup
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
@@ -1149,18 +1149,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VRadioGroup
-	Dim scolor As String = $"${varColor} ${varIntensity}"$
+	Dim sColor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, scolor)
+	bindings.Put(pp, sColor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VRadioGroup
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -1169,7 +1169,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VRadioG
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 
@@ -1223,20 +1223,20 @@ Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VRadioGroup
 	if svBindClass = "" then
 		Log($"VRadioGroup.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindClass)
+	End If
+	Dim obj As Map = data.get(sVBindClass)
 	obj.put(clsName, clsValue)
-	data.put(svBindClass, obj)
+	data.put(sVBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VRadioGroup
-	if svBindStyle = "" then
+Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VRadioGroup
+	If sVBindStyle = "" Then
 		Log($"VRadioGroup.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
 	data.put(sVBindStyle, obj)
 	Return Me
@@ -1272,6 +1272,20 @@ End Sub
 '	Return Me
 'End Sub
 
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub
 
 
 

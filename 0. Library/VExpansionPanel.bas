@@ -1,5 +1,4 @@
-2020-06-21 22:42:48 B4J=true
-Group=Default Group
+﻿Group=Default Group
 ModulesStructureVersion=1
 Type=Class
 Version=8.3
@@ -839,13 +838,13 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VExpansionPanel
-	if svBindStyle = "" then
+	If sVBindStyle = "" Then
 		Log($"VExpansionPanel.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(svBindStyle, obj)
+	data.put(sVBindStyle, obj)
 	Return Me
 End Sub
 
@@ -859,25 +858,25 @@ Sub SetRequiredOnOff(b As Boolean) As VExpansionPanel
 	Return Me
 End Sub
 
-'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VExpansionPanel
-	If sReadonly = "" Then
-		Log($"VExpansionPanel.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
-
-'disabled
-Sub SetDisabledOnOff(b As Boolean) As VExpansionPanel
-	If sDisabled = "" Then
-		Log($"VExpansionPanel.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+''read only
+'Sub SetReadOnlyOnOff(b As Boolean) As VExpansionPanel
+'	If sReadonly = "" Then
+'		Log($"VExpansionPanel.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
+'
+''disabled
+'Sub SetDisabledOnOff(b As Boolean) As VExpansionPanel
+'	If sDisabled = "" Then
+'		Log($"VExpansionPanel.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 
 

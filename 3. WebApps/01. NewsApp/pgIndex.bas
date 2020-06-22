@@ -21,16 +21,13 @@ End Sub
 Sub Init
 	'load the mainlayout we will use
 	BANano.LoadLayout("body", "applayout")
-	'initialize the vue instance, we will render it to #app div element
-	MyApp.Initialize(Me, "app", "body")
 	'load the newsarticle layout
 	BANano.loadlayout("#pgcontainer", "newsarticles")
 	'load the newssource layout with list
 	BANano.loadlayout("#navdrawer", "newssource")
+	'initialize the vue instance, we will render it to #app div element
+	MyApp.Initialize(Me, "app", "body")	
 	'bind component states and events
-	'
-	Log(BANano.getelement("#navdrawer").Gethtml)
-	
 	BindComponents
 	'show the drawer when the app opens
 	navdrawer.Show
@@ -84,7 +81,6 @@ Sub GetNewsAndSources
 	End If
 	MyApp.SetData("articles", articles)
 	MyApp.SetData("sources", sources)
-	Log(sources)
 End Sub
 
 'fire when a source is changed

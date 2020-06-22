@@ -25,7 +25,7 @@ Version=8.3
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: TagName, DisplayName: TagName, Description: , List:p|a|br|div|span|h1|h2|h3|h4|h5|h6, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: TagName, DisplayName: TagName, Description: , List:p|a|br|div|span|h1|h2|h3|h4|h5|h6, FieldType: String, DefaultValue: div
 #DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
@@ -45,7 +45,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 

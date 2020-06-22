@@ -42,6 +42,7 @@ File44=vue.min.js
 File45=vue-router.min.js
 File46=vuetify.min.css
 File47=vuetify.min.js
+File48=vuex.js
 File5=fontawesome-webfont.svg
 File6=fontawesome-webfont.ttf
 File7=fontawesome-webfont.woff
@@ -89,6 +90,7 @@ FileGroup44=Default Group
 FileGroup45=Default Group
 FileGroup46=Default Group
 FileGroup47=Default Group
+FileGroup48=Default Group
 FileGroup5=Default Group
 FileGroup6=Default Group
 FileGroup7=Default Group
@@ -112,47 +114,52 @@ Module19=VDialog
 Module2=VA
 Module20=VDiv
 Module21=VDivider
-Module22=VFooter
-Module23=VIcon
-Module24=VImg
-Module25=VLabel
-Module26=VList
-Module27=VListGroup
-Module28=VListItem
-Module29=VListItemAction
+Module22=VExpansionPanel
+Module23=VExpansionPanelContent
+Module24=VExpansionPanelHeader
+Module25=VExpansionPanels
+Module26=VFooter
+Module27=VIcon
+Module28=VImg
+Module29=VLabel
 Module3=VAlert
-Module30=VListItemActionText
-Module31=VListItemAvatar
-Module32=VListItemContent
-Module33=VListItemGroup
-Module34=VListItemIcon
-Module35=VListItemSubtitle
-Module36=VListItemTitle
-Module37=VMElement
-Module38=VNavigationDrawer
-Module39=VProgressCircular
+Module30=VList
+Module31=VListGroup
+Module32=VListItem
+Module33=VListItemAction
+Module34=VListItemActionText
+Module35=VListItemAvatar
+Module36=VListItemContent
+Module37=VListItemGroup
+Module38=VListItemIcon
+Module39=VListItemSubtitle
 Module4=VApp
-Module40=VProgressLinear
-Module41=VRadio
-Module42=VRadioGroup
-Module43=VRouterLink
-Module44=VRouterView
-Module45=VRow
-Module46=VSheet
-Module47=VSpacer
-Module48=VTemplate
-Module49=VToolbar
+Module40=VListItemTitle
+Module41=VMElement
+Module42=VNavigationDrawer
+Module43=VProgressCircular
+Module44=VProgressLinear
+Module45=VRadio
+Module46=VRadioGroup
+Module47=VRouterLink
+Module48=VRouterView
+Module49=VRow
 Module5=VAppBar
-Module50=VToolbarItems
-Module51=VToolbarTitle
-Module52=VueApp
+Module50=VSheet
+Module51=VSnackbar
+Module52=VSpacer
+Module53=VTemplate
+Module54=VToolbar
+Module55=VToolbarItems
+Module56=VToolbarTitle
+Module57=VueApp
 Module6=VAppBarNavIcon
 Module7=VAutocomplete
 Module8=VAvatar
 Module9=VBtn
-NumberOfFiles=47
+NumberOfFiles=48
 NumberOfLibraries=3
-NumberOfModules=52
+NumberOfModules=57
 Version=8.31
 @EndOfDesignText@
 #Region Project Attributes 
@@ -161,6 +168,12 @@ Version=8.31
 	#IgnoreWarnings: 16, 10, 14, 15, 19
 	#LibraryAuthor: Anele Mbanga (Mashiane)
 	#LibraryVersion: 1.02
+#End Region
+
+#Region Notes
+	'Drawer, SnackBar - show and hide using vmodel
+	
+	
 #End Region
 
 Sub Process_Globals
@@ -189,6 +202,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.Header.AddJavascriptFile("vue-router.min.js")
 	'for file download
 	BANano.Header.AddJavascriptFile("fileSaver.min.js")
+	BANano.Header.AddJavascriptFile("vuex.js")
 			
 	' start the build
 	#if release

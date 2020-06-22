@@ -7,7 +7,12 @@ Version=8.3
 #IgnoreWarnings:12
 Sub Class_Globals
 	Public el As BANanoObject
+	Public VuexState As Map
+	Public VuexMutations As Map
+	Public VuexStore As BANanoObject
+	Public store As BANanoObject
 	Public emit As BANanoObject
+	Public router As BANanoObject
 	Public Modules As Map
 	Private BANano As BANano   'ignore
 	Public methods As Map
@@ -129,8 +134,16 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	Modules.Initialize
 	Errors.Initialize 
 	Themes.Initialize 
-	ColorMap.Initialize 
+	ColorMap.Initialize
+	'
+	VuexState = CreateMap()
+	VuexMutations = CreateMap()
+	Dim vuexopt As Map = CreateMap()
+	vuexopt.Put("state", VuexState)
+	vuexopt.Put("mutations", VuexMutations)
+	VuexStore.Initialize2("Vuex.Store", Array(vuexopt))
 	vap.Initialize("Vue")
+	
 	'
 	SetBeforeCreate(Module, "BeforeCreate")
 	SetCreated(Module, "Created")
@@ -409,12 +422,44 @@ Sub InitColors
 	ColorMap.put("transparent", "transparent")
 End Sub
 
+'set mutation
+Sub SetVuexMutation(Module As Object, MethodName As String) As VueApp
+	MethodName = MethodName.ToLowerCase
+	'
+	Dim arguments As Object
+	Dim cb As BANanoObject = BANano.CallBack(Module, MethodName, Array(arguments))
+	VuexMutations.Put(MethodName, cb)
+	Return Me
+End Sub
+
+'commit a state
+Sub VuexCommit(mutationName As String, mutationOptions As Map)
+	mutationName = mutationName.tolowercase
+	store.RunMethod("commit",Array(mutationName, mutationOptions))
+End Sub
+
+'use the store for data
+Sub SetDataVuex(prop As String, val As Object) As VueApp
+	prop = prop.tolowercase
+	VuexState.Put(prop, val)
+	Return Me
+End Sub
+
+'use the store for data
+Sub GetDataVuex(prop As String) As Object
+	prop = prop.tolowercase
+	Dim obj As Object = Null
+	If VuexState.ContainsKey(prop) Then obj = VuexState.Get(prop)
+	Return obj
+End Sub
+
 'get the name of the breakpoint
 Sub GetBreakPointName As String
 	Dim bp As BANanoObject = vuetify.GetField("breakpoint")
 	Dim res As String = bp.GetField("name").Result
 	Return res
 End Sub
+
 
 'new list
 Sub NewList As List
@@ -898,6 +943,7 @@ Sub Serve
 	targetID = targetID.Replace("#","")
 	'set where we should render the app to
 	Options.Put("el", $"#${targetID}"$)
+	Options.Put("store", VuexStore)
 	'get the body
 	'get where you have loaded the layout
 	'this gets the HTML to use
@@ -927,9 +973,9 @@ Sub Serve
 		Dim ropt As Map = CreateMap()
 		ropt.Put("mode", "history")
 		ropt.Put("routes", routes)
-		Dim router As BANanoObject
-		router.Initialize2("VueRouter", Array(ropt))
-		Options.Put("router", router)
+		Dim vrouter As BANanoObject
+		vrouter.Initialize2("VueRouter", Array(ropt))
+		Options.Put("router", vrouter)
 	End If
 	
 	If data.Size > 0 Then Options.put("data", data)
@@ -952,8 +998,20 @@ Sub Serve
 	emit = vap.GetField(emitKey)
 	Dim svuetify As String = "$vuetify"
 	vuetify = vap.GetField(svuetify)
+	Dim sstore As String = "$store"
+	store = vap.GetField(sstore)
+	Dim srouter As String = "$router"
+	router = vap.GetField(srouter)
 	'enable data to be available globally
 	'BOVue.GetField("prototype").SetField("$store", store)
+End Sub
+
+'Use router To navigate
+Sub NavigateTo(sPath As String)
+	sPath = sPath.tolowercase
+	Dim namem As Map = CreateMap()
+	namem.put("path", sPath)
+	router.RunMethod("push", Array(namem))
 End Sub
 
 'use a component module

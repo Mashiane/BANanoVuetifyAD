@@ -1,5 +1,4 @@
-2020-06-21 22:43:03 B4J=true
-Group=Default Group
+﻿Group=Default Group
 ModulesStructureVersion=1
 Type=Class
 Version=8.3
