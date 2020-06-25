@@ -1,5 +1,4 @@
-2020-06-21 22:40:03 B4J=true
-Group=Default Group
+﻿Group=Default Group
 ModulesStructureVersion=1
 Type=Class
 Version=8.3
@@ -30,13 +29,13 @@ Version=8.3
 #DesignerProperty: Key: Attach, DisplayName: Attach, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: AutoSelectFirst, DisplayName: AutoSelectFirst, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Autofocus, DisplayName: Autofocus, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: CacheItems, DisplayName: CacheItems, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Chips, DisplayName: Chips, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ClearIcon, DisplayName: ClearIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Clearable, DisplayName: Clearable, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Counter, DisplayName: Counter, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: CounterValue, DisplayName: CounterValue, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
@@ -109,7 +108,7 @@ Version=8.3
 #DesignerProperty: Key: ValidateOnBlur, DisplayName: ValidateOnBlur, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: ValueComparator, DisplayName: ValueComparator, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -1494,9 +1493,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -1553,7 +1552,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VCombobox
 	appLink = vap
-	data = vap.data	
+	data = vap.state	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -1568,7 +1567,7 @@ Sub AddToApp(vap As VueApp) As VCombobox
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object) As VCombobox
+Sub SetData(prop As String, value As Object) As VCombobox
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -1667,17 +1666,17 @@ Sub AddClass(classNames As List) As VCombobox
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	dim cm as string = BANanoShared.Join(" ", classnames)
-	Setclasses(cm)
+	Dim cm As String = BANanoShared.Join(" ", classNames)
+	SetClasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VCombobox
-	for each k as string in m.Keys
-		dim v as string = m.get(k)
+	For Each k As String In m.Keys
+		Dim v As String = m.get(k)
 		styles.put(k, v)
-	next
+	Next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -1694,9 +1693,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VCombobox
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then Return Me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -1716,11 +1715,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VCombobox
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then return me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	styles.put(prop, value)
-	dim m as map = createmap()
+	Dim m As Map = CreateMap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -1741,10 +1740,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		for each k as string in styleprops.Keys
-			dim v as string = styleprops.get(k)
+		For Each k As String In styleProps.Keys
+			Dim v As String = styleProps.get(k)
 			SetStyleSingle(k, v)
-		next
+		Next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -1758,13 +1757,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj as string) As VCombobox
+Sub SetVClass(classObj As String) As VCombobox
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VCombobox
+Sub SetVStyle(styleObj As String) As VCombobox
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -1780,18 +1779,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VCombobox
-	Dim scolor As String = $"${varColor} ${varIntensity}"$
+	Dim sColor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, scolor)
+	bindings.Put(pp, sColor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VCombobox
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -1800,7 +1799,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VCombob
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 
@@ -1850,26 +1849,26 @@ Sub Show As VCombobox
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VCombobox
-	if svBindClass = "" then
+Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VCombobox
+	If sVBindClass = "" Then
 		Log($"VCombobox.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindClass)
+	End If
+	Dim obj As Map = data.get(sVBindClass)
 	obj.put(clsName, clsValue)
-	data.put(svBindClass, obj)
+	data.put(sVBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VCombobox
-	if svBindStyle = "" then
+Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VCombobox
+	If sVBindStyle = "" Then
 		Log($"VCombobox.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(svBindStyle, obj)
+	data.put(sVBindStyle, obj)
 	Return Me
 End Sub
 
@@ -1883,24 +1882,39 @@ Sub SetRequiredOnOff(b As Boolean) As VCombobox
 	Return Me
 End Sub
 
-'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VCombobox
-	If sReadonly = "" Then
-		Log($"VCombobox.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+''read only
+'Sub SetReadOnlyOnOff(b As Boolean) As VCombobox
+'	If sReadonly = "" Then
+'		Log($"VCombobox.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
+'
+''disabled
+'Sub SetDisabledOnOff(b As Boolean) As VCombobox
+'	If sDisabled = "" Then
+'		Log($"VCombobox.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
-'disabled
-Sub SetDisabledOnOff(b As Boolean) As VCombobox
-	If sDisabled = "" Then
-		Log($"VCombobox.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
 End Sub
 
 

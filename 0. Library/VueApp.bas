@@ -7,12 +7,12 @@ Version=8.3
 #IgnoreWarnings:12
 Sub Class_Globals
 	Public el As BANanoObject
-	Public VuexState As Map
-	Public VuexMutations As Map
-	Public VuexStore As BANanoObject
-	Public store As BANanoObject
+	Public data As Map
+	Public state As Map
+	'Public store As BANanoObject
 	Public emit As BANanoObject
 	Public router As BANanoObject
+	Public VuePageTransition As BANanoObject
 	Public Modules As Map
 	Private BANano As BANano   'ignore
 	Public methods As Map
@@ -20,7 +20,6 @@ Sub Class_Globals
 	Private watches As Map
 	Private filters As Map
 	Private opt As Map
-	Public data As Map
 	Private refs As BANanoObject
 	Private props As List
 	Public Path As String
@@ -39,6 +38,11 @@ Sub Class_Globals
 	Public Errors As Map
 	Public Themes As Map
 	Private ColorMap As Map
+	Public Vuex As BANanoObject
+	Public VuexState As Map
+	Public VuexMutations As Map
+	Public VuexStore As BANanoObject
+	
 	'
 	Public const BORDER_DEFAULT As String = ""
 	Public const BORDER_DASHED As String = "dashed"
@@ -124,7 +128,6 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	watches.Initialize
 	filters.Initialize
 	opt.Initialize
-	data.Initialize
 	props.Initialize
 	Query.Initialize
 	EventHandler = Module
@@ -135,15 +138,27 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	Errors.Initialize 
 	Themes.Initialize 
 	ColorMap.Initialize
+	data.Initialize 
 	'
+	vap.Initialize("Vue")
+	'***use a global prototype
+	'state = CreateMap()
+	'state.Put("state", CreateMap())
+	'store = vap.RunMethod("observable", Array(state))
+	'vap.GetField("prototype").SetField("$store", store)
+	'****
+	'***use the vuex store
+	Vuex.Initialize("Vuex")
 	VuexState = CreateMap()
 	VuexMutations = CreateMap()
 	Dim vuexopt As Map = CreateMap()
 	vuexopt.Put("state", VuexState)
 	vuexopt.Put("mutations", VuexMutations)
-	VuexStore.Initialize2("Vuex.Store", Array(vuexopt))
-	vap.Initialize("Vue")
-	
+	vuexopt.Put("strict", False)
+	VuexStore.Initialize2("Vuex.Store", Array(vuexopt)) 
+	'
+	VuePageTransition.Initialize("VuePageTransition")
+	Use(VuePageTransition)
 	'
 	SetBeforeCreate(Module, "BeforeCreate")
 	SetCreated(Module, "Created")
@@ -159,6 +174,12 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	lang = "en"
 	InitColors
 	Return Me
+End Sub
+
+Sub SetVuexMutation(Module As Object, MutationName As String, VxState As Map, Payload As Map)
+	MutationName = MutationName.ToLowerCase
+	Dim cb As BANanoObject = BANano.CallBack(Module, MutationName, Array(VxState, Payload))
+	VuexMutations.Put(MutationName, cb)
 End Sub
 
 Sub InitColors
@@ -422,37 +443,6 @@ Sub InitColors
 	ColorMap.put("transparent", "transparent")
 End Sub
 
-'set mutation
-Sub SetVuexMutation(Module As Object, MethodName As String) As VueApp
-	MethodName = MethodName.ToLowerCase
-	'
-	Dim arguments As Object
-	Dim cb As BANanoObject = BANano.CallBack(Module, MethodName, Array(arguments))
-	VuexMutations.Put(MethodName, cb)
-	Return Me
-End Sub
-
-'commit a state
-Sub VuexCommit(mutationName As String, mutationOptions As Map)
-	mutationName = mutationName.tolowercase
-	store.RunMethod("commit",Array(mutationName, mutationOptions))
-End Sub
-
-'use the store for data
-Sub SetDataVuex(prop As String, val As Object) As VueApp
-	prop = prop.tolowercase
-	VuexState.Put(prop, val)
-	Return Me
-End Sub
-
-'use the store for data
-Sub GetDataVuex(prop As String) As Object
-	prop = prop.tolowercase
-	Dim obj As Object = Null
-	If VuexState.ContainsKey(prop) Then obj = VuexState.Get(prop)
-	Return obj
-End Sub
-
 'get the name of the breakpoint
 Sub GetBreakPointName As String
 	Dim bp As BANanoObject = vuetify.GetField("breakpoint")
@@ -521,6 +511,7 @@ End Sub
 
 'add a component we have defined internally
 Sub AddComponent(comp As VMElement) As VueApp
+	comp.SetTag(comp.mName)
 	Dim sid As String = comp.mName
 	If components.ContainsKey(sid) = True Then 
 		Return Me
@@ -570,17 +561,17 @@ Sub SetTemplate(tmp As String) As VueApp
 	Return Me
 End Sub
 
-'force the update of the ux
-Sub ForceUpdate
-	Dim fu As String = "$forceUpdate"
-	vap.RunMethod(fu, Null)
-	'get the state
-	Dim dKey As String = "$data"
-	data = vap.GetField(dKey).Result
-	'get the refs
-	Dim rKey As String = "$refs"
-	refs = vap.GetField(rKey)
-End Sub
+''force the update of the ux
+'Sub ForceUpdate
+'	Dim fu As String = "$forceUpdate"
+'	vap.RunMethod(fu, Null)
+'	'get the state
+'	Dim dKey As String = "$data"
+'	data = vap.GetField(dKey).Result
+'	'get the refs
+'	Dim rKey As String = "$refs"
+'	refs = vap.GetField(rKey)
+'End Sub
 
 'set mounted
 Sub SetMounted(module As Object, methodName As String) As VueApp
@@ -731,12 +722,12 @@ Sub RefreshKey(keyName As String) As VueApp
 	Return Me
 End Sub
 
-Sub RemoveData(key As String) As VueApp
+Sub RemoveDataX(key As String) As VueApp
 	key = key.ToLowerCase
 	data.Remove(key)
 	Return Me
 End Sub
-
+'
 Sub SetData(prop As String, valuex As Object) As VueApp
 	prop = prop.tolowercase
 	data.Put(prop, valuex)
@@ -749,6 +740,23 @@ Sub GetData(prop As String) As Object
 	Return obj
 End Sub
 
+'set data global
+Sub SetDataVuex(prop As String, valuex As Object) As VueApp
+	prop = prop.tolowercase
+	VuexStore.GetField("state").SetField(prop, valuex)
+	Return Me
+End Sub
+
+'get data global
+Sub GetDataVuex(prop As String) As Object
+	prop = prop.tolowercase
+	Dim obj As Map = VuexStore.GetField("state").Result
+	Dim res As Object = Null
+	If obj.ContainsKey(prop) Then
+		res = obj.Get(prop)
+	End If
+	Return res
+End Sub
 
 'set direct method
 Sub SetFilter(Module As Object, methodName As String) As VueApp
@@ -761,11 +769,6 @@ Sub SetFilter(Module As Object, methodName As String) As VueApp
 		Log($"SetFilter.${methodName} could not be found!"$)
 	End If
 	Return Me
-End Sub
-
-'use for components
-private Sub ReturnData As Map
-	Return data
 End Sub
 
 'set computed
@@ -819,7 +822,7 @@ Sub SetState(m As Map) As VueApp
 	For Each k As String In m.Keys
 		Dim v As Object = m.Get(k)
 		k = k.tolowercase
-		data.Put(k, v)
+		state.Put(k, v)
 	Next
 	Return Me
 End Sub
@@ -827,13 +830,13 @@ End Sub
 'return if state exists
 Sub HasState(k As String) As Boolean
 	k = k.tolowercase
-	Return data.ContainsKey(k)
+	Return state.ContainsKey(k)
 End Sub
 
 'get the state
 Sub GetState(k As String) As Object
 	k = k.tolowercase
-	Dim out As Object = data.GetDefault(k,Null)
+	Dim out As Object = state.GetDefault(k,Null)
 	Return out
 End Sub
 
@@ -850,7 +853,7 @@ End Sub
 'check if we have state
 Sub StateExists(stateName As String) As Boolean
 	stateName = stateName.tolowercase
-	Return data.ContainsKey(stateName)
+	Return state.ContainsKey(stateName)
 End Sub
 
 'set state object
@@ -885,8 +888,8 @@ Sub GetStates(lst As List) As Map
 	Dim smm As Map = CreateMap()
 	For Each lstrec As String In lst
 		lstrec = lstrec.tolowercase
-		Dim state As Object = GetState(lstrec)
-		smm.Put(lstrec, state)
+		Dim ostate As Object = GetState(lstrec)
+		smm.Put(lstrec, ostate)
 	Next
 	Return smm
 End Sub
@@ -968,7 +971,7 @@ Sub Serve
 	'set the framework
 	vuetify.Initialize2("Vuetify", vopt)
 	Options.Put("vuetify", vuetify)
-		
+	If components.Size > 0 Then Options.Put("components", components)
 	If routes.Size > 0 Then
 		Dim ropt As Map = CreateMap()
 		ropt.Put("mode", "history")
@@ -978,14 +981,13 @@ Sub Serve
 		Options.Put("router", vrouter)
 	End If
 	
-	If data.Size > 0 Then Options.put("data", data)
-	If methods.Size > 0 Then Options.Put("methods", methods)
-	If filters.Size > 0 Then Options.Put("filters", filters)
-	If computed.Size > 0 Then Options.Put("computed", computed)
-	If watches.Size > 0 Then Options.Put("watch", watches)
-	If components.Size > 0 Then Options.Put("components", components)
+	Options.put("data", data)
+	Options.Put("methods", methods)
+	Options.Put("filters", filters)
+	Options.Put("computed", computed)
+	Options.Put("watch", watches)
 	Options.Put("template", Template)
-	vap.Initialize2("Vue", Options)
+	vap.Initialize2("Vue", Array(Options))
 	'get the state
 	Dim dKey As String = "$data"
 	data = vap.GetField(dKey).Result
@@ -998,12 +1000,10 @@ Sub Serve
 	emit = vap.GetField(emitKey)
 	Dim svuetify As String = "$vuetify"
 	vuetify = vap.GetField(svuetify)
-	Dim sstore As String = "$store"
-	store = vap.GetField(sstore)
+	'Dim sstore As String = "$store"
+	'store = vap.GetField(sstore)
 	Dim srouter As String = "$router"
 	router = vap.GetField(srouter)
-	'enable data to be available globally
-	'BOVue.GetField("prototype").SetField("$store", store)
 End Sub
 
 'Use router To navigate

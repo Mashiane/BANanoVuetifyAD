@@ -32,41 +32,36 @@ Sub Init
 	'initialize the vue instance, we will render it to #app element
 	MyApp.Initialize(Me, "app", "body")
 	'hide the placeholder div, uses v-show
-	MyApp.setdata("placeholder", False)
+	MyApp.SetDataVuex("placeholder", False)
 	
-	'define global snakbar, link color of snackbar
-	SnackBar.SetAttr(":color", "$store.state.snackbar.variant")
-	'
 	Dim mSnackBar As Map = CreateMap()
 	mSnackBar.put("message", "Success! Item added to the cart.")
 	mSnackBar.Put("show", False)
 	mSnackBar.Put("showclose", True)
-	mSnackBar.Put("variant", "success")
-	MyApp.SetDataVuex("snackbar", mSnackBar)
+	MyApp.SetData("snackbar", mSnackBar)
 	'define global cart
 	Dim cart As Map = CreateMap()
-	MyApp.SetDataVuex("cart", cart)
-	'
+	MyApp.SetData("cart", cart)
+		'
 	Build_Products
 	Build_Routers
 	Bind_Components
 	'
-	MyApp.SetVuexMutation(Me, "addItemToCart") 
 	'serve the app
 	MyApp.Serve
-	'
+	
+	'start on the home page
 	pgHome.GotoMe
 End Sub
 
 'add an item to the cart
 Sub addItemToCart(payload As Map)
-	Dim state As Map = MyApp.vuexstate
 	'get the quantity to add
 	Dim qty As Int = payload.Get("quantity")
 	'get the product to add
 	Dim product As String = payload.get("product")
 	'get the cart
-	Dim cart As Map = state.get("cart")
+	Dim cart As Map = MyApp.GetData("cart")
 	'do we have the product in the cart
 	If cart.Containskey(product) Then
 		'we have the product, increment by 1
@@ -82,7 +77,12 @@ Sub addItemToCart(payload As Map)
 		cart.Put(product, newproduct)
 	End If
 	'update the state
-	state.put("cart", cart)
+	MyApp.SetData("cart", cart)
+	'show snackbar
+	Dim msnack As Map = MyApp.GetData("snackbar")
+	msnack.put("show", True)
+	msnack.put("message", $"Success! '${product}' added to the cart."$)
+	MyApp.SetData("snackbar", msnack)
 End Sub
 
 'link states and events
@@ -104,11 +104,12 @@ Sub Build_Routers
 	pgCart.Initialize
 	pgCheckOut.Initialize
 	pgThankYou.Initialize
+	'
 	'add the router links to the nav drawer
 	items.Add(pgHome.Home.GetDrawerItem)
 	items.Add(pgStore.Store.GetDrawerItem)
 	items.Add(pgCart.Cart.GetDrawerItem)
-	'link buttons on navbar to router paths
+	'link buttons on navbar To router paths
 	btnHome.SetTo(pgHome.Home.Path)
 	btnStore.SetTo(pgStore.Store.Path) 
 	btnCart.SetTo(pgCart.Cart.Path)

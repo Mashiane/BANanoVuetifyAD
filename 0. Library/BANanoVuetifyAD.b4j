@@ -39,11 +39,13 @@ File41=roboto-v20-latin-regular.woff
 File42=roboto-v20-latin-regular.woff2
 File43=upload.php
 File44=vue.min.js
-File45=vue-router.min.js
-File46=vuetify.min.css
-File47=vuetify.min.js
-File48=vuex.js
+File45=vue-page-transition.browser.js
+File46=vue-page-transition.css
+File47=vue-router.min.js
+File48=vuetify.min.css
+File49=vuetify.min.js
 File5=fontawesome-webfont.svg
+File50=vuex.js
 File6=fontawesome-webfont.ttf
 File7=fontawesome-webfont.woff
 File8=fontawesome-webfont.woff2
@@ -91,7 +93,9 @@ FileGroup45=Default Group
 FileGroup46=Default Group
 FileGroup47=Default Group
 FileGroup48=Default Group
+FileGroup49=Default Group
 FileGroup5=Default Group
+FileGroup50=Default Group
 FileGroup6=Default Group
 FileGroup7=Default Group
 FileGroup8=Default Group
@@ -106,60 +110,87 @@ Module11=VCardActions
 Module12=VCardSubtitle
 Module13=VCardText
 Module14=VCardTitle
-Module15=VChip
-Module16=VCol
-Module17=VContainer
-Module18=VContent
-Module19=VDialog
+Module15=VCheckbox
+Module16=VChip
+Module17=VCol
+Module18=VColorPicker
+Module19=VCombobox
 Module2=VA
-Module20=VDiv
-Module21=VDivider
-Module22=VExpansionPanel
-Module23=VExpansionPanelContent
-Module24=VExpansionPanelHeader
-Module25=VExpansionPanels
-Module26=VFooter
-Module27=VIcon
-Module28=VImg
-Module29=VLabel
+Module20=VContainer
+Module21=VContent
+Module22=VDatePicker
+Module23=VDialog
+Module24=VDiv
+Module25=VDivider
+Module26=VExpansionPanel
+Module27=VExpansionPanelContent
+Module28=VExpansionPanelHeader
+Module29=VExpansionPanels
 Module3=VAlert
-Module30=VList
-Module31=VListGroup
-Module32=VListItem
-Module33=VListItemAction
-Module34=VListItemActionText
-Module35=VListItemAvatar
-Module36=VListItemContent
-Module37=VListItemGroup
-Module38=VListItemIcon
-Module39=VListItemSubtitle
+Module30=VFileInput
+Module31=VFooter
+Module32=VForm
+Module33=VHover
+Module34=VHTML
+Module35=VIcon
+Module36=VImg
+Module37=VLabel
+Module38=VList
+Module39=VListGroup
 Module4=VApp
-Module40=VListItemTitle
-Module41=VMElement
-Module42=VNavigationDrawer
-Module43=VProgressCircular
-Module44=VProgressLinear
-Module45=VRadio
-Module46=VRadioGroup
-Module47=VRouterLink
-Module48=VRouterView
-Module49=VRow
+Module40=VListItem
+Module41=VListItemAction
+Module42=VListItemActionText
+Module43=VListItemAvatar
+Module44=VListItemContent
+Module45=VListItemGroup
+Module46=VListItemIcon
+Module47=VListItemSubtitle
+Module48=VListItemTitle
+Module49=VMElement
 Module5=VAppBar
-Module50=VSheet
-Module51=VSnackbar
-Module52=VSpacer
-Module53=VTemplate
-Module54=VToolbar
-Module55=VToolbarItems
-Module56=VToolbarTitle
-Module57=VueApp
+Module50=VMenu
+Module51=VNavigationDrawer
+Module52=VOverflowBtn
+Module53=VOverlay
+Module54=VParallax
+Module55=VProgressCircular
+Module56=VProgressLinear
+Module57=VRadio
+Module58=VRadioGroup
+Module59=VRating
 Module6=VAppBarNavIcon
+Module60=VRouterLink
+Module61=VRouterView
+Module62=VRow
+Module63=VSelect
+Module64=VSheet
+Module65=VSlider
+Module66=VSnackbar
+Module67=VSpacer
+Module68=VSpeedDial
+Module69=VStepper
 Module7=VAutocomplete
+Module70=VStepperContent
+Module71=VStepperHeader
+Module72=VStepperItems
+Module73=VStepperStep
+Module74=VSubheader
+Module75=VSwitch
+Module76=VTemplate
+Module77=VTextarea
+Module78=VTextField
+Module79=VTimePicker
 Module8=VAvatar
+Module80=VToolbar
+Module81=VToolbarItems
+Module82=VToolbarTitle
+Module83=VTooltip
+Module84=VueApp
 Module9=VBtn
-NumberOfFiles=48
+NumberOfFiles=50
 NumberOfLibraries=3
-NumberOfModules=57
+NumberOfModules=84
 Version=8.31
 @EndOfDesignText@
 #Region Project Attributes 
@@ -167,7 +198,7 @@ Version=8.31
 	#MainFormHeight: 600 
 	#IgnoreWarnings: 16, 10, 14, 15, 19
 	#LibraryAuthor: Anele Mbanga (Mashiane)
-	#LibraryVersion: 1.02
+	#LibraryVersion: 1.05
 #End Region
 
 #Region Notes
@@ -178,7 +209,7 @@ Version=8.31
 
 Sub Process_Globals
 	Private BANano As BANano 'ignore
-	Public Version As String = "1.02"
+	Public Version As String = "1.05"
 	Public AppName As String = "BANanoVuetifyAD"
 End Sub
 
@@ -202,8 +233,10 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.Header.AddJavascriptFile("vue-router.min.js")
 	'for file download
 	BANano.Header.AddJavascriptFile("fileSaver.min.js")
+	BANano.Header.AddJavascriptFile("vue-page-transition.browser.js")
+	BANano.Header.AddCSSFile("vue-page-transition.css")
 	BANano.Header.AddJavascriptFile("vuex.js")
-			
+	'
 	' start the build
 	#if release
 		BANano.BuildAsB4Xlib(Version)

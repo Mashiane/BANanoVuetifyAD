@@ -1,5 +1,4 @@
-2020-06-21 22:41:04 B4J=true
-Group=Default Group
+﻿Group=Default Group
 ModulesStructureVersion=1
 Type=Class
 Version=8.3
@@ -17,7 +16,7 @@ Version=8.3
 
 #DesignerProperty: Key: AllowedDates, DisplayName: AllowedDates, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: DayFormat, DisplayName: DayFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
@@ -68,7 +67,7 @@ Version=8.3
 #DesignerProperty: Key: Width, DisplayName: Width, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: YearFormat, DisplayName: YearFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: YearIcon, DisplayName: YearIcon, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -944,9 +943,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -1003,7 +1002,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VDatePicker
 	appLink = vap
-	data = vap.data	
+	data = vap.state	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -1117,17 +1116,17 @@ Sub AddClass(classNames As List) As VDatePicker
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	dim cm as string = BANanoShared.Join(" ", classnames)
-	Setclasses(cm)
+	Dim cm As String = BANanoShared.Join(" ", classNames)
+	SetClasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VDatePicker
-	for each k as string in m.Keys
-		dim v as string = m.get(k)
+	For Each k As String In m.Keys
+		Dim v As String = m.get(k)
 		styles.put(k, v)
-	next
+	Next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -1144,9 +1143,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VDatePicker
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then Return Me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -1300,8 +1299,8 @@ Sub Show As VDatePicker
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VDatePicker
-	if svBindClass = "" then
+Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VDatePicker
+	If sVBindClass = "" Then
 		Log($"VDatePicker.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
 	end if
@@ -1313,13 +1312,13 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VDatePicker
-	if svBindStyle = "" then
+	If sVBindStyle = "" Then
 		Log($"VDatePicker.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(svBindStyle, obj)
+	data.put(sVBindStyle, obj)
 	Return Me
 End Sub
 
@@ -1333,27 +1332,40 @@ Sub SetRequiredOnOff(b As Boolean) As VDatePicker
 	Return Me
 End Sub
 
-'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VDatePicker
-	If sReadonly = "" Then
-		Log($"VDatePicker.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
+''read only
+'Sub SetReadOnlyOnOff(b As Boolean) As VDatePicker
+'	If sReadonly = "" Then
+'		Log($"VDatePicker.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
+'
+''disabled
+'Sub SetDisabledOnOff(b As Boolean) As VDatePicker
+'	If sDisabled = "" Then
+'		Log($"VDatePicker.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
+
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
 End Sub
-
-'disabled
-Sub SetDisabledOnOff(b As Boolean) As VDatePicker
-	If sDisabled = "" Then
-		Log($"VDatePicker.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
-
-
 
 
 

@@ -10,8 +10,8 @@ Version=8.3
 
 #DesignerProperty: Key: Absolute, DisplayName: Absolute, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Bottom, DisplayName: Bottom, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: {{ snackbarmessage }}
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , FieldType: String, DefaultValue: {{ snackbarcolor }}
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue:
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , FieldType: String, DefaultValue:
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Left, DisplayName: Left, Description: , FieldType: Boolean, DefaultValue: False
@@ -20,7 +20,7 @@ Version=8.3
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Right, DisplayName: Right, Description: , FieldType: Boolean, DefaultValue: True
-#DesignerProperty: Key: Timeout, DisplayName: Timeout, Description: , FieldType: String, DefaultValue: 6000
+#DesignerProperty: Key: Timeout, DisplayName: Timeout, Description: , FieldType: String, DefaultValue:
 #DesignerProperty: Key: Top, DisplayName: Top, Description: , FieldType: Boolean, DefaultValue: True
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
@@ -29,14 +29,14 @@ Version=8.3
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , FieldType: String, DefaultValue: snackbarshow
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , FieldType: String, DefaultValue:
 #DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Vertical, DisplayName: Vertical, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -485,7 +485,6 @@ Sub ToString As String
 AddAttr(bAbsolute, "absolute")
 AddAttr(bBottom, "bottom")
 AddAttr(sCaption, "caption")
-AddAttr(":color", "snackbarcolor")
 AddAttr(sDisabled, "disabled")
 AddAttr(sKey, "key")
 AddAttr(bLeft, "left")
@@ -548,9 +547,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -607,7 +606,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VSnackbar
 	appLink = vap
-	data = vap.data	
+	data = vap.state	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -957,3 +956,17 @@ Sub SetDisabledOnOff(b As Boolean) As VSnackbar
 	Return Me
 End Sub
 
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub

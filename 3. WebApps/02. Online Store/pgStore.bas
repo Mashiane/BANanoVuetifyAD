@@ -9,9 +9,8 @@ Sub Process_Globals
 	Public Store As VMElement
 	Private MyApp As VueApp
 	Private BANano As BANano
-	Private btnAddToCart As VBtn
 	Private placeholderEL As BANanoElement
-	Private Template As String
+	Public Template As String
 	Private btnAddToCart1 As VBtn
 	Private storepriceranges As VRadioGroup
 End Sub
@@ -52,8 +51,6 @@ Sub Initialize
 	storepriceranges.AddToComponent(Store)
 	'
 	MyApp.AddRoute(Store)
-	'
-	Log(Template)
 End Sub
 
 
@@ -62,8 +59,7 @@ Sub btnAddToCart1_click (product As Object)
 	Dim payload As Map = CreateMap()
 	payload.put("product", product)
 	payload.put("quantity", 1)
-	'commit the changes to the store
-	MyApp.VuexCommit("addItemToCart", payload)
+	pgIndex.addItemToCart(payload)
 End Sub
 
 'this is needed to get the path from current route

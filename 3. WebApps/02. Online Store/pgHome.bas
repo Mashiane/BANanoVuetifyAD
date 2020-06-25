@@ -10,7 +10,7 @@ Sub Process_Globals
 	Private BANano As BANano
 	Private MyApp As VueApp
 	Private placeholderEL As BANanoElement
-	Private Template As String
+	Public Template As String
 	Private popularproduct As VCol
 	Private verticalcardplaceholder As VDiv
 	Private homeheadersheet As VSheet
@@ -77,6 +77,5 @@ Sub btnAddToCart_click (product As String)
 	Dim payload As Map = CreateMap()
 	payload.put("product", product)
 	payload.put("quantity", 1)
-	'commit the changes to the store
-	MyApp.VuexCommit("addItemToCart", payload)
+	pgIndex.addItemToCart(payload)
 End Sub

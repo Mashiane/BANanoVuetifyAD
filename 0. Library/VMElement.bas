@@ -26,6 +26,7 @@ Version=8.3
 
 #DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag.
 #DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.
+#DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
 #DesignerProperty: Key: MarginLeft, DisplayName: Margin Left, FieldType: String, DefaultValue: , Description: Margin Left
 #DesignerProperty: Key: MarginRight, DisplayName: Margin Right, FieldType: String, DefaultValue: , Description: Margin Right
 #DesignerProperty: Key: MarginTop, DisplayName: Margin Top, FieldType: String, DefaultValue: , Description: Margin Top
@@ -43,8 +44,12 @@ Sub Class_Globals
 	Private mTarget As BANanoElement 'ignore
 	Private mElement As BANanoElement 'ignore
 	Private mVFor As String = ""
-	Private Attributes As StringBuilder
 	Public Errors As Map
+	Public jsString As BANanoObject
+	Public jsNumber As BANanoObject
+	Public jsBoolean As BANanoObject
+	Public jsArray As BANanoObject
+	Public jsObject As BANanoObject
 	'
 	Public Path As String = ""
 	Public Title As String = ""
@@ -56,9 +61,10 @@ Sub Class_Globals
 	Private watches As Map
 	Private filters As Map
 	Private refs As BANanoObject
-	Private mprops As List
+	Private mprops As Map
 	Private query As Map
 	Private template As String = ""
+	Private mAttributes As String = ""
 	
 	Private mClasses As String = ""
 	Private mStyle As String = ""
@@ -81,6 +87,9 @@ Sub Class_Globals
 	Private mVShow As String = ""
 	Private mVHtml As String = ""
 	Public bindings As Map
+	Private properties As Map
+	Private styles As Map
+	Private classList As Map
 End Sub
 
 Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VMElement
@@ -97,11 +106,18 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String) 
 	watches.Initialize
 	filters.Initialize
 	query.Initialize
-	Attributes.Initialize 
 	Errors.Initialize
 	Path = $"/${Name}"$
 	Icon = ""
-	Title = "" 
+	Title = ""
+	properties.Initialize
+	styles.Initialize
+	classList.Initialize
+	jsString.Initialize("String")
+	jsNumber.Initialize("Number")
+	jsBoolean.Initialize("Boolean")
+	jsArray.Initialize("Array")
+	jsObject.Initialize("Object")
 	Return Me
 End Sub
 
@@ -153,24 +169,11 @@ Public Sub DesignerCreateView (Target As BANanoElement, props As Map)
 		mVShow = props.Get("VShow")
 		mVHtml = props.Get("VHtml")
 		mVFor = props.Get("VFor")
-		
-		AddAttr(Attributes, mVModel, "s", "v-model")
-		AddAttr(Attributes, mRefName, "s", "ref")
-		AddAttr(Attributes, mKeyName, "s", "key")
-		AddAttr(Attributes, mVText, "s", "v-text")
-		AddAttr(Attributes, mVIf, "s", "v-if")
-		AddAttr(Attributes, mVElse, "s", "v-else")
-		AddAttr(Attributes, mVShow, "s", "v-show")
-		AddAttr(Attributes, mVHtml, "s", "v-html")
-		AddAttr(Attributes, mVFor, "s", "v-for")
+		mAttributes = props.Get("Attributes")
 	End If
 	
-	Dim exStyle As String = BuildExStyle
-	AddAttr(Attributes, mClasses, "s", "class")
-	Dim style As String = $"${exStyle}${mStyle}"$
-	AddAttr(Attributes, style, "s", "style")
-	Dim exAttr As String = Attributes.ToString
-	mElement = mTarget.Append($"<${mTagName} id="${mName}" ${exAttr}>${mText}</${mTagName}>"$).Get("#" & mName)
+	Dim strHTML As String = ToString
+	mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 	' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 	'mElement.HandleEvents("click", mCallBack, mEventName & "_click")
@@ -246,89 +249,48 @@ End Sub
 
 Sub SetVFor(vfor As String)
 	mVFor = vfor
-	mElement.SetAttr("v-for", mVFor)
+	SetAttr("v-for", mVFor)
 End Sub
 
-Sub SetVHtml(vhtml As String)
-	mVHtml = vhtml
+Sub SetVHtml(svhtml As String)
+	mVHtml = svhtml
 	mVHtml = BANano.SF(mVHtml)
-	mElement.SetAttr("v-html", mVHtml)
+	SetAttr("v-html", mVHtml)
 End Sub
 
 Sub SetVShow(vshow As String)
 	mVShow = vshow
-	mElement.SetAttr("v-show", vshow)
+	SetAttr("v-show", vshow)
 End Sub
 
 Sub SetVIf(vif As String)
 	mVIf = vif
-	mElement.SetAttr("v-if", mVIf)
+	SetAttr("v-if", mVIf)
 End Sub
 
 Sub SetVElse(velse As String)
 	mVElse = velse
-	mElement.SetAttr("v-else", mVElse)
+	SetAttr("v-else", mVElse)
 End Sub
 
 Sub SetVText(vtext As String)
 	mVText = vtext
-	mElement.SetAttr("v-text", mVText)
+	SetAttr("v-text", mVText)
 End Sub
 
 Sub SetKey(skey As String)
 	mKeyName = skey
-	mElement.SetAttr("key", skey)
+	SetAttr("key", skey)
 End Sub
 
 Sub SetRef(ref As String)
 	mRefName = ref
-	mElement.SetAttr("ref", ref)
+	SetAttr("ref", ref)
 End Sub
 
 Sub SetVModel(vmodel As String) 
 	mVModel = vmodel
-	mElement.SetAttr("v-model", vmodel)
-End Sub
-
-'will add properties to attributes, s for strings an b for booleans
-private Sub AddAttr(sbx As StringBuilder, varName As String, varType As String, actProp As String)
-	Select Case varType
-		Case "b"
-			If varName <> "" Then sbx.append($"${actProp}=${varName} "$)
-		Case "s"
-			If varName <> "" Then sbx.append($"${actProp}="${varName}" "$)
-			Select Case actProp
-				Case "v-model"
-					bindings.Put(varName, False)
-			End Select
-	End Select
-End Sub
-
-'build styles
-private Sub BuildExStyle() As String
-	Dim sb As StringBuilder
-	sb.Initialize
-	If MarginLeft <> "" Then sb.Append("margin-left: " & MarginLeft & ";")
-	If MarginRight <> "" Then sb.Append("margin-right: " & MarginRight & ";")
-	If MarginTop <> "" Then sb.Append("margin-top: " & MarginTop & ";")
-	If MarginBottom <> "" Then sb.Append("margin-bottom: " & MarginBottom & ";")
-	If PaddingLeft <> "" Then sb.Append("padding-left: " & PaddingLeft & ";")
-	If PaddingRight <> "" Then sb.Append("padding-right: " & PaddingRight & ";")
-	If PaddingTop <> "" Then sb.Append("padding-top: " & PaddingTop & ";")
-	If PaddingBottom <> "" Then sb.Append("padding-bottom: " & PaddingBottom & ";")
-	Return sb.ToString
-End Sub
-
-#Region Property Getters and Setters
-public Sub SetClasses(Classes As String)
-	If mElement <> Null Then
-		mElement.AddClass(Classes)
-	End If
-	mClasses = Classes
-End Sub
-
-public Sub GetClasses() As String
-	Return mClasses
+	SetAttr("v-model", vmodel)
 End Sub
 
 ' must be a json string
@@ -340,35 +302,219 @@ public Sub SetStyle(Style As String)
 	mStyle = Style
 End Sub
 
+
+'return the generated html
+Sub ToString As String
+	AddAttr(mKeyName, "key")
+	AddAttr(mRefName, "ref")
+	AddAttr(mVElse, "v-else")
+	AddAttr(mVFor, "v-for")
+	AddAttr(mVHtml, "v-html")
+	AddAttr(mVIf, "v-if")
+	AddAttr(mVModel, "v-model")
+	AddAttr(mVShow, "v-show")
+	AddAttr(mVText, "v-text")
+	SetStyleSingle("margin-bottom", MarginBottom)
+	SetStyleSingle("margin-left", MarginLeft)
+	SetStyleSingle("margin-top", MarginTop)
+	SetStyleSingle("margin-right", MarginRight)
+'
+	SetStyleSingle("padding-top", PaddingTop)
+	SetStyleSingle("padding-right", PaddingRight)
+	SetStyleSingle("padding-bottom", PaddingBottom)
+	SetStyleSingle("padding-left", PaddingLeft)
+'
+	'build the class list
+	Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
+	cKeys = cKeys & " " & mClasses
+	cKeys = cKeys.trim
+	AddAttr(cKeys, "class")
+	'build the style list
+	If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
+	If mStyle.StartsWith("{") Then mStyle = ""
+	If mStyle <> "" Then
+		Dim sItems As List = BANanoShared.StrParse(",",mStyle)
+		For Each st As String In sItems
+			Dim k As String = BANanoShared.MvField(st,1,":")
+			Dim v As String = BANanoShared.MvField(st,2,":")
+			SetStyleSingle(k, v)
+		Next
+	End If
+	Dim sKeys As String = BANanoShared.BuildStyle(styles)
+	sKeys = sKeys.trim
+	AddAttr(sKeys, "style")
+	'build the attributes
+	If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
+	If mAttributes.StartsWith("{") Then mAttributes = ""
+	If mAttributes <> "" Then
+		Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+		For Each mt As String In mItems
+			Dim k As String = BANanoShared.MvField(mt,1,"=")
+			Dim v As String = BANanoShared.MvField(mt,2,"=")
+			AddAttr(v, k)
+		Next
+	End If
+	Dim exattr As String = BANanoShared.BuildAttributes(properties)
+
+	Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${mText}</${mTagName}>"$
+	Return strRes
+End Sub
+
+
+'change the id of the element, ONLY execute this after a manual Initialize
+Sub SetID(varText As String) As VMElement
+	mName = varText
+	Return Me
+End Sub
+
+
+'will add properties to attributes
+private Sub AddAttr(varName As String, actProp As String) As VMElement
+	If actProp = "caption" Then Return Me
+	Try
+		If BANano.IsBoolean(varName) Then
+			If varName = True Then properties.put(actProp, varName)
+		Else
+			If varName.StartsWith(":") Then
+				'this is a binding
+				'get the real name
+				Dim rname As String = BANanoShared.MidString2(varName, 2)
+				If rname.Contains(".") Then
+					'we are linked to a for loop
+					properties.Put($":${actProp}"$, rname)
+				Else
+					properties.Put($":${actProp}"$, rname)
+					bindings.Put(rname, Null)
+				End If
+			Else
+				If varName <> "" Then properties.put(actProp, varName)
+				Select Case actProp
+					Case "v-model", "v-show", "v-if", "required", "disabled", "readonly"
+						bindings.Put(varName, False)
+				End Select
+			End If
+		End If
+	Catch
+		Log(LastException)
+	
+	End Try
+	Return Me
+End Sub
+
+#Region Property Getters and Setters
+public Sub SetClasses(Classes As String) As VMElement
+	If mElement <> Null Then
+		mElement.AddClass(Classes)
+	End If
+	mClasses = Classes
+	Return Me
+End Sub
+
+public Sub GetClasses() As String
+	Return mClasses
+End Sub
+
 'add a list of classes
-Sub AddClass(classNames As List)
+Sub AddClass(classNames As List) As VMElement
 	For Each k As String In classNames
-		mElement.AddClass(k)
+		classList.put(k, k)
 	Next
+	Dim cm As String = BANanoShared.Join(" ", classNames)
+	SetClasses(cm)
+	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map)
+Sub SetStyles(m As Map) As VMElement
+	For Each k As String In m.Keys
+		Dim v As String = m.get(k)
+		styles.put(k, v)
+	Next
 	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
+	SetStyle(jsonStyle)
+	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map)
+Sub SetAttrs(props As Map) As VMElement
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
-		mElement.SetAttr(k, v)
+		SetAttr(k, v)
 	Next
+	Return Me
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String)
-	mElement.SetAttr(prop, value)
+Sub SetAttr(prop As String, value As String) As VMElement
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
+	properties.put(prop, value)
+	If mElement <> Null Then 
+		mElement.SetAttr(prop, value)
+	End If
+	Return Me
 End Sub
+
+'set a single style
+Sub SetStyleSingle(prop As String, value As String) As VMElement
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
+	styles.put(prop, value)
+	Dim m As Map = CreateMap()
+	m.put(prop, value)
+	Dim jsonStyle As String = BANano.ToJson(m)
+	SetStyle(jsonStyle)
+	Return Me
+End Sub
+
+'build a structure using props, styleprops, classes and loose attributes
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VMElement
+	If loose <> Null Then
+		For Each k As String In loose
+			SetAttr(k, True)
+		Next
+	End If
+	If props <> Null Then
+		For Each k As String In props.Keys
+			Dim v As String = props.Get(k)
+			SetAttr(k, v)
+		Next
+	End If
+	If styleProps <> Null Then
+		For Each k As String In styleProps.Keys
+			Dim v As String = styleProps.get(k)
+			SetStyleSingle(k, v)
+		Next
+	End If
+	If classNames <> Null Then
+		AddClass(classNames)
+	End If
+	Return Me
+End Sub
+
+'get html
+Public Sub GetHtml() As String
+	Return mElement.GetHtml
+End Sub
+
+'bind classes
+Sub SetVClass(classObj As String) As VMElement
+	SetVBind("class", classObj)
+	Return Me
+End Sub
+
+'bind styles
+Sub SetVStyle(styleObj As String) As VMElement
+	SetVBind("style", styleObj)
+	Return Me
+End Sub
+
 
 'stop compilation
 Sub SetVPre
-	mElement.SetAttr("v-pre", True)
+	SetAttr("v-pre", True)
 End Sub
 
 'bind an attribute
@@ -376,38 +522,8 @@ Sub SetVBind(prop As String, value As String)
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
-	mElement.SetAttr(prop,value)
+	SetAttr(prop,value)
 	bindings.Put(value, Null)
-End Sub
-
-'set a single style
-Sub SetStyleSingle(prop As String, value As String)
-	Dim m As Map = CreateMap()
-	m.Put(prop, value)
-	Dim jsonStyle As String = BANano.ToJson(m)
-	mElement.SetStyle(jsonStyle)
-End Sub
-
-'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List)
-	If loose <> Null Then
-		For Each k As String In loose
-			mElement.SetAttr(k, True)
-		Next
-	End If
-	If props <> Null Then
-		For Each k As String In props.Keys
-			Dim v As String = props.Get(k)
-			mElement.SetAttr(k, v)
-		Next
-	End If
-	If styleProps <> Null Then
-		Dim jsonStyle As String = BANano.ToJson(styleProps)
-		mElement.SetStyle(jsonStyle)
-	End If
-	If classNames <> Null Then
-		AddClass(classNames)
-	End If
 End Sub
 
 'get text
@@ -418,25 +534,20 @@ End Sub
 'hide until compilation finishes
 Sub SetVCloak
 	If mElement <> Null Then
-		mElement.SetAttr("v-cloak", True)
+		SetAttr("v-cloak", True)
 	End If
 End Sub
 
 'compile once
 Sub SetVOnce
-	mElement.SetAttr("v-once", True)
-End Sub
-
-'get html
-Public Sub GetHtml() As String
-	Return mElement.GetHtml
+	SetAttr("v-once", True)
 End Sub
 
 'set color
 Sub SetColor(varColor As String)
 	If varColor = "" Then Return
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, varColor)
 End Sub
@@ -445,7 +556,7 @@ End Sub
 Sub SetColorIntensity(varColor As String, varIntensity As String)
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
-	mElement.SetAttr(":color", pp)
+	SetAttr(":color", pp)
 	'store the bindings
 	bindings.Put(pp, scolor)
 End Sub
@@ -453,7 +564,7 @@ End Sub
 'set text color
 Sub SetTextColor(varColor As String)
 	Dim sColor As String = $"${varColor}--text"$
-	mElement.AddClass(sColor)
+	AddClass(Array(sColor))
 End Sub
 
 'set text color intensity
@@ -461,7 +572,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String)
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	mElement.AddClass(mcolor)
+	AddClass(Array(mcolor))
 End Sub
 
 
@@ -515,9 +626,18 @@ Sub GetData(prop As String) As Object
 	Return obj
 End Sub
 
-'add a property
-Sub AddProp(propName As String) 
-	mprops.Add(propName)
+'add a string property
+Sub AddProp(propName As String)
+	Dim mprop As Map = CreateMap()
+	mprop.Put("type", jsString)
+	mprops.Put(propName, mprop) 
+End Sub
+
+Sub AddProperty(propName As String, propType As BANanoObject, propDefault As String)
+	Dim mprop As Map = CreateMap()
+	mprop.Put("type", propType)
+	mprop.Put("default", propDefault)
+	mprops.Put(propName, mprop)
 End Sub
 
 'add a property to the component
@@ -555,6 +675,7 @@ Sub SetWatch(Module As Object, k As String, bImmediate As Boolean, bDeep As Bool
 	methodName = methodName.tolowercase
 	k = k.tolowercase
 	If SubExists(Module, methodName) Then
+		data.Put(k, Null)
 		Dim newVal As Object
 		Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(newVal))
 		Dim deepit As Map = CreateMap()
@@ -563,7 +684,6 @@ Sub SetWatch(Module As Object, k As String, bImmediate As Boolean, bDeep As Bool
 		deepit.Put("immediate", bImmediate)
 		watches.Put(k, deepit)
 		methods.Put(methodName, cb)
-		data.Put(k, Null)
 	End If
 End Sub
 
@@ -884,6 +1004,27 @@ Sub RefreshKey(keyName As String) As VMElement
 	Return Me
 End Sub
 
+
+'set beforemount
+Sub SetBeforeMount(module As Object, methodName As String) As VMElement
+	methodName = methodName.ToLowerCase
+	If SubExists(module, methodName) = False Then Return Me
+	Dim beforeMount As BANanoObject = BANano.CallBack(module, methodName, Null)
+	opt.Put("beforeMount", beforeMount)
+	SetMethod(module, methodName)
+	Return Me
+End Sub
+
+
+'set mounted
+Sub SetMounted(module As Object, methodName As String) As VMElement
+	methodName = methodName.ToLowerCase
+	If SubExists(module, methodName) = False Then Return Me
+	Dim mounted As BANanoObject = BANano.CallBack(module, methodName, Null)
+	opt.Put("mounted", mounted)
+	SetMethod(module, methodName)
+	Return Me
+End Sub
 
 #End Region
 
