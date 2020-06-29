@@ -17,6 +17,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -25,7 +26,7 @@ Version=8.3
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: TagName, DisplayName: TagName, Description: , List:p|a|br|div|span|h1|h2|h3|h4|h5|h6, FieldType: String, DefaultValue: div
+#DesignerProperty: Key: TagName, DisplayName: TagName, Description: , List:p|a|br|div|span|h1|h2|h3|h4|h5|h6, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
@@ -45,7 +46,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -72,6 +73,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -80,6 +82,7 @@ Private bVOnce As Boolean = False
 Private bVPre As Boolean = False
 Private sVShow As String = ""
 Private sVText As String = ""
+Private sTagName As String = ""
 Private sBorderColor As String = ""
 Private sBorderStyle As String = ""
 Private sBorderWidth As String = ""
@@ -126,6 +129,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -134,6 +138,7 @@ bVOnce = props.Get("VOnce")
 bVPre = props.Get("VPre")
 sVShow = props.Get("VShow")
 sVText = props.Get("VText")
+sTagName = props.Get("TagName")
 sBorderColor = props.Get("BorderColor")
 sBorderStyle = props.Get("BorderStyle")
 sBorderWidth = props.Get("BorderWidth")
@@ -220,6 +225,13 @@ SetAttr("v-else", sVElse)
 Return Me
 End Sub
 
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VDiv
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
+Return Me
+End Sub
+
 'set v-for
 Sub SetVFor(varVFor As String) As VDiv
 sVFor = varVFor
@@ -278,7 +290,8 @@ End Sub
 
 'set tagname
 Sub SetTagName(varTagName As String) As VDiv
-mTagName = varTagName
+sTagName = varTagName
+SetAttr("tagname", sTagName)
 Return Me
 End Sub
 
@@ -380,6 +393,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -388,6 +402,7 @@ AddAttr(bVOnce, "v-once")
 AddAttr(bVPre, "v-pre")
 AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
+AddAttr(sTagName, "tagname")
 SetStyleSingle("border-color", sBorderColor)
 SetStyleSingle("border-style", sBorderStyle)
 SetStyleSingle("border-width", sBorderWidth)
@@ -455,26 +470,6 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VDiv
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
 public Sub AddToParent(targetID As String) As VDiv
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
@@ -485,7 +480,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VDiv
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -500,7 +495,7 @@ Sub AddToApp(vap As VueApp) As VDiv
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VDiv
+Sub SetData(prop as string, value as object) As VDiv
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -540,6 +535,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VDiv
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -648,11 +644,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VDiv
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -673,10 +669,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -690,7 +686,7 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VDiv
+Sub SetVClass(classObj as string) As VDiv
 	SetVBind("class", classObj)
 	Return Me
 End Sub

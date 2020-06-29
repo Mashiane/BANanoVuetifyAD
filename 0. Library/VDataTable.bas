@@ -1,4 +1,4 @@
-2020-06-21 22:40:52 B4J=true
+2020-06-27 16:52:54 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -7,7 +7,25 @@ Version=8.3
 'Custom BANano View class: VDataTable
 #IgnoreWarnings:12
 #Event: clickrow (argument As Object)
+#Event: contextmenurow (argument As mouseevent, {
+  expand: (value: boolean) => void,
+  headers: tableheader[],
+  isexpanded: boolean,
+  ismobile: boolean,
+  isselected: boolean,
+  item: any,
+  select: (value: boolean) => void
+})
 #Event: currentitems (argument As Object)
+#Event: dblclickrow (argument As mouseevent, {
+  expand: (value: boolean) => void,
+  headers: tableheader[],
+  isexpanded: boolean,
+  ismobile: boolean,
+  isselected: boolean,
+  item: any,
+  select: (value: boolean) => void
+})
 #Event: input (argument As Object)
 #Event: itemexpanded (argument As Object)
 #Event: itemselected (argument As Object)
@@ -47,10 +65,12 @@ Version=8.3
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: HideDefaultFooter, DisplayName: HideDefaultFooter, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: HideDefaultHeader, DisplayName: HideDefaultHeader, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ItemClass, DisplayName: ItemClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: ItemKey, DisplayName: ItemKey, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: ItemsPerPage, DisplayName: ItemsPerPage, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: LoaderHeight, DisplayName: LoaderHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Loading, DisplayName: Loading, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: LoadingText, DisplayName: LoadingText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Locale, DisplayName: Locale, Description: , FieldType: String, DefaultValue: 
@@ -77,6 +97,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -85,7 +106,7 @@ Version=8.3
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -101,7 +122,9 @@ Version=8.3
 #DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
 #DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
 #DesignerProperty: Key: Onclickrow, DisplayName: Onclickrow, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenurow, DisplayName: Oncontextmenurow, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oncurrentitems, DisplayName: Oncurrentitems, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ondblclickrow, DisplayName: Ondblclickrow, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oninput, DisplayName: Oninput, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onitemexpanded, DisplayName: Onitemexpanded, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onitemselected, DisplayName: Onitemselected, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
@@ -160,10 +183,12 @@ Private sHeadersLength As String = ""
 Private sHeight As String = ""
 Private bHideDefaultFooter As Boolean = False
 Private bHideDefaultHeader As Boolean = False
+Private sItemClass As String = ""
 Private sItemKey As String = ""
 Private sItemsPerPage As String = ""
 Private sKey As String = ""
 Private bLight As Boolean = False
+Private sLoaderHeight As String = ""
 Private sLoading As String = ""
 Private sLoadingText As String = ""
 Private sLocale As String = ""
@@ -190,6 +215,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -211,7 +237,9 @@ Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
 Private eOnclickrow As String = ""
+Private eOncontextmenurow As String = ""
 Private eOncurrentitems As String = ""
+Private eOndblclickrow As String = ""
 Private eOninput As String = ""
 Private eOnitemexpanded As String = ""
 Private eOnitemselected As String = ""
@@ -272,10 +300,12 @@ sHeadersLength = props.Get("HeadersLength")
 sHeight = props.Get("Height")
 bHideDefaultFooter = props.Get("HideDefaultFooter")
 bHideDefaultHeader = props.Get("HideDefaultHeader")
+sItemClass = props.Get("ItemClass")
 sItemKey = props.Get("ItemKey")
 sItemsPerPage = props.Get("ItemsPerPage")
 sKey = props.Get("Key")
 bLight = props.Get("Light")
+sLoaderHeight = props.Get("LoaderHeight")
 sLoading = props.Get("Loading")
 sLoadingText = props.Get("LoadingText")
 sLocale = props.Get("Locale")
@@ -302,6 +332,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -323,7 +354,9 @@ sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
 eOnclickrow = props.Get("Onclickrow")
+eOncontextmenurow = props.Get("Oncontextmenurow")
 eOncurrentitems = props.Get("Oncurrentitems")
+eOndblclickrow = props.Get("Ondblclickrow")
 eOninput = props.Get("Oninput")
 eOnitemexpanded = props.Get("Onitemexpanded")
 eOnitemselected = props.Get("Onitemselected")
@@ -349,8 +382,12 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 'This activates ClickRow the event exists on the module
 SetOnClickRow
+'This activates ContextmenuRow the event exists on the module
+SetOnContextmenuRow
 'This activates CurrentItems the event exists on the module
 SetOnCurrentItems
+'This activates DblclickRow the event exists on the module
+SetOnDblclickRow
 'This activates Input the event exists on the module
 SetOnInput
 'This activates ItemExpanded the event exists on the module
@@ -539,6 +576,13 @@ SetAttr("hide-default-header", bHideDefaultHeader)
 Return Me
 End Sub
 
+'set item-class
+Sub SetItemClass(varItemClass As String) As VDataTable
+sItemClass = varItemClass
+SetAttr("item-class", sItemClass)
+Return Me
+End Sub
+
 'set item-key
 Sub SetItemKey(varItemKey As String) As VDataTable
 sItemKey = varItemKey
@@ -570,6 +614,13 @@ End Sub
 Sub SetLight(varLight As Boolean) As VDataTable
 bLight = varLight
 SetAttr("light", bLight)
+Return Me
+End Sub
+
+'set loader-height
+Sub SetLoaderHeight(varLoaderHeight As String) As VDataTable
+sLoaderHeight = varLoaderHeight
+SetAttr("loader-height", sLoaderHeight)
 Return Me
 End Sub
 
@@ -761,6 +812,13 @@ SetAttr("v-else", sVElse)
 Return Me
 End Sub
 
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VDataTable
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
+Return Me
+End Sub
+
 'set v-for
 Sub SetVFor(varVFor As String) As VDataTable
 sVFor = varVFor
@@ -922,6 +980,28 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on contextmenurow event, updates the master events records
+Sub SetOnContextmenuRow() As VDataTable
+Dim sName As String = $"${mEventName}_contextmenurow"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOncontextmenurow})"$
+SetAttr("v-on:contextmenu:row", sCode)
+'arguments for the event
+Dim argument As mouseevent, {
+  expand: (value: boolean) => void,
+  headers: tableheader[],
+  isexpanded: boolean,
+  ismobile: boolean,
+  isselected: boolean,
+  item: any,
+  select: (value: boolean) => void
+} 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on currentitems event, updates the master events records
 Sub SetOnCurrentItems() As VDataTable
 Dim sName As String = $"${mEventName}_currentitems"$
@@ -931,6 +1011,28 @@ Dim sCode As String = $"${sName}(${eOncurrentitems})"$
 SetAttr("v-on:current-items", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on dblclickrow event, updates the master events records
+Sub SetOnDblclickRow() As VDataTable
+Dim sName As String = $"${mEventName}_dblclickrow"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOndblclickrow})"$
+SetAttr("v-on:dblclick:row", sCode)
+'arguments for the event
+Dim argument As mouseevent, {
+  expand: (value: boolean) => void,
+  headers: tableheader[],
+  isexpanded: boolean,
+  ismobile: boolean,
+  isselected: boolean,
+  item: any,
+  select: (value: boolean) => void
+} 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
 Return Me
@@ -1184,10 +1286,12 @@ AddAttr(sHeadersLength, "headers-length")
 AddAttr(sHeight, "height")
 AddAttr(bHideDefaultFooter, "hide-default-footer")
 AddAttr(bHideDefaultHeader, "hide-default-header")
+AddAttr(sItemClass, "item-class")
 AddAttr(sItemKey, "item-key")
 AddAttr(sItemsPerPage, "items-per-page")
 AddAttr(sKey, "key")
 AddAttr(bLight, "light")
+AddAttr(sLoaderHeight, "loader-height")
 AddAttr(sLoading, "loading")
 AddAttr(sLoadingText, "loading-text")
 AddAttr(sLocale, "locale")
@@ -1214,6 +1318,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -1260,9 +1365,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -1287,26 +1392,6 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VDataTable
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -1374,6 +1459,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VDataTable
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1669,7 +1755,20 @@ Sub SetDisabledOnOff(b As Boolean) As VDataTable
 	Return Me
 End Sub
 
-
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub
 
 
 

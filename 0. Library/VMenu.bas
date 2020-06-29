@@ -40,6 +40,7 @@ Version=8.3
 #DesignerProperty: Key: OffsetY, DisplayName: OffsetY, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: OpenDelay, DisplayName: OpenDelay, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OpenOnClick, DisplayName: OpenOnClick, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: OpenOnFocus, DisplayName: OpenOnFocus, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: OpenOnHover, DisplayName: OpenOnHover, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Origin, DisplayName: Origin, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PositionX, DisplayName: PositionX, Description: , FieldType: String, DefaultValue: 
@@ -49,12 +50,15 @@ Version=8.3
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: ReturnValue, DisplayName: ReturnValue, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Right, DisplayName: Right, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Tile, DisplayName: Tile, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Top, DisplayName: Top, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Transition, DisplayName: Transition, Description: , List: slide-x-transition|slide-x-reverse-transition|slide-y-transition|slide-y-reverse-transition|scroll-x-transition|scroll-x-reverse-transition|scroll-y-transition|scroll-y-reverse-transition|scale-transition|fade-transition|fab-transition, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -84,7 +88,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -134,6 +138,7 @@ Private bOffsetX As Boolean = False
 Private bOffsetY As Boolean = False
 Private sOpenDelay As String = ""
 Private bOpenOnClick As Boolean = False
+Private bOpenOnFocus As Boolean = False
 Private bOpenOnHover As Boolean = False
 Private sOrigin As String = ""
 Private sPositionX As String = ""
@@ -143,12 +148,15 @@ Private sRef As String = ""
 Private sRequired As String = ""
 Private sReturnValue As String = ""
 Private bRight As Boolean = False
+Private sRounded As String = ""
+Private bTile As Boolean = False
 Private bTop As Boolean = False
 Private sTransition As String = ""
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -227,6 +235,7 @@ bOffsetX = props.Get("OffsetX")
 bOffsetY = props.Get("OffsetY")
 sOpenDelay = props.Get("OpenDelay")
 bOpenOnClick = props.Get("OpenOnClick")
+bOpenOnFocus = props.Get("OpenOnFocus")
 bOpenOnHover = props.Get("OpenOnHover")
 sOrigin = props.Get("Origin")
 sPositionX = props.Get("PositionX")
@@ -236,12 +245,15 @@ sRef = props.Get("Ref")
 sRequired = props.Get("Required")
 sReturnValue = props.Get("ReturnValue")
 bRight = props.Get("Right")
+sRounded = props.Get("Rounded")
+bTile = props.Get("Tile")
 bTop = props.Get("Top")
 sTransition = props.Get("Transition")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -499,6 +511,13 @@ SetAttr("open-on-click", bOpenOnClick)
 Return Me
 End Sub
 
+'set open-on-focus
+Sub SetOpenOnFocus(varOpenOnFocus As Boolean) As VMenu
+bOpenOnFocus = varOpenOnFocus
+SetAttr("open-on-focus", bOpenOnFocus)
+Return Me
+End Sub
+
 'set open-on-hover
 Sub SetOpenOnHover(varOpenOnHover As Boolean) As VMenu
 bOpenOnHover = varOpenOnHover
@@ -562,6 +581,20 @@ SetAttr("right", bRight)
 Return Me
 End Sub
 
+'set rounded
+Sub SetRounded(varRounded As String) As VMenu
+sRounded = varRounded
+SetAttr("rounded", sRounded)
+Return Me
+End Sub
+
+'set tile
+Sub SetTile(varTile As Boolean) As VMenu
+bTile = varTile
+SetAttr("tile", bTile)
+Return Me
+End Sub
+
 'set top
 Sub SetTop(varTop As Boolean) As VMenu
 bTop = varTop
@@ -601,6 +634,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VMenu
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VMenu
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -795,6 +835,7 @@ AddAttr(bOffsetX, "offset-x")
 AddAttr(bOffsetY, "offset-y")
 AddAttr(sOpenDelay, "open-delay")
 AddAttr(bOpenOnClick, "open-on-click")
+AddAttr(bOpenOnFocus, "open-on-focus")
 AddAttr(bOpenOnHover, "open-on-hover")
 AddAttr(sOrigin, "origin")
 AddAttr(sPositionX, "position-x")
@@ -804,12 +845,15 @@ AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
 AddAttr(sReturnValue, "return-value")
 AddAttr(bRight, "right")
+AddAttr(sRounded, "rounded")
+AddAttr(bTile, "tile")
 AddAttr(bTop, "top")
 AddAttr(sTransition, "transition")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -865,7 +909,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -878,33 +922,13 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VMenu
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VMenu
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -917,7 +941,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VMenu
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -972,6 +996,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VMenu
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1080,11 +1105,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VMenu
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -1105,8 +1130,8 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
 		next
 	End If
@@ -1155,7 +1180,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VMenu
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -1164,7 +1189,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VMenu
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -1214,26 +1239,26 @@ Sub Show As VMenu
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VMenu
-	If sVBindClass = "" Then
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VMenu
+	if svBindClass = "" then
 		Log($"VMenu.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VMenu
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VMenu
+	if svBindStyle = "" then
 		Log($"VMenu.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
@@ -1266,7 +1291,7 @@ End Sub
 '	data.Put(sDisabled, b)
 '	Return Me
 'End Sub
-'
+
 'bind this element to component
 Sub AddToComponent(ve As VMElement)
 	data = ve.data

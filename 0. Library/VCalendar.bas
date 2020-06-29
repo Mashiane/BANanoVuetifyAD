@@ -1,4 +1,4 @@
-2020-06-21 22:37:39 B4J=true
+2020-06-27 16:52:16 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -9,47 +9,72 @@ Version=8.3
 #Event: change (argument As Object)
 #Event: clickdate (argument As Object)
 #Event: clickday (argument As Object)
+#Event: clickdaycategory (argument As Object)
 #Event: clickinterval (argument As Object)
 #Event: clickmore (argument As Object)
 #Event: clicktime (argument As Object)
+#Event: clicktimecategory (argument As Object)
 #Event: contextmenudate (argument As Object)
 #Event: contextmenuday (argument As Object)
+#Event: contextmenudaycategory (argument As Object)
 #Event: contextmenuinterval (argument As Object)
 #Event: contextmenutime (argument As Object)
+#Event: contextmenutimecategory (argument As Object)
 #Event: input (argument As Object)
 #Event: mousedownday (argument As Object)
+#Event: mousedowndaycategory (argument As Object)
 #Event: mousedowninterval (argument As Object)
 #Event: mousedowntime (argument As Object)
+#Event: mousedowntimecategory (argument As Object)
 #Event: mouseenterday (argument As Object)
+#Event: mouseenterdaycategory (argument As Object)
 #Event: mouseenterinterval (argument As Object)
 #Event: mouseentertime (argument As Object)
+#Event: mouseentertimecategory (argument As Object)
 #Event: mouseleaveday (argument As Object)
+#Event: mouseleavedaycategory (argument As Object)
 #Event: mouseleaveinterval (argument As Object)
 #Event: mouseleavetime (argument As Object)
+#Event: mouseleavetimecategory (argument As Object)
 #Event: mousemoveday (argument As Object)
+#Event: mousemovedaycategory (argument As Object)
 #Event: mousemoveinterval (argument As Object)
 #Event: mousemovetime (argument As Object)
+#Event: mousemovetimecategory (argument As Object)
 #Event: mouseupday (argument As Object)
+#Event: mouseupdaycategory (argument As Object)
 #Event: mouseupinterval (argument As Object)
 #Event: mouseuptime (argument As Object)
+#Event: mouseuptimecategory (argument As Object)
 #Event: moved (argument As Object)
 #Event: touchendday (argument As Object)
+#Event: touchenddaycategory (argument As Object)
 #Event: touchendinterval (argument As Object)
 #Event: touchendtime (argument As Object)
+#Event: touchendtimecategory (argument As Object)
 #Event: touchmoveday (argument As Object)
+#Event: touchmovedaycategory (argument As Object)
 #Event: touchmoveinterval (argument As Object)
 #Event: touchmovetime (argument As Object)
+#Event: touchmovetimecategory (argument As Object)
 #Event: touchstartday (argument As Object)
+#Event: touchstartdaycategory (argument As Object)
 #Event: touchstartinterval (argument As Object)
 #Event: touchstarttime (argument As Object)
+#Event: touchstarttimecategory (argument As Object)
 
 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Categories, DisplayName: Categories, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: CategoryDays, DisplayName: CategoryDays, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: CategoryForInvalid, DisplayName: CategoryForInvalid, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: CategoryHideDynamic, DisplayName: CategoryHideDynamic, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: CategoryShowAll, DisplayName: CategoryShowAll, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: DayFormat, DisplayName: DayFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: End, DisplayName: End, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: EventCategory, DisplayName: EventCategory, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EventColor, DisplayName: EventColor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EventEnd, DisplayName: EventEnd, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EventHeight, DisplayName: EventHeight, Description: , FieldType: String, DefaultValue: 
@@ -62,7 +87,9 @@ Version=8.3
 #DesignerProperty: Key: EventRipple, DisplayName: EventRipple, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EventStart, DisplayName: EventStart, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EventTextColor, DisplayName: EventTextColor, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: EventTimed, DisplayName: EventTimed, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: FirstInterval, DisplayName: FirstInterval, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: FirstTime, DisplayName: FirstTime, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: HideHeader, DisplayName: HideHeader, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: IntervalCount, DisplayName: IntervalCount, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: IntervalFormat, DisplayName: IntervalFormat, Description: , FieldType: String, DefaultValue: 
@@ -73,6 +100,7 @@ Version=8.3
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Locale, DisplayName: Locale, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: LocaleFirstDayOfYear, DisplayName: LocaleFirstDayOfYear, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MaxDays, DisplayName: MaxDays, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinWeeks, DisplayName: MinWeeks, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MonthFormat, DisplayName: MonthFormat, Description: , FieldType: String, DefaultValue: 
@@ -85,12 +113,13 @@ Version=8.3
 #DesignerProperty: Key: ShortWeekdays, DisplayName: ShortWeekdays, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ShowIntervalLabel, DisplayName: ShowIntervalLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: ShowMonthOnFirst, DisplayName: ShowMonthOnFirst, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Start, DisplayName: Start, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ShowWeek, DisplayName: ShowWeek, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Type, DisplayName: Type, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -99,10 +128,9 @@ Version=8.3
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: WeekdayFormat, DisplayName: WeekdayFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Weekdays, DisplayName: Weekdays, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -120,39 +148,59 @@ Version=8.3
 #DesignerProperty: Key: Onchange, DisplayName: Onchange, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onclickdate, DisplayName: Onclickdate, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onclickday, DisplayName: Onclickday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclickdaycategory, DisplayName: Onclickdaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onclickinterval, DisplayName: Onclickinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onclickmore, DisplayName: Onclickmore, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onclicktime, DisplayName: Onclicktime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onclicktimecategory, DisplayName: Onclicktimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oncontextmenudate, DisplayName: Oncontextmenudate, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oncontextmenuday, DisplayName: Oncontextmenuday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenudaycategory, DisplayName: Oncontextmenudaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oncontextmenuinterval, DisplayName: Oncontextmenuinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oncontextmenutime, DisplayName: Oncontextmenutime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Oncontextmenutimecategory, DisplayName: Oncontextmenutimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Oninput, DisplayName: Oninput, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmousedownday, DisplayName: Onmousedownday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousedowndaycategory, DisplayName: Onmousedowndaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmousedowninterval, DisplayName: Onmousedowninterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmousedowntime, DisplayName: Onmousedowntime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousedowntimecategory, DisplayName: Onmousedowntimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseenterday, DisplayName: Onmouseenterday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseenterdaycategory, DisplayName: Onmouseenterdaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseenterinterval, DisplayName: Onmouseenterinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseentertime, DisplayName: Onmouseentertime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseentertimecategory, DisplayName: Onmouseentertimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseleaveday, DisplayName: Onmouseleaveday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseleavedaycategory, DisplayName: Onmouseleavedaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseleaveinterval, DisplayName: Onmouseleaveinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseleavetime, DisplayName: Onmouseleavetime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseleavetimecategory, DisplayName: Onmouseleavetimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmousemoveday, DisplayName: Onmousemoveday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousemovedaycategory, DisplayName: Onmousemovedaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmousemoveinterval, DisplayName: Onmousemoveinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmousemovetime, DisplayName: Onmousemovetime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmousemovetimecategory, DisplayName: Onmousemovetimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseupday, DisplayName: Onmouseupday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseupdaycategory, DisplayName: Onmouseupdaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseupinterval, DisplayName: Onmouseupinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmouseuptime, DisplayName: Onmouseuptime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Onmouseuptimecategory, DisplayName: Onmouseuptimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Onmoved, DisplayName: Onmoved, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchendday, DisplayName: Ontouchendday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchenddaycategory, DisplayName: Ontouchenddaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchendinterval, DisplayName: Ontouchendinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchendtime, DisplayName: Ontouchendtime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchendtimecategory, DisplayName: Ontouchendtimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchmoveday, DisplayName: Ontouchmoveday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchmovedaycategory, DisplayName: Ontouchmovedaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchmoveinterval, DisplayName: Ontouchmoveinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchmovetime, DisplayName: Ontouchmovetime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchmovetimecategory, DisplayName: Ontouchmovetimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchstartday, DisplayName: Ontouchstartday, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchstartdaycategory, DisplayName: Ontouchstartdaycategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchstartinterval, DisplayName: Ontouchstartinterval, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 #DesignerProperty: Key: Ontouchstarttime, DisplayName: Ontouchstarttime, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
+#DesignerProperty: Key: Ontouchstarttimecategory, DisplayName: Ontouchstarttimecategory, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -175,11 +223,16 @@ Private mTagName As String = "v-calendar"
 	Public bindings As Map 
 	Public methods As Map
 Private sCaption As String = ""
+Private sCategories As String = ""
+Private sCategoryDays As String = ""
+Private sCategoryForInvalid As String = ""
+Private bCategoryHideDynamic As Boolean = False
+Private bCategoryShowAll As Boolean = False
 Private sColor As String = ""
 Private bDark As Boolean = False
 Private sDayFormat As String = ""
 Private sDisabled As String = ""
-Private sEnd As String = ""
+Private sEventCategory As String = ""
 Private sEventColor As String = ""
 Private sEventEnd As String = ""
 Private sEventHeight As String = ""
@@ -192,7 +245,9 @@ Private sEventOverlapThreshold As String = ""
 Private sEventRipple As String = ""
 Private sEventStart As String = ""
 Private sEventTextColor As String = ""
+Private sEventTimed As String = ""
 Private sFirstInterval As String = ""
+Private sFirstTime As String = ""
 Private bHideHeader As Boolean = False
 Private sIntervalCount As String = ""
 Private sIntervalFormat As String = ""
@@ -203,6 +258,7 @@ Private sIntervalWidth As String = ""
 Private sKey As String = ""
 Private bLight As Boolean = False
 Private sLocale As String = ""
+Private sLocaleFirstDayOfYear As String = ""
 Private sMaxDays As String = ""
 Private sMinWeeks As String = ""
 Private sMonthFormat As String = ""
@@ -215,12 +271,13 @@ Private bShortMonths As Boolean = False
 Private bShortWeekdays As Boolean = False
 Private sShowIntervalLabel As String = ""
 Private bShowMonthOnFirst As Boolean = False
-Private sStart As String = ""
+Private bShowWeek As Boolean = False
 Private sType As String = ""
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -229,7 +286,6 @@ Private bVOnce As Boolean = False
 Private bVPre As Boolean = False
 Private sVShow As String = ""
 Private sVText As String = ""
-Private sValue As String = ""
 Private sWeekdayFormat As String = ""
 Private sWeekdays As String = ""
 Private sBorderColor As String = ""
@@ -247,39 +303,59 @@ Private sPaddingLeft As String = ""
 Private eOnchange As String = ""
 Private eOnclickdate As String = ""
 Private eOnclickday As String = ""
+Private eOnclickdaycategory As String = ""
 Private eOnclickinterval As String = ""
 Private eOnclickmore As String = ""
 Private eOnclicktime As String = ""
+Private eOnclicktimecategory As String = ""
 Private eOncontextmenudate As String = ""
 Private eOncontextmenuday As String = ""
+Private eOncontextmenudaycategory As String = ""
 Private eOncontextmenuinterval As String = ""
 Private eOncontextmenutime As String = ""
+Private eOncontextmenutimecategory As String = ""
 Private eOninput As String = ""
 Private eOnmousedownday As String = ""
+Private eOnmousedowndaycategory As String = ""
 Private eOnmousedowninterval As String = ""
 Private eOnmousedowntime As String = ""
+Private eOnmousedowntimecategory As String = ""
 Private eOnmouseenterday As String = ""
+Private eOnmouseenterdaycategory As String = ""
 Private eOnmouseenterinterval As String = ""
 Private eOnmouseentertime As String = ""
+Private eOnmouseentertimecategory As String = ""
 Private eOnmouseleaveday As String = ""
+Private eOnmouseleavedaycategory As String = ""
 Private eOnmouseleaveinterval As String = ""
 Private eOnmouseleavetime As String = ""
+Private eOnmouseleavetimecategory As String = ""
 Private eOnmousemoveday As String = ""
+Private eOnmousemovedaycategory As String = ""
 Private eOnmousemoveinterval As String = ""
 Private eOnmousemovetime As String = ""
+Private eOnmousemovetimecategory As String = ""
 Private eOnmouseupday As String = ""
+Private eOnmouseupdaycategory As String = ""
 Private eOnmouseupinterval As String = ""
 Private eOnmouseuptime As String = ""
+Private eOnmouseuptimecategory As String = ""
 Private eOnmoved As String = ""
 Private eOntouchendday As String = ""
+Private eOntouchenddaycategory As String = ""
 Private eOntouchendinterval As String = ""
 Private eOntouchendtime As String = ""
+Private eOntouchendtimecategory As String = ""
 Private eOntouchmoveday As String = ""
+Private eOntouchmovedaycategory As String = ""
 Private eOntouchmoveinterval As String = ""
 Private eOntouchmovetime As String = ""
+Private eOntouchmovetimecategory As String = ""
 Private eOntouchstartday As String = ""
+Private eOntouchstartdaycategory As String = ""
 Private eOntouchstartinterval As String = ""
 Private eOntouchstarttime As String = ""
+Private eOntouchstarttimecategory As String = ""
 
 End Sub
 
@@ -304,11 +380,16 @@ mClasses = props.Get("Classes")
 mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
 sCaption = props.Get("Caption")
+sCategories = props.Get("Categories")
+sCategoryDays = props.Get("CategoryDays")
+sCategoryForInvalid = props.Get("CategoryForInvalid")
+bCategoryHideDynamic = props.Get("CategoryHideDynamic")
+bCategoryShowAll = props.Get("CategoryShowAll")
 sColor = props.Get("Color")
 bDark = props.Get("Dark")
 sDayFormat = props.Get("DayFormat")
 sDisabled = props.Get("Disabled")
-sEnd = props.Get("End")
+sEventCategory = props.Get("EventCategory")
 sEventColor = props.Get("EventColor")
 sEventEnd = props.Get("EventEnd")
 sEventHeight = props.Get("EventHeight")
@@ -321,7 +402,9 @@ sEventOverlapThreshold = props.Get("EventOverlapThreshold")
 sEventRipple = props.Get("EventRipple")
 sEventStart = props.Get("EventStart")
 sEventTextColor = props.Get("EventTextColor")
+sEventTimed = props.Get("EventTimed")
 sFirstInterval = props.Get("FirstInterval")
+sFirstTime = props.Get("FirstTime")
 bHideHeader = props.Get("HideHeader")
 sIntervalCount = props.Get("IntervalCount")
 sIntervalFormat = props.Get("IntervalFormat")
@@ -332,6 +415,7 @@ sIntervalWidth = props.Get("IntervalWidth")
 sKey = props.Get("Key")
 bLight = props.Get("Light")
 sLocale = props.Get("Locale")
+sLocaleFirstDayOfYear = props.Get("LocaleFirstDayOfYear")
 sMaxDays = props.Get("MaxDays")
 sMinWeeks = props.Get("MinWeeks")
 sMonthFormat = props.Get("MonthFormat")
@@ -344,12 +428,13 @@ bShortMonths = props.Get("ShortMonths")
 bShortWeekdays = props.Get("ShortWeekdays")
 sShowIntervalLabel = props.Get("ShowIntervalLabel")
 bShowMonthOnFirst = props.Get("ShowMonthOnFirst")
-sStart = props.Get("Start")
+bShowWeek = props.Get("ShowWeek")
 sType = props.Get("Type")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -358,7 +443,6 @@ bVOnce = props.Get("VOnce")
 bVPre = props.Get("VPre")
 sVShow = props.Get("VShow")
 sVText = props.Get("VText")
-sValue = props.Get("Value")
 sWeekdayFormat = props.Get("WeekdayFormat")
 sWeekdays = props.Get("Weekdays")
 sBorderColor = props.Get("BorderColor")
@@ -376,39 +460,59 @@ sPaddingLeft = props.Get("PaddingLeft")
 eOnchange = props.Get("Onchange")
 eOnclickdate = props.Get("Onclickdate")
 eOnclickday = props.Get("Onclickday")
+eOnclickdaycategory = props.Get("Onclickdaycategory")
 eOnclickinterval = props.Get("Onclickinterval")
 eOnclickmore = props.Get("Onclickmore")
 eOnclicktime = props.Get("Onclicktime")
+eOnclicktimecategory = props.Get("Onclicktimecategory")
 eOncontextmenudate = props.Get("Oncontextmenudate")
 eOncontextmenuday = props.Get("Oncontextmenuday")
+eOncontextmenudaycategory = props.Get("Oncontextmenudaycategory")
 eOncontextmenuinterval = props.Get("Oncontextmenuinterval")
 eOncontextmenutime = props.Get("Oncontextmenutime")
+eOncontextmenutimecategory = props.Get("Oncontextmenutimecategory")
 eOninput = props.Get("Oninput")
 eOnmousedownday = props.Get("Onmousedownday")
+eOnmousedowndaycategory = props.Get("Onmousedowndaycategory")
 eOnmousedowninterval = props.Get("Onmousedowninterval")
 eOnmousedowntime = props.Get("Onmousedowntime")
+eOnmousedowntimecategory = props.Get("Onmousedowntimecategory")
 eOnmouseenterday = props.Get("Onmouseenterday")
+eOnmouseenterdaycategory = props.Get("Onmouseenterdaycategory")
 eOnmouseenterinterval = props.Get("Onmouseenterinterval")
 eOnmouseentertime = props.Get("Onmouseentertime")
+eOnmouseentertimecategory = props.Get("Onmouseentertimecategory")
 eOnmouseleaveday = props.Get("Onmouseleaveday")
+eOnmouseleavedaycategory = props.Get("Onmouseleavedaycategory")
 eOnmouseleaveinterval = props.Get("Onmouseleaveinterval")
 eOnmouseleavetime = props.Get("Onmouseleavetime")
+eOnmouseleavetimecategory = props.Get("Onmouseleavetimecategory")
 eOnmousemoveday = props.Get("Onmousemoveday")
+eOnmousemovedaycategory = props.Get("Onmousemovedaycategory")
 eOnmousemoveinterval = props.Get("Onmousemoveinterval")
 eOnmousemovetime = props.Get("Onmousemovetime")
+eOnmousemovetimecategory = props.Get("Onmousemovetimecategory")
 eOnmouseupday = props.Get("Onmouseupday")
+eOnmouseupdaycategory = props.Get("Onmouseupdaycategory")
 eOnmouseupinterval = props.Get("Onmouseupinterval")
 eOnmouseuptime = props.Get("Onmouseuptime")
+eOnmouseuptimecategory = props.Get("Onmouseuptimecategory")
 eOnmoved = props.Get("Onmoved")
 eOntouchendday = props.Get("Ontouchendday")
+eOntouchenddaycategory = props.Get("Ontouchenddaycategory")
 eOntouchendinterval = props.Get("Ontouchendinterval")
 eOntouchendtime = props.Get("Ontouchendtime")
+eOntouchendtimecategory = props.Get("Ontouchendtimecategory")
 eOntouchmoveday = props.Get("Ontouchmoveday")
+eOntouchmovedaycategory = props.Get("Ontouchmovedaycategory")
 eOntouchmoveinterval = props.Get("Ontouchmoveinterval")
 eOntouchmovetime = props.Get("Ontouchmovetime")
+eOntouchmovetimecategory = props.Get("Ontouchmovetimecategory")
 eOntouchstartday = props.Get("Ontouchstartday")
+eOntouchstartdaycategory = props.Get("Ontouchstartdaycategory")
 eOntouchstartinterval = props.Get("Ontouchstartinterval")
 eOntouchstarttime = props.Get("Ontouchstarttime")
+eOntouchstarttimecategory = props.Get("Ontouchstarttimecategory")
 
 End If
 Dim strHTML As String = ToString
@@ -422,74 +526,149 @@ SetOnChange
 SetOnClickDate
 'This activates ClickDay the event exists on the module
 SetOnClickDay
+'This activates ClickDayCategory the event exists on the module
+SetOnClickDayCategory
 'This activates ClickInterval the event exists on the module
 SetOnClickInterval
 'This activates ClickMore the event exists on the module
 SetOnClickMore
 'This activates ClickTime the event exists on the module
 SetOnClickTime
+'This activates ClickTimeCategory the event exists on the module
+SetOnClickTimeCategory
 'This activates ContextmenuDate the event exists on the module
 SetOnContextmenuDate
 'This activates ContextmenuDay the event exists on the module
 SetOnContextmenuDay
+'This activates ContextmenuDayCategory the event exists on the module
+SetOnContextmenuDayCategory
 'This activates ContextmenuInterval the event exists on the module
 SetOnContextmenuInterval
 'This activates ContextmenuTime the event exists on the module
 SetOnContextmenuTime
+'This activates ContextmenuTimeCategory the event exists on the module
+SetOnContextmenuTimeCategory
 'This activates Input the event exists on the module
 SetOnInput
 'This activates MousedownDay the event exists on the module
 SetOnMousedownDay
+'This activates MousedownDayCategory the event exists on the module
+SetOnMousedownDayCategory
 'This activates MousedownInterval the event exists on the module
 SetOnMousedownInterval
 'This activates MousedownTime the event exists on the module
 SetOnMousedownTime
+'This activates MousedownTimeCategory the event exists on the module
+SetOnMousedownTimeCategory
 'This activates MouseenterDay the event exists on the module
 SetOnMouseenterDay
+'This activates MouseenterDayCategory the event exists on the module
+SetOnMouseenterDayCategory
 'This activates MouseenterInterval the event exists on the module
 SetOnMouseenterInterval
 'This activates MouseenterTime the event exists on the module
 SetOnMouseenterTime
+'This activates MouseenterTimeCategory the event exists on the module
+SetOnMouseenterTimeCategory
 'This activates MouseleaveDay the event exists on the module
 SetOnMouseleaveDay
+'This activates MouseleaveDayCategory the event exists on the module
+SetOnMouseleaveDayCategory
 'This activates MouseleaveInterval the event exists on the module
 SetOnMouseleaveInterval
 'This activates MouseleaveTime the event exists on the module
 SetOnMouseleaveTime
+'This activates MouseleaveTimeCategory the event exists on the module
+SetOnMouseleaveTimeCategory
 'This activates MousemoveDay the event exists on the module
 SetOnMousemoveDay
+'This activates MousemoveDayCategory the event exists on the module
+SetOnMousemoveDayCategory
 'This activates MousemoveInterval the event exists on the module
 SetOnMousemoveInterval
 'This activates MousemoveTime the event exists on the module
 SetOnMousemoveTime
+'This activates MousemoveTimeCategory the event exists on the module
+SetOnMousemoveTimeCategory
 'This activates MouseupDay the event exists on the module
 SetOnMouseupDay
+'This activates MouseupDayCategory the event exists on the module
+SetOnMouseupDayCategory
 'This activates MouseupInterval the event exists on the module
 SetOnMouseupInterval
 'This activates MouseupTime the event exists on the module
 SetOnMouseupTime
+'This activates MouseupTimeCategory the event exists on the module
+SetOnMouseupTimeCategory
 'This activates Moved the event exists on the module
 SetOnMoved
 'This activates TouchendDay the event exists on the module
 SetOnTouchendDay
+'This activates TouchendDayCategory the event exists on the module
+SetOnTouchendDayCategory
 'This activates TouchendInterval the event exists on the module
 SetOnTouchendInterval
 'This activates TouchendTime the event exists on the module
 SetOnTouchendTime
+'This activates TouchendTimeCategory the event exists on the module
+SetOnTouchendTimeCategory
 'This activates TouchmoveDay the event exists on the module
 SetOnTouchmoveDay
+'This activates TouchmoveDayCategory the event exists on the module
+SetOnTouchmoveDayCategory
 'This activates TouchmoveInterval the event exists on the module
 SetOnTouchmoveInterval
 'This activates TouchmoveTime the event exists on the module
 SetOnTouchmoveTime
+'This activates TouchmoveTimeCategory the event exists on the module
+SetOnTouchmoveTimeCategory
 'This activates TouchstartDay the event exists on the module
 SetOnTouchstartDay
+'This activates TouchstartDayCategory the event exists on the module
+SetOnTouchstartDayCategory
 'This activates TouchstartInterval the event exists on the module
 SetOnTouchstartInterval
 'This activates TouchstartTime the event exists on the module
 SetOnTouchstartTime
+'This activates TouchstartTimeCategory the event exists on the module
+SetOnTouchstartTimeCategory
 
 
+End Sub
+
+'set categories
+Sub SetCategories(varCategories As String) As VCalendar
+sCategories = varCategories
+SetAttr("categories", sCategories)
+Return Me
+End Sub
+
+'set category-days
+Sub SetCategoryDays(varCategoryDays As String) As VCalendar
+sCategoryDays = varCategoryDays
+SetAttr("category-days", sCategoryDays)
+Return Me
+End Sub
+
+'set category-for-invalid
+Sub SetCategoryForInvalid(varCategoryForInvalid As String) As VCalendar
+sCategoryForInvalid = varCategoryForInvalid
+SetAttr("category-for-invalid", sCategoryForInvalid)
+Return Me
+End Sub
+
+'set category-hide-dynamic
+Sub SetCategoryHideDynamic(varCategoryHideDynamic As Boolean) As VCalendar
+bCategoryHideDynamic = varCategoryHideDynamic
+SetAttr("category-hide-dynamic", bCategoryHideDynamic)
+Return Me
+End Sub
+
+'set category-show-all
+Sub SetCategoryShowAll(varCategoryShowAll As Boolean) As VCalendar
+bCategoryShowAll = varCategoryShowAll
+SetAttr("category-show-all", bCategoryShowAll)
+Return Me
 End Sub
 
 'set color
@@ -521,9 +700,15 @@ Return Me
 End Sub
 
 'set end
-Sub SetEnd(varEnd As String) As VCalendar
-sEnd = varEnd
-SetAttr("end", sEnd)
+Sub SetEnd(varEnd As Object) As VCalendar
+SetAttr("end", varEnd)
+Return Me
+End Sub
+
+'set event-category
+Sub SetEventCategory(varEventCategory As String) As VCalendar
+sEventCategory = varEventCategory
+SetAttr("event-category", sEventCategory)
 Return Me
 End Sub
 
@@ -611,6 +796,13 @@ SetAttr("event-text-color", sEventTextColor)
 Return Me
 End Sub
 
+'set event-timed
+Sub SetEventTimed(varEventTimed As String) As VCalendar
+sEventTimed = varEventTimed
+SetAttr("event-timed", sEventTimed)
+Return Me
+End Sub
+
 'set events
 Sub SetEvents(varEvents As Object) As VCalendar
 SetAttr("events", varEvents)
@@ -621,6 +813,13 @@ End Sub
 Sub SetFirstInterval(varFirstInterval As String) As VCalendar
 sFirstInterval = varFirstInterval
 SetAttr("first-interval", sFirstInterval)
+Return Me
+End Sub
+
+'set first-time
+Sub SetFirstTime(varFirstTime As String) As VCalendar
+sFirstTime = varFirstTime
+SetAttr("first-time", sFirstTime)
 Return Me
 End Sub
 
@@ -691,6 +890,13 @@ End Sub
 Sub SetLocale(varLocale As String) As VCalendar
 sLocale = varLocale
 SetAttr("locale", sLocale)
+Return Me
+End Sub
+
+'set locale-first-day-of-year
+Sub SetLocaleFirstDayOfYear(varLocaleFirstDayOfYear As String) As VCalendar
+sLocaleFirstDayOfYear = varLocaleFirstDayOfYear
+SetAttr("locale-first-day-of-year", sLocaleFirstDayOfYear)
 Return Me
 End Sub
 
@@ -778,10 +984,16 @@ SetAttr("show-month-on-first", bShowMonthOnFirst)
 Return Me
 End Sub
 
+'set show-week
+Sub SetShowWeek(varShowWeek As Boolean) As VCalendar
+bShowWeek = varShowWeek
+SetAttr("show-week", bShowWeek)
+Return Me
+End Sub
+
 'set start
-Sub SetStart(varStart As String) As VCalendar
-sStart = varStart
-SetAttr("start", sStart)
+Sub SetStart(varStart As Object) As VCalendar
+SetAttr("start", varStart)
 Return Me
 End Sub
 
@@ -817,6 +1029,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VCalendar
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VCalendar
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -877,9 +1096,8 @@ Return Me
 End Sub
 
 'set value
-Sub SetValue(varValue As String) As VCalendar
-sValue = varValue
-SetAttr("value", sValue)
+Sub SetValue(varValue As Object) As VCalendar
+SetAttr("value", varValue)
 Return Me
 End Sub
 
@@ -1024,6 +1242,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on clickdaycategory event, updates the master events records
+Sub SetOnClickDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_clickdaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnclickdaycategory})"$
+SetAttr("v-on:click:day-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on clickinterval event, updates the master events records
 Sub SetOnClickInterval() As VCalendar
 Dim sName As String = $"${mEventName}_clickinterval"$
@@ -1066,6 +1298,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on clicktimecategory event, updates the master events records
+Sub SetOnClickTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_clicktimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnclicktimecategory})"$
+SetAttr("v-on:click:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on contextmenudate event, updates the master events records
 Sub SetOnContextmenuDate() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenudate"$
@@ -1087,6 +1333,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOncontextmenuday})"$
 SetAttr("v-on:contextmenu:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on contextmenudaycategory event, updates the master events records
+Sub SetOnContextmenuDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_contextmenudaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOncontextmenudaycategory})"$
+SetAttr("v-on:contextmenu:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1122,6 +1382,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on contextmenutimecategory event, updates the master events records
+Sub SetOnContextmenuTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_contextmenutimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOncontextmenutimecategory})"$
+SetAttr("v-on:contextmenu:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on input event, updates the master events records
 Sub SetOnInput() As VCalendar
 Dim sName As String = $"${mEventName}_input"$
@@ -1143,6 +1417,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOnmousedownday})"$
 SetAttr("v-on:mousedown:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on mousedowndaycategory event, updates the master events records
+Sub SetOnMousedownDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mousedowndaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmousedowndaycategory})"$
+SetAttr("v-on:mousedown:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1178,6 +1466,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on mousedowntimecategory event, updates the master events records
+Sub SetOnMousedownTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mousedowntimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmousedowntimecategory})"$
+SetAttr("v-on:mousedown:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on mouseenterday event, updates the master events records
 Sub SetOnMouseenterDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseenterday"$
@@ -1185,6 +1487,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOnmouseenterday})"$
 SetAttr("v-on:mouseenter:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on mouseenterdaycategory event, updates the master events records
+Sub SetOnMouseenterDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mouseenterdaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmouseenterdaycategory})"$
+SetAttr("v-on:mouseenter:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1220,6 +1536,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on mouseentertimecategory event, updates the master events records
+Sub SetOnMouseenterTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mouseentertimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmouseentertimecategory})"$
+SetAttr("v-on:mouseenter:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on mouseleaveday event, updates the master events records
 Sub SetOnMouseleaveDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleaveday"$
@@ -1227,6 +1557,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOnmouseleaveday})"$
 SetAttr("v-on:mouseleave:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on mouseleavedaycategory event, updates the master events records
+Sub SetOnMouseleaveDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mouseleavedaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmouseleavedaycategory})"$
+SetAttr("v-on:mouseleave:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1262,6 +1606,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on mouseleavetimecategory event, updates the master events records
+Sub SetOnMouseleaveTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mouseleavetimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmouseleavetimecategory})"$
+SetAttr("v-on:mouseleave:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on mousemoveday event, updates the master events records
 Sub SetOnMousemoveDay() As VCalendar
 Dim sName As String = $"${mEventName}_mousemoveday"$
@@ -1269,6 +1627,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOnmousemoveday})"$
 SetAttr("v-on:mousemove:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on mousemovedaycategory event, updates the master events records
+Sub SetOnMousemoveDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mousemovedaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmousemovedaycategory})"$
+SetAttr("v-on:mousemove:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1304,6 +1676,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on mousemovetimecategory event, updates the master events records
+Sub SetOnMousemoveTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mousemovetimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmousemovetimecategory})"$
+SetAttr("v-on:mousemove:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on mouseupday event, updates the master events records
 Sub SetOnMouseupDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseupday"$
@@ -1311,6 +1697,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOnmouseupday})"$
 SetAttr("v-on:mouseup:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on mouseupdaycategory event, updates the master events records
+Sub SetOnMouseupDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mouseupdaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmouseupdaycategory})"$
+SetAttr("v-on:mouseup:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1346,6 +1746,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on mouseuptimecategory event, updates the master events records
+Sub SetOnMouseupTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_mouseuptimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOnmouseuptimecategory})"$
+SetAttr("v-on:mouseup:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on moved event, updates the master events records
 Sub SetOnMoved() As VCalendar
 Dim sName As String = $"${mEventName}_moved"$
@@ -1367,6 +1781,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOntouchendday})"$
 SetAttr("v-on:touchend:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on touchenddaycategory event, updates the master events records
+Sub SetOnTouchendDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_touchenddaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOntouchenddaycategory})"$
+SetAttr("v-on:touchend:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1402,6 +1830,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on touchendtimecategory event, updates the master events records
+Sub SetOnTouchendTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_touchendtimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOntouchendtimecategory})"$
+SetAttr("v-on:touchend:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on touchmoveday event, updates the master events records
 Sub SetOnTouchmoveDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchmoveday"$
@@ -1409,6 +1851,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOntouchmoveday})"$
 SetAttr("v-on:touchmove:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on touchmovedaycategory event, updates the master events records
+Sub SetOnTouchmoveDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_touchmovedaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOntouchmovedaycategory})"$
+SetAttr("v-on:touchmove:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1444,6 +1900,20 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on touchmovetimecategory event, updates the master events records
+Sub SetOnTouchmoveTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_touchmovetimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOntouchmovetimecategory})"$
+SetAttr("v-on:touchmove:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 'set on touchstartday event, updates the master events records
 Sub SetOnTouchstartDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchstartday"$
@@ -1451,6 +1921,20 @@ sName = sName.tolowercase
 If SubExists(mCallBack, sName) = False Then Return Me
 Dim sCode As String = $"${sName}(${eOntouchstartday})"$
 SetAttr("v-on:touchstart:day", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
+'set on touchstartdaycategory event, updates the master events records
+Sub SetOnTouchstartDayCategory() As VCalendar
+Dim sName As String = $"${mEventName}_touchstartdaycategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOntouchstartdaycategory})"$
+SetAttr("v-on:touchstart:day-category", sCode)
 'arguments for the event
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
@@ -1486,15 +1970,34 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+'set on touchstarttimecategory event, updates the master events records
+Sub SetOnTouchstartTimeCategory() As VCalendar
+Dim sName As String = $"${mEventName}_touchstarttimecategory"$
+sName = sName.tolowercase
+If SubExists(mCallBack, sName) = False Then Return Me
+Dim sCode As String = $"${sName}(${eOntouchstarttimecategory})"$
+SetAttr("v-on:touchstart:time-category", sCode)
+'arguments for the event
+Dim argument As Object 'ignore
+Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+methods.Put(sName, cb)
+Return Me
+End Sub
+
 
 'return the generated html
 Sub ToString As String
 AddAttr(sCaption, "caption")
+AddAttr(sCategories, "categories")
+AddAttr(sCategoryDays, "category-days")
+AddAttr(sCategoryForInvalid, "category-for-invalid")
+AddAttr(bCategoryHideDynamic, "category-hide-dynamic")
+AddAttr(bCategoryShowAll, "category-show-all")
 AddAttr(sColor, "color")
 AddAttr(bDark, "dark")
 AddAttr(sDayFormat, "day-format")
 AddAttr(sDisabled, "disabled")
-AddAttr(sEnd, "end")
+AddAttr(sEventCategory, "event-category")
 AddAttr(sEventColor, "event-color")
 AddAttr(sEventEnd, "event-end")
 AddAttr(sEventHeight, "event-height")
@@ -1507,7 +2010,9 @@ AddAttr(sEventOverlapThreshold, "event-overlap-threshold")
 AddAttr(sEventRipple, "event-ripple")
 AddAttr(sEventStart, "event-start")
 AddAttr(sEventTextColor, "event-text-color")
+AddAttr(sEventTimed, "event-timed")
 AddAttr(sFirstInterval, "first-interval")
+AddAttr(sFirstTime, "first-time")
 AddAttr(bHideHeader, "hide-header")
 AddAttr(sIntervalCount, "interval-count")
 AddAttr(sIntervalFormat, "interval-format")
@@ -1518,6 +2023,7 @@ AddAttr(sIntervalWidth, "interval-width")
 AddAttr(sKey, "key")
 AddAttr(bLight, "light")
 AddAttr(sLocale, "locale")
+AddAttr(sLocaleFirstDayOfYear, "locale-first-day-of-year")
 AddAttr(sMaxDays, "max-days")
 AddAttr(sMinWeeks, "min-weeks")
 AddAttr(sMonthFormat, "month-format")
@@ -1530,12 +2036,13 @@ AddAttr(bShortMonths, "short-months")
 AddAttr(bShortWeekdays, "short-weekdays")
 AddAttr(sShowIntervalLabel, "show-interval-label")
 AddAttr(bShowMonthOnFirst, "show-month-on-first")
-AddAttr(sStart, "start")
+AddAttr(bShowWeek, "show-week")
 AddAttr(sType, "type")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -1544,7 +2051,6 @@ AddAttr(bVOnce, "v-once")
 AddAttr(bVPre, "v-pre")
 AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
-AddAttr(sValue, "value")
 AddAttr(sWeekdayFormat, "weekday-format")
 AddAttr(sWeekdays, "weekdays")
 SetStyleSingle("border-color", sBorderColor)
@@ -1585,9 +2091,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -1612,26 +2118,6 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VCalendar
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -1699,6 +2185,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VCalendar
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1994,7 +2481,20 @@ Sub SetDisabledOnOff(b As Boolean) As VCalendar
 	Return Me
 End Sub
 
-
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub
 
 
 

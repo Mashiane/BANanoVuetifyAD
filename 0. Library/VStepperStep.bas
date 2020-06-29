@@ -10,7 +10,7 @@ Version=8.3
 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Complete, DisplayName: Complete, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Complete, DisplayName: Complete, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: CompleteIcon, DisplayName: CompleteIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EditIcon, DisplayName: EditIcon, Description: , FieldType: String, DefaultValue: 
@@ -25,6 +25,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -53,7 +54,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -72,7 +73,7 @@ Private mTagName As String = "v-stepper-step"
 	Public methods As Map
 Private sCaption As String = ""
 Private sColor As String = ""
-Private sComplete As String = ""
+Private bComplete As Boolean = False
 Private sCompleteIcon As String = ""
 Private sDisabled As String = ""
 Private sEditIcon As String = ""
@@ -87,6 +88,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -133,7 +135,7 @@ mAttributes = props.Get("Attributes")
 mStyle = props.Get("Style")
 sCaption = props.Get("Caption")
 sColor = props.Get("Color")
-sComplete = props.Get("Complete")
+bComplete = props.Get("Complete")
 sCompleteIcon = props.Get("CompleteIcon")
 sDisabled = props.Get("Disabled")
 sEditIcon = props.Get("EditIcon")
@@ -148,6 +150,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -190,9 +193,9 @@ Return Me
 End Sub
 
 'set complete
-Sub SetComplete(varComplete As String) As VStepperStep
-sComplete = varComplete
-SetAttr("complete", sComplete)
+Sub SetComplete(varComplete As Boolean) As VStepperStep
+bComplete = varComplete
+SetAttr("complete", bComplete)
 Return Me
 End Sub
 
@@ -297,6 +300,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VStepperStep
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VStepperStep
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -460,7 +470,7 @@ End Sub
 Sub ToString As String
 AddAttr(sCaption, "caption")
 AddAttr(sColor, "color")
-AddAttr(sComplete, "complete")
+AddAttr(bComplete, "complete")
 AddAttr(sCompleteIcon, "complete-icon")
 AddAttr(sDisabled, "disabled")
 AddAttr(sEditIcon, "edit-icon")
@@ -475,6 +485,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -528,7 +539,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -541,33 +552,13 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VStepperStep
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VStepperStep
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -580,7 +571,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VStepperStep
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -595,7 +586,7 @@ Sub AddToApp(vap As VueApp) As VStepperStep
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VStepperStep
+Sub SetData(prop as string, value as object) As VStepperStep
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -635,6 +626,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VStepperStep
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -694,17 +686,17 @@ Sub AddClass(classNames As List) As VStepperStep
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VStepperStep
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -721,9 +713,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VStepperStep
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -743,11 +735,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VStepperStep
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -768,10 +760,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -785,13 +777,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VStepperStep
+Sub SetVClass(classObj as string) As VStepperStep
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VStepperStep
+Sub SetVStyle(styleObj as string) As VStepperStep
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -807,18 +799,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VStepperStep
-	Dim sColor As String = $"${varColor} ${varIntensity}"$
+	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, scolor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VStepperStep
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -827,7 +819,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VSteppe
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -877,26 +869,26 @@ Sub Show As VStepperStep
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VStepperStep
-	If sVBindClass = "" Then
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VStepperStep
+	if svBindClass = "" then
 		Log($"VStepperStep.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VStepperStep
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VStepperStep
+	if svBindStyle = "" then
 		Log($"VStepperStep.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
@@ -930,8 +922,6 @@ Sub SetDisabledOnOff(b As Boolean) As VStepperStep
 	Return Me
 End Sub
 
-
-
 'bind this element to component
 Sub AddToComponent(ve As VMElement)
 	data = ve.data
@@ -946,4 +936,6 @@ Sub AddToComponent(ve As VMElement)
 		ve.SetCallBack(k, cb)
 	Next
 End Sub
+
+
 

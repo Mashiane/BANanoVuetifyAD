@@ -36,7 +36,7 @@ Sub Initialize
 	CheckOut.SetTitle("Check Out")
 	CheckOut.SetPath($"./${Main.appname}/${CheckOut.mname}/"$)
 	'set the initial step
-	MyApp.SetDataVuex("step", 1)
+	MyApp.SetDataStore("step", "1")
 	'this will store our data
 	Dim contact As Map = CreateMap()
 	contact.put("name", "")
@@ -46,14 +46,14 @@ Sub Initialize
 	contact.put("city", "")
 	contact.put("zip", "")
 	'save data to the state
-	MyApp.SetDataVuex("contact", contact)
+	MyApp.SetDataStore("contact", contact)
 	'stuff that is required
-	MyApp.SetDataVuex("namerequired", True)
-	MyApp.SetDataVuex("emailrequired", True)
-	MyApp.SetDataVuex("phonerequired", True)
-	MyApp.SetDataVuex("streetrequired", True)
-	MyApp.SetDataVuex("cityrequired", True)
-	MyApp.SetDataVuex("ziprequired", True)
+	MyApp.SetDataStore("namerequired", True)
+	MyApp.SetDataStore("emailrequired", True)
+	MyApp.SetDataStore("phonerequired", True)
+	MyApp.SetDataStore("streetrequired", True)
+	MyApp.SetDataStore("cityrequired", True)
+	MyApp.SetDataStore("ziprequired", True)
 	
 	'load the store layout and get its html from the placeholder
 	BANano.LoadLayout("#placeholder", "Checkout")
@@ -87,10 +87,11 @@ Sub Initialize
 	CheckOut.SetComputed("isstep2done", Me, "isstep2done")
 	
 	MyApp.AddRoute(CheckOut)
+	'
 End Sub
 
 Sub isstep1done As Boolean
-	Dim cstep As Int = MyApp.GetDataVuex("step")
+	Dim cstep As Int = MyApp.GetDataStore("step")
 	cstep = BANano.parseint(cstep)
 	If cstep > 1 Then
 		Return True
@@ -100,7 +101,7 @@ Sub isstep1done As Boolean
 End Sub
 
 Sub isstep2done As Boolean
-	Dim cstep As Int = MyApp.GetDataVuex("step")
+	Dim cstep As Int = MyApp.GetDataStore("step")
 	cstep = BANano.parseint(cstep)
 	If cstep > 2 Then
 		Return True
@@ -114,11 +115,13 @@ Sub GotoMe
 	MyApp.NavigateTo(CheckOut.path)
 End Sub
 
+Sub gotoshipping(state As Map, payload As Map)
+	
+End Sub
 
 Sub btnStep1Next_click (argument As BANanoEvent)
-	Dim contact As Map = MyApp.GetDataVuex("contact")
+	Dim contact As Map = MyApp.GetDataStore("contact")
 	Log(contact)
-	
 	NextStep
 End Sub
 
@@ -148,13 +151,13 @@ End Sub
 
 
 Sub NextStep
-	Dim istep As Int = MyApp.GetDataVuex("step")
+	Dim istep As Int = MyApp.GetDataStore("step")
 	istep = BANano.parseint(istep) + 1
-	MyApp.SetDataVuex("step", istep)
+	MyApp.SetDataStore("step", istep)
 End Sub
 
 Sub PreviousStep
-	Dim istep As Int = MyApp.GetDataVuex("step")
+	Dim istep As Int = MyApp.GetDataStore("step")
 	istep = BANano.parseint(istep) - 1
-	MyApp.SetDataVuex("step", istep)
+	MyApp.SetDataStore("step", istep)
 End Sub

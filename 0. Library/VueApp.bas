@@ -9,7 +9,7 @@ Sub Class_Globals
 	Public el As BANanoObject
 	Public data As Map
 	Public state As Map
-	'Public store As BANanoObject
+	Public store As BANanoObject
 	Public emit As BANanoObject
 	Public router As BANanoObject
 	Public VuePageTransition As BANanoObject
@@ -21,7 +21,6 @@ Sub Class_Globals
 	Private filters As Map
 	Private opt As Map
 	Private refs As BANanoObject
-	Private props As List
 	Public Path As String
 	Public name As String
 	Public Query As Map
@@ -29,19 +28,19 @@ Sub Class_Globals
 	Private routes As List
 	Public components As Map
 	Public Options As Map
-	Public vap As BANanoObject
+	Public VAP As BANanoObject
 	Public Template As String
-	Public vuetify As BANanoObject
+	Public Vuetify As BANanoObject
 	Public RTL As Boolean
 	Public Dark As Boolean
 	Private lang As String
 	Public Errors As Map
 	Public Themes As Map
 	Private ColorMap As Map
-	Public Vuex As BANanoObject
-	Public VuexState As Map
-	Public VuexMutations As Map
-	Public VuexStore As BANanoObject
+	'Public Vuex As BANanoObject
+	'Public VuexState As Map
+	'Public VuexMutations As Map
+	'Public VuexStore As BANanoObject
 	
 	'
 	Public const BORDER_DEFAULT As String = ""
@@ -128,7 +127,6 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	watches.Initialize
 	filters.Initialize
 	opt.Initialize
-	props.Initialize
 	Query.Initialize
 	EventHandler = Module
 	routes.Initialize
@@ -140,22 +138,22 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	ColorMap.Initialize
 	data.Initialize 
 	'
-	vap.Initialize("Vue")
+	VAP.Initialize("Vue")
 	'***use a global prototype
-	'state = CreateMap()
-	'state.Put("state", CreateMap())
-	'store = vap.RunMethod("observable", Array(state))
-	'vap.GetField("prototype").SetField("$store", store)
+	state = CreateMap()
+	state.Put("state", CreateMap())
+	store = VAP.RunMethod("observable", Array(state))
+	VAP.GetField("prototype").SetField("$store", store)
 	'****
 	'***use the vuex store
-	Vuex.Initialize("Vuex")
-	VuexState = CreateMap()
-	VuexMutations = CreateMap()
-	Dim vuexopt As Map = CreateMap()
-	vuexopt.Put("state", VuexState)
-	vuexopt.Put("mutations", VuexMutations)
-	vuexopt.Put("strict", False)
-	VuexStore.Initialize2("Vuex.Store", Array(vuexopt)) 
+	'Vuex.Initialize("Vuex")
+	'VuexState = CreateMap()
+	'VuexMutations = CreateMap()
+	'Dim vuexopt As Map = CreateMap()
+	'vuexopt.Put("state", VuexState)
+	'vuexopt.Put("mutations", VuexMutations)
+	'vuexopt.Put("strict", False)
+	'VuexStore.Initialize2("Vuex.Store", Array(vuexopt)) 
 	'
 	VuePageTransition.Initialize("VuePageTransition")
 	Use(VuePageTransition)
@@ -175,12 +173,25 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	InitColors
 	Return Me
 End Sub
+'
+'private Sub SetVuexMutation(Module As Object, MutationName As String, VxState As Map, Payload As Map)
+'	MutationName = MutationName.ToLowerCase
+'	Dim cb As BANanoObject = BANano.CallBack(Module, MutationName, Array(VxState, Payload))
+'	VuexMutations.Put(MutationName, cb)
+'End Sub
+'
+'
+'private Sub vuexupdate(vxstate As Map, payload As Map)
+'	For Each k As String In payload.Keys
+'		Dim v As Object = payload.Get(k)
+'		vxstate.Put(k, v)
+'	Next
+'End Sub
+'
+'Sub VuexCommit(payload As Map)
+'	VuexStore.RunMethod("commit", Array("vuexupdate", payload))
+'End Sub
 
-Sub SetVuexMutation(Module As Object, MutationName As String, VxState As Map, Payload As Map)
-	MutationName = MutationName.ToLowerCase
-	Dim cb As BANanoObject = BANano.CallBack(Module, MutationName, Array(VxState, Payload))
-	VuexMutations.Put(MutationName, cb)
-End Sub
 
 Sub InitColors
 	ColorMap.Initialize
@@ -537,6 +548,7 @@ Sub AddRoute(comp As VMElement)
 	eachroute.Put("path", comp.path)
 	eachroute.Put("name", comp.mname)
 	eachroute.Put("component", comp.component(True))
+	eachroute.Put("props", True)
 	routes.Add(eachroute)
 End Sub
 
@@ -544,7 +556,7 @@ End Sub
 'register a component with options
 Sub RegisterComponent(compName As String, compOptions As Map) As VueApp
 	compName = compName.tolowercase
-	vap.RunMethod("component", Array(compName, compOptions))
+	VAP.RunMethod("component", Array(compName, compOptions))
 	Return Me
 End Sub
 
@@ -740,23 +752,39 @@ Sub GetData(prop As String) As Object
 	Return obj
 End Sub
 
-'set data global
-Sub SetDataVuex(prop As String, valuex As Object) As VueApp
+Sub SetDataStore(prop As String, value As Object) As VueApp
 	prop = prop.tolowercase
-	VuexStore.GetField("state").SetField(prop, valuex)
+	store.GetField("state").SetField(prop, value)
 	Return Me
 End Sub
 
-'get data global
-Sub GetDataVuex(prop As String) As Object
+Sub GetDataStore(prop As String) As Object
 	prop = prop.tolowercase
-	Dim obj As Map = VuexStore.GetField("state").Result
+	Dim obj As Map = store.GetField("state").Result
 	Dim res As Object = Null
 	If obj.ContainsKey(prop) Then
 		res = obj.Get(prop)
 	End If
 	Return res
 End Sub
+
+''set data global
+'Sub SetDataVuex(prop As String, valuex As Object) As VueApp
+'	prop = prop.tolowercase
+'	VuexStore.GetField("state").SetField(prop, valuex)
+'	Return Me
+'End Sub
+'
+''get data global
+'Sub GetDataVuex(prop As String) As Object
+'	prop = prop.tolowercase
+'	Dim obj As Map = VuexStore.GetField("state").Result
+'	Dim res As Object = Null
+'	If obj.ContainsKey(prop) Then
+'		res = obj.Get(prop)
+'	End If
+'	Return res
+'End Sub
 
 'set direct method
 Sub SetFilter(Module As Object, methodName As String) As VueApp
@@ -921,16 +949,17 @@ End Sub
 
 Sub CallComputed(methodName As String) As Object
 	methodName = methodName.tolowercase
-	Return vap.GetField(methodName)
+	Return VAP.GetField(methodName)
 End Sub
 
 Sub CallMethod(methodName As String)
 	methodName = methodName.tolowercase
-	vap.RunMethod(methodName, Null)
+	VAP.RunMethod(methodName, Null)
 End Sub
 
 Sub RunMethod(methodName As String, params As Object) As BANanoObject
-	Return vap.RunMethod(methodName, params)
+	methodName = methodName.tolowercase
+	Return VAP.RunMethod(methodName, params)
 End Sub
 
 'get an element
@@ -946,7 +975,9 @@ Sub Serve
 	targetID = targetID.Replace("#","")
 	'set where we should render the app to
 	Options.Put("el", $"#${targetID}"$)
-	Options.Put("store", VuexStore)
+	Options.Put("store", store)
+	
+	'Options.Put("store", VuexStore)
 	'get the body
 	'get where you have loaded the layout
 	'this gets the HTML to use
@@ -969,9 +1000,8 @@ Sub Serve
 	vopt.Put("lang", mlang)
 	'
 	'set the framework
-	vuetify.Initialize2("Vuetify", vopt)
-	Options.Put("vuetify", vuetify)
-	If components.Size > 0 Then Options.Put("components", components)
+	Vuetify.Initialize2("Vuetify", vopt)
+	Options.Put("vuetify", Vuetify)
 	If routes.Size > 0 Then
 		Dim ropt As Map = CreateMap()
 		ropt.Put("mode", "history")
@@ -981,29 +1011,30 @@ Sub Serve
 		Options.Put("router", vrouter)
 	End If
 	
+	Options.Put("components", components)
 	Options.put("data", data)
 	Options.Put("methods", methods)
 	Options.Put("filters", filters)
 	Options.Put("computed", computed)
 	Options.Put("watch", watches)
 	Options.Put("template", Template)
-	vap.Initialize2("Vue", Array(Options))
+	VAP.Initialize2("Vue", Array(Options))
 	'get the state
 	Dim dKey As String = "$data"
-	data = vap.GetField(dKey).Result
+	data = VAP.GetField(dKey).Result
 	'get the refs
 	Dim rKey As String = "$refs"
-	refs = vap.GetField(rKey)
+	refs = VAP.GetField(rKey)
 	Dim elKey As String = "$el"
-	el = vap.GetField(elKey)
+	el = VAP.GetField(elKey)
 	Dim emitKey As String = "$emit"
-	emit = vap.GetField(emitKey)
+	emit = VAP.GetField(emitKey)
 	Dim svuetify As String = "$vuetify"
-	vuetify = vap.GetField(svuetify)
-	'Dim sstore As String = "$store"
-	'store = vap.GetField(sstore)
+	Vuetify = VAP.GetField(svuetify)
+	Dim sstore As String = "$store"
+	store = VAP.GetField(sstore)
 	Dim srouter As String = "$router"
-	router = vap.GetField(srouter)
+	router = VAP.GetField(srouter)
 End Sub
 
 'Use router To navigate
@@ -1016,17 +1047,17 @@ End Sub
 
 'use a component module
 Sub Use(bo As BANanoObject)
-	vap.RunMethod("use", bo)
+	VAP.RunMethod("use", bo)
 End Sub
 
 'use a component module
 Sub Use1(bo As BANanoObject, uopt As Map)
-	vap.RunMethod("use", Array(bo, uopt))
+	VAP.RunMethod("use", Array(bo, uopt))
 End Sub
 
 'set right to left
 Sub SetRTL(b As Boolean)
-	vuetify.SetField("rtl", b)
+	Vuetify.SetField("rtl", b)
 End Sub
 
 'show a drawer

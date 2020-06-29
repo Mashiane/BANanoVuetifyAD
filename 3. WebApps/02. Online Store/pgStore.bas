@@ -39,11 +39,11 @@ Sub Initialize
 	Store.SetTemplate(Template)
 	'
 	'set a prices filter, we will use a radiogroup for this
-	MyApp.SetDataVuex("pricefilter", 0)
+	MyApp.SetDataStore("pricefilter", 0)
 	
 	Dim prices As List = MyApp.newlist
 	prices.addall(Array("Any", "Under R25", "R25 to R100", "R100 to R500", "Over R500"))
-	MyApp.SetDataVuex("prices", prices)
+	MyApp.SetDataStore("prices", prices)
 	
 	Store.SetMethod(Me, "getimageurl")
 	'define prices for the filter
@@ -53,13 +53,18 @@ Sub Initialize
 	MyApp.AddRoute(Store)
 End Sub
 
+Sub GotoMe
+	MyApp.NavigateTo(Store.path)
+End Sub
 
-Sub btnAddToCart1_click (product As Object)
+
+Sub btnAddToCart1_click (i As Object)
 	'we create the payload, it has to have the quantity and product
 	Dim payload As Map = CreateMap()
-	payload.put("product", product)
+	payload.put("itemId", i)
 	payload.put("quantity", 1)
-	pgIndex.addItemToCart(payload)
+	'pgIndex.addItemToCart(payload)
+	MyApp.RunMethod("addItemToCart", payload)
 End Sub
 
 'this is needed to get the path from current route

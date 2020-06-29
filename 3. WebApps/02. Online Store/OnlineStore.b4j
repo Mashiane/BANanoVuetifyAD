@@ -106,6 +106,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.TranspilerOptions.MinifyOnline = False
 	BANano.TranspilerOptions.IgnoreB4JLibrary("BANanoPostProcessor")
 	BANano.TranspilerOptions.ExternalTestConnectionServer = "http://www.localhost"
+	BANano.TranspilerOptions.EnableLiveCodeSwapping = False
 	
 	'set php settings
 	BANano.PHP_NAME = $"${AppName}.php"$

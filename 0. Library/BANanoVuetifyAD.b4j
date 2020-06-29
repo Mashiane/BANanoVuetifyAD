@@ -45,7 +45,6 @@ File47=vue-router.min.js
 File48=vuetify.min.css
 File49=vuetify.min.js
 File5=fontawesome-webfont.svg
-File50=vuex.js
 File6=fontawesome-webfont.ttf
 File7=fontawesome-webfont.woff
 File8=fontawesome-webfont.woff2
@@ -95,7 +94,6 @@ FileGroup47=Default Group
 FileGroup48=Default Group
 FileGroup49=Default Group
 FileGroup5=Default Group
-FileGroup50=Default Group
 FileGroup6=Default Group
 FileGroup7=Default Group
 FileGroup8=Default Group
@@ -188,7 +186,7 @@ Module82=VToolbarTitle
 Module83=VTooltip
 Module84=VueApp
 Module9=VBtn
-NumberOfFiles=50
+NumberOfFiles=49
 NumberOfLibraries=3
 NumberOfModules=84
 Version=8.31
@@ -235,7 +233,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.Header.AddJavascriptFile("fileSaver.min.js")
 	BANano.Header.AddJavascriptFile("vue-page-transition.browser.js")
 	BANano.Header.AddCSSFile("vue-page-transition.css")
-	BANano.Header.AddJavascriptFile("vuex.js")
+	'BANano.Header.AddJavascriptFile("vuex.js")
 	'
 	' start the build
 	#if release

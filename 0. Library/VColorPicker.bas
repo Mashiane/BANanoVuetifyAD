@@ -15,6 +15,7 @@ Version=8.3
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: DotSize, DisplayName: DotSize, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
 #DesignerProperty: Key: Flat, DisplayName: Flat, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: HideCanvas, DisplayName: HideCanvas, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: HideInputs, DisplayName: HideInputs, Description: , FieldType: Boolean, DefaultValue: False
@@ -31,6 +32,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -85,6 +87,7 @@ Private sCaption As String = ""
 Private bDark As Boolean = False
 Private bDisabled As Boolean = False
 Private sDotSize As String = ""
+Private sElevation As String = ""
 Private bFlat As Boolean = False
 Private bHideCanvas As Boolean = False
 Private bHideInputs As Boolean = False
@@ -101,6 +104,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -154,6 +158,7 @@ sCaption = props.Get("Caption")
 bDark = props.Get("Dark")
 bDisabled = props.Get("Disabled")
 sDotSize = props.Get("DotSize")
+sElevation = props.Get("Elevation")
 bFlat = props.Get("Flat")
 bHideCanvas = props.Get("HideCanvas")
 bHideInputs = props.Get("HideInputs")
@@ -170,6 +175,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -237,6 +243,13 @@ End Sub
 Sub SetDotSize(varDotSize As String) As VColorPicker
 sDotSize = varDotSize
 SetAttr("dot-size", sDotSize)
+Return Me
+End Sub
+
+'set elevation
+Sub SetElevation(varElevation As String) As VColorPicker
+sElevation = varElevation
+SetAttr("elevation", sElevation)
 Return Me
 End Sub
 
@@ -355,6 +368,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VColorPicker
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VColorPicker
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -563,6 +583,7 @@ AddAttr(sCaption, "caption")
 AddAttr(bDark, "dark")
 AddAttr(bDisabled, "disabled")
 AddAttr(sDotSize, "dot-size")
+AddAttr(sElevation, "elevation")
 AddAttr(bFlat, "flat")
 AddAttr(bHideCanvas, "hide-canvas")
 AddAttr(bHideInputs, "hide-inputs")
@@ -579,6 +600,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -656,26 +678,6 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VColorPicker
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
 public Sub AddToParent(targetID As String) As VColorPicker
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
@@ -686,7 +688,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VColorPicker
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -701,7 +703,7 @@ Sub AddToApp(vap As VueApp) As VColorPicker
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VColorPicker
+Sub SetData(prop as string, value as object) As VColorPicker
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -741,6 +743,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VColorPicker
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -800,17 +803,17 @@ Sub AddClass(classNames As List) As VColorPicker
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VColorPicker
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -827,9 +830,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VColorPicker
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -891,13 +894,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VColorPicker
+Sub SetVClass(classObj as string) As VColorPicker
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VColorPicker
+Sub SetVStyle(styleObj as string) As VColorPicker
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -924,7 +927,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VColorPicker
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -983,8 +986,8 @@ Sub Show As VColorPicker
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VColorPicker
-	If sVBindClass = "" Then
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VColorPicker
+	if svBindClass = "" then
 		Log($"VColorPicker.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
 	end if
@@ -1000,9 +1003,9 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VColorPicker
 		Log($"VColorPicker.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
 	end if
-	Dim obj As Map = data.get(sVBindStyle)
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
@@ -1026,7 +1029,7 @@ Sub SetReadOnlyOnOff(b As Boolean) As VColorPicker
 	Return Me
 End Sub
 
-''disabled
+'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VColorPicker
 '	If sDisabled = "" Then
 '		Log($"VColorPicker.Disabled - the disabled for ${mName} has not been set!"$)

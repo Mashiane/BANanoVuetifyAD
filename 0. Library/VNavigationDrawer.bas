@@ -29,7 +29,7 @@ Version=8.3
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: MiniVariant, DisplayName: MiniVariant, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: MiniVariantWidth, DisplayName: MiniVariantWidth, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: MobileBreakPoint, DisplayName: MobileBreakPoint, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MobileBreakpoint, DisplayName: MobileBreakpoint, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OverlayColor, DisplayName: OverlayColor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OverlayOpacity, DisplayName: OverlayOpacity, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Permanent, DisplayName: Permanent, Description: , FieldType: Boolean, DefaultValue: False
@@ -46,6 +46,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -78,7 +79,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -114,7 +115,7 @@ Private sKey As String = ""
 Private bLight As Boolean = False
 Private bMiniVariant As Boolean = False
 Private sMiniVariantWidth As String = ""
-Private sMobileBreakPoint As String = ""
+Private sMobileBreakpoint As String = ""
 Private sOverlayColor As String = ""
 Private sOverlayOpacity As String = ""
 Private bPermanent As Boolean = False
@@ -131,6 +132,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -198,7 +200,7 @@ sKey = props.Get("Key")
 bLight = props.Get("Light")
 bMiniVariant = props.Get("MiniVariant")
 sMiniVariantWidth = props.Get("MiniVariantWidth")
-sMobileBreakPoint = props.Get("MobileBreakPoint")
+sMobileBreakpoint = props.Get("MobileBreakpoint")
 sOverlayColor = props.Get("OverlayColor")
 sOverlayOpacity = props.Get("OverlayOpacity")
 bPermanent = props.Get("Permanent")
@@ -215,6 +217,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -383,10 +386,10 @@ SetAttr("mini-variant-width", sMiniVariantWidth)
 Return Me
 End Sub
 
-'set mobile-break-point
-Sub SetMobileBreakPoint(varMobileBreakPoint As String) As VNavigationDrawer
-sMobileBreakPoint = varMobileBreakPoint
-SetAttr("mobile-break-point", sMobileBreakPoint)
+'set mobile-breakpoint
+Sub SetMobileBreakpoint(varMobileBreakpoint As String) As VNavigationDrawer
+sMobileBreakpoint = varMobileBreakpoint
+SetAttr("mobile-breakpoint", sMobileBreakpoint)
 Return Me
 End Sub
 
@@ -499,6 +502,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VNavigationDrawer
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VNavigationDrawer
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -721,7 +731,7 @@ AddAttr(sKey, "key")
 AddAttr(bLight, "light")
 AddAttr(bMiniVariant, "mini-variant")
 AddAttr(sMiniVariantWidth, "mini-variant-width")
-AddAttr(sMobileBreakPoint, "mobile-break-point")
+AddAttr(sMobileBreakpoint, "mobile-breakpoint")
 AddAttr(sOverlayColor, "overlay-color")
 AddAttr(sOverlayOpacity, "overlay-opacity")
 AddAttr(bPermanent, "permanent")
@@ -738,6 +748,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -793,7 +804,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -806,33 +817,13 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VNavigationDrawer
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VNavigationDrawer
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -845,7 +836,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VNavigationDrawer
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -900,6 +891,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VNavigationDrawer
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -959,8 +951,8 @@ Sub AddClass(classNames As List) As VNavigationDrawer
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
@@ -1008,11 +1000,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VNavigationDrawer
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -1033,10 +1025,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -1050,13 +1042,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VNavigationDrawer
+Sub SetVClass(classObj as string) As VNavigationDrawer
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VNavigationDrawer
+Sub SetVStyle(styleObj as string) As VNavigationDrawer
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -1072,18 +1064,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VNavigationDrawer
-	Dim sColor As String = $"${varColor} ${varIntensity}"$
+	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, scolor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VNavigationDrawer
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -1092,7 +1084,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VNaviga
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -1109,59 +1101,59 @@ End Sub
 
 'toggle
 Sub Toggle As VNavigationDrawer
-	If sVModel = "" Then
-		Log($"VNavigationDrawer.Toggle - the v-model for ${mName} has not been set!"$)
+	If sVShow = "" Then
+		Log($"VNavigationDrawer.Toggle - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	'get the current state
-	Dim cs As Boolean = data.Get(sVModel)
+	Dim cs As Boolean = data.Get(sVShow)
 	If cs = Null Then cs = False
 	cs = Not(cs)
-	data.Put(sVModel, cs)
+	data.Put(sVShow, cs)
 	Return Me
 End Sub
 
 'hide
 Sub Hide As VNavigationDrawer
-	If sVModel = "" Then
-		Log($"VNavigationDrawer.Hide - the v-model for ${mName} has not been set!"$)
+	If sVShow = "" Then
+		Log($"VNavigationDrawer.Hide - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVModel, False)
+	data.Put(sVShow, False)
 	Return Me
 End Sub
 
 'show
 Sub Show As VNavigationDrawer
-	If sVModel = "" Then
-		Log($"VNavigationDrawer.Show - the v-model for ${mName} has not been set!"$)
+	If sVShow = "" Then
+		Log($"VNavigationDrawer.Show - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVModel, True)
+	data.Put(sVShow, True)
 	Return Me
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VNavigationDrawer
-	If sVBindClass = "" Then
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VNavigationDrawer
+	if svBindClass = "" then
 		Log($"VNavigationDrawer.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VNavigationDrawer
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VNavigationDrawer
+	if svBindStyle = "" then
 		Log($"VNavigationDrawer.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
@@ -1195,7 +1187,6 @@ Sub SetDisabledOnOff(b As Boolean) As VNavigationDrawer
 	Return Me
 End Sub
 
-
 'bind this element to component
 Sub AddToComponent(ve As VMElement)
 	data = ve.data
@@ -1210,5 +1201,6 @@ Sub AddToComponent(ve As VMElement)
 		ve.SetCallBack(k, cb)
 	Next
 End Sub
+
 
 

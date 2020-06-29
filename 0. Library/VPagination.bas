@@ -1,4 +1,4 @@
-2020-06-21 22:46:37 B4J=true
+2020-06-27 16:53:58 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -13,14 +13,18 @@ Version=8.3
 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Circle, DisplayName: Circle, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: CurrentPageAriaLabel, DisplayName: CurrentPageAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Length, DisplayName: Length, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: NextAriaLabel, DisplayName: NextAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: NextIcon, DisplayName: NextIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PageAriaLabel, DisplayName: PageAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PrevIcon, DisplayName: PrevIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: PreviousAriaLabel, DisplayName: PreviousAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -29,6 +33,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -38,7 +43,8 @@ Version=8.3
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: WrapperAriaLabel, DisplayName: WrapperAriaLabel, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -80,13 +86,17 @@ Private mTagName As String = "v-pagination"
 Private sCaption As String = ""
 Private bCircle As Boolean = False
 Private sColor As String = ""
+Private sCurrentPageAriaLabel As String = ""
 Private bDark As Boolean = False
 Private bDisabled As Boolean = False
 Private sKey As String = ""
 Private sLength As String = ""
 Private bLight As Boolean = False
+Private sNextAriaLabel As String = ""
 Private sNextIcon As String = ""
+Private sPageAriaLabel As String = ""
 Private sPrevIcon As String = ""
+Private sPreviousAriaLabel As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -95,6 +105,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -104,6 +115,7 @@ Private bVPre As Boolean = False
 Private sVShow As String = ""
 Private sVText As String = ""
 Private sValue As String = ""
+Private sWrapperAriaLabel As String = ""
 Private sBorderColor As String = ""
 Private sBorderStyle As String = ""
 Private sBorderWidth As String = ""
@@ -145,13 +157,17 @@ mStyle = props.Get("Style")
 sCaption = props.Get("Caption")
 bCircle = props.Get("Circle")
 sColor = props.Get("Color")
+sCurrentPageAriaLabel = props.Get("CurrentPageAriaLabel")
 bDark = props.Get("Dark")
 bDisabled = props.Get("Disabled")
 sKey = props.Get("Key")
 sLength = props.Get("Length")
 bLight = props.Get("Light")
+sNextAriaLabel = props.Get("NextAriaLabel")
 sNextIcon = props.Get("NextIcon")
+sPageAriaLabel = props.Get("PageAriaLabel")
 sPrevIcon = props.Get("PrevIcon")
+sPreviousAriaLabel = props.Get("PreviousAriaLabel")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -160,6 +176,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -169,6 +186,7 @@ bVPre = props.Get("VPre")
 sVShow = props.Get("VShow")
 sVText = props.Get("VText")
 sValue = props.Get("Value")
+sWrapperAriaLabel = props.Get("WrapperAriaLabel")
 sBorderColor = props.Get("BorderColor")
 sBorderStyle = props.Get("BorderStyle")
 sBorderWidth = props.Get("BorderWidth")
@@ -215,6 +233,13 @@ SetAttr("color", sColor)
 Return Me
 End Sub
 
+'set current-page-aria-label
+Sub SetCurrentPageAriaLabel(varCurrentPageAriaLabel As String) As VPagination
+sCurrentPageAriaLabel = varCurrentPageAriaLabel
+SetAttr("current-page-aria-label", sCurrentPageAriaLabel)
+Return Me
+End Sub
+
 'set dark
 Sub SetDark(varDark As Boolean) As VPagination
 bDark = varDark
@@ -250,6 +275,13 @@ SetAttr("light", bLight)
 Return Me
 End Sub
 
+'set next-aria-label
+Sub SetNextAriaLabel(varNextAriaLabel As String) As VPagination
+sNextAriaLabel = varNextAriaLabel
+SetAttr("next-aria-label", sNextAriaLabel)
+Return Me
+End Sub
+
 'set next-icon
 Sub SetNextIcon(varNextIcon As String) As VPagination
 sNextIcon = varNextIcon
@@ -257,10 +289,24 @@ SetAttr("next-icon", sNextIcon)
 Return Me
 End Sub
 
+'set page-aria-label
+Sub SetPageAriaLabel(varPageAriaLabel As String) As VPagination
+sPageAriaLabel = varPageAriaLabel
+SetAttr("page-aria-label", sPageAriaLabel)
+Return Me
+End Sub
+
 'set prev-icon
 Sub SetPrevIcon(varPrevIcon As String) As VPagination
 sPrevIcon = varPrevIcon
 SetAttr("prev-icon", sPrevIcon)
+Return Me
+End Sub
+
+'set previous-aria-label
+Sub SetPreviousAriaLabel(varPreviousAriaLabel As String) As VPagination
+sPreviousAriaLabel = varPreviousAriaLabel
+SetAttr("previous-aria-label", sPreviousAriaLabel)
 Return Me
 End Sub
 
@@ -317,6 +363,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VPagination
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VPagination
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -380,6 +433,13 @@ End Sub
 Sub SetValue(varValue As String) As VPagination
 sValue = varValue
 SetAttr("value", sValue)
+Return Me
+End Sub
+
+'set wrapper-aria-label
+Sub SetWrapperAriaLabel(varWrapperAriaLabel As String) As VPagination
+sWrapperAriaLabel = varWrapperAriaLabel
+SetAttr("wrapper-aria-label", sWrapperAriaLabel)
 Return Me
 End Sub
 
@@ -516,13 +576,17 @@ Sub ToString As String
 AddAttr(sCaption, "caption")
 AddAttr(bCircle, "circle")
 AddAttr(sColor, "color")
+AddAttr(sCurrentPageAriaLabel, "current-page-aria-label")
 AddAttr(bDark, "dark")
 AddAttr(bDisabled, "disabled")
 AddAttr(sKey, "key")
 AddAttr(sLength, "length")
 AddAttr(bLight, "light")
+AddAttr(sNextAriaLabel, "next-aria-label")
 AddAttr(sNextIcon, "next-icon")
+AddAttr(sPageAriaLabel, "page-aria-label")
 AddAttr(sPrevIcon, "prev-icon")
+AddAttr(sPreviousAriaLabel, "previous-aria-label")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -531,6 +595,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -540,6 +605,7 @@ AddAttr(bVPre, "v-pre")
 AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
 AddAttr(sValue, "value")
+AddAttr(sWrapperAriaLabel, "wrapper-aria-label")
 SetStyleSingle("border-color", sBorderColor)
 SetStyleSingle("border-style", sBorderStyle)
 SetStyleSingle("border-width", sBorderWidth)
@@ -578,9 +644,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -605,26 +671,6 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VPagination
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -692,6 +738,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VPagination
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -987,7 +1034,20 @@ Sub SetDisabledOnOff(b As Boolean) As VPagination
 	Return Me
 End Sub
 
-
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub
 
 
 

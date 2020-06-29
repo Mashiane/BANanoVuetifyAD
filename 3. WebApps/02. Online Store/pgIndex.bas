@@ -16,10 +16,10 @@ Sub Process_Globals
 	Private navdrawer As VNavigationDrawer
 	Private items As List
 	Private placeholder As VDiv
-	Public Products As List
-	Public Prices As List
 	Private btnSnackBar As VBtn
 	Public SnackBar As VSnackbar
+	Public Products As List
+	Public Cart As Map
 End Sub
 
 Sub Init
@@ -32,16 +32,20 @@ Sub Init
 	'initialize the vue instance, we will render it to #app element
 	MyApp.Initialize(Me, "app", "body")
 	'hide the placeholder div, uses v-show
-	MyApp.SetDataVuex("placeholder", False)
+	MyApp.SetDataStore("placeholder", False)
 	
 	Dim mSnackBar As Map = CreateMap()
 	mSnackBar.put("message", "Success! Item added to the cart.")
 	mSnackBar.Put("show", False)
+	mSnackBar.put("variant", "success")
 	mSnackBar.Put("showclose", True)
 	MyApp.SetData("snackbar", mSnackBar)
 	'define global cart
-	Dim cart As Map = CreateMap()
-	MyApp.SetData("cart", cart)
+	MyApp.SetDataStore("cart", MyApp.NewMap)
+	MyApp.SetDataStore("mycart", MyApp.NewList)
+	MyApp.SetMethod(Me, "addItemToCart")
+	MyApp.SetMethod(Me, "removeItemFromCart")
+	MyApp.SetMethod(Me, "BuildCart")
 		'
 	Build_Products
 	Build_Routers
@@ -55,34 +59,89 @@ Sub Init
 End Sub
 
 'add an item to the cart
-Sub addItemToCart(payload As Map)
+private Sub addItemToCart(payload As Map)
 	'get the quantity to add
 	Dim qty As Int = payload.Get("quantity")
-	'get the product to add
-	Dim product As String = payload.get("product")
+	'get the itemId
+	Dim itemId As Int = payload.get("itemId")
 	'get the cart
-	Dim cart As Map = MyApp.GetData("cart")
+	Cart = MyApp.GetDataStore("cart")
 	'do we have the product in the cart
-	If cart.Containskey(product) Then
+	If Cart.Containskey(itemId) Then
 		'we have the product, increment by 1
-		Dim oldproduct As Map = cart.get(product)
-		Dim oldqty As Int = oldproduct.get("quantity")
-		oldqty = BANano.parseInt(oldqty) + 1
-		oldproduct.put("quantity", oldqty)
+		Dim oqty As Int = Cart.get(itemId)
+		oqty = BANano.parseInt(oqty) + 1
 		'update the cart
-		cart.Put(product, oldproduct)
+		Cart.Put(itemId, oqty)
 	Else
-		Dim newproduct As Map = CreateMap()
-		newproduct.put("quantity", qty)
-		cart.Put(product, newproduct)
+		Cart.Put(itemId, qty)
 	End If
+	Dim product As Map = Products.get(itemId)
+	Dim sname As String = product.get("name")
 	'update the state
-	MyApp.SetData("cart", cart)
+	MyApp.SetDataStore("cart", Cart)
 	'show snackbar
 	Dim msnack As Map = MyApp.GetData("snackbar")
 	msnack.put("show", True)
-	msnack.put("message", $"Success! '${product}' added to the cart."$)
+	msnack.put("variant", "success")
+	msnack.put("message", $"Success! '${sname}' added to the cart."$)
 	MyApp.SetData("snackbar", msnack)
+	'
+	BuildCart
+End Sub
+
+'remove a product from the cart
+private Sub removeItemFromCart(i As Object)
+	'get the cart
+	Dim MyCart As List = MyApp.GetDataStore("mycart")
+	'get the product from saved cart
+	Dim product As Map = MyCart.get(i)
+	Dim sname As String = product.get("name")
+	Dim itemId As String = product.get("itemId")
+	
+	'get the original cart
+	Cart = MyApp.GetDataStore("cart")	
+	'do we have the product in the cart
+	If Cart.Containskey(itemId) Then
+		Cart.Remove(itemId)
+		'update the original cart
+		MyApp.SetDataStore("cart", Cart)
+		'show snackbar
+		Dim msnack As Map = MyApp.GetData("snackbar")
+		msnack.put("show", True)
+		msnack.put("variant", "error")
+		msnack.put("message", $"Success! '${sname}' removed from the cart."$)
+		MyApp.SetData("snackbar", msnack)
+		'
+		MyApp.CallMethod("BuildCart")
+	End If
+End Sub
+
+'build cart
+private Sub BuildCart
+	Dim cartTotal As Double = 0
+	Cart = MyApp.GetDataStore("cart")
+	Dim MyCart As List = MyApp.newlist
+	For Each k As String In Cart.keys
+		'get the quantity
+		Dim v As Int = Cart.get(k)
+		'get the product from products
+		Dim p As Map = Products.get(k)
+		p.put("quantity", v)
+		Dim price As Double = p.get("price")
+		Dim total As Double = price * v
+		p.put("total", total)
+		p.put("itemId", k)
+		cartTotal = cartTotal + BANano.parsefloat(total)
+		'add product to the master cart
+		MyCart.add(p)
+	Next
+	cartTotal = Round2(cartTotal,2)
+	'save cart total
+	MyApp.SetDataStore("carttotal", cartTotal)
+	'set my current cart products
+	MyApp.SetDataStore("mycart", MyCart)
+	MyApp.SetData("cartdiv", DateTime.now)
 End Sub
 
 'link states and events
@@ -114,7 +173,7 @@ Sub Build_Routers
 	btnStore.SetTo(pgStore.Store.Path) 
 	btnCart.SetTo(pgCart.Cart.Path)
 	'
-	MyApp.SetDataVuex("items", items)
+	MyApp.SetDataStore("items", items)
 End Sub
 
 Sub Build_Products
@@ -126,7 +185,7 @@ Sub Build_Products
 	Products.Add(CreateMap("image": "./assets/product-5.jpg", "name": "Game Cube", "price": 99.99))
 	Products.Add(CreateMap("image": "./assets/product-6.jpg", "name": "Gameboy Color", "price": 45))
 	' try and use vuex for the data store
-	MyApp.SetDataVuex("products", Products)
+	MyApp.SetDataStore("products", Products)
 	
 	
 End Sub

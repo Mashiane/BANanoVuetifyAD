@@ -19,15 +19,19 @@ Version=8.3
 #DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Shaped, DisplayName: Shaped, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Tag, DisplayName: Tag, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Tile, DisplayName: Tile, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -56,7 +60,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -85,15 +89,19 @@ Private sMaxHeight As String = ""
 Private sMaxWidth As String = ""
 Private sMinHeight As String = ""
 Private sMinWidth As String = ""
+Private bOutlined As Boolean = False
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
+Private sRounded As String = ""
+Private bShaped As Boolean = False
 Private sTag As String = ""
 Private bTile As Boolean = False
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -150,15 +158,19 @@ sMaxHeight = props.Get("MaxHeight")
 sMaxWidth = props.Get("MaxWidth")
 sMinHeight = props.Get("MinHeight")
 sMinWidth = props.Get("MinWidth")
+bOutlined = props.Get("Outlined")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
+sRounded = props.Get("Rounded")
+bShaped = props.Get("Shaped")
 sTag = props.Get("Tag")
 bTile = props.Get("Tile")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -268,6 +280,13 @@ SetAttr("min-width", sMinWidth)
 Return Me
 End Sub
 
+'set outlined
+Sub SetOutlined(varOutlined As Boolean) As VSheet
+bOutlined = varOutlined
+SetAttr("outlined", bOutlined)
+Return Me
+End Sub
+
 'set readonly
 Sub SetReadonly(varReadonly As String) As VSheet
 sReadonly = varReadonly
@@ -286,6 +305,20 @@ End Sub
 Sub SetRequired(varRequired As String) As VSheet
 sRequired = varRequired
 SetAttr("required", sRequired)
+Return Me
+End Sub
+
+'set rounded
+Sub SetRounded(varRounded As String) As VSheet
+sRounded = varRounded
+SetAttr("rounded", sRounded)
+Return Me
+End Sub
+
+'set shaped
+Sub SetShaped(varShaped As Boolean) As VSheet
+bShaped = varShaped
+SetAttr("shaped", bShaped)
 Return Me
 End Sub
 
@@ -328,6 +361,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VSheet
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VSheet
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -494,15 +534,19 @@ AddAttr(sMaxHeight, "max-height")
 AddAttr(sMaxWidth, "max-width")
 AddAttr(sMinHeight, "min-height")
 AddAttr(sMinWidth, "min-width")
+AddAttr(bOutlined, "outlined")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
+AddAttr(sRounded, "rounded")
+AddAttr(bShaped, "shaped")
 AddAttr(sTag, "tag")
 AddAttr(bTile, "tile")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -557,7 +601,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -579,26 +623,6 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VSheet
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
 public Sub AddToParent(targetID As String) As VSheet
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
@@ -609,7 +633,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VSheet
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -664,6 +688,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VSheet
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -959,7 +984,6 @@ Sub SetDisabledOnOff(b As Boolean) As VSheet
 	Return Me
 End Sub
 
-
 'bind this element to component
 Sub AddToComponent(ve As VMElement)
 	data = ve.data
@@ -974,5 +998,6 @@ Sub AddToComponent(ve As VMElement)
 		ve.SetCallBack(k, cb)
 	Next
 End Sub
+
 
 

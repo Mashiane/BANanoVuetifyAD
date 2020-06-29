@@ -30,8 +30,6 @@ Sub Initialize
 	BANano.LoadLayout("#placeholder", "home")
 	'add the product - image on top
 	BANano.LoadLayout("#verticalcardplaceholder", "VerticalProduct")
-	'set the correct path for the store
-	btnViewAll.SetTo(pgStore.Store.Path)
 	'get element by id
 	placeholderEL.Initialize("#placeholder")
 	'get the html of the placeholder
@@ -45,7 +43,6 @@ Sub Initialize
 	Home.setcomputed("sheetheight", Me, "sheetheight1")
 	'link the component to the component
 	btnAddToCart.AddToComponent(Home)
-	btnViewAll.AddToComponent(Home)
 	'
 	MyApp.AddRoute(Home)
 End Sub
@@ -72,10 +69,15 @@ End Sub
 
 
 'we have clicked a button inside the product
-Sub btnAddToCart_click (product As String)
+Sub btnAddToCart_click (i As Object)
 	'we create the payload, it has to have the quantity and product
 	Dim payload As Map = CreateMap()
-	payload.put("product", product)
+	payload.put("itemId", i)
 	payload.put("quantity", 1)
-	pgIndex.addItemToCart(payload)
+	'pgIndex.addItemToCart(payload)
+	MyApp.RunMethod("addItemToCart", payload)
+End Sub
+
+Sub btnViewAll_click (argument As BANanoEvent)
+	pgStore.gotome
 End Sub

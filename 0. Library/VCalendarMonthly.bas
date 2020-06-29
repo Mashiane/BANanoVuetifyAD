@@ -1,4 +1,4 @@
-2020-06-21 22:37:53 B4J=true
+2020-06-27 16:52:19 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -9,15 +9,15 @@ Version=8.3
 
 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: DayFormat, DisplayName: DayFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: End, DisplayName: End, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: HideHeader, DisplayName: HideHeader, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Locale, DisplayName: Locale, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: LocaleFirstDayOfYear, DisplayName: LocaleFirstDayOfYear, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinWeeks, DisplayName: MinWeeks, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MonthFormat, DisplayName: MonthFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Now, DisplayName: Now, Description: , FieldType: String, DefaultValue: 
@@ -27,11 +27,12 @@ Version=8.3
 #DesignerProperty: Key: ShortMonths, DisplayName: ShortMonths, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ShortWeekdays, DisplayName: ShortWeekdays, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ShowMonthOnFirst, DisplayName: ShowMonthOnFirst, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Start, DisplayName: Start, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ShowWeek, DisplayName: ShowWeek, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -42,7 +43,7 @@ Version=8.3
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: WeekdayFormat, DisplayName: WeekdayFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Weekdays, DisplayName: Weekdays, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -83,11 +84,11 @@ Private sColor As String = ""
 Private bDark As Boolean = False
 Private sDayFormat As String = ""
 Private sDisabled As String = ""
-Private sEnd As String = ""
 Private bHideHeader As Boolean = False
 Private sKey As String = ""
 Private bLight As Boolean = False
 Private sLocale As String = ""
+Private sLocaleFirstDayOfYear As String = ""
 Private sMinWeeks As String = ""
 Private sMonthFormat As String = ""
 Private sNow As String = ""
@@ -97,11 +98,12 @@ Private sRequired As String = ""
 Private bShortMonths As Boolean = False
 Private bShortWeekdays As Boolean = False
 Private bShowMonthOnFirst As Boolean = False
-Private sStart As String = ""
+Private bShowWeek As Boolean = False
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -152,11 +154,11 @@ sColor = props.Get("Color")
 bDark = props.Get("Dark")
 sDayFormat = props.Get("DayFormat")
 sDisabled = props.Get("Disabled")
-sEnd = props.Get("End")
 bHideHeader = props.Get("HideHeader")
 sKey = props.Get("Key")
 bLight = props.Get("Light")
 sLocale = props.Get("Locale")
+sLocaleFirstDayOfYear = props.Get("LocaleFirstDayOfYear")
 sMinWeeks = props.Get("MinWeeks")
 sMonthFormat = props.Get("MonthFormat")
 sNow = props.Get("Now")
@@ -166,11 +168,12 @@ sRequired = props.Get("Required")
 bShortMonths = props.Get("ShortMonths")
 bShortWeekdays = props.Get("ShortWeekdays")
 bShowMonthOnFirst = props.Get("ShowMonthOnFirst")
-sStart = props.Get("Start")
+bShowWeek = props.Get("ShowWeek")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -233,9 +236,8 @@ Return Me
 End Sub
 
 'set end
-Sub SetEnd(varEnd As String) As VCalendarMonthly
-sEnd = varEnd
-SetAttr("end", sEnd)
+Sub SetEnd(varEnd As Object) As VCalendarMonthly
+SetAttr("end", varEnd)
 Return Me
 End Sub
 
@@ -264,6 +266,13 @@ End Sub
 Sub SetLocale(varLocale As String) As VCalendarMonthly
 sLocale = varLocale
 SetAttr("locale", sLocale)
+Return Me
+End Sub
+
+'set locale-first-day-of-year
+Sub SetLocaleFirstDayOfYear(varLocaleFirstDayOfYear As String) As VCalendarMonthly
+sLocaleFirstDayOfYear = varLocaleFirstDayOfYear
+SetAttr("locale-first-day-of-year", sLocaleFirstDayOfYear)
 Return Me
 End Sub
 
@@ -330,10 +339,16 @@ SetAttr("show-month-on-first", bShowMonthOnFirst)
 Return Me
 End Sub
 
+'set show-week
+Sub SetShowWeek(varShowWeek As Boolean) As VCalendarMonthly
+bShowWeek = varShowWeek
+SetAttr("show-week", bShowWeek)
+Return Me
+End Sub
+
 'set start
-Sub SetStart(varStart As String) As VCalendarMonthly
-sStart = varStart
-SetAttr("start", sStart)
+Sub SetStart(varStart As Object) As VCalendarMonthly
+SetAttr("start", varStart)
 Return Me
 End Sub
 
@@ -362,6 +377,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VCalendarMonthly
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VCalendarMonthly
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -528,11 +550,11 @@ AddAttr(sColor, "color")
 AddAttr(bDark, "dark")
 AddAttr(sDayFormat, "day-format")
 AddAttr(sDisabled, "disabled")
-AddAttr(sEnd, "end")
 AddAttr(bHideHeader, "hide-header")
 AddAttr(sKey, "key")
 AddAttr(bLight, "light")
 AddAttr(sLocale, "locale")
+AddAttr(sLocaleFirstDayOfYear, "locale-first-day-of-year")
 AddAttr(sMinWeeks, "min-weeks")
 AddAttr(sMonthFormat, "month-format")
 AddAttr(sNow, "now")
@@ -542,11 +564,12 @@ AddAttr(sRequired, "required")
 AddAttr(bShortMonths, "short-months")
 AddAttr(bShortWeekdays, "short-weekdays")
 AddAttr(bShowMonthOnFirst, "show-month-on-first")
-AddAttr(sStart, "start")
+AddAttr(bShowWeek, "show-week")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -595,9 +618,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -622,26 +645,6 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VCalendarMonthly
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -709,6 +712,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VCalendarMonthly
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1004,7 +1008,20 @@ Sub SetDisabledOnOff(b As Boolean) As VCalendarMonthly
 	Return Me
 End Sub
 
-
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub
 
 
 

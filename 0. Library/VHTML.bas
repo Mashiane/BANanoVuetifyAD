@@ -3,10 +3,8 @@ ModulesStructureVersion=1
 Type=Class
 Version=8.3
 @EndOfDesignText@
-'Custom BANano View class: VHTML
+'Custom BANano View class: VHtml
 #IgnoreWarnings:12
-
-#Event: click (event As BANanoEvent)
 
 #DesignerProperty: Key: TagName, DisplayName: TagName, Description: , FieldType: String, DefaultValue: div
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
@@ -19,6 +17,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -73,6 +72,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -127,6 +127,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -153,114 +154,111 @@ Dim strHTML As String = ToString
 mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
-	SetOnClick
 
 
-End Sub
 
-
-'set onclick event
-Sub SetOnClick
-	Dim mName As String = $"${mEventName}_click"$
-	mName = mName.tolowercase
-	If SubExists(mCallBack, mName) = False Then Return
-	SetAttr("v-on:click", mName)
-	SetMethod(mCallBack, mName)
 End Sub
 
 'set disabled
-Sub SetDisabled(varDisabled As String) As VHTML
+Sub SetDisabled(varDisabled As String) As VHtml
 sDisabled = varDisabled
 SetAttr("disabled", sDisabled)
 Return Me
 End Sub
 
 'set key
-Sub SetKey(varKey As String) As VHTML
+Sub SetKey(varKey As String) As VHtml
 sKey = varKey
 SetAttr("key", sKey)
 Return Me
 End Sub
 
 'set readonly
-Sub SetReadonly(varReadonly As String) As VHTML
+Sub SetReadonly(varReadonly As String) As VHtml
 sReadonly = varReadonly
 SetAttr("readonly", sReadonly)
 Return Me
 End Sub
 
 'set ref
-Sub SetRef(varRef As String) As VHTML
+Sub SetRef(varRef As String) As VHtml
 sRef = varRef
 SetAttr("ref", sRef)
 Return Me
 End Sub
 
 'set required
-Sub SetRequired(varRequired As String) As VHTML
+Sub SetRequired(varRequired As String) As VHtml
 sRequired = varRequired
 SetAttr("required", sRequired)
 Return Me
 End Sub
 
 'set v-bind:class
-Sub SetVBindClass(varVBindClass As String) As VHTML
+Sub SetVBindClass(varVBindClass As String) As VHtml
 sVBindClass = varVBindClass
 SetAttr("v-bind:class", sVBindClass)
 Return Me
 End Sub
 
 'set v-bind:style
-Sub SetVBindStyle(varVBindStyle As String) As VHTML
+Sub SetVBindStyle(varVBindStyle As String) As VHtml
 sVBindStyle = varVBindStyle
 SetAttr("v-bind:style", sVBindStyle)
 Return Me
 End Sub
 
 'set v-cloak
-Sub SetVCloak(varVCloak As Boolean) As VHTML
+Sub SetVCloak(varVCloak As Boolean) As VHtml
 bVCloak = varVCloak
 SetAttr("v-cloak", bVCloak)
 Return Me
 End Sub
 
 'set v-else
-Sub SetVElse(varVElse As String) As VHTML
+Sub SetVElse(varVElse As String) As VHtml
 sVElse = varVElse
 SetAttr("v-else", sVElse)
 Return Me
 End Sub
 
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VHtml
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
+Return Me
+End Sub
+
 'set v-for
-Sub SetVFor(varVFor As String) As VHTML
+Sub SetVFor(varVFor As String) As VHtml
 sVFor = varVFor
 SetAttr("v-for", sVFor)
 Return Me
 End Sub
 
 'set v-html
-Sub SetVHtml(varVHtml As String) As VHTML
+Sub SetVHtml(varVHtml As String) As VHtml
 sVHtml = varVHtml
 SetAttr("v-html", sVHtml)
 Return Me
 End Sub
 
 'set v-if
-Sub SetVIf(varVIf As String) As VHTML
+Sub SetVIf(varVIf As String) As VHtml
 sVIf = varVIf
 SetAttr("v-if", sVIf)
 Return Me
 End Sub
 
 'set v-model
-Sub SetVModel(varVModel As String) As VHTML
+Sub SetVModel(varVModel As String) As VHtml
 sVModel = varVModel
 SetAttr("v-model", sVModel)
 Return Me
 End Sub
 
 'set v-once
-Sub SetVOnce(varVOnce As Boolean) As VHTML
+Sub SetVOnce(varVOnce As Boolean) As VHtml
 bVOnce = varVOnce
 SetAttr("v-once", bVOnce)
 Return Me
@@ -289,8 +287,8 @@ End Sub
 
 'set tagname
 Sub SetTagName(varTagName As String) As VHTML
-	mTagName = varTagName
-	Return Me
+mTagName = varTagName
+Return Me
 End Sub
 
 'set border-color
@@ -315,63 +313,63 @@ Return Me
 End Sub
 
 'set border-radius
-Sub SetBorderRadius(varBorderRadius As String) As VHTML
+Sub SetBorderRadius(varBorderRadius As String) As VHtml
 sBorderRadius = varBorderRadius
 SetStyleSingle("border-radius", sBorderRadius)
 Return Me
 End Sub
 
 'set margin-top
-Sub SetMarginTop(varMarginTop As String) As VHTML
+Sub SetMarginTop(varMarginTop As String) As VHtml
 sMarginTop = varMarginTop
 SetStyleSingle("margin-top", sMarginTop)
 Return Me
 End Sub
 
 'set margin-right
-Sub SetMarginRight(varMarginRight As String) As VHTML
+Sub SetMarginRight(varMarginRight As String) As VHtml
 sMarginRight = varMarginRight
 SetStyleSingle("margin-right", sMarginRight)
 Return Me
 End Sub
 
 'set margin-bottom
-Sub SetMarginBottom(varMarginBottom As String) As VHTML
+Sub SetMarginBottom(varMarginBottom As String) As VHtml
 sMarginBottom = varMarginBottom
 SetStyleSingle("margin-bottom", sMarginBottom)
 Return Me
 End Sub
 
 'set margin-left
-Sub SetMarginLeft(varMarginLeft As String) As VHTML
+Sub SetMarginLeft(varMarginLeft As String) As VHtml
 sMarginLeft = varMarginLeft
 SetStyleSingle("margin-left", sMarginLeft)
 Return Me
 End Sub
 
 'set padding-top
-Sub SetPaddingTop(varPaddingTop As String) As VHTML
+Sub SetPaddingTop(varPaddingTop As String) As VHtml
 sPaddingTop = varPaddingTop
 SetStyleSingle("padding-top", sPaddingTop)
 Return Me
 End Sub
 
 'set padding-right
-Sub SetPaddingRight(varPaddingRight As String) As VHTML
+Sub SetPaddingRight(varPaddingRight As String) As VHtml
 sPaddingRight = varPaddingRight
 SetStyleSingle("padding-right", sPaddingRight)
 Return Me
 End Sub
 
 'set padding-bottom
-Sub SetPaddingBottom(varPaddingBottom As String) As VHTML
+Sub SetPaddingBottom(varPaddingBottom As String) As VHtml
 sPaddingBottom = varPaddingBottom
 SetStyleSingle("padding-bottom", sPaddingBottom)
 Return Me
 End Sub
 
 'set padding-left
-Sub SetPaddingLeft(varPaddingLeft As String) As VHTML
+Sub SetPaddingLeft(varPaddingLeft As String) As VHtml
 sPaddingLeft = varPaddingLeft
 SetStyleSingle("padding-left", sPaddingLeft)
 Return Me
@@ -391,6 +389,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -444,7 +443,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -466,37 +465,17 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VHTML
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
-public Sub AddToParent(targetID As String) As VHTML
+public Sub AddToParent(targetID As String) As VHtml
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
 	Return Me
 End Sub
 
 'add component to app, this binds events and states
-Sub AddToApp(vap As VueApp) As VHTML
+Sub AddToApp(vap As VueApp) As VHtml
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -511,7 +490,7 @@ Sub AddToApp(vap As VueApp) As VHTML
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VHTML
+Sub SetData(prop as string, value as object) As VHtml
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -530,7 +509,7 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String) As VHTML
+Sub SetVOn(event As String) As VHtml
 	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
@@ -541,7 +520,7 @@ Sub SetVOn(event As String) As VHTML
 End Sub
 
 'change the text of the element
-Sub SetCaption(varText As String) As VHTML
+Sub SetCaption(varText As String) As VHtml
 	If mElement <> Null Then
 		mElement.SetHTML(BANano.SF(varText))
 	End If
@@ -550,7 +529,8 @@ Sub SetCaption(varText As String) As VHTML
 End Sub
 
 'will add properties to attributes
-private Sub AddAttr(varName As String, actProp As String) As VHTML
+private Sub AddAttr(varName As String, actProp As String) As VHtml
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -583,7 +563,7 @@ private Sub AddAttr(varName As String, actProp As String) As VHTML
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String) As VHTML
+public Sub SetClasses(Classes As String) As VHtml
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
@@ -597,7 +577,7 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String) As VHTML
+public Sub SetStyle(Style As String) As VHtml
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
@@ -606,28 +586,28 @@ public Sub SetStyle(Style As String) As VHTML
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List) As VHTML
+Sub AddClass(classNames As List) As VHtml
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map) As VHTML
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+Sub SetStyles(m As Map) As VHtml
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map) As VHTML
+Sub SetAttrs(props As Map) As VHtml
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
 		SetAttr(k, v)
@@ -636,10 +616,10 @@ Sub SetAttrs(props As Map) As VHTML
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String) As VHTML
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+Sub SetAttr(prop As String, value As String) As VHtml
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -648,7 +628,7 @@ Sub SetAttr(prop As String, value As String) As VHTML
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String) As VHTML
+Sub SetVBind(prop As String, value As String) As VHtml
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
@@ -658,12 +638,12 @@ Sub SetVBind(prop As String, value As String) As VHTML
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String) As VHTML
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+Sub SetStyleSingle(prop As String, value As String) As VHtml
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -671,7 +651,7 @@ Sub SetStyleSingle(prop As String, value As String) As VHTML
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VHTML
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VHtml
 	If loose <> Null Then
 		For Each k As String In loose
 			SetAttr(k, True)
@@ -684,10 +664,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -701,19 +681,19 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VHTML
+Sub SetVClass(classObj as string) As VHtml
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VHTML
+Sub SetVStyle(styleObj as string) As VHtml
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
 
 'set color
-Sub SetColor1(varColor As String) As VHTML
+Sub SetColor1(varColor As String) As VHtml
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
@@ -722,7 +702,7 @@ Sub SetColor1(varColor As String) As VHTML
 End Sub
 
 'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String) As VHTML
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VHtml
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
@@ -732,23 +712,23 @@ Sub SetColorIntensity(varColor As String, varIntensity As String) As VHTML
 End Sub
 
 'set text color
-Sub SetTextColor1(varColor As String) As VHTML
+Sub SetTextColor1(varColor As String) As VHtml
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VHTML
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VHtml
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
 'set direct method
-Sub SetMethod(Module As Object,methodName As String) As VHTML
+Sub SetMethod(Module As Object,methodName As String) As VHtml
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
@@ -759,9 +739,9 @@ Sub SetMethod(Module As Object,methodName As String) As VHTML
 End Sub
 
 'toggle
-Sub Toggle As VHTML
+Sub Toggle As VHtml
 	If sVShow = "" Then
-		Log($"VHTML.Toggle - the v-show for ${mName} has not been set!"$)
+		Log($"VHtml.Toggle - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	'get the current state
@@ -773,9 +753,9 @@ Sub Toggle As VHTML
 End Sub
 
 'hide
-Sub Hide As VHTML
+Sub Hide As VHtml
 	If sVShow = "" Then
-		Log($"VHTML.Hide - the v-show for ${mName} has not been set!"$)
+		Log($"VHtml.Hide - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sVShow, False)
@@ -783,9 +763,9 @@ Sub Hide As VHTML
 End Sub
 
 'show
-Sub Show As VHTML
+Sub Show As VHtml
 	If sVShow = "" Then
-		Log($"VHTML.Show - the v-show for ${mName} has not been set!"$)
+		Log($"VHtml.Show - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sVShow, True)
@@ -793,33 +773,33 @@ Sub Show As VHTML
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VHTML
-	If sVBindClass = "" Then
-		Log($"VHTML.VBindClass - the v-bind:class for ${mName} has not been set!"$)
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VHtml
+	if svBindClass = "" then
+		Log($"VHtml.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VHTML
-	If sVBindStyle = "" Then
-		Log($"VHTML.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VHtml
+	if svBindStyle = "" then
+		Log($"VHtml.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VHTML
+Sub SetRequiredOnOff(b As Boolean) As VHtml
 	If sRequired = "" Then
-		Log($"VHTML.Required - the required for ${mName} has not been set!"$)
+		Log($"VHtml.Required - the required for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sRequired, b)
@@ -827,9 +807,9 @@ Sub SetRequiredOnOff(b As Boolean) As VHTML
 End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VHTML
+Sub SetReadOnlyOnOff(b As Boolean) As VHtml
 	If sReadonly = "" Then
-		Log($"VHTML.ReadOnly - the readonly for ${mName} has not been set!"$)
+		Log($"VHtml.ReadOnly - the readonly for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sReadonly, b)
@@ -837,9 +817,9 @@ Sub SetReadOnlyOnOff(b As Boolean) As VHTML
 End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VHTML
+Sub SetDisabledOnOff(b As Boolean) As VHtml
 	If sDisabled = "" Then
-		Log($"VHTML.Disabled - the disabled for ${mName} has not been set!"$)
+		Log($"VHtml.Disabled - the disabled for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sDisabled, b)

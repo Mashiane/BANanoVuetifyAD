@@ -1,37 +1,26 @@
-﻿Group=Default Group
+2020-06-27 16:55:10 B4J=true
+Group=Default Group
 ModulesStructureVersion=1
 Type=Class
 Version=8.3
 @EndOfDesignText@
-'Custom BANano View class: VProgressLinear
+'Custom BANano View class: VVirtualScroll
 #IgnoreWarnings:12
-#Event: change (argument As Int)
 
 
-#DesignerProperty: Key: Absolute, DisplayName: Absolute, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Active, DisplayName: Active, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: BackgroundColor, DisplayName: BackgroundColor, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BackgroundOpacity, DisplayName: BackgroundOpacity, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Bottom, DisplayName: Bottom, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: BufferValue, DisplayName: BufferValue, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Bench, DisplayName: Bench, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Fixed, DisplayName: Fixed, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Indeterminate, DisplayName: Indeterminate, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ItemHeight, DisplayName: ItemHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Query, DisplayName: Query, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: MaxHeight, DisplayName: MaxHeight, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Reverse, DisplayName: Reverse, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Stream, DisplayName: Stream, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Striped, DisplayName: Striped, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Top, DisplayName: Top, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
@@ -45,7 +34,7 @@ Version=8.3
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Width, DisplayName: Width, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
@@ -61,7 +50,6 @@ Version=8.3
 #DesignerProperty: Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag. 
 #DesignerProperty: Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String. 
 #DesignerProperty: Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.
-#DesignerProperty: Key: Onchange, DisplayName: Onchange, FieldType: String, DefaultValue: , Description: Event arguments to be passed to the attribute.
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
@@ -80,33 +68,22 @@ Private mClasses As String = ""
 	Private mStyle As String = "" 
 	Private mAttributes As String = ""
 
-Private mTagName As String = "v-progress-linear" 
+Private mTagName As String = "v-virtual-scroll" 
 	Public bindings As Map 
 	Public methods As Map
-Private bAbsolute As Boolean = False
-Private bActive As Boolean = False
-Private sBackgroundColor As String = ""
-Private sBackgroundOpacity As String = ""
-Private bBottom As Boolean = False
-Private sBufferValue As String = ""
+Private sBench As String = ""
 Private sCaption As String = ""
-Private sColor As String = ""
-Private bDark As Boolean = False
 Private sDisabled As String = ""
-Private bFixed As Boolean = False
 Private sHeight As String = ""
-Private bIndeterminate As Boolean = False
+Private sItemHeight As String = ""
 Private sKey As String = ""
-Private bLight As Boolean = False
-Private bQuery As Boolean = False
+Private sMaxHeight As String = ""
+Private sMaxWidth As String = ""
+Private sMinHeight As String = ""
+Private sMinWidth As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
-Private bReverse As Boolean = False
-Private bRounded As Boolean = False
-Private bStream As Boolean = False
-Private bStriped As Boolean = False
-Private bTop As Boolean = False
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
@@ -120,7 +97,7 @@ Private bVOnce As Boolean = False
 Private bVPre As Boolean = False
 Private sVShow As String = ""
 Private sVText As String = ""
-Private sValue As String = ""
+Private sWidth As String = ""
 Private sBorderColor As String = ""
 Private sBorderStyle As String = ""
 Private sBorderWidth As String = ""
@@ -133,11 +110,10 @@ Private sPaddingTop As String = ""
 Private sPaddingRight As String = ""
 Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
-Private eOnchange As String = ""
 
 End Sub
 
-Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VProgressLinear 
+Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VVirtualScroll 
 mName = Name 
 mEventName = EventName.ToLowerCase 
 mCallBack = CallBack 
@@ -157,30 +133,19 @@ If props <> Null Then
 mClasses = props.Get("Classes") 
 mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
-bAbsolute = props.Get("Absolute")
-bActive = props.Get("Active")
-sBackgroundColor = props.Get("BackgroundColor")
-sBackgroundOpacity = props.Get("BackgroundOpacity")
-bBottom = props.Get("Bottom")
-sBufferValue = props.Get("BufferValue")
+sBench = props.Get("Bench")
 sCaption = props.Get("Caption")
-sColor = props.Get("Color")
-bDark = props.Get("Dark")
 sDisabled = props.Get("Disabled")
-bFixed = props.Get("Fixed")
 sHeight = props.Get("Height")
-bIndeterminate = props.Get("Indeterminate")
+sItemHeight = props.Get("ItemHeight")
 sKey = props.Get("Key")
-bLight = props.Get("Light")
-bQuery = props.Get("Query")
+sMaxHeight = props.Get("MaxHeight")
+sMaxWidth = props.Get("MaxWidth")
+sMinHeight = props.Get("MinHeight")
+sMinWidth = props.Get("MinWidth")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
-bReverse = props.Get("Reverse")
-bRounded = props.Get("Rounded")
-bStream = props.Get("Stream")
-bStriped = props.Get("Striped")
-bTop = props.Get("Top")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
@@ -194,7 +159,7 @@ bVOnce = props.Get("VOnce")
 bVPre = props.Get("VPre")
 sVShow = props.Get("VShow")
 sVText = props.Get("VText")
-sValue = props.Get("Value")
+sWidth = props.Get("Width")
 sBorderColor = props.Get("BorderColor")
 sBorderStyle = props.Get("BorderStyle")
 sBorderWidth = props.Get("BorderWidth")
@@ -207,7 +172,6 @@ sPaddingTop = props.Get("PaddingTop")
 sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
-eOnchange = props.Get("Onchange")
 
 End If
 Dim strHTML As String = ToString
@@ -215,397 +179,299 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 ' defining events is very simple. Note that it has to be run AFTER adding it to the HTML DOM! eventName must be lowercase!
 
-'This activates Change the event exists on the module
-SetOnChange
 
 
 End Sub
 
-'set absolute
-Sub SetAbsolute(varAbsolute As Boolean) As VProgressLinear
-bAbsolute = varAbsolute
-SetAttr("absolute", bAbsolute)
-Return Me
-End Sub
-
-'set active
-Sub SetActive(varActive As Boolean) As VProgressLinear
-bActive = varActive
-SetAttr("active", bActive)
-Return Me
-End Sub
-
-'set background-color
-Sub SetBackgroundColor(varBackgroundColor As String) As VProgressLinear
-sBackgroundColor = varBackgroundColor
-SetAttr("background-color", sBackgroundColor)
-Return Me
-End Sub
-
-'set background-opacity
-Sub SetBackgroundOpacity(varBackgroundOpacity As String) As VProgressLinear
-sBackgroundOpacity = varBackgroundOpacity
-SetAttr("background-opacity", sBackgroundOpacity)
-Return Me
-End Sub
-
-'set bottom
-Sub SetBottom(varBottom As Boolean) As VProgressLinear
-bBottom = varBottom
-SetAttr("bottom", bBottom)
-Return Me
-End Sub
-
-'set buffer-value
-Sub SetBufferValue(varBufferValue As String) As VProgressLinear
-sBufferValue = varBufferValue
-SetAttr("buffer-value", sBufferValue)
-Return Me
-End Sub
-
-'set color
-Sub SetColor(varColor As String) As VProgressLinear
-sColor = varColor
-SetAttr("color", sColor)
-Return Me
-End Sub
-
-'set dark
-Sub SetDark(varDark As Boolean) As VProgressLinear
-bDark = varDark
-SetAttr("dark", bDark)
+'set bench
+Sub SetBench(varBench As String) As VVirtualScroll
+sBench = varBench
+SetAttr("bench", sBench)
 Return Me
 End Sub
 
 'set disabled
-Sub SetDisabled(varDisabled As String) As VProgressLinear
+Sub SetDisabled(varDisabled As String) As VVirtualScroll
 sDisabled = varDisabled
 SetAttr("disabled", sDisabled)
 Return Me
 End Sub
 
-'set fixed
-Sub SetFixed(varFixed As Boolean) As VProgressLinear
-bFixed = varFixed
-SetAttr("fixed", bFixed)
-Return Me
-End Sub
-
 'set height
-Sub SetHeight(varHeight As String) As VProgressLinear
+Sub SetHeight(varHeight As String) As VVirtualScroll
 sHeight = varHeight
 SetAttr("height", sHeight)
 Return Me
 End Sub
 
-'set indeterminate
-Sub SetIndeterminate(varIndeterminate As Boolean) As VProgressLinear
-bIndeterminate = varIndeterminate
-SetAttr("indeterminate", bIndeterminate)
+'set item-height
+Sub SetItemHeight(varItemHeight As String) As VVirtualScroll
+sItemHeight = varItemHeight
+SetAttr("item-height", sItemHeight)
+Return Me
+End Sub
+
+'set items
+Sub SetItems(varItems As Object) As VVirtualScroll
+SetAttr("items", varItems)
 Return Me
 End Sub
 
 'set key
-Sub SetKey(varKey As String) As VProgressLinear
+Sub SetKey(varKey As String) As VVirtualScroll
 sKey = varKey
 SetAttr("key", sKey)
 Return Me
 End Sub
 
-'set light
-Sub SetLight(varLight As Boolean) As VProgressLinear
-bLight = varLight
-SetAttr("light", bLight)
+'set max-height
+Sub SetMaxHeight(varMaxHeight As String) As VVirtualScroll
+sMaxHeight = varMaxHeight
+SetAttr("max-height", sMaxHeight)
 Return Me
 End Sub
 
-'set query
-Sub SetQuery(varQuery As Boolean) As VProgressLinear
-bQuery = varQuery
-SetAttr("query", bQuery)
+'set max-width
+Sub SetMaxWidth(varMaxWidth As String) As VVirtualScroll
+sMaxWidth = varMaxWidth
+SetAttr("max-width", sMaxWidth)
+Return Me
+End Sub
+
+'set min-height
+Sub SetMinHeight(varMinHeight As String) As VVirtualScroll
+sMinHeight = varMinHeight
+SetAttr("min-height", sMinHeight)
+Return Me
+End Sub
+
+'set min-width
+Sub SetMinWidth(varMinWidth As String) As VVirtualScroll
+sMinWidth = varMinWidth
+SetAttr("min-width", sMinWidth)
 Return Me
 End Sub
 
 'set readonly
-Sub SetReadonly(varReadonly As String) As VProgressLinear
+Sub SetReadonly(varReadonly As String) As VVirtualScroll
 sReadonly = varReadonly
 SetAttr("readonly", sReadonly)
 Return Me
 End Sub
 
 'set ref
-Sub SetRef(varRef As String) As VProgressLinear
+Sub SetRef(varRef As String) As VVirtualScroll
 sRef = varRef
 SetAttr("ref", sRef)
 Return Me
 End Sub
 
 'set required
-Sub SetRequired(varRequired As String) As VProgressLinear
+Sub SetRequired(varRequired As String) As VVirtualScroll
 sRequired = varRequired
 SetAttr("required", sRequired)
 Return Me
 End Sub
 
-'set reverse
-Sub SetReverse(varReverse As Boolean) As VProgressLinear
-bReverse = varReverse
-SetAttr("reverse", bReverse)
-Return Me
-End Sub
-
-'set rounded
-Sub SetRounded(varRounded As Boolean) As VProgressLinear
-bRounded = varRounded
-SetAttr("rounded", bRounded)
-Return Me
-End Sub
-
-'set stream
-Sub SetStream(varStream As Boolean) As VProgressLinear
-bStream = varStream
-SetAttr("stream", bStream)
-Return Me
-End Sub
-
-'set striped
-Sub SetStriped(varStriped As Boolean) As VProgressLinear
-bStriped = varStriped
-SetAttr("striped", bStriped)
-Return Me
-End Sub
-
-'set top
-Sub SetTop(varTop As Boolean) As VProgressLinear
-bTop = varTop
-SetAttr("top", bTop)
-Return Me
-End Sub
-
 'set v-bind:class
-Sub SetVBindClass(varVBindClass As String) As VProgressLinear
+Sub SetVBindClass(varVBindClass As String) As VVirtualScroll
 sVBindClass = varVBindClass
 SetAttr("v-bind:class", sVBindClass)
 Return Me
 End Sub
 
 'set v-bind:style
-Sub SetVBindStyle(varVBindStyle As String) As VProgressLinear
+Sub SetVBindStyle(varVBindStyle As String) As VVirtualScroll
 sVBindStyle = varVBindStyle
 SetAttr("v-bind:style", sVBindStyle)
 Return Me
 End Sub
 
 'set v-cloak
-Sub SetVCloak(varVCloak As Boolean) As VProgressLinear
+Sub SetVCloak(varVCloak As Boolean) As VVirtualScroll
 bVCloak = varVCloak
 SetAttr("v-cloak", bVCloak)
 Return Me
 End Sub
 
 'set v-else
-Sub SetVElse(varVElse As String) As VProgressLinear
+Sub SetVElse(varVElse As String) As VVirtualScroll
 sVElse = varVElse
 SetAttr("v-else", sVElse)
 Return Me
 End Sub
 
 'set v-else-if
-Sub SetVElseIf(varVElseIf As String) As VProgressLinear
+Sub SetVElseIf(varVElseIf As String) As VVirtualScroll
 sVElseIf = varVElseIf
 SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
 'set v-for
-Sub SetVFor(varVFor As String) As VProgressLinear
+Sub SetVFor(varVFor As String) As VVirtualScroll
 sVFor = varVFor
 SetAttr("v-for", sVFor)
 Return Me
 End Sub
 
 'set v-html
-Sub SetVHtml(varVHtml As String) As VProgressLinear
+Sub SetVHtml(varVHtml As String) As VVirtualScroll
 sVHtml = varVHtml
 SetAttr("v-html", sVHtml)
 Return Me
 End Sub
 
 'set v-if
-Sub SetVIf(varVIf As String) As VProgressLinear
+Sub SetVIf(varVIf As String) As VVirtualScroll
 sVIf = varVIf
 SetAttr("v-if", sVIf)
 Return Me
 End Sub
 
 'set v-model
-Sub SetVModel(varVModel As String) As VProgressLinear
+Sub SetVModel(varVModel As String) As VVirtualScroll
 sVModel = varVModel
 SetAttr("v-model", sVModel)
 Return Me
 End Sub
 
 'set v-once
-Sub SetVOnce(varVOnce As Boolean) As VProgressLinear
+Sub SetVOnce(varVOnce As Boolean) As VVirtualScroll
 bVOnce = varVOnce
 SetAttr("v-once", bVOnce)
 Return Me
 End Sub
 
 'set v-pre
-Sub SetVPre(varVPre As Boolean) As VProgressLinear
+Sub SetVPre(varVPre As Boolean) As VVirtualScroll
 bVPre = varVPre
 SetAttr("v-pre", bVPre)
 Return Me
 End Sub
 
 'set v-show
-Sub SetVShow(varVShow As String) As VProgressLinear
+Sub SetVShow(varVShow As String) As VVirtualScroll
 sVShow = varVShow
 SetAttr("v-show", sVShow)
 Return Me
 End Sub
 
 'set v-text
-Sub SetVText(varVText As String) As VProgressLinear
+Sub SetVText(varVText As String) As VVirtualScroll
 sVText = varVText
 SetAttr("v-text", sVText)
 Return Me
 End Sub
 
-'set value
-Sub SetValue(varValue As String) As VProgressLinear
-sValue = varValue
-SetAttr("value", sValue)
+'set width
+Sub SetWidth(varWidth As String) As VVirtualScroll
+sWidth = varWidth
+SetAttr("width", sWidth)
 Return Me
 End Sub
 
 'set border-color
-Sub SetBorderColor(varBorderColor As String) As VProgressLinear
+Sub SetBorderColor(varBorderColor As String) As VVirtualScroll
 sBorderColor = varBorderColor
 SetStyleSingle("border-color", sBorderColor)
 Return Me
 End Sub
 
 'set border-style
-Sub SetBorderStyle(varBorderStyle As String) As VProgressLinear
+Sub SetBorderStyle(varBorderStyle As String) As VVirtualScroll
 sBorderStyle = varBorderStyle
 SetStyleSingle("border-style", sBorderStyle)
 Return Me
 End Sub
 
 'set border-width
-Sub SetBorderWidth(varBorderWidth As String) As VProgressLinear
+Sub SetBorderWidth(varBorderWidth As String) As VVirtualScroll
 sBorderWidth = varBorderWidth
 SetStyleSingle("border-width", sBorderWidth)
 Return Me
 End Sub
 
 'set border-radius
-Sub SetBorderRadius(varBorderRadius As String) As VProgressLinear
+Sub SetBorderRadius(varBorderRadius As String) As VVirtualScroll
 sBorderRadius = varBorderRadius
 SetStyleSingle("border-radius", sBorderRadius)
 Return Me
 End Sub
 
 'set margin-top
-Sub SetMarginTop(varMarginTop As String) As VProgressLinear
+Sub SetMarginTop(varMarginTop As String) As VVirtualScroll
 sMarginTop = varMarginTop
 SetStyleSingle("margin-top", sMarginTop)
 Return Me
 End Sub
 
 'set margin-right
-Sub SetMarginRight(varMarginRight As String) As VProgressLinear
+Sub SetMarginRight(varMarginRight As String) As VVirtualScroll
 sMarginRight = varMarginRight
 SetStyleSingle("margin-right", sMarginRight)
 Return Me
 End Sub
 
 'set margin-bottom
-Sub SetMarginBottom(varMarginBottom As String) As VProgressLinear
+Sub SetMarginBottom(varMarginBottom As String) As VVirtualScroll
 sMarginBottom = varMarginBottom
 SetStyleSingle("margin-bottom", sMarginBottom)
 Return Me
 End Sub
 
 'set margin-left
-Sub SetMarginLeft(varMarginLeft As String) As VProgressLinear
+Sub SetMarginLeft(varMarginLeft As String) As VVirtualScroll
 sMarginLeft = varMarginLeft
 SetStyleSingle("margin-left", sMarginLeft)
 Return Me
 End Sub
 
 'set padding-top
-Sub SetPaddingTop(varPaddingTop As String) As VProgressLinear
+Sub SetPaddingTop(varPaddingTop As String) As VVirtualScroll
 sPaddingTop = varPaddingTop
 SetStyleSingle("padding-top", sPaddingTop)
 Return Me
 End Sub
 
 'set padding-right
-Sub SetPaddingRight(varPaddingRight As String) As VProgressLinear
+Sub SetPaddingRight(varPaddingRight As String) As VVirtualScroll
 sPaddingRight = varPaddingRight
 SetStyleSingle("padding-right", sPaddingRight)
 Return Me
 End Sub
 
 'set padding-bottom
-Sub SetPaddingBottom(varPaddingBottom As String) As VProgressLinear
+Sub SetPaddingBottom(varPaddingBottom As String) As VVirtualScroll
 sPaddingBottom = varPaddingBottom
 SetStyleSingle("padding-bottom", sPaddingBottom)
 Return Me
 End Sub
 
 'set padding-left
-Sub SetPaddingLeft(varPaddingLeft As String) As VProgressLinear
+Sub SetPaddingLeft(varPaddingLeft As String) As VVirtualScroll
 sPaddingLeft = varPaddingLeft
 SetStyleSingle("padding-left", sPaddingLeft)
 Return Me
 End Sub
 
 
-'set on change event, updates the master events records
-Sub SetOnChange() As VProgressLinear
-Dim sName As String = $"${mEventName}_change"$
-sName = sName.tolowercase
-If SubExists(mCallBack, sName) = False Then Return Me
-Dim sCode As String = $"${sName}(${eOnchange})"$
-SetAttr("v-on:change", sCode)
-'arguments for the event
-Dim argument As Int 'ignore
-Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-methods.Put(sName, cb)
-Return Me
-End Sub
-
 
 'return the generated html
 Sub ToString As String
-AddAttr(bAbsolute, "absolute")
-AddAttr(bActive, "active")
-AddAttr(sBackgroundColor, "background-color")
-AddAttr(sBackgroundOpacity, "background-opacity")
-AddAttr(bBottom, "bottom")
-AddAttr(sBufferValue, "buffer-value")
+AddAttr(sBench, "bench")
 AddAttr(sCaption, "caption")
-AddAttr(sColor, "color")
-AddAttr(bDark, "dark")
 AddAttr(sDisabled, "disabled")
-AddAttr(bFixed, "fixed")
 AddAttr(sHeight, "height")
-AddAttr(bIndeterminate, "indeterminate")
+AddAttr(sItemHeight, "item-height")
 AddAttr(sKey, "key")
-AddAttr(bLight, "light")
-AddAttr(bQuery, "query")
+AddAttr(sMaxHeight, "max-height")
+AddAttr(sMaxWidth, "max-width")
+AddAttr(sMinHeight, "min-height")
+AddAttr(sMinWidth, "min-width")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
-AddAttr(bReverse, "reverse")
-AddAttr(bRounded, "rounded")
-AddAttr(bStream, "stream")
-AddAttr(bStriped, "striped")
-AddAttr(bTop, "top")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
@@ -619,7 +485,7 @@ AddAttr(bVOnce, "v-once")
 AddAttr(bVPre, "v-pre")
 AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
-AddAttr(sValue, "value")
+AddAttr(sWidth, "width")
 SetStyleSingle("border-color", sBorderColor)
 SetStyleSingle("border-style", sBorderStyle)
 SetStyleSingle("border-width", sBorderWidth)
@@ -670,14 +536,14 @@ Return strRes
 End Sub
 
 'add a child component
-Sub AddComponent(child As String) As VProgressLinear
+Sub AddComponent(child As String) As VVirtualScroll
 	mElement.Append(child)
 	sCaption = mElement.GetText
 	Return Me
 End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
-Sub SetID(varText As String) As VProgressLinear
+Sub SetID(varText As String) As VVirtualScroll
 	mname = varText
 	Return Me
 End Sub
@@ -688,14 +554,14 @@ public Sub GetCaption() As String
 End Sub
 
 'add component to parent
-public Sub AddToParent(targetID As String) As VProgressLinear
+public Sub AddToParent(targetID As String) As VVirtualScroll
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
 	Return Me
 End Sub
 
 'add component to app, this binds events and states
-Sub AddToApp(vap As VueApp) As VProgressLinear
+Sub AddToApp(vap As VueApp) As VVirtualScroll
 	appLink = vap
 	data = vap.data	
 	'apply the binding for the control
@@ -712,7 +578,7 @@ Sub AddToApp(vap As VueApp) As VProgressLinear
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object) As VProgressLinear
+Sub SetData(prop as string, value as object) As VVirtualScroll
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -731,7 +597,7 @@ public Sub Trigger(event As String, params() As String)
 End Sub
 
 'set an event
-Sub SetVOn(event As String) As VProgressLinear
+Sub SetVOn(event As String) As VVirtualScroll
 	Dim methodName As String = BANanoShared.BeautifyName(event)
 	methodName = $"${mEventName}_${methodName}"$
 	methodName = methodName.tolowercase
@@ -742,7 +608,7 @@ Sub SetVOn(event As String) As VProgressLinear
 End Sub
 
 'change the text of the element
-Sub SetCaption(varText As String) As VProgressLinear
+Sub SetCaption(varText As String) As VVirtualScroll
 	If mElement <> Null Then
 		mElement.SetHTML(BANano.SF(varText))
 	End If
@@ -751,7 +617,7 @@ Sub SetCaption(varText As String) As VProgressLinear
 End Sub
 
 'will add properties to attributes
-private Sub AddAttr(varName As String, actProp As String) As VProgressLinear
+private Sub AddAttr(varName As String, actProp As String) As VVirtualScroll
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
@@ -785,7 +651,7 @@ private Sub AddAttr(varName As String, actProp As String) As VProgressLinear
 End Sub
 
 #Region Property Getters and Setters
-public Sub SetClasses(Classes As String) As VProgressLinear
+public Sub SetClasses(Classes As String) As VVirtualScroll
 	If mElement <> Null Then
 		mElement.AddClass(Classes)
 	End If
@@ -799,7 +665,7 @@ End Sub
 
 ' must be a json string
 ' e.g. $"{ "width": "200px", "height": "200px", "background": "green", "border-radius": "5px" }"$
-public Sub SetStyle(Style As String) As VProgressLinear
+public Sub SetStyle(Style As String) As VVirtualScroll
 	If mElement <> Null Then
 		mElement.SetStyle(Style)
 	End If
@@ -808,7 +674,7 @@ public Sub SetStyle(Style As String) As VProgressLinear
 End Sub
 
 'add a list of classes
-Sub AddClass(classNames As List) As VProgressLinear
+Sub AddClass(classNames As List) As VVirtualScroll
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
@@ -818,7 +684,7 @@ Sub AddClass(classNames As List) As VProgressLinear
 End Sub
 
 'set styles from a map
-Sub SetStyles(m As Map) As VProgressLinear
+Sub SetStyles(m As Map) As VVirtualScroll
 	for each k as string in m.Keys
 		dim v as string = m.get(k)
 		styles.put(k, v)
@@ -829,7 +695,7 @@ Sub SetStyles(m As Map) As VProgressLinear
 End Sub
 
 'set attributes from a map
-Sub SetAttrs(props As Map) As VProgressLinear
+Sub SetAttrs(props As Map) As VVirtualScroll
 	For Each k As String In props.Keys
 		Dim v As String = props.Get(k)
 		SetAttr(k, v)
@@ -838,7 +704,7 @@ Sub SetAttrs(props As Map) As VProgressLinear
 End Sub
 
 'set an attribute
-Sub SetAttr(prop As String, value As String) As VProgressLinear
+Sub SetAttr(prop As String, value As String) As VVirtualScroll
 	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
 	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
 	if prop = "" then Return Me
@@ -850,7 +716,7 @@ Sub SetAttr(prop As String, value As String) As VProgressLinear
 End Sub
 
 'bind an attribute
-Sub SetVBind(prop As String, value As String) As VProgressLinear
+Sub SetVBind(prop As String, value As String) As VVirtualScroll
 	prop = prop.ToLowerCase
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
@@ -860,7 +726,7 @@ Sub SetVBind(prop As String, value As String) As VProgressLinear
 End Sub
 
 'set a single style
-Sub SetStyleSingle(prop As String, value As String) As VProgressLinear
+Sub SetStyleSingle(prop As String, value As String) As VVirtualScroll
 	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
 	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
 	if prop = "" then return me
@@ -873,7 +739,7 @@ Sub SetStyleSingle(prop As String, value As String) As VProgressLinear
 End Sub
 
 'build a structure using props, styleprops, classes and loose attributes
-Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VProgressLinear
+Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As VVirtualScroll
 	If loose <> Null Then
 		For Each k As String In loose
 			SetAttr(k, True)
@@ -903,19 +769,19 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj as string) As VProgressLinear
+Sub SetVClass(classObj as string) As VVirtualScroll
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VProgressLinear
+Sub SetVStyle(styleObj as string) As VVirtualScroll
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
 
 'set color
-Sub SetColor1(varColor As String) As VProgressLinear
+Sub SetColor1(varColor As String) As VVirtualScroll
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
@@ -924,7 +790,7 @@ Sub SetColor1(varColor As String) As VProgressLinear
 End Sub
 
 'set color intensity
-Sub SetColorIntensity(varColor As String, varIntensity As String) As VProgressLinear
+Sub SetColorIntensity(varColor As String, varIntensity As String) As VVirtualScroll
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
@@ -934,14 +800,14 @@ Sub SetColorIntensity(varColor As String, varIntensity As String) As VProgressLi
 End Sub
 
 'set text color
-Sub SetTextColor1(varColor As String) As VProgressLinear
+Sub SetTextColor1(varColor As String) As VVirtualScroll
 	Dim sColor As String = $"${varColor}--text"$
 	AddClass(array(sColor))
 	Return Me
 End Sub
 
 'set text color intensity
-Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VProgressLinear
+Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VVirtualScroll
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
@@ -950,7 +816,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VProgre
 End Sub
 
 'set direct method
-Sub SetMethod(Module As Object,methodName As String) As VProgressLinear
+Sub SetMethod(Module As Object,methodName As String) As VVirtualScroll
 	methodName = methodName.ToLowerCase
 	If SubExists(Module, methodName) Then
 		Dim e As BANanoEvent
@@ -961,9 +827,9 @@ Sub SetMethod(Module As Object,methodName As String) As VProgressLinear
 End Sub
 
 'toggle
-Sub Toggle As VProgressLinear
+Sub Toggle As VVirtualScroll
 	If sVShow = "" Then
-		Log($"VProgressLinear.Toggle - the v-show for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.Toggle - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	'get the current state
@@ -975,9 +841,9 @@ Sub Toggle As VProgressLinear
 End Sub
 
 'hide
-Sub Hide As VProgressLinear
+Sub Hide As VVirtualScroll
 	If sVShow = "" Then
-		Log($"VProgressLinear.Hide - the v-show for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.Hide - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sVShow, False)
@@ -985,9 +851,9 @@ Sub Hide As VProgressLinear
 End Sub
 
 'show
-Sub Show As VProgressLinear
+Sub Show As VVirtualScroll
 	If sVShow = "" Then
-		Log($"VProgressLinear.Show - the v-show for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.Show - the v-show for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sVShow, True)
@@ -995,9 +861,9 @@ Sub Show As VProgressLinear
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VProgressLinear
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VVirtualScroll
 	if svBindClass = "" then
-		Log($"VProgressLinear.VBindClass - the v-bind:class for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
 	end if
 	dim obj As Map = data.get(svBindClass)
@@ -1007,9 +873,9 @@ Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VProgressLinear
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VProgressLinear
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VVirtualScroll
 	if svBindStyle = "" then
-		Log($"VProgressLinear.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
 	end if
 	dim obj As Map = data.get(svBindStyle)
@@ -1019,9 +885,9 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VProgressLinear
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VProgressLinear
+Sub SetRequiredOnOff(b As Boolean) As VVirtualScroll
 	If sRequired = "" Then
-		Log($"VProgressLinear.Required - the required for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.Required - the required for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sRequired, b)
@@ -1029,9 +895,9 @@ Sub SetRequiredOnOff(b As Boolean) As VProgressLinear
 End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VProgressLinear
+Sub SetReadOnlyOnOff(b As Boolean) As VVirtualScroll
 	If sReadonly = "" Then
-		Log($"VProgressLinear.ReadOnly - the readonly for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.ReadOnly - the readonly for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sReadonly, b)
@@ -1039,9 +905,9 @@ Sub SetReadOnlyOnOff(b As Boolean) As VProgressLinear
 End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VProgressLinear
+Sub SetDisabledOnOff(b As Boolean) As VVirtualScroll
 	If sDisabled = "" Then
-		Log($"VProgressLinear.Disabled - the disabled for ${mName} has not been set!"$)
+		Log($"VVirtualScroll.Disabled - the disabled for ${mName} has not been set!"$)
 		Return Me
 	End If
 	data.Put(sDisabled, b)

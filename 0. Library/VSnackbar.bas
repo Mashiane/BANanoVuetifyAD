@@ -9,33 +9,53 @@ Version=8.3
 
 
 #DesignerProperty: Key: Absolute, DisplayName: Absolute, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: App, DisplayName: App, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Bottom, DisplayName: Bottom, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue:
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , FieldType: String, DefaultValue:
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Centered, DisplayName: Centered, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ContentClass, DisplayName: ContentClass, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Left, DisplayName: Left, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: MultiLine, DisplayName: MultiLine, Description: , FieldType: Boolean, DefaultValue: True
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: MaxHeight, DisplayName: MaxHeight, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MultiLine, DisplayName: MultiLine, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Right, DisplayName: Right, Description: , FieldType: Boolean, DefaultValue: True
-#DesignerProperty: Key: Timeout, DisplayName: Timeout, Description: , FieldType: String, DefaultValue:
-#DesignerProperty: Key: Top, DisplayName: Top, Description: , FieldType: Boolean, DefaultValue: True
+#DesignerProperty: Key: Right, DisplayName: Right, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Shaped, DisplayName: Shaped, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Tag, DisplayName: Tag, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Text, DisplayName: Text, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Tile, DisplayName: Tile, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Timeout, DisplayName: Timeout, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Top, DisplayName: Top, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Transition, DisplayName: Transition, Description: , List: slide-x-transition|slide-x-reverse-transition|slide-y-transition|slide-y-reverse-transition|scroll-x-transition|scroll-x-reverse-transition|scroll-y-transition|scroll-y-reverse-transition|scale-transition|fade-transition|fab-transition, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , FieldType: String, DefaultValue:
+#DesignerProperty: Key: VModel, DisplayName: VModel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VOnce, DisplayName: VOnce, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Vertical, DisplayName: Vertical, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Width, DisplayName: Width, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
@@ -74,23 +94,42 @@ Private mTagName As String = "v-snackbar"
 	Public bindings As Map 
 	Public methods As Map
 Private bAbsolute As Boolean = False
+Private bApp As Boolean = False
 Private bBottom As Boolean = False
 Private sCaption As String = ""
+Private bCentered As Boolean = False
 Private sColor As String = ""
+Private sContentClass As String = ""
+Private bDark As Boolean = False
 Private sDisabled As String = ""
+Private sElevation As String = ""
+Private sHeight As String = ""
 Private sKey As String = ""
 Private bLeft As Boolean = False
+Private bLight As Boolean = False
+Private sMaxHeight As String = ""
+Private sMaxWidth As String = ""
+Private sMinHeight As String = ""
+Private sMinWidth As String = ""
 Private bMultiLine As Boolean = False
+Private bOutlined As Boolean = False
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
 Private bRight As Boolean = False
+Private sRounded As String = ""
+Private bShaped As Boolean = False
+Private sTag As String = ""
+Private bText As Boolean = False
+Private bTile As Boolean = False
 Private sTimeout As String = ""
 Private bTop As Boolean = False
+Private sTransition As String = ""
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -101,6 +140,7 @@ Private sVShow As String = ""
 Private sVText As String = ""
 Private sValue As String = ""
 Private bVertical As Boolean = False
+Private sWidth As String = ""
 Private sBorderColor As String = ""
 Private sBorderStyle As String = ""
 Private sBorderWidth As String = ""
@@ -138,23 +178,42 @@ mClasses = props.Get("Classes")
 mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
 bAbsolute = props.Get("Absolute")
+bApp = props.Get("App")
 bBottom = props.Get("Bottom")
 sCaption = props.Get("Caption")
+bCentered = props.Get("Centered")
 sColor = props.Get("Color")
+sContentClass = props.Get("ContentClass")
+bDark = props.Get("Dark")
 sDisabled = props.Get("Disabled")
+sElevation = props.Get("Elevation")
+sHeight = props.Get("Height")
 sKey = props.Get("Key")
 bLeft = props.Get("Left")
+bLight = props.Get("Light")
+sMaxHeight = props.Get("MaxHeight")
+sMaxWidth = props.Get("MaxWidth")
+sMinHeight = props.Get("MinHeight")
+sMinWidth = props.Get("MinWidth")
 bMultiLine = props.Get("MultiLine")
+bOutlined = props.Get("Outlined")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
 bRight = props.Get("Right")
+sRounded = props.Get("Rounded")
+bShaped = props.Get("Shaped")
+sTag = props.Get("Tag")
+bText = props.Get("Text")
+bTile = props.Get("Tile")
 sTimeout = props.Get("Timeout")
 bTop = props.Get("Top")
+sTransition = props.Get("Transition")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -165,6 +224,7 @@ sVShow = props.Get("VShow")
 sVText = props.Get("VText")
 sValue = props.Get("Value")
 bVertical = props.Get("Vertical")
+sWidth = props.Get("Width")
 sBorderColor = props.Get("BorderColor")
 sBorderStyle = props.Get("BorderStyle")
 sBorderWidth = props.Get("BorderWidth")
@@ -178,8 +238,8 @@ sPaddingRight = props.Get("PaddingRight")
 sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
 eOninput = props.Get("Oninput")
-End If
 
+End If
 Dim strHTML As String = ToString
 mElement = mTarget.Append(strHTML).Get("#" & mName)
 
@@ -198,10 +258,24 @@ SetAttr("absolute", bAbsolute)
 Return Me
 End Sub
 
+'set app
+Sub SetApp(varApp As Boolean) As VSnackbar
+bApp = varApp
+SetAttr("app", bApp)
+Return Me
+End Sub
+
 'set bottom
 Sub SetBottom(varBottom As Boolean) As VSnackbar
 bBottom = varBottom
 SetAttr("bottom", bBottom)
+Return Me
+End Sub
+
+'set centered
+Sub SetCentered(varCentered As Boolean) As VSnackbar
+bCentered = varCentered
+SetAttr("centered", bCentered)
 Return Me
 End Sub
 
@@ -212,10 +286,38 @@ SetAttr("color", sColor)
 Return Me
 End Sub
 
+'set content-class
+Sub SetContentClass(varContentClass As String) As VSnackbar
+sContentClass = varContentClass
+SetAttr("content-class", sContentClass)
+Return Me
+End Sub
+
+'set dark
+Sub SetDark(varDark As Boolean) As VSnackbar
+bDark = varDark
+SetAttr("dark", bDark)
+Return Me
+End Sub
+
 'set disabled
 Sub SetDisabled(varDisabled As String) As VSnackbar
 sDisabled = varDisabled
 SetAttr("disabled", sDisabled)
+Return Me
+End Sub
+
+'set elevation
+Sub SetElevation(varElevation As String) As VSnackbar
+sElevation = varElevation
+SetAttr("elevation", sElevation)
+Return Me
+End Sub
+
+'set height
+Sub SetHeight(varHeight As String) As VSnackbar
+sHeight = varHeight
+SetAttr("height", sHeight)
 Return Me
 End Sub
 
@@ -233,10 +335,52 @@ SetAttr("left", bLeft)
 Return Me
 End Sub
 
+'set light
+Sub SetLight(varLight As Boolean) As VSnackbar
+bLight = varLight
+SetAttr("light", bLight)
+Return Me
+End Sub
+
+'set max-height
+Sub SetMaxHeight(varMaxHeight As String) As VSnackbar
+sMaxHeight = varMaxHeight
+SetAttr("max-height", sMaxHeight)
+Return Me
+End Sub
+
+'set max-width
+Sub SetMaxWidth(varMaxWidth As String) As VSnackbar
+sMaxWidth = varMaxWidth
+SetAttr("max-width", sMaxWidth)
+Return Me
+End Sub
+
+'set min-height
+Sub SetMinHeight(varMinHeight As String) As VSnackbar
+sMinHeight = varMinHeight
+SetAttr("min-height", sMinHeight)
+Return Me
+End Sub
+
+'set min-width
+Sub SetMinWidth(varMinWidth As String) As VSnackbar
+sMinWidth = varMinWidth
+SetAttr("min-width", sMinWidth)
+Return Me
+End Sub
+
 'set multi-line
 Sub SetMultiLine(varMultiLine As Boolean) As VSnackbar
 bMultiLine = varMultiLine
 SetAttr("multi-line", bMultiLine)
+Return Me
+End Sub
+
+'set outlined
+Sub SetOutlined(varOutlined As Boolean) As VSnackbar
+bOutlined = varOutlined
+SetAttr("outlined", bOutlined)
 Return Me
 End Sub
 
@@ -268,6 +412,41 @@ SetAttr("right", bRight)
 Return Me
 End Sub
 
+'set rounded
+Sub SetRounded(varRounded As String) As VSnackbar
+sRounded = varRounded
+SetAttr("rounded", sRounded)
+Return Me
+End Sub
+
+'set shaped
+Sub SetShaped(varShaped As Boolean) As VSnackbar
+bShaped = varShaped
+SetAttr("shaped", bShaped)
+Return Me
+End Sub
+
+'set tag
+Sub SetTag(varTag As String) As VSnackbar
+sTag = varTag
+SetAttr("tag", sTag)
+Return Me
+End Sub
+
+'set text
+Sub SetText(varText As Boolean) As VSnackbar
+bText = varText
+SetAttr("text", bText)
+Return Me
+End Sub
+
+'set tile
+Sub SetTile(varTile As Boolean) As VSnackbar
+bTile = varTile
+SetAttr("tile", bTile)
+Return Me
+End Sub
+
 'set timeout
 Sub SetTimeout(varTimeout As String) As VSnackbar
 sTimeout = varTimeout
@@ -279,6 +458,13 @@ End Sub
 Sub SetTop(varTop As Boolean) As VSnackbar
 bTop = varTop
 SetAttr("top", bTop)
+Return Me
+End Sub
+
+'set transition
+Sub SetTransition(varTransition As String) As VSnackbar
+sTransition = varTransition
+SetAttr("transition", sTransition)
 Return Me
 End Sub
 
@@ -307,6 +493,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VSnackbar
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VSnackbar
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -377,6 +570,13 @@ End Sub
 Sub SetVertical(varVertical As Boolean) As VSnackbar
 bVertical = varVertical
 SetAttr("vertical", bVertical)
+Return Me
+End Sub
+
+'set width
+Sub SetWidth(varWidth As String) As VSnackbar
+sWidth = varWidth
+SetAttr("width", sWidth)
 Return Me
 End Sub
 
@@ -483,22 +683,42 @@ End Sub
 'return the generated html
 Sub ToString As String
 AddAttr(bAbsolute, "absolute")
+AddAttr(bApp, "app")
 AddAttr(bBottom, "bottom")
 AddAttr(sCaption, "caption")
+AddAttr(bCentered, "centered")
+AddAttr(sColor, "color")
+AddAttr(sContentClass, "content-class")
+AddAttr(bDark, "dark")
 AddAttr(sDisabled, "disabled")
+AddAttr(sElevation, "elevation")
+AddAttr(sHeight, "height")
 AddAttr(sKey, "key")
 AddAttr(bLeft, "left")
+AddAttr(bLight, "light")
+AddAttr(sMaxHeight, "max-height")
+AddAttr(sMaxWidth, "max-width")
+AddAttr(sMinHeight, "min-height")
+AddAttr(sMinWidth, "min-width")
 AddAttr(bMultiLine, "multi-line")
+AddAttr(bOutlined, "outlined")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
 AddAttr(bRight, "right")
+AddAttr(sRounded, "rounded")
+AddAttr(bShaped, "shaped")
+AddAttr(sTag, "tag")
+AddAttr(bText, "text")
+AddAttr(bTile, "tile")
 AddAttr(sTimeout, "timeout")
 AddAttr(bTop, "top")
+AddAttr(sTransition, "transition")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -509,6 +729,7 @@ AddAttr(sVShow, "v-show")
 AddAttr(sVText, "v-text")
 AddAttr(sValue, "value")
 AddAttr(bVertical, "vertical")
+AddAttr(sWidth, "width")
 SetStyleSingle("border-color", sBorderColor)
 SetStyleSingle("border-style", sBorderStyle)
 SetStyleSingle("border-width", sBorderWidth)
@@ -554,7 +775,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -576,26 +797,6 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VSnackbar
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
 public Sub AddToParent(targetID As String) As VSnackbar
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
@@ -606,7 +807,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VSnackbar
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -661,6 +862,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VSnackbar
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -720,8 +922,8 @@ Sub AddClass(classNames As List) As VSnackbar
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
@@ -817,7 +1019,7 @@ Sub SetVClass(classObj As String) As VSnackbar
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VSnackbar
+Sub SetVStyle(styleObj as string) As VSnackbar
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -833,18 +1035,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VSnackbar
-	Dim sColor As String = $"${varColor} ${varIntensity}"$
+	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, scolor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VSnackbar
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -853,7 +1055,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VSnackb
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -870,15 +1072,15 @@ End Sub
 
 'toggle
 Sub Toggle As VSnackbar
-	If sVShow = "" Then
-		Log($"VSnackbar.Toggle - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VSnackbar.Toggle - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
 	'get the current state
-	Dim cs As Boolean = data.Get(sVShow)
+	Dim cs As Boolean = data.Get(sVModel)
 	If cs = Null Then cs = False
 	cs = Not(cs)
-	data.Put(sVShow, cs)
+	data.Put(sVModel, cs)
 	Return Me
 End Sub
 
@@ -907,22 +1109,22 @@ Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VSnackbar
 	If sVBindClass = "" Then
 		Log($"VSnackbar.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VSnackbar
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VSnackbar
+	if svBindStyle = "" then
 		Log($"VSnackbar.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
@@ -970,3 +1172,6 @@ Sub AddToComponent(ve As VMElement)
 		ve.SetCallBack(k, cb)
 	Next
 End Sub
+
+
+

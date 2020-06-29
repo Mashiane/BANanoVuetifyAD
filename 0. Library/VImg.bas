@@ -13,12 +13,14 @@ Version=8.3
 #DesignerProperty: Key: AspectRatio, DisplayName: AspectRatio, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Contain, DisplayName: Contain, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Eager, DisplayName: Eager, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Gradient, DisplayName: Gradient, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: LazySrc, DisplayName: LazySrc, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: MaxHeight, DisplayName: MaxHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , FieldType: String, DefaultValue: 
@@ -36,6 +38,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -66,7 +69,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -87,12 +90,14 @@ Private sAlt As String = ""
 Private sAspectRatio As String = ""
 Private sCaption As String = ""
 Private bContain As Boolean = False
+Private bDark As Boolean = False
 Private sDisabled As String = ""
 Private bEager As Boolean = False
 Private sGradient As String = ""
 Private sHeight As String = ""
 Private sKey As String = ""
 Private sLazySrc As String = ""
+Private bLight As Boolean = False
 Private sMaxHeight As String = ""
 Private sMaxWidth As String = ""
 Private sMinHeight As String = ""
@@ -110,6 +115,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -160,12 +166,14 @@ sAlt = props.Get("Alt")
 sAspectRatio = props.Get("AspectRatio")
 sCaption = props.Get("Caption")
 bContain = props.Get("Contain")
+bDark = props.Get("Dark")
 sDisabled = props.Get("Disabled")
 bEager = props.Get("Eager")
 sGradient = props.Get("Gradient")
 sHeight = props.Get("Height")
 sKey = props.Get("Key")
 sLazySrc = props.Get("LazySrc")
+bLight = props.Get("Light")
 sMaxHeight = props.Get("MaxHeight")
 sMaxWidth = props.Get("MaxWidth")
 sMinHeight = props.Get("MinHeight")
@@ -183,6 +191,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -242,6 +251,13 @@ SetAttr("contain", bContain)
 Return Me
 End Sub
 
+'set dark
+Sub SetDark(varDark As Boolean) As VImg
+bDark = varDark
+SetAttr("dark", bDark)
+Return Me
+End Sub
+
 'set disabled
 Sub SetDisabled(varDisabled As String) As VImg
 sDisabled = varDisabled
@@ -281,6 +297,13 @@ End Sub
 Sub SetLazySrc(varLazySrc As String) As VImg
 sLazySrc = varLazySrc
 SetAttr("lazy-src", sLazySrc)
+Return Me
+End Sub
+
+'set light
+Sub SetLight(varLight As Boolean) As VImg
+bLight = varLight
+SetAttr("light", bLight)
 Return Me
 End Sub
 
@@ -400,6 +423,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VImg
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VImg
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -586,12 +616,14 @@ AddAttr(sAlt, "alt")
 AddAttr(sAspectRatio, "aspect-ratio")
 AddAttr(sCaption, "caption")
 AddAttr(bContain, "contain")
+AddAttr(bDark, "dark")
 AddAttr(sDisabled, "disabled")
 AddAttr(bEager, "eager")
 AddAttr(sGradient, "gradient")
 AddAttr(sHeight, "height")
 AddAttr(sKey, "key")
 AddAttr(sLazySrc, "lazy-src")
+AddAttr(bLight, "light")
 AddAttr(sMaxHeight, "max-height")
 AddAttr(sMaxWidth, "max-width")
 AddAttr(sMinHeight, "min-height")
@@ -609,6 +641,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -685,26 +718,6 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VImg
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
 public Sub AddToParent(targetID As String) As VImg
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
@@ -715,7 +728,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VImg
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -770,6 +783,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VImg
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -829,17 +843,17 @@ Sub AddClass(classNames As List) As VImg
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VImg
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -856,9 +870,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VImg
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -1031,7 +1045,7 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VImg
 	end if
 	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 

@@ -1,4 +1,4 @@
-2020-06-21 22:36:49 B4J=true
+2020-06-27 16:52:07 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -10,7 +10,7 @@ Version=8.3
 
 #DesignerProperty: Key: App, DisplayName: App, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning, FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
@@ -23,10 +23,13 @@ Version=8.3
 #DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: MobileBreakPoint, DisplayName: MobileBreakPoint, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: MobileBreakpoint, DisplayName: MobileBreakpoint, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Rounded, DisplayName: Rounded, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Shaped, DisplayName: Shaped, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: SingleLine, DisplayName: SingleLine, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Sticky, DisplayName: Sticky, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Tag, DisplayName: Tag, Description: , FieldType: String, DefaultValue: 
@@ -35,6 +38,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -45,7 +49,7 @@ Version=8.3
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Value, DisplayName: Value, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Width, DisplayName: Width, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning
+#DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderRadius, DisplayName: BorderRadius, Description: Set border-radius, FieldType: String, DefaultValue: 
@@ -96,10 +100,13 @@ Private sMaxHeight As String = ""
 Private sMaxWidth As String = ""
 Private sMinHeight As String = ""
 Private sMinWidth As String = ""
-Private sMobileBreakPoint As String = ""
+Private sMobileBreakpoint As String = ""
+Private bOutlined As Boolean = False
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
+Private sRounded As String = ""
+Private bShaped As Boolean = False
 Private bSingleLine As Boolean = False
 Private bSticky As Boolean = False
 Private sTag As String = ""
@@ -108,6 +115,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -168,10 +176,13 @@ sMaxHeight = props.Get("MaxHeight")
 sMaxWidth = props.Get("MaxWidth")
 sMinHeight = props.Get("MinHeight")
 sMinWidth = props.Get("MinWidth")
-sMobileBreakPoint = props.Get("MobileBreakPoint")
+sMobileBreakpoint = props.Get("MobileBreakpoint")
+bOutlined = props.Get("Outlined")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
+sRounded = props.Get("Rounded")
+bShaped = props.Get("Shaped")
 bSingleLine = props.Get("SingleLine")
 bSticky = props.Get("Sticky")
 sTag = props.Get("Tag")
@@ -180,6 +191,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -311,10 +323,17 @@ SetAttr("min-width", sMinWidth)
 Return Me
 End Sub
 
-'set mobile-break-point
-Sub SetMobileBreakPoint(varMobileBreakPoint As String) As VBanner
-sMobileBreakPoint = varMobileBreakPoint
-SetAttr("mobile-break-point", sMobileBreakPoint)
+'set mobile-breakpoint
+Sub SetMobileBreakpoint(varMobileBreakpoint As String) As VBanner
+sMobileBreakpoint = varMobileBreakpoint
+SetAttr("mobile-breakpoint", sMobileBreakpoint)
+Return Me
+End Sub
+
+'set outlined
+Sub SetOutlined(varOutlined As Boolean) As VBanner
+bOutlined = varOutlined
+SetAttr("outlined", bOutlined)
 Return Me
 End Sub
 
@@ -336,6 +355,20 @@ End Sub
 Sub SetRequired(varRequired As String) As VBanner
 sRequired = varRequired
 SetAttr("required", sRequired)
+Return Me
+End Sub
+
+'set rounded
+Sub SetRounded(varRounded As String) As VBanner
+sRounded = varRounded
+SetAttr("rounded", sRounded)
+Return Me
+End Sub
+
+'set shaped
+Sub SetShaped(varShaped As Boolean) As VBanner
+bShaped = varShaped
+SetAttr("shaped", bShaped)
 Return Me
 End Sub
 
@@ -392,6 +425,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VBanner
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VBanner
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -568,10 +608,13 @@ AddAttr(sMaxHeight, "max-height")
 AddAttr(sMaxWidth, "max-width")
 AddAttr(sMinHeight, "min-height")
 AddAttr(sMinWidth, "min-width")
-AddAttr(sMobileBreakPoint, "mobile-break-point")
+AddAttr(sMobileBreakpoint, "mobile-breakpoint")
+AddAttr(bOutlined, "outlined")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
+AddAttr(sRounded, "rounded")
+AddAttr(bShaped, "shaped")
 AddAttr(bSingleLine, "single-line")
 AddAttr(bSticky, "sticky")
 AddAttr(sTag, "tag")
@@ -580,6 +623,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -628,9 +672,9 @@ If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
 Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
 For Each mt As String In mItems
-Dim k As String = BANanoShared.MvField(mt,1,":")
-Dim v As String = BANanoShared.MvField(mt,2,":")
-AddAttr(k, v)
+Dim k As String = BANanoShared.MvField(mt,1,"=")
+Dim v As String = BANanoShared.MvField(mt,2,"=")
+AddAttr(v, k)
 Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
@@ -655,26 +699,6 @@ End Sub
 'get the text of the component
 public Sub GetCaption() As String
 	Return sCaption
-End Sub
-
-'set on click event, updates the master events records
-Sub SetOnClick1() As VBanner
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
 End Sub
 
 'add component to parent
@@ -742,6 +766,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VBanner
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1037,7 +1062,20 @@ Sub SetDisabledOnOff(b As Boolean) As VBanner
 	Return Me
 End Sub
 
-
+'bind this element to component
+Sub AddToComponent(ve As VMElement)
+	data = ve.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		ve.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		ve.SetCallBack(k, cb)
+	Next
+End Sub
 
 
 

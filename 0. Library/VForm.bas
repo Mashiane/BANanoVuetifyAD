@@ -10,16 +10,17 @@ Version=8.3
 
 
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: LazyValidation, DisplayName: LazyValidation, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindClass, DisplayName: VBindClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -50,7 +51,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -68,16 +69,17 @@ Private mTagName As String = "v-form"
 	Public bindings As Map 
 	Public methods As Map
 Private sCaption As String = ""
-Private sDisabled As String = ""
+Private bDisabled As Boolean = False
 Private sKey As String = ""
 Private bLazyValidation As Boolean = False
-Private sReadonly As String = ""
+Private bReadonly As Boolean = False
 Private sRef As String = ""
 Private sRequired As String = ""
 Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -125,16 +127,17 @@ mClasses = props.Get("Classes")
 mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
 sCaption = props.Get("Caption")
-sDisabled = props.Get("Disabled")
+bDisabled = props.Get("Disabled")
 sKey = props.Get("Key")
 bLazyValidation = props.Get("LazyValidation")
-sReadonly = props.Get("Readonly")
+bReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
 sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -174,9 +177,9 @@ SetOnSubmit
 End Sub
 
 'set disabled
-Sub SetDisabled(varDisabled As String) As VForm
-sDisabled = varDisabled
-SetAttr("disabled", sDisabled)
+Sub SetDisabled(varDisabled As Boolean) As VForm
+bDisabled = varDisabled
+SetAttr("disabled", bDisabled)
 Return Me
 End Sub
 
@@ -195,9 +198,9 @@ Return Me
 End Sub
 
 'set readonly
-Sub SetReadonly(varReadonly As String) As VForm
-sReadonly = varReadonly
-SetAttr("readonly", sReadonly)
+Sub SetReadonly(varReadonly As Boolean) As VForm
+bReadonly = varReadonly
+SetAttr("readonly", bReadonly)
 Return Me
 End Sub
 
@@ -240,6 +243,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VForm
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VForm
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -423,16 +433,17 @@ End Sub
 'return the generated html
 Sub ToString As String
 AddAttr(sCaption, "caption")
-AddAttr(sDisabled, "disabled")
+AddAttr(bDisabled, "disabled")
 AddAttr(sKey, "key")
 AddAttr(bLazyValidation, "lazy-validation")
-AddAttr(sReadonly, "readonly")
+AddAttr(bReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
 AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -509,26 +520,6 @@ public Sub GetCaption() As String
 	Return sCaption
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VForm
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
-End Sub
-
 'add component to parent
 public Sub AddToParent(targetID As String) As VForm
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
@@ -539,7 +530,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VForm
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -554,7 +545,7 @@ Sub AddToApp(vap As VueApp) As VForm
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VForm
+Sub SetData(prop as string, value as object) As VForm
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -594,6 +585,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VForm
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -836,19 +828,19 @@ Sub Show As VForm
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VForm
-	If sVBindClass = "" Then
+Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VForm
+	if svBindClass = "" then
 		Log($"VForm.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VForm
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VForm
 	If sVBindStyle = "" Then
 		Log($"VForm.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
@@ -870,24 +862,24 @@ Sub SetRequiredOnOff(b As Boolean) As VForm
 End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VForm
-	If sReadonly = "" Then
-		Log($"VForm.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
-
-'disabled
-Sub SetDisabledOnOff(b As Boolean) As VForm
-	If sDisabled = "" Then
-		Log($"VForm.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VForm
+'	If sReadonly = "" Then
+'		Log($"VForm.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
+'
+''disabled
+'Sub SetDisabledOnOff(b As Boolean) As VForm
+'	If sDisabled = "" Then
+'		Log($"VForm.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

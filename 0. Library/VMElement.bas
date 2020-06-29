@@ -60,6 +60,7 @@ Sub Class_Globals
 	Private computed As Map
 	Private watches As Map
 	Private filters As Map
+	Private components As Map
 	Private refs As BANanoObject
 	Private mprops As Map
 	Private query As Map
@@ -86,7 +87,6 @@ Sub Class_Globals
 	Private mVElse As String = ""
 	Private mVShow As String = ""
 	Private mVHtml As String = ""
-	Public bindings As Map
 	Private properties As Map
 	Private styles As Map
 	Private classList As Map
@@ -96,8 +96,6 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String) 
 	mName = Name
 	mEventName = EventName.ToLowerCase
 	mCallBack = CallBack
-	bindings.Initialize
-	data.Initialize 
 	opt.Initialize
 	data.Initialize
 	mprops.Initialize
@@ -107,6 +105,7 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String) 
 	filters.Initialize
 	query.Initialize
 	Errors.Initialize
+	components.initialize
 	Path = $"/${Name}"$
 	Icon = ""
 	Title = ""
@@ -121,17 +120,14 @@ Public Sub Initialize (CallBack As Object, Name As String, EventName As String) 
 	Return Me
 End Sub
 
-Sub BindElement(emethods As Map, ebindings As Map)
-	'apply the binding for the control
-	For Each k As String In ebindings.Keys
-		Dim v As String = ebindings.Get(k)
-		SetData(k, v)
-	Next
-	'apply the events
-	For Each k As String In emethods.Keys
-		Dim cb As BANanoObject = emethods.Get(k)
-		SetCallBack(k, cb)
-	Next
+'add a component we have defined internally
+Sub AddComponent(comp As VMElement)
+	comp.SetTag(comp.mName)
+	Dim sid As String = comp.mName
+	If components.ContainsKey(sid) = True Then
+		Return
+	End If
+	components.Put(sid, comp.Component(False))
 End Sub
 
 'get a drawer item for this route
@@ -208,7 +204,7 @@ Sub BindDynamicComponent(viewID As String, compID As String)
 	viewID = viewID.ToLowerCase
 	compID = compID.tolowercase
 	SetVBindIs(viewID)
-	bindings.Put(viewID, compID)
+	data.Put(viewID, compID)
 End Sub
 
 Sub SetVBindIs(t As String) As VMElement
@@ -384,13 +380,13 @@ private Sub AddAttr(varName As String, actProp As String) As VMElement
 					properties.Put($":${actProp}"$, rname)
 				Else
 					properties.Put($":${actProp}"$, rname)
-					bindings.Put(rname, Null)
+					data.Put(rname, Null)
 				End If
 			Else
 				If varName <> "" Then properties.put(actProp, varName)
 				Select Case actProp
 					Case "v-model", "v-show", "v-if", "required", "disabled", "readonly"
-						bindings.Put(varName, False)
+						data.Put(varName, False)
 				End Select
 			End If
 		End If
@@ -523,7 +519,7 @@ Sub SetVBind(prop As String, value As String)
 	value = value.ToLowerCase
 	prop = $"v-bind:${prop}"$
 	SetAttr(prop,value)
-	bindings.Put(value, Null)
+	data.Put(value, Null)
 End Sub
 
 'get text
@@ -548,8 +544,7 @@ Sub SetColor(varColor As String)
 	If varColor = "" Then Return
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
-	'store the bindings
-	bindings.Put(pp, varColor)
+	data.Put(pp, varColor)
 End Sub
 
 'set color intensity
@@ -557,8 +552,7 @@ Sub SetColorIntensity(varColor As String, varIntensity As String)
 	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
-	'store the bindings
-	bindings.Put(pp, scolor)
+	data.Put(pp, scolor)
 End Sub
 
 'set text color
@@ -590,8 +584,10 @@ Sub Component(bRoute As Boolean) As Map
 	opt.Put("props", mprops)
 	opt.Put("filters", filters)
 	opt.Put("template", template)
+	opt.Put("components", components)
 	Return opt
 End Sub
+
 
 'set template for the component before calling Component
 Sub SetTemplate(tmp As String)
@@ -768,26 +764,26 @@ End Sub
 'set state object
 Sub SetStateMap(mapKey As String, mapValues As Map) 
 	mapKey = mapKey.tolowercase
-	Dim opt As Map = CreateMap()
-	opt.Put(mapKey, mapValues)
-	SetState(opt)
+	Dim optm As Map = CreateMap()
+	optm.Put(mapKey, mapValues)
+	SetState(optm)
 End Sub
 
 'set state list
 Sub SetStateList(mapKey As String, mapValues As List) 
 	mapKey = mapKey.tolowercase
-	Dim opt As Map = CreateMap()
-	opt.Put(mapKey, mapValues)
-	SetState(opt)
+	Dim optm As Map = CreateMap()
+	optm.Put(mapKey, mapValues)
+	SetState(optm)
 End Sub
 
 'set multiple states to blank
 Sub SetStateListValues(mapValues As List) 
 	For Each lstValue As String In mapValues
 		lstValue = lstValue.tolowercase
-		Dim opt As Map = CreateMap()
-		opt.Put(lstValue, "")
-		SetState(opt)
+		Dim optm As Map = CreateMap()
+		optm.Put(lstValue, "")
+		SetState(optm)
 	Next
 End Sub
 
@@ -837,21 +833,6 @@ Sub SetOnClickStop
 	SetAttr("v-on:click.stop", methodName)
 	SetMethod(mCallBack, methodName)
 End Sub
-
-'add a component to the app, this links bindings and events
-Sub AddToApp(vap As VueApp)
-	'apply the binding for the control
-	For Each k As String In bindings.Keys
-		Dim v As String = bindings.Get(k)
-		vap.SetData(k, v)
-	Next
-	'apply the events
-	For Each k As String In methods.Keys
-		Dim cb As BANanoObject = methods.Get(k)
-		vap.SetCallBack(k, cb)
-	Next
-End Sub
-
 
 'add an error to the collection
 Sub AddError(vmodel As String, vError As String)

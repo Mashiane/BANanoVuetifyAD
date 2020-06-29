@@ -14,6 +14,7 @@ Version=8.3
 
 
 #DesignerProperty: Key: ActiveClass, DisplayName: ActiveClass, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Color, DisplayName: Color, Description: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
@@ -31,6 +32,7 @@ Version=8.3
 #DesignerProperty: Key: VBindStyle, DisplayName: VBindStyle, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VCloak, DisplayName: VCloak, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VElse, DisplayName: VElse, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: VElseIf, DisplayName: VElseIf, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VFor, DisplayName: VFor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VHtml, DisplayName: VHtml, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VIf, DisplayName: VIf, Description: , FieldType: String, DefaultValue: 
@@ -65,7 +67,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -83,6 +85,7 @@ Private mTagName As String = "v-radio"
 	Public bindings As Map 
 	Public methods As Map
 Private sActiveClass As String = ""
+Private sCaption As String = ""
 Private sColor As String = ""
 Private bDark As Boolean = False
 Private bDisabled As Boolean = False
@@ -100,6 +103,7 @@ Private sVBindClass As String = ""
 Private sVBindStyle As String = ""
 Private bVCloak As Boolean = False
 Private sVElse As String = ""
+Private sVElseIf As String = ""
 Private sVFor As String = ""
 Private sVHtml As String = ""
 Private sVIf As String = ""
@@ -151,6 +155,7 @@ mClasses = props.Get("Classes")
 mAttributes = props.Get("Attributes") 
 mStyle = props.Get("Style")
 sActiveClass = props.Get("ActiveClass")
+sCaption = props.Get("Caption")
 sColor = props.Get("Color")
 bDark = props.Get("Dark")
 bDisabled = props.Get("Disabled")
@@ -168,6 +173,7 @@ sVBindClass = props.Get("VBindClass")
 sVBindStyle = props.Get("VBindStyle")
 bVCloak = props.Get("VCloak")
 sVElse = props.Get("VElse")
+sVElseIf = props.Get("VElseIf")
 sVFor = props.Get("VFor")
 sVHtml = props.Get("VHtml")
 sVIf = props.Get("VIf")
@@ -255,9 +261,9 @@ End Sub
 
 'set label
 Sub SetLabel(varLabel As String) As VRadio
-	sLabel = varLabel
-	SetAttr("label", sLabel)
-	Return Me
+sLabel = varLabel
+SetAttr("label", sLabel)
+Return Me
 End Sub
 
 'set light
@@ -341,6 +347,13 @@ End Sub
 Sub SetVElse(varVElse As String) As VRadio
 sVElse = varVElse
 SetAttr("v-else", sVElse)
+Return Me
+End Sub
+
+'set v-else-if
+Sub SetVElseIf(varVElseIf As String) As VRadio
+sVElseIf = varVElseIf
+SetAttr("v-else-if", sVElseIf)
 Return Me
 End Sub
 
@@ -580,6 +593,7 @@ End Sub
 'return the generated html
 Sub ToString As String
 AddAttr(sActiveClass, "active-class")
+AddAttr(sCaption, "caption")
 AddAttr(sColor, "color")
 AddAttr(bDark, "dark")
 AddAttr(bDisabled, "disabled")
@@ -597,6 +611,7 @@ AddAttr(sVBindClass, "v-bind:class")
 AddAttr(sVBindStyle, "v-bind:style")
 AddAttr(bVCloak, "v-cloak")
 AddAttr(sVElse, "v-else")
+AddAttr(sVElseIf, "v-else-if")
 AddAttr(sVFor, "v-for")
 AddAttr(sVHtml, "v-html")
 AddAttr(sVIf, "v-if")
@@ -651,40 +666,26 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}></${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
 'add a child component
 Sub AddComponent(child As String) As VRadio
 	mElement.Append(child)
+	sCaption = mElement.GetText
 	Return Me
 End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VRadio
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
-'set on click event, updates the master events records
-Sub SetOnClick1() As VRadio
-	Dim sName As String = $"${mEventName}_click"$
-	sName = sName.tolowercase
-	If SubExists(mCallBack, sName) = False Then Return Me
-	'arguments for the event
-	Dim argument As Object 'ignore
-	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
-	methods.Put(sName, cb)
-	'link event to item
-	Dim rName As String = sKey
-	If sKey.StartsWith(":") Then
-		rName = BANanoShared.MidString2(sKey, 2)
-		sName = $"${mEventName}_click(${rName})"$
-		sName = sName.tolowercase
-	End If
-	SetAttr("v-on:click", sName)
-	Return Me
+'get the text of the component
+public Sub GetCaption() As String
+	Return sCaption
 End Sub
 
 'add component to parent
@@ -697,7 +698,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VRadio
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
@@ -741,8 +742,18 @@ Sub SetVOn(event As String) As VRadio
 	Return Me
 End Sub
 
+'change the text of the element
+Sub SetCaption(varText As String) As VRadio
+	If mElement <> Null Then
+		mElement.SetHTML(BANano.SF(varText))
+	End If
+	sCaption = varText
+	Return Me
+End Sub
+
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VRadio
+	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -802,17 +813,17 @@ Sub AddClass(classNames As List) As VRadio
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VRadio
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -829,9 +840,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VRadio
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -851,11 +862,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VRadio
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -876,10 +887,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -893,13 +904,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VRadio
+Sub SetVClass(classObj as string) As VRadio
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VRadio
+Sub SetVStyle(styleObj as string) As VRadio
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -998,10 +1009,10 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VRadio
-	if svBindStyle = "" then
+	If sVBindStyle = "" Then
 		Log($"VRadio.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
+	End If
 	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
 	data.put(sVBindStyle, obj)
@@ -1018,7 +1029,7 @@ Sub SetRequiredOnOff(b As Boolean) As VRadio
 	Return Me
 End Sub
 
-''read only
+'read only
 'Sub SetReadOnlyOnOff(b As Boolean) As VRadio
 '	If sReadonly = "" Then
 '		Log($"VRadio.ReadOnly - the readonly for ${mName} has not been set!"$)

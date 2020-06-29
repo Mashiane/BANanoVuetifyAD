@@ -22,7 +22,7 @@ Sub Initialize
 	ThankYou.SetTitle("Check Out")
 	ThankYou.SetPath($"./${Main.appname}/${ThankYou.mname}/"$)
 	'
-	MyApp.SetDataVuex("overlay", False)
+	MyApp.SetDataStore("overlay", False)
 	'
 	'load the store layout and get its html from the placeholder
 	BANano.LoadLayout("#placeholder", "ThankYou")
@@ -47,7 +47,7 @@ End Sub
 
 Sub beforemount1
 	Log("before mount...")
-	MyApp.SetDataVuex("overlay", True)
+	MyApp.SetDataStore("overlay", True)
 End Sub
 
 Sub mounted1
@@ -57,7 +57,7 @@ End Sub
 
 Sub hidecallback
 	Log("hidecallback...")
-	MyApp.SetDataVuex("overlay", False)
+	MyApp.SetDataStore("overlay", False)
 End Sub
 
 Sub GotoMe
