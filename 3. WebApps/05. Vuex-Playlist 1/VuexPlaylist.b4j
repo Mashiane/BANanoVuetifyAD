@@ -1,68 +1,23 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.example
-File1=applayout.bjl
-File10=product-2.jpg
-File11=product-3.jpg
-File12=product-4.jpg
-File13=product-5.jpg
-File14=product-6.jpg
-File15=ProductDisplay.bjl
-File16=ProductList.bjl
-File17=Review.bjl
-File18=ShippingInfo.bjl
-File19=snackbar.bjl
-File2=Cart.bjl
-File20=store.bjl
-File21=storesidebar.bjl
-File22=ThankYou.bjl
-File23=VerticalProduct.bjl
-File24=VerticalProduct1.bjl
-File3=Checkout.bjl
-File4=CheckoutBox.bjl
-File5=ContactInfo.bjl
-File6=draweritems.bjl
-File7=home.bjl
-File8=HorizontalProduct.bjl
-File9=product-1.jpg
+File1=mainlayout.bjl
+File2=product1.bjl
+File3=product2.bjl
 FileGroup1=Default Group
-FileGroup10=Default Group
-FileGroup11=Default Group
-FileGroup12=Default Group
-FileGroup13=Default Group
-FileGroup14=Default Group
-FileGroup15=Default Group
-FileGroup16=Default Group
-FileGroup17=Default Group
-FileGroup18=Default Group
-FileGroup19=Default Group
 FileGroup2=Default Group
-FileGroup20=Default Group
-FileGroup21=Default Group
-FileGroup22=Default Group
-FileGroup23=Default Group
-FileGroup24=Default Group
 FileGroup3=Default Group
-FileGroup4=Default Group
-FileGroup5=Default Group
-FileGroup6=Default Group
-FileGroup7=Default Group
-FileGroup8=Default Group
-FileGroup9=Default Group
 Group=Default Group
 Library1=jcore
 Library2=jfx
 Library3=banano
 Library4=bananovuetifyad
 Library5=bananopostprocessor
-Module1=pgCart
-Module2=pgCheckOut
-Module3=pgHome
-Module4=pgIndex
-Module5=pgStore
-Module6=pgThankYou
-NumberOfFiles=24
+Module1=pgIndex
+Module2=pgProduct1
+Module3=pgProduct2
+NumberOfFiles=3
 NumberOfLibraries=5
-NumberOfModules=6
+NumberOfModules=3
 Version=8.31
 @EndOfDesignText@
 #Region Project Attributes 
@@ -73,9 +28,9 @@ Version=8.31
 
 Sub Process_Globals
 	Private BANano As BANano 'ignore
-	Public AppName As String = "onlinestore"
+	Public AppName As String = "vuexplaylist"
 	Private Version As String = "1.00"
-	Public AppTitle As String = "Online Store"
+	Public AppTitle As String = "VuexPlayList"
 	Private Publish As String = "C:\laragon\www"
 	Private BP As BANanoPostProcessor
 	Public ServerIP As String = "localhost"
@@ -105,7 +60,6 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.TranspilerOptions.MinifyOnline = False
 	BANano.TranspilerOptions.IgnoreB4JLibrary("BANanoPostProcessor")
 	BANano.TranspilerOptions.ExternalTestConnectionServer = "http://www.localhost"
-	BANano.TranspilerOptions.EnableLiveCodeSwapping = False
 	
 	'set php settings
 	BANano.PHP_NAME = $"${AppName}.php"$

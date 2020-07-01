@@ -57,11 +57,11 @@ Sub Class_Globals
 	Public data As Map
 	Private opt As Map
 	Public methods As Map
-	Private computed As Map
-	Private watches As Map
-	Private filters As Map
-	Private components As Map
-	Private refs As BANanoObject
+	Public computed As Map
+	Public watches As Map
+	Public filters As Map
+	Public components As Map
+	Public refs As BANanoObject
 	Private mprops As Map
 	Private query As Map
 	Private template As String = ""
@@ -594,6 +594,14 @@ Sub SetTemplate(tmp As String)
 	template = tmp
 End Sub
 
+'set as layout
+Sub SetBANanoTemplate(id As String)
+	id = id.tolowercase
+	Dim be As BANanoElement
+	be.Initialize(id)
+	template = be.GetHTML
+	be.Empty
+End Sub
 
 'use for components
 private Sub returndata As Map
@@ -1005,6 +1013,16 @@ Sub SetMounted(module As Object, methodName As String) As VMElement
 	opt.Put("mounted", mounted)
 	SetMethod(module, methodName)
 	Return Me
+End Sub
+
+'get the html part of a bananoelement
+Sub BANanoGetHTML(id As String) As String
+	id = id.tolowercase
+	Dim be As BANanoElement
+	be.Initialize(id)
+	Dim sTemplate As String = be.GetHTML
+	be.Empty
+	Return sTemplate
 End Sub
 
 #End Region

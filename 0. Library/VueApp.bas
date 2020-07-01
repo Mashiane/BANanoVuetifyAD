@@ -8,24 +8,22 @@ Version=8.3
 Sub Class_Globals
 	Public el As BANanoObject
 	Public data As Map
-	Public state As Map
-	Public store As BANanoObject
 	Public emit As BANanoObject
 	Public router As BANanoObject
 	Public VuePageTransition As BANanoObject
 	Public Modules As Map
 	Private BANano As BANano   'ignore
 	Public methods As Map
-	Private computed As Map
-	Private watches As Map
-	Private filters As Map
+	Public computed As Map
+	Public watches As Map
+	Public filters As Map
 	Private opt As Map
-	Private refs As BANanoObject
+	Public refs As BANanoObject
 	Public Path As String
 	Public name As String
 	Public Query As Map
 	Private EventHandler As Object   'ignore
-	Private routes As List
+	Public routes As List
 	Public components As Map
 	Public Options As Map
 	Public VAP As BANanoObject
@@ -37,11 +35,6 @@ Sub Class_Globals
 	Public Errors As Map
 	Public Themes As Map
 	Private ColorMap As Map
-	'Public Vuex As BANanoObject
-	'Public VuexState As Map
-	'Public VuexMutations As Map
-	'Public VuexStore As BANanoObject
-	
 	'
 	Public const BORDER_DEFAULT As String = ""
 	Public const BORDER_DASHED As String = "dashed"
@@ -115,6 +108,8 @@ Sub Class_Globals
 	Public const TEXT_CAPITALIZE As String = "text-capitalize"
 	Private sourceID As String
 	Private targetID As String
+	Public store As BANanoObject
+	Public state As Map
 End Sub
 
 'initialize the app with where to render and where to .GetHTML
@@ -140,21 +135,11 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	'
 	VAP.Initialize("Vue")
 	'***use a global prototype
-	state = CreateMap()
+	state.Initialize 
 	state.Put("state", CreateMap())
 	store = VAP.RunMethod("observable", Array(state))
 	VAP.GetField("prototype").SetField("$store", store)
 	'****
-	'***use the vuex store
-	'Vuex.Initialize("Vuex")
-	'VuexState = CreateMap()
-	'VuexMutations = CreateMap()
-	'Dim vuexopt As Map = CreateMap()
-	'vuexopt.Put("state", VuexState)
-	'vuexopt.Put("mutations", VuexMutations)
-	'vuexopt.Put("strict", False)
-	'VuexStore.Initialize2("Vuex.Store", Array(vuexopt)) 
-	'
 	VuePageTransition.Initialize("VuePageTransition")
 	Use(VuePageTransition)
 	'
@@ -190,6 +175,18 @@ End Sub
 '
 'Sub VuexCommit(payload As Map)
 '	VuexStore.RunMethod("commit", Array("vuexupdate", payload))
+'End Sub
+'
+'Sub SetVuex
+'	'set up vuex
+'	Dim vuexopt As Map = CreateMap()
+'	vuexopt.Put("state", VuexState)
+'	vuexopt.Put("mutations", VuexMutations)
+'	vuexopt.Put("strict", False)
+'	vuexopt.put("getters", VuexGetters)
+'	vuexopt.put("actions", VuexActions)
+'	vuexopt.Put("plugins", VuexPlugIns)
+'	VuexStore.Initialize2("Vuex.Store", vuexopt)
 'End Sub
 
 
@@ -456,7 +453,7 @@ End Sub
 
 'get the name of the breakpoint
 Sub GetBreakPointName As String
-	Dim bp As BANanoObject = vuetify.GetField("breakpoint")
+	Dim bp As BANanoObject = Vuetify.GetField("breakpoint")
 	Dim res As String = bp.GetField("name").Result
 	Return res
 End Sub
@@ -734,7 +731,7 @@ Sub RefreshKey(keyName As String) As VueApp
 	Return Me
 End Sub
 
-Sub RemoveDataX(key As String) As VueApp
+Sub RemoveData(key As String) As VueApp
 	key = key.ToLowerCase
 	data.Remove(key)
 	Return Me
@@ -768,20 +765,19 @@ Sub GetDataStore(prop As String) As Object
 	Return res
 End Sub
 
-''set data global
+'''set data global
 'Sub SetDataVuex(prop As String, valuex As Object) As VueApp
 '	prop = prop.tolowercase
-'	VuexStore.GetField("state").SetField(prop, valuex)
+'	VuexState.Put(prop, valuex)
 '	Return Me
 'End Sub
 '
 ''get data global
 'Sub GetDataVuex(prop As String) As Object
 '	prop = prop.tolowercase
-'	Dim obj As Map = VuexStore.GetField("state").Result
 '	Dim res As Object = Null
-'	If obj.ContainsKey(prop) Then
-'		res = obj.Get(prop)
+'	If VuexState.ContainsKey(prop) Then
+'		res = VuexState.Get(prop)
 '	End If
 '	Return res
 'End Sub
@@ -850,7 +846,7 @@ Sub SetState(m As Map) As VueApp
 	For Each k As String In m.Keys
 		Dim v As Object = m.Get(k)
 		k = k.tolowercase
-		state.Put(k, v)
+		data.Put(k, v)
 	Next
 	Return Me
 End Sub
@@ -858,13 +854,13 @@ End Sub
 'return if state exists
 Sub HasState(k As String) As Boolean
 	k = k.tolowercase
-	Return state.ContainsKey(k)
+	Return data.ContainsKey(k)
 End Sub
 
 'get the state
 Sub GetState(k As String) As Object
 	k = k.tolowercase
-	Dim out As Object = state.GetDefault(k,Null)
+	Dim out As Object = data.GetDefault(k,Null)
 	Return out
 End Sub
 
@@ -881,7 +877,7 @@ End Sub
 'check if we have state
 Sub StateExists(stateName As String) As Boolean
 	stateName = stateName.tolowercase
-	Return state.ContainsKey(stateName)
+	Return data.ContainsKey(stateName)
 End Sub
 
 'set state object
@@ -976,8 +972,6 @@ Sub Serve
 	'set where we should render the app to
 	Options.Put("el", $"#${targetID}"$)
 	Options.Put("store", store)
-	
-	'Options.Put("store", VuexStore)
 	'get the body
 	'get where you have loaded the layout
 	'this gets the HTML to use
@@ -1031,10 +1025,10 @@ Sub Serve
 	emit = VAP.GetField(emitKey)
 	Dim svuetify As String = "$vuetify"
 	Vuetify = VAP.GetField(svuetify)
-	Dim sstore As String = "$store"
-	store = VAP.GetField(sstore)
 	Dim srouter As String = "$router"
 	router = VAP.GetField(srouter)
+	Dim sstore As String = "$store"
+	store = VAP.GetField(sstore)
 End Sub
 
 'Use router To navigate
@@ -1200,4 +1194,72 @@ End Sub
 
 Sub Show(elID As String)
 	SetStateSingle($"${elID}show"$, True)
+End Sub
+
+'get the html part of a bananoelement
+Sub BANanoGetHTML(id As String) As String
+	id = id.tolowercase
+	Dim be As BANanoElement
+	be.Initialize(id)
+	Dim sTemplate As String = be.GetHTML
+	be.Empty
+	Return sTemplate
+End Sub
+
+'add a spacer
+Sub AddSpacer(Module As Object, parentID As String, spacerID As String) As VSpacer
+	parentID = parentID.ToLowerCase
+	spacerID = spacerID.ToLowerCase
+	'
+	Dim spacer As VSpacer
+	spacer.Initialize(Module, spacerID, spacerID)
+	spacer.AddToParent(parentID)
+	Return spacer
+End Sub
+
+'add a button and icon to an existing parent
+Sub AddButtonIcon(Module As Object, parentID As String, btnID As String, btnText As String, btnRaised As Boolean, btnColor As String, iconName As String, iconRight As Boolean) As VBtn
+	btnID = btnID.tolowercase
+	parentID = parentID.tolowercase
+	'
+	Dim btn As VBtn
+	btn.initialize(Module, btnID, btnID)
+	If btnRaised = False Then btn.SetText(True)
+	btn.SetColor(btnColor)
+	btn.AddToParent(parentID)
+	'
+	If btnText <> "" Then
+		Dim spanKey As String = $"${btnID}span"$
+		Dim span As VHTML
+		span.initialize(Module, spanKey, spanKey)
+		span.SetCaption(btnText)
+		span.SetTagName("span")
+	End If
+	'
+	If iconName <> "" Then
+		Dim iconKey As String = $"${btnID}icon"$
+		Dim icon As VIcon
+		icon.initialize(Module, iconKey, iconKey)
+		icon.SetCaption(iconName)
+	End If
+	'
+	If iconRight Then
+		If btnText <> "" Then 
+			span.AddToParent(btnID)
+		End If
+		If iconName <> "" Then 
+			icon.SetRight(iconRight)
+			icon.AddToParent(btnID)
+		End If
+	Else
+		If iconName <> "" Then 
+			icon.SetLeft(True)
+			icon.AddToParent(btnID)
+		End If
+		
+		If btnText <> "" Then 
+			span.AddToParent(btnID)
+		End If
+	End If
+	Return btn
 End Sub

@@ -1101,41 +1101,41 @@ End Sub
 
 'toggle
 Sub Toggle As VNavigationDrawer
-	If sVShow = "" Then
-		Log($"VNavigationDrawer.Toggle - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VNavigationDrawer.Toggle - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
 	'get the current state
-	Dim cs As Boolean = data.Get(sVShow)
+	Dim cs As Boolean = data.Get(sVModel)
 	If cs = Null Then cs = False
 	cs = Not(cs)
-	data.Put(sVShow, cs)
+	data.Put(sVModel, cs)
 	Return Me
 End Sub
 
 'hide
 Sub Hide As VNavigationDrawer
-	If sVShow = "" Then
-		Log($"VNavigationDrawer.Hide - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VNavigationDrawer.Hide - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVShow, False)
+	data.Put(sVModel, False)
 	Return Me
 End Sub
 
 'show
 Sub Show As VNavigationDrawer
-	If sVShow = "" Then
-		Log($"VNavigationDrawer.Show - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VNavigationDrawer.Show - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVShow, True)
+	data.Put(sVModel, True)
 	Return Me
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VNavigationDrawer
-	if svBindClass = "" then
+Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VNavigationDrawer
+	If sVBindClass = "" Then
 		Log($"VNavigationDrawer.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
 	end if

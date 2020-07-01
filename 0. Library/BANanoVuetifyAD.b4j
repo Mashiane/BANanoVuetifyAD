@@ -196,7 +196,7 @@ Version=8.31
 	#MainFormHeight: 600 
 	#IgnoreWarnings: 16, 10, 14, 15, 19
 	#LibraryAuthor: Anele Mbanga (Mashiane)
-	#LibraryVersion: 1.05
+	#LibraryVersion: 1.06
 #End Region
 
 #Region Notes
@@ -233,7 +233,6 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.Header.AddJavascriptFile("fileSaver.min.js")
 	BANano.Header.AddJavascriptFile("vue-page-transition.browser.js")
 	BANano.Header.AddCSSFile("vue-page-transition.css")
-	'BANano.Header.AddJavascriptFile("vuex.js")
 	'
 	' start the build
 	#if release

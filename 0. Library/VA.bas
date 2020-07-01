@@ -729,13 +729,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj as string) As VA
+Sub SetVClass(classObj As String) As VA
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VA
+Sub SetVStyle(styleObj As String) As VA
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -762,7 +762,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VA
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
