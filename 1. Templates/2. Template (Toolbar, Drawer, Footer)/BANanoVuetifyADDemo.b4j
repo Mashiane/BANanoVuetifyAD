@@ -9,10 +9,9 @@ Library1=jcore
 Library2=jfx
 Library3=banano
 Library4=bananovuetifyad
-Library5=bananopostprocessor
 Module1=pgIndex
 NumberOfFiles=2
-NumberOfLibraries=5
+NumberOfLibraries=4
 NumberOfModules=1
 Version=8.31
 @EndOfDesignText@
@@ -28,17 +27,12 @@ Sub Process_Globals
 	Private Version As String = "1.00"
 	Public AppTitle As String = "BANanoVuetifyADDemo"
 	Private Publish As String = "C:\laragon\www"
-	Private BP As BANanoPostProcessor
 	Public ServerIP As String = "localhost"
 	Public Version As String = "1.00"
 	Public Port As String = "8080"
 End Sub
 
 Sub AppStart (Form1 As Form, Args() As String)
-	'post processor
-	BP.Initialize
-	BP.RedirectOutput(File.DirApp,"log.txt")
-	
 	' you can change some output params here
 	BANano.Initialize("BANano", AppName, DateTime.now)
 	BANano.HTML_NAME = "index.html"
@@ -54,8 +48,9 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.TranspilerOptions.MergeAllCSSFiles = True
 	BANano.TranspilerOptions.MergeAllJavascriptFiles = True
 	BANano.TranspilerOptions.MinifyOnline = False
-	BANano.TranspilerOptions.IgnoreB4JLibrary("BANanoPostProcessor")
 	BANano.TranspilerOptions.ExternalTestConnectionServer = "http://www.localhost"
+	BANano.TranspilerOptions.RedirectOutput(File.DirApp, "log.txt")
+	BANano.TranspilerOptions.EnableLiveCodeSwapping = False
 	
 	'set php settings
 	BANano.PHP_NAME = $"${AppName}.php"$
@@ -64,15 +59,14 @@ Sub AppStart (Form1 As Form, Args() As String)
 	
 	'
 	BANano.Build(Publish)
-	BP.OpenLog(File.DirApp, "log.txt")
-	
-	BP.PublishPath = Publish
-	BP.ShortName = AppName
-	BP.AssetsPath = BANano.ASSETS_FOLDER
-	BP.ScriptsPath = BANano.SCRIPTS_FOLDER
-	BP.StylesPath = BANano.STYLES_FOLDER
-	BP.ScriptFile = BANano.JAVASCRIPT_NAME
-	BP.OpenOnPort(True, Port)
+	'
+	Dim fx As JFX
+	Dim URL As String = File.GetUri(File.DirApp,"log.txt")
+	fx.ShowExternalDocument(URL)
+	'
+	Dim appPath As String = $"http://localhost/${AppName}/index.html"$
+	If Port <> "" Then appPath = $"http://localhost:${Port}/${AppName}/index.html"$
+	fx.ShowExternalDocument(appPath)
 	ExitApplication
 End Sub
 

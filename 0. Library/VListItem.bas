@@ -5,8 +5,8 @@ Version=8.3
 @EndOfDesignText@
 'Custom BANano View class: VListItem
 #IgnoreWarnings:12
-#Event: click (argument As BANanoEvent)
-#Event: keydown (argument As BANanoEvent)
+#Event: click (argument As Object)
+#Event: keydown (argument As Object)
 
 
 #DesignerProperty: Key: ActiveClass, DisplayName: ActiveClass, Description: , FieldType: String, DefaultValue: 
@@ -71,7 +71,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -232,8 +232,14 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 SetOnClick
 'This activates Keydown the event exists on the module
 SetOnKeydown
+End Sub
 
+Sub SetEOnkeydown(seOnkeydown As String)
+	eOnkeydown =seOnkeydown
+End Sub
 
+Sub SetEOnClick(seOnclick As String)
+	eOnclick = seOnclick
 End Sub
 
 'set active-class
@@ -731,7 +737,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VListItem
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 

@@ -850,10 +850,10 @@ End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VImg
-	for each k as string in m.Keys
-		dim v as string = m.get(k)
+	For Each k As String In m.Keys
+		Dim v As String = m.get(k)
 		styles.put(k, v)
-	next
+	Next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -870,9 +870,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VImg
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then Return Me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)

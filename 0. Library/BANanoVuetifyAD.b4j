@@ -207,7 +207,7 @@ Version=8.31
 
 Sub Process_Globals
 	Private BANano As BANano 'ignore
-	Public Version As String = "1.05"
+	Public Version As String = "1.06"
 	Public AppName As String = "BANanoVuetifyAD"
 End Sub
 
@@ -230,7 +230,6 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.Header.AddJavascriptFile("vuetify.min.js")
 	BANano.Header.AddJavascriptFile("vue-router.min.js")
 	'for file download
-	BANano.Header.AddJavascriptFile("fileSaver.min.js")
 	BANano.Header.AddJavascriptFile("vue-page-transition.browser.js")
 	BANano.Header.AddCSSFile("vue-page-transition.css")
 	'BANano.Header.AddJavascriptFile("vuex.js")

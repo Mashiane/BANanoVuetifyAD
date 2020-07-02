@@ -67,7 +67,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 

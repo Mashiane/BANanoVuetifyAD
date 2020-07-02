@@ -45,7 +45,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -449,7 +449,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VTemplate
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
@@ -483,7 +483,7 @@ Sub AddToApp(vap As VueApp) As VTemplate
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object) As VTemplate
+Sub SetData(prop As String, value As Object) As VTemplate
 	data.put(prop, value)
 	Return Me
 End Sub

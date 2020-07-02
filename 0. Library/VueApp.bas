@@ -1201,3 +1201,267 @@ End Sub
 Sub Show(elID As String)
 	SetStateSingle($"${elID}show"$, True)
 End Sub
+<<<<<<< Updated upstream
+=======
+
+'get the html part of a bananoelement
+Sub BANanoGetHTML(id As String) As String
+	id = id.tolowercase
+	Dim be As BANanoElement
+	be.Initialize(id)
+	Dim sTemplate As String = be.GetHTML
+	be.Empty
+	Return sTemplate
+End Sub
+
+'add a spacer
+Sub AddSpacer(Module As Object, parentID As String, spacerID As String) As VSpacer
+	parentID = parentID.ToLowerCase
+	spacerID = spacerID.ToLowerCase
+	'
+	Dim spacer As VSpacer
+	spacer.Initialize(Module, spacerID, spacerID)
+	spacer.AddToParent(parentID)
+	Return spacer
+End Sub
+
+'add a button and icon to an existing parent
+Sub AddButtonIcon(Module As Object, parentID As String, btnID As String, btnText As String, btnRaised As Boolean, btnColor As String, iconName As String, iconRight As Boolean) As VBtn
+	btnID = btnID.tolowercase
+	parentID = parentID.tolowercase
+	'
+	Dim btn As VBtn
+	btn.initialize(Module, btnID, btnID)
+	If btnRaised = False Then btn.SetText(True)
+	btn.SetColor(btnColor)
+	btn.AddToParent(parentID)
+	'
+	If btnText <> "" Then
+		Dim spanKey As String = $"${btnID}span"$
+		Dim span As VHTML
+		span.initialize(Module, spanKey, spanKey)
+		span.SetCaption(btnText)
+		span.SetTagName("span")
+	End If
+	'
+	If iconName <> "" Then
+		Dim iconKey As String = $"${btnID}icon"$
+		Dim icon As VIcon
+		icon.initialize(Module, iconKey, iconKey)
+		icon.SetCaption(iconName)
+	End If
+	'
+	If iconRight Then
+		If btnText <> "" Then 
+			span.AddToParent(btnID)
+		End If
+		If iconName <> "" Then 
+			icon.SetRight(iconRight)
+			icon.AddToParent(btnID)
+		End If
+	Else
+		If iconName <> "" Then 
+			icon.SetLeft(True)
+			icon.AddToParent(btnID)
+		End If
+		
+		If btnText <> "" Then 
+			span.AddToParent(btnID)
+		End If
+	End If
+	Return btn
+End Sub
+
+'get html from placeholder and append it on target
+Sub BANanoGetHTML1(source As String, target As String)
+	source = source.tolowercase
+	target = target.tolowercase
+	Dim ssource As String = BANanoGetHTML(source)
+	Log(ssource)
+	'append the html to the target
+	BANano.GetElement(target).Append(ssource)
+End Sub
+
+'define a template to load items from
+Sub AddListItem1(Module As Object, parentID As String, datasource As String, key As String, avatar As String, iconName As String, iconColor As String, title As String, subtitle As String, subtitle1 As String) As VListItem
+	'
+	parentID = parentID.tolowercase
+	datasource = datasource.tolowercase
+	'
+	Dim tmp As VTemplate
+	tmp.Initialize(Module, $"${parentID}tmpl"$, $"${parentID}tmpl"$)
+	tmp.SetVFor($"(item, i) in ${datasource}"$)
+	tmp.AddToParent(parentID)
+	'
+	Dim vli As VListItem
+	vli.Initialize(Module, $"${parentID}item"$, $"${parentID}item"$)
+	vli.SetVIf($"item.${key}"$)
+	vli.SetAttr(":key", $"item.${key}"$)
+	vli.SetAttr(":id", $"item.${key}"$)
+	vli.SetEOnClick($"item.${key}"$)
+	vli.AddToParent(tmp.mName)
+	
+	If avatar <> "" Then
+		Dim lia As VListItemAvatar
+		lia.Initialize(Module, $"${parentID}avatar"$, $"${parentID}avatar"$)
+		lia.SetVIf($"item.${avatar}"$)
+		lia.AddToParent(vli.mName)
+		'
+		Dim img As VImg
+		img.Initialize(Module, $"${parentID}img"$, $"${parentID}img"$)
+		img.SetAttr(":src", $"item.${avatar}"$)
+		img.AddToParent(lia.mName)
+	End If
+	'
+	If iconName <> "" Then
+		Dim vlii As VListItemIcon
+		vlii.Initialize(Module, $"${parentID}itemicon"$, $"${parentID}itemicon"$)
+		vlii.SetVif($"item.${iconName}"$)
+		vlii.AddToParent(vli.mName)
+		'
+		Dim icon As VIcon
+		icon.Initialize(Module,$"${parentID}itemicon"$, $"${parentID}itemicon"$)
+		icon.SetVText($"item.${iconName}"$)
+		If iconColor <> "" Then icon.SetAttr(":color", $"item.${iconColor}"$)
+		icon.AddToParent(vlii.mName)
+	End If
+	'
+	Dim iContent As Int = 0
+	If title <> "" Then iContent = iContent + 1
+	If subtitle <> "" Then iContent = iContent + 1
+	If subtitle1 <> "" Then iContent = iContent + 1
+	
+	If iContent > 0 Then
+		Dim contentKey As String = $"${parentID}itemcontent"$
+		'
+		Dim lic As VListItemContent
+		lic.Initialize(Module, contentKey, contentKey)
+		lic.AddToParent(vli.mname)
+	
+		'
+		If title <> "" Then
+			Dim lit As VListItemTitle
+			lit.Initialize(Module, $"${parentID}title"$, $"${parentID}title"$)
+			lit.SetVif($"item.${title}"$)
+			lit.SetVText($"item.${title}"$)
+			lit.AddToParent(lic.mname)
+		End If
+		'
+		If subtitle <> "" Then
+			Dim listt As VListItemSubtitle
+			listt.Initialize(Module, $"${parentID}subtitle"$, $"${parentID}subtitle"$)
+			listt.SetVIf($"item.${subtitle}"$)
+			listt.SetVText($"item.${subtitle}"$)
+			listt.AddToParent(lic.Mname)
+		End If
+		'
+		If subtitle1 <> "" Then
+			Dim listt1 As VListItemSubtitle
+			listt1.Initialize(Module, $"${parentID}subtitle1"$, $"${parentID}subtitle1"$)
+			listt1.SetVIf($"item.${subtitle1}"$)
+			listt1.SetVText($"item.${subtitle1}"$)
+			listt1.AddToParent(lic.MName)
+		End If
+	End If
+	'
+	
+	'add the divider
+	Dim dvd As VDivider
+	dvd.Initialize(Module,$"${parentID}dvd"$, $"${parentID}dvd"$)
+	dvd.SetVElseIf("item.divider")
+	dvd.SetAttr(":key", "i")
+	dvd.SetInset(True)
+	dvd.AddToParent(tmp.mname)
+	'
+	'add sub heading
+	Dim sh As VSubheader
+	sh.Initialize(Module, $"${parentID}subheader"$, $"${parentID}subheader"$)
+	sh.SetVElseIf("item.header")
+	sh.SetAttr(":key", "item.header")
+	sh.SetVText("item.header")
+	sh.SetInset(True)
+	sh.AddToParent(tmp.mname)
+	'
+	Return vli
+End Sub
+
+
+'define a template to load items from
+Sub AddListItem(Module As Object, parentID As String, datasource As String, key As String, avatar As String, iconName As String, iconColor As String, title As String, subtitle As String, subtitle1 As String) As VListItem
+	parentID = parentID.tolowercase
+	datasource = datasource.tolowercase
+	'
+	Dim vli As VListItem
+	vli.Initialize(Module, $"${parentID}item"$, $"${parentID}item"$)
+	vli.SetVFor($"(item, i) in ${datasource}"$)
+	vli.SetVIf($"item.${key}"$)
+	vli.SetAttr(":key", $"item.${key}"$)
+	vli.SetAttr(":id", $"item.${key}"$)
+	vli.SetEOnClick($"item.${key}"$)
+	vli.AddToParent(parentID)
+	
+	If avatar <> "" Then
+		Dim lia As VListItemAvatar
+		lia.Initialize(Module, $"${parentID}avatar"$, $"${parentID}avatar"$)
+		lia.SetVIf($"item.${avatar}"$)
+		lia.AddToParent(vli.mName)
+		'
+		Dim img As VImg
+		img.Initialize(Module, $"${parentID}img"$, $"${parentID}img"$)
+		img.SetAttr(":src", $"item.${avatar}"$)
+		img.AddToParent(lia.mName)
+	End If
+	'
+	If iconName <> "" Then
+		Dim vlii As VListItemIcon
+		vlii.Initialize(Module, $"${parentID}itemicon"$, $"${parentID}itemicon"$)
+		vlii.SetVif($"item.${iconName}"$)
+		vlii.AddToParent(vli.mName)
+		'
+		Dim icon As VIcon
+		icon.Initialize(Module,$"${parentID}itemicon"$, $"${parentID}itemicon"$)
+		icon.SetVText($"item.${iconName}"$)
+		If iconColor <> "" Then icon.SetAttr(":color", $"item.${iconColor}"$)
+		icon.AddToParent(vlii.mName)
+	End If
+	'
+	Dim iContent As Int = 0
+	If title <> "" Then iContent = iContent + 1
+	If subtitle <> "" Then iContent = iContent + 1
+	If subtitle1 <> "" Then iContent = iContent + 1
+	
+	If iContent > 0 Then
+		Dim contentKey As String = $"${parentID}itemcontent"$
+		'
+		Dim lic As VListItemContent
+		lic.Initialize(Module, contentKey, contentKey)
+		lic.AddToParent(vli.mname)
+	
+		'
+		If title <> "" Then
+			Dim lit As VListItemTitle
+			lit.Initialize(Module, $"${parentID}title"$, $"${parentID}title"$)
+			lit.SetVif($"item.${title}"$)
+			lit.SetVText($"item.${title}"$)
+			lit.AddToParent(lic.mname)
+		End If
+		'
+		If subtitle <> "" Then
+			Dim listt As VListItemSubtitle
+			listt.Initialize(Module, $"${parentID}subtitle"$, $"${parentID}subtitle"$)
+			listt.SetVIf($"item.${subtitle}"$)
+			listt.SetVText($"item.${subtitle}"$)
+			listt.AddToParent(lic.Mname)
+		End If
+		'
+		If subtitle1 <> "" Then
+			Dim listt1 As VListItemSubtitle
+			listt1.Initialize(Module, $"${parentID}subtitle1"$, $"${parentID}subtitle1"$)
+			listt1.SetVIf($"item.${subtitle1}"$)
+			listt1.SetVText($"item.${subtitle1}"$)
+			listt1.AddToParent(lic.MName)
+		End If
+	End If
+	Return vli
+End Sub
+>>>>>>> Stashed changes
