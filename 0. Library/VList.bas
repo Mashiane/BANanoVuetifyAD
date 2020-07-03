@@ -12,7 +12,7 @@ Version=8.3
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Dense, DisplayName: Dense, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
 #DesignerProperty: Key: Expand, DisplayName: Expand, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Flat, DisplayName: Flat, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
@@ -271,6 +271,12 @@ Sub SetFlat(varFlat As Boolean) As VList
 bFlat = varFlat
 SetAttr("flat", bFlat)
 Return Me
+End Sub
+
+
+private Sub CStr(o As Object) As String
+	If o = BANano.UNDEFINED Then o = ""
+	Return "" & o
 End Sub
 
 'set height
@@ -766,6 +772,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VList
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then

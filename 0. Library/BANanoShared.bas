@@ -16,7 +16,11 @@ Sub NewList As List
 	Return elx
 End Sub
 
-
+'build the map to send an email to use in callinlinephp
+Sub BuildPHPEmail(sfrom As String, sto As String, scc As String, ssubject As String, smsg As String) As Map
+	Dim se As Map = CreateMap("from":sfrom, "to":sto, "cc":scc, "subject":ssubject, "msg":smsg)
+	Return se
+End Sub
 
 'get id from event
 Sub GetIDFromEvent(e As BANanoEvent) As String

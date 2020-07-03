@@ -17,7 +17,7 @@ Version=8.3
 #DesignerProperty: Key: ContentClass, DisplayName: ContentClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Left, DisplayName: Left, Description: , FieldType: Boolean, DefaultValue: False
@@ -75,14 +75,13 @@ Version=8.3
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
-Private data As Map 
-Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
+Private appLink As VueApp 'ignore
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
-
+Private data As Map
 Private properties As Map
 Private styles As Map
 Private classList As Map
@@ -354,6 +353,13 @@ Sub SetMaxWidth(varMaxWidth As String) As VSnackbar
 sMaxWidth = varMaxWidth
 SetAttr("max-width", sMaxWidth)
 Return Me
+End Sub
+
+
+
+private Sub CStr(o As Object) As String
+	If o = BANano.UNDEFINED Then o = ""
+	Return "" & o
 End Sub
 
 'set min-height
@@ -775,7 +781,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -801,29 +807,6 @@ End Sub
 public Sub AddToParent(targetID As String) As VSnackbar
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
-	Return Me
-End Sub
-
-'add component to app, this binds events and states
-Sub AddToApp(vap As VueApp) As VSnackbar
-	appLink = vap
-	data = vap.data	
-	'apply the binding for the control
-	For Each k As String In bindings.Keys
-		Dim v As String = bindings.Get(k)
-		vap.SetData(k, v)
-	Next
-	'apply the events
-	For Each k As String In methods.Keys
-		Dim cb As BANanoObject = methods.Get(k)
-		vap.SetCallBack(k, cb)
-	Next
-	Return Me
-End Sub
-
-'update the state
-Sub SetData(prop As String, value As Object) As VSnackbar
-	data.put(prop, value)
 	Return Me
 End Sub
 
@@ -863,6 +846,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VSnackbar
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -922,8 +906,8 @@ Sub AddClass(classNames As List) As VSnackbar
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	dim cm as string = BANanoShared.Join(" ", classnames)
-	Setclasses(cm)
+	Dim cm As String = BANanoShared.Join(" ", classNames)
+	SetClasses(cm)
 	Return Me
 End Sub
 
@@ -1019,7 +1003,7 @@ Sub SetVClass(classObj As String) As VSnackbar
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VSnackbar
+Sub SetVStyle(styleObj As String) As VSnackbar
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -1035,18 +1019,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VSnackbar
-	Dim scolor As String = $"${varColor} ${varIntensity}"$
+	Dim sColor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, scolor)
+	bindings.Put(pp, sColor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VSnackbar
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -1055,7 +1039,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VSnackb
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 
@@ -1084,6 +1068,29 @@ Sub Toggle As VSnackbar
 	Return Me
 End Sub
 
+'add component to app, this binds events and states
+Sub AddToApp(vap As VueApp) As VSnackbar
+	appLink = vap
+	data = vap.data
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		vap.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		vap.SetCallBack(k, cb)
+	Next
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop As String, value As Object) As VSnackbar
+	data.put(prop, value)
+	Return Me
+End Sub
+
 'hide
 Sub Hide As VSnackbar
 	If sVModel = "" Then
@@ -1109,22 +1116,22 @@ Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VSnackbar
 	If sVBindClass = "" Then
 		Log($"VSnackbar.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindClass)
+	End If
+	Dim obj As Map = data.get(sVBindClass)
 	obj.put(clsName, clsValue)
-	data.put(svBindClass, obj)
+	data.put(sVBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VSnackbar
-	if svBindStyle = "" then
+Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VSnackbar
+	If sVBindStyle = "" Then
 		Log($"VSnackbar.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(svBindStyle, obj)
+	data.put(sVBindStyle, obj)
 	Return Me
 End Sub
 
@@ -1172,6 +1179,4 @@ Sub AddToComponent(ve As VMElement)
 		ve.SetCallBack(k, cb)
 	Next
 End Sub
-
-
 

@@ -18,7 +18,7 @@ Version=8.3
 #DesignerProperty: Key: Dense, DisplayName: Dense, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dismissible, DisplayName: Dismissible, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Icon, DisplayName: Icon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
@@ -76,7 +76,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -169,6 +169,7 @@ classList.Initialize
 Return Me 
 End Sub
 
+
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
 Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
@@ -249,6 +250,12 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 SetOnInput
 
 
+End Sub
+
+
+private Sub CStr(o As Object) As String
+	If o = BANano.UNDEFINED Then o = ""
+	Return "" & o
 End Sub
 
 'set border
@@ -863,6 +870,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VAlert
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then

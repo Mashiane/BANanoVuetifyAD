@@ -76,7 +76,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -771,7 +771,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -784,7 +784,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VDialog
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
@@ -967,11 +967,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VDialog
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then return me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	styles.put(prop, value)
-	dim m as map = createmap()
+	Dim m As Map = CreateMap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -992,10 +992,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		for each k as string in styleprops.Keys
-			dim v as string = styleprops.get(k)
+		For Each k As String In styleProps.Keys
+			Dim v As String = styleProps.get(k)
 			SetStyleSingle(k, v)
-		next
+		Next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -1042,7 +1042,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VDialog
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -1051,7 +1051,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VDialog
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 
@@ -1068,59 +1068,59 @@ End Sub
 
 'toggle
 Sub Toggle As VDialog
-	If sVShow = "" Then
-		Log($"VDialog.Toggle - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VDialog.Toggle - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
 	'get the current state
-	Dim cs As Boolean = data.Get(sVShow)
+	Dim cs As Boolean = data.Get(sVModel)
 	If cs = Null Then cs = False
 	cs = Not(cs)
-	data.Put(sVShow, cs)
+	data.Put(sVModel, cs)
 	Return Me
 End Sub
 
 'hide
 Sub Hide As VDialog
-	If sVShow = "" Then
-		Log($"VDialog.Hide - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VDialog.Hide - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVShow, False)
+	data.Put(sVModel, False)
 	Return Me
 End Sub
 
 'show
 Sub Show As VDialog
-	If sVShow = "" Then
-		Log($"VDialog.Show - the v-show for ${mName} has not been set!"$)
+	If sVModel = "" Then
+		Log($"VDialog.Show - the v-model for ${mName} has not been set!"$)
 		Return Me
 	End If
-	data.Put(sVShow, True)
+	data.Put(sVModel, True)
 	Return Me
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VDialog
-	if svBindClass = "" then
+Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VDialog
+	If sVBindClass = "" Then
 		Log($"VDialog.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindClass)
+	End If
+	Dim obj As Map = data.get(sVBindClass)
 	obj.put(clsName, clsValue)
-	data.put(svBindClass, obj)
+	data.put(sVBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VDialog
-	if svBindStyle = "" then
+Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VDialog
+	If sVBindStyle = "" Then
 		Log($"VDialog.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(svBindStyle, obj)
+	data.put(sVBindStyle, obj)
 	Return Me
 End Sub
 

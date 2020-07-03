@@ -8,24 +8,22 @@ Version=8.3
 Sub Class_Globals
 	Public el As BANanoObject
 	Public data As Map
-	Public state As Map
-	Public store As BANanoObject
 	Public emit As BANanoObject
 	Public router As BANanoObject
 	Public VuePageTransition As BANanoObject
 	Public Modules As Map
 	Private BANano As BANano   'ignore
 	Public methods As Map
-	Private computed As Map
-	Private watches As Map
-	Private filters As Map
+	Public computed As Map
+	Public watches As Map
+	Public filters As Map
 	Private opt As Map
-	Private refs As BANanoObject
+	Public refs As BANanoObject
 	Public Path As String
 	Public name As String
 	Public Query As Map
 	Private EventHandler As Object   'ignore
-	Private routes As List
+	Public routes As List
 	Public components As Map
 	Public Options As Map
 	Public VAP As BANanoObject
@@ -37,11 +35,6 @@ Sub Class_Globals
 	Public Errors As Map
 	Public Themes As Map
 	Private ColorMap As Map
-	'Public Vuex As BANanoObject
-	'Public VuexState As Map
-	'Public VuexMutations As Map
-	'Public VuexStore As BANanoObject
-	
 	'
 	Public const BORDER_DEFAULT As String = ""
 	Public const BORDER_DASHED As String = "dashed"
@@ -113,8 +106,56 @@ Sub Class_Globals
 	Public const TEXT_LOWERCASE As String = "text-lowercase"
 	Public const TEXT_UPPERCASE As String = "text-uppercase"
 	Public const TEXT_CAPITALIZE As String = "text-capitalize"
+	
+	Public const ICON_SMALL As String = "small"
+	Public const ICON_LARGE As String = "large"
+	Public const ICON_XSMALL As String = "x-small"
+	Public const ICON_XLARGE As String = "x-large"
+	'
+	Public const BUTTON_SMALL As String = "small"
+	Public const BUTTON_LARGE As String = "large"
+	Public const BUTTON_XSMALL As String = "x-small"
+	Public const BUTTON_XLARGE As String = "x-large"
+	
+	Public const TRANSITION_SLIDE_X As String = "slide-x-transition"
+	Public const TRANSITION_SLIDE_X_REVERSE As String = "slide-x-reverse-transition"
+	Public const TRANSITION_SLIDE_Y As String = "slide-y-transition"
+	Public const TRANSITION_SLIDE_Y_REVERSE As String = "slide-y-reverse-transition"
+	Public const TRANSITION_SCROLL_X As String = "scroll-x-transition"
+	Public const TRANSITION_SCROLL_X_REVERSE As String = "scroll-x-reverse-transition"
+	Public const TRANSITION_SCROLL_Y As String = "scroll-y-transition"
+	Public const TRANSITION_SCROLL_Y_REVERSE As String = "scroll-y-reverse-transition"
+	Public const TRANSITION_SCALE As String = "scale-transition"
+	Public const TRANSITION_FADE As String = "fade-transition"
+	Public const TRANSITION_FAB As String = "fab-transition"
+	'
+	Public const JUSTIFY_CENTER As String = "center"
+	Public const JUSTIFY_START As String = "start"
+	Public const JUSTIFY_END As String = "end"
+	'
+	Public const ALIGN_CENTER As String = "center"
+	Public const ALIGN_START As String = "start"
+	Public const ALIGN_END As String = "end"
+	Public const ALIGN_STRETCH As String = "stretch"
+	'
+	Public const FLEX_GROW_0 As String = "flex-grow-0"
+	Public const FLEX_GROW_1 As String = "flex-grow-1"
+	Public const FLEX_SHRINK_0 As String = "flex-shrink-0"
+	Public const FLEX_SHRINK_1 As String = "flex-shrink-1"
+	'
+	Public const TEXT_LEFT As String = "text-left"
+	Public const TEXT_CENTER As String = "text-center"
+	Public const TEXT_RIGHT As String = "text-right"
+	Public const TEXT_NO_WRAP As String = "text-no-wrap"
+	Public const TEXT_TRUNCATE As String = "text-truncate"
+	Public const TEXT_LOWERCASE As String = "text-lowercase"
+	Public const TEXT_UPPERCASE As String = "text-uppercase"
+	Public const TEXT_CAPITALIZE As String = "text-capitalize"
+	'	
 	Private sourceID As String
 	Private targetID As String
+	Public store As BANanoObject
+	Public state As Map
 End Sub
 
 'initialize the app with where to render and where to .GetHTML
@@ -140,24 +181,11 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	'
 	VAP.Initialize("Vue")
 	'***use a global prototype
-	state = CreateMap()
+	state.Initialize 
 	state.Put("state", CreateMap())
 	store = VAP.RunMethod("observable", Array(state))
 	VAP.GetField("prototype").SetField("$store", store)
-	'****
-	'***use the vuex store
-	'Vuex.Initialize("Vuex")
-	'VuexState = CreateMap()
-	'VuexMutations = CreateMap()
-	'Dim vuexopt As Map = CreateMap()
-	'vuexopt.Put("state", VuexState)
-	'vuexopt.Put("mutations", VuexMutations)
-	'vuexopt.Put("strict", False)
-	'VuexStore.Initialize2("Vuex.Store", Array(vuexopt)) 
-	'
-	VuePageTransition.Initialize("VuePageTransition")
-	Use(VuePageTransition)
-	'
+	''
 	SetBeforeCreate(Module, "BeforeCreate")
 	SetCreated(Module, "Created")
 	SetBeforeMount(Module, "BeforeMount")
@@ -173,7 +201,125 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	InitColors
 	Return Me
 End Sub
-'
+
+private Sub ConfirmInitialize
+	SetData("confirmshow", False)
+	SetData("confirmwidth", "600")
+	SetData("confirmtitle", "Confirm Title")
+	SetData("confirmtext", "Confirm Text")
+	SetData("confirmok", "Ok")
+	SetData("confirmcancel", "Cancel")
+	SetData("confirmkey", "confirm")
+	SetData("confirmcancelshow", True)
+End Sub
+
+'show confirm dialog
+Sub ShowConfirmDialog(process As String, Title As String, Message As String,ConfirmText As String, CancelText As String)
+	process = process.tolowercase
+	SetData("confirmwidth", "600")
+	SetData("confirmtitle", Title)
+	SetData("confirmtext", Message)
+	SetData("confirmok", ConfirmText)
+	SetData("confirmcancel", CancelText)
+	SetData("confirmkey", process)
+	SetData("confirmshow", True)
+	SetData("confirmcancelshow", True)
+End Sub
+
+'show confirm dialog
+Sub ShowAlertDialog(Title As String, Message As String,OkText As String)
+	SetData("confirmwidth", "600")
+	SetData("confirmtitle", Title)
+	SetData("confirmtext", Message)
+	SetData("confirmok", OkText)
+	SetData("confirmshow", True)
+	SetData("confirmcancelshow", False)
+End Sub
+
+
+Sub HideConfirm
+	SetData("confirmshow", False)
+End Sub
+
+'get the confirm key
+Sub GetConfirm As String
+	Dim sproc As String = GetData("confirmkey")
+	Return sproc
+End Sub
+
+'hide the snackbar
+Sub HideSnackBar
+	SetData("snackbarshow", False)
+End Sub
+
+'initialize the snackbar
+private Sub SnackBarInitialize
+	'define the snackbar
+	SetData("snackbarmessage", "")
+	SetData("snackbarshow", False)
+	SetData("snacktimeout", 3000)
+	SetData("snackbarcolor", COLOR_GREEN)
+	SetData("snackbarbuttonshow", True)
+	SetData("snackbarbuttontitle", "OK")
+End Sub
+
+'show an error snackbar
+Sub ShowSnackBarError(Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData("snackbarmessage", Message)
+	SetData("snackbarshow", True)
+	SetData("snacktimeout", 3000)
+	SetData("snackbarcolor", COLOR_RED)
+	SetData("snackbarbuttonshow", True)
+	SetData("snackbarbuttontitle", "OK")
+End Sub
+
+'show a success snackbar
+Sub ShowSnackBarSuccess(Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData("snackbarcolor", COLOR_GREEN)
+	SetData("snackbarmessage", Message)
+	SetData("snacktimeout", 3000)
+	SetData("snackbarshow", True)
+	SetData("snackbarbuttonshow", True)
+	SetData("snackbarbuttontitle", "OK")
+End Sub
+
+'show a warning snack bar
+Sub ShowSnackBarWarning(Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData("snackbarcolor", COLOR_ORANGE)
+	SetData("snacktimeout", 3000)
+	SetData("snackbarmessage", Message)
+	SetData("snackbarshow", True)
+	SetData("snackbarbuttonshow", True)
+	SetData("snackbarbuttontitle", "OK")
+End Sub
+
+'show a snack bar
+Sub ShowSnackBar(Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData("snackbarcolor", "info")
+	SetData("snacktimeout", 3000)
+	SetData("snackbarmessage", Message)
+	SetData("snackbarshow", True)
+	SetData("snackbarbuttonshow", True)
+	SetData("snackbarbuttontitle", "OK")
+End Sub
+
+
 'private Sub SetVuexMutation(Module As Object, MutationName As String, VxState As Map, Payload As Map)
 '	MutationName = MutationName.ToLowerCase
 '	Dim cb As BANanoObject = BANano.CallBack(Module, MutationName, Array(VxState, Payload))
@@ -190,6 +336,18 @@ End Sub
 '
 'Sub VuexCommit(payload As Map)
 '	VuexStore.RunMethod("commit", Array("vuexupdate", payload))
+'End Sub
+'
+'Sub SetVuex
+'	'set up vuex
+'	Dim vuexopt As Map = CreateMap()
+'	vuexopt.Put("state", VuexState)
+'	vuexopt.Put("mutations", VuexMutations)
+'	vuexopt.Put("strict", False)
+'	vuexopt.put("getters", VuexGetters)
+'	vuexopt.put("actions", VuexActions)
+'	vuexopt.Put("plugins", VuexPlugIns)
+'	VuexStore.Initialize2("Vuex.Store", vuexopt)
 'End Sub
 
 
@@ -456,7 +614,7 @@ End Sub
 
 'get the name of the breakpoint
 Sub GetBreakPointName As String
-	Dim bp As BANanoObject = vuetify.GetField("breakpoint")
+	Dim bp As BANanoObject = Vuetify.GetField("breakpoint")
 	Dim res As String = bp.GetField("name").Result
 	Return res
 End Sub
@@ -734,7 +892,7 @@ Sub RefreshKey(keyName As String) As VueApp
 	Return Me
 End Sub
 
-Sub RemoveDataX(key As String) As VueApp
+Sub RemoveData(key As String) As VueApp
 	key = key.ToLowerCase
 	data.Remove(key)
 	Return Me
@@ -768,20 +926,19 @@ Sub GetDataStore(prop As String) As Object
 	Return res
 End Sub
 
-''set data global
+'''set data global
 'Sub SetDataVuex(prop As String, valuex As Object) As VueApp
 '	prop = prop.tolowercase
-'	VuexStore.GetField("state").SetField(prop, valuex)
+'	VuexState.Put(prop, valuex)
 '	Return Me
 'End Sub
 '
 ''get data global
 'Sub GetDataVuex(prop As String) As Object
 '	prop = prop.tolowercase
-'	Dim obj As Map = VuexStore.GetField("state").Result
 '	Dim res As Object = Null
-'	If obj.ContainsKey(prop) Then
-'		res = obj.Get(prop)
+'	If VuexState.ContainsKey(prop) Then
+'		res = VuexState.Get(prop)
 '	End If
 '	Return res
 'End Sub
@@ -850,7 +1007,7 @@ Sub SetState(m As Map) As VueApp
 	For Each k As String In m.Keys
 		Dim v As Object = m.Get(k)
 		k = k.tolowercase
-		state.Put(k, v)
+		data.Put(k, v)
 	Next
 	Return Me
 End Sub
@@ -858,13 +1015,13 @@ End Sub
 'return if state exists
 Sub HasState(k As String) As Boolean
 	k = k.tolowercase
-	Return state.ContainsKey(k)
+	Return data.ContainsKey(k)
 End Sub
 
 'get the state
 Sub GetState(k As String) As Object
 	k = k.tolowercase
-	Dim out As Object = state.GetDefault(k,Null)
+	Dim out As Object = data.GetDefault(k,Null)
 	Return out
 End Sub
 
@@ -881,7 +1038,7 @@ End Sub
 'check if we have state
 Sub StateExists(stateName As String) As Boolean
 	stateName = stateName.tolowercase
-	Return state.ContainsKey(stateName)
+	Return data.ContainsKey(stateName)
 End Sub
 
 'set state object
@@ -971,13 +1128,15 @@ End Sub
 
 'render the ux
 Sub Serve
+	'initialize a few things
+	SnackBarInitialize
+	ConfirmInitialize
+	
 	sourceID = sourceID.Replace("#","")
 	targetID = targetID.Replace("#","")
 	'set where we should render the app to
 	Options.Put("el", $"#${targetID}"$)
 	Options.Put("store", store)
-	
-	'Options.Put("store", VuexStore)
 	'get the body
 	'get where you have loaded the layout
 	'this gets the HTML to use
@@ -1031,10 +1190,10 @@ Sub Serve
 	emit = VAP.GetField(emitKey)
 	Dim svuetify As String = "$vuetify"
 	Vuetify = VAP.GetField(svuetify)
-	Dim sstore As String = "$store"
-	store = VAP.GetField(sstore)
 	Dim srouter As String = "$router"
 	router = VAP.GetField(srouter)
+	Dim sstore As String = "$store"
+	store = VAP.GetField(sstore)
 End Sub
 
 'Use router To navigate
@@ -1201,8 +1360,6 @@ End Sub
 Sub Show(elID As String)
 	SetStateSingle($"${elID}show"$, True)
 End Sub
-<<<<<<< Updated upstream
-=======
 
 'get the html part of a bananoelement
 Sub BANanoGetHTML(id As String) As String
@@ -1277,7 +1434,6 @@ Sub BANanoGetHTML1(source As String, target As String)
 	source = source.tolowercase
 	target = target.tolowercase
 	Dim ssource As String = BANanoGetHTML(source)
-	Log(ssource)
 	'append the html to the target
 	BANano.GetElement(target).Append(ssource)
 End Sub
@@ -1464,4 +1620,80 @@ Sub AddListItem(Module As Object, parentID As String, datasource As String, key 
 	End If
 	Return vli
 End Sub
->>>>>>> Stashed changes
+
+'scroll to, 300, 0, easeInOutCubic
+Sub ScrollTo(elID As String, duration As Int, offset As Int, easing As String)
+	Try
+		elID = elID.tolowercase
+		Dim el As BANanoObject = refs.GetField(elID)
+		If duration = Null Then duration = 300
+		If offset = Null Then offset = 0
+		If easing = "" Then easing = "easeInOutCubic"
+		Dim opt As Map = CreateMap()
+		opt.Put("duration", duration)
+		opt.Put("offset", offset)
+		opt.Put("easing", easing)
+		Vuetify.RunMethod("goTo", Array(el, opt))
+	Catch
+		Log("ScrollTo Error")
+	End Try
+End Sub
+
+'set the locale for the app
+Sub SetLocale(slang As String)
+	lang = slang
+	Try
+		Vuetify.GetField("lang").SetField("current", slang)
+	Catch
+		Log(LastException)
+	End Try
+End Sub
+
+Sub FormValidate(frmID As String)
+	frmID = frmID.tolowercase
+	refs.GetField(frmID).RunMethod("validate", Null)
+End Sub
+
+Sub FormReset(frmID As String)
+	frmID = frmID.tolowercase
+	refs.GetField(frmID).RunMethod("reset", Null)
+End Sub
+
+'add an invisible file select
+Sub AddFileSelect(Module As Object, parentID As String, fid As String)
+	Dim fu As VMElement = CreateInvisibleFileInput(Module, fid)
+	fu.AddToParent(parentID)
+End Sub
+
+'create an invisible file input
+private Sub CreateInvisibleFileInput(Module As Object, fid As String) As VMElement
+	fid = fid.tolowercase
+	Dim methodName As String = $"${fid}_change"$
+	'
+	Dim fu As VMElement
+	fu.Initialize(Module, fid, fid)
+	fu.SetTag("input")
+	fu.SetAttr("v-show", "false")
+	fu.SetAttr("ref", fid)
+	fu.SetAttr("type", "file")
+	fu.SetAttr("v-on:change", methodName)
+	'
+	If SubExists(Module, methodName) = False Then 
+		Return fu
+	End If
+	Dim e As BANanoEvent
+	Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
+	'add to methods
+	SetCallBack(methodName, cb)
+	Return fu
+End Sub
+
+'set on click method
+Sub SetOnClick(Module As Object, methodName As String)
+	methodName = methodName.tolowercase
+	If SubExists(Module, methodName) = False Then Return
+	Dim e As BANanoEvent
+	Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
+	'add to methods
+	SetCallBack(methodName, cb)
+End Sub

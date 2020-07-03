@@ -50,7 +50,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -491,7 +491,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -504,7 +504,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VA
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
@@ -538,7 +538,7 @@ Sub AddToApp(vap As VueApp) As VA
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object) As VA
+Sub SetData(prop As String, value As Object) As VA
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -729,13 +729,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj as string) As VA
+Sub SetVClass(classObj As String) As VA
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VA
+Sub SetVStyle(styleObj As String) As VA
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -762,7 +762,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VA
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 

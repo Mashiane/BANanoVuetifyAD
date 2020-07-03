@@ -54,7 +54,6 @@ Library2=jfx
 Library3=banano
 Library4=bananovuetifyad
 Library5=bananopostprocessor
-Library6=bananophp
 Module1=pgCart
 Module2=pgCheckOut
 Module3=pgHome
@@ -62,7 +61,7 @@ Module4=pgIndex
 Module5=pgStore
 Module6=pgThankYou
 NumberOfFiles=24
-NumberOfLibraries=6
+NumberOfLibraries=5
 NumberOfModules=6
 Version=8.31
 @EndOfDesignText@

@@ -18,7 +18,7 @@ Version=8.3
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Depressed, DisplayName: Depressed, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
 #DesignerProperty: Key: Exact, DisplayName: Exact, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ExactActiveClass, DisplayName: ExactActiveClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Fab, DisplayName: Fab, Description: , FieldType: Boolean, DefaultValue: False
@@ -30,6 +30,7 @@ Version=8.3
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Large, DisplayName: Large, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Left, DisplayName: Left, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Link, DisplayName: Link, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Loading, DisplayName: Loading, Description: , FieldType: Boolean, DefaultValue: False
@@ -93,7 +94,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -114,6 +115,7 @@ Private bAbsolute As Boolean = False
 Private sActiveClass As String = ""
 Private bAppend As Boolean = False
 Private bBlock As Boolean = False
+	Private bFlat As Boolean = False
 Private bBottom As Boolean = False
 Private sCaption As String = ""
 Private sColor As String = ""
@@ -235,6 +237,7 @@ bLarge = props.Get("Large")
 bLeft = props.Get("Left")
 bLight = props.Get("Light")
 bLink = props.Get("Link")
+		bFlat = props.Get("Flat")
 bLoading = props.Get("Loading")
 sMaxHeight = props.Get("MaxHeight")
 sMaxWidth = props.Get("MaxWidth")
@@ -348,6 +351,13 @@ End Sub
 Sub SetDark(varDark As Boolean) As VBtn
 bDark = varDark
 SetAttr("dark", bDark)
+Return Me
+End Sub
+
+'set dark
+Sub SetFlat(varFlat As Boolean) As VBtn
+bFlat = varFlat
+SetAttr("flat", bFlat)
 Return Me
 End Sub
 
@@ -860,6 +870,7 @@ AddAttr(bBottom, "bottom")
 AddAttr(sCaption, "caption")
 AddAttr(sColor, "color")
 AddAttr(bDark, "dark")
+	AddAttr(bFlat, "flat")
 AddAttr(bDepressed, "depressed")
 AddAttr(bDisabled, "disabled")
 AddAttr(sElevation, "elevation")
@@ -962,7 +973,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -975,7 +986,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VBtn
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
@@ -1009,7 +1020,7 @@ Sub AddToApp(vap As VueApp) As VBtn
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object) As VBtn
+Sub SetData(prop As String, value As Object) As VBtn
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -1047,9 +1058,17 @@ Sub SetCaption(varText As String) As VBtn
 	Return Me
 End Sub
 
+
+private Sub CStr(o As Object) As String
+	If o = BANano.UNDEFINED Then o = ""
+	Return "" & o
+End Sub
+
+
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VBtn
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1226,14 +1245,14 @@ Sub SetColorIntensity(varColor As String, varIntensity As String) As VBtn
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, scolor)
+	bindings.Put(pp, sColor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VBtn
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -1242,7 +1261,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VBtn
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 

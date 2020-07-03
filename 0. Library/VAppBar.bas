@@ -20,7 +20,7 @@ Version=8.3
 #DesignerProperty: Key: Dense, DisplayName: Dense, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: ElevateOnScroll, DisplayName: ElevateOnScroll, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
 #DesignerProperty: Key: Extended, DisplayName: Extended, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ExtensionHeight, DisplayName: ExtensionHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: FadeImgOnScroll, DisplayName: FadeImgOnScroll, Description: , FieldType: Boolean, DefaultValue: False
@@ -85,7 +85,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -276,6 +276,12 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 
 
 
+End Sub
+
+
+private Sub CStr(o As Object) As String
+	If o = BANano.UNDEFINED Then o = ""
+	Return "" & o
 End Sub
 
 'set absolute
@@ -964,6 +970,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VAppBar
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then

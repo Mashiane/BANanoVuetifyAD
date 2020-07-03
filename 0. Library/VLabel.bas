@@ -576,7 +576,7 @@ End Sub
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VLabel
 	appLink = vap
-	data = vap.state	
+	data = vap.data	
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)

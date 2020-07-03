@@ -7,6 +7,7 @@ Version=8.3
 #IgnoreWarnings:12
 #Event: error (argument As Object)
 #Event: load (argument As Object)
+#Event: click (argument As BANanoEvent)
 
 
 #DesignerProperty: Key: Alt, DisplayName: Alt, Description: , FieldType: String, DefaultValue: 
@@ -69,7 +70,7 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-private appLink As VueApp 'ignore 
+Private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
@@ -139,25 +140,34 @@ Private sPaddingBottom As String = ""
 Private sPaddingLeft As String = ""
 Private eOnerror As String = ""
 Private eOnload As String = ""
-
+Private bindStyle As Map
+Private bindClass As Map
 End Sub
 
 Public Sub Initialize (CallBack As Object, Name As String, EventName As String) As VImg 
-mName = Name 
-mEventName = EventName.ToLowerCase 
-mCallBack = CallBack 
-bindings.Initialize 
-methods.Initialize 
-properties.Initialize 
-styles.Initialize 
-classList.Initialize 
-Return Me 
+	mName = Name 
+	mEventName = EventName.ToLowerCase 
+	mCallBack = CallBack 
+	bindings.Initialize 
+	methods.Initialize 
+	properties.Initialize 
+	styles.Initialize 
+	classList.Initialize 	
+	bindClass.Initialize 
+	bindStyle.Initialize
+	'
+	bindings.Put($"${mName}style"$, bindStyle)
+	bindings.Put($"${mName}class"$, bindClass)
+	'
+	SetVBindStyle($"${mName}style"$)
+	SetVBindClass($"${mName}class"$)
+	
+	Return Me 
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
 Public Sub DesignerCreateView (Target As BANanoElement, props As Map) 
 	mTarget = Target
-
 If props <> Null Then
 mClasses = props.Get("Classes") 
 mAttributes = props.Get("Attributes") 
@@ -215,8 +225,8 @@ sPaddingBottom = props.Get("PaddingBottom")
 sPaddingLeft = props.Get("PaddingLeft")
 eOnerror = props.Get("Onerror")
 eOnload = props.Get("Onload")
+	End If
 
-End If
 Dim strHTML As String = ToString
 mElement = mTarget.Append(strHTML).Get("#" & mName)
 
@@ -226,8 +236,23 @@ mElement = mTarget.Append(strHTML).Get("#" & mName)
 SetOnError
 'This activates Load the event exists on the module
 SetOnLoad
+'
+SetOnClick
 
+End Sub
 
+'set on click event, updates the master events records
+Sub SetOnClick() As VImg
+	Dim sName As String = $"${mEventName}_click"$
+	sName = sName.tolowercase
+	If SubExists(mCallBack, sName) = False Then Return Me
+	SetAttr("v-on:click", sName)
+	SetStyleSingle("cursor", "pointer")
+	'arguments for the event
+	Dim argument As BANanoEvent 'ignore
+	Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
+	methods.Put(sName, cb)
+	Return Me
 End Sub
 
 'set alt
@@ -369,6 +394,15 @@ sRequired = varRequired
 SetAttr("required", sRequired)
 Return Me
 End Sub
+
+Sub SetSize(iHeight As String, iWidth As String) As VImg
+	SetWidth(iWidth)
+	SetMaxWidth(iWidth)
+	SetHeight(iHeight)
+	SetMaxHeight(iHeight)
+	Return Me
+End Sub
+
 
 'set sizes
 Sub SetSizes(varSizes As String) As VImg
@@ -696,7 +730,7 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
 Return strRes
 End Sub
 
@@ -709,7 +743,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VImg
-	mname = varText
+	mName = varText
 	Return Me
 End Sub
 
@@ -725,6 +759,26 @@ public Sub AddToParent(targetID As String) As VImg
 	Return Me
 End Sub
 
+Sub SetStyleDynamic(prop As String, value As String) As VImg
+	bindStyle.Put(prop, value)
+	Return Me
+End Sub
+
+Sub SetClassDynamic(prop As String, value As String) As VImg
+	bindClass.Put(prop, value)
+	Return Me
+End Sub
+
+Sub RemoveClassDynamic(prop As String) As VImg
+	bindClass.Remove(prop)
+	Return Me
+End Sub
+
+Sub RemoveStyleDynamic(prop As String) As VImg
+	bindStyle.Remove(prop)
+	Return Me
+End Sub
+
 'add component to app, this binds events and states
 Sub AddToApp(vap As VueApp) As VImg
 	appLink = vap
@@ -732,7 +786,7 @@ Sub AddToApp(vap As VueApp) As VImg
 	'apply the binding for the control
 	For Each k As String In bindings.Keys
 		Dim v As String = bindings.Get(k)
-		vap.SetData(k, v)
+		If vap.HasState(k) = False Then vap.SetData(k, v)
 	Next
 	'apply the events
 	For Each k As String In methods.Keys
@@ -743,7 +797,7 @@ Sub AddToApp(vap As VueApp) As VImg
 End Sub
 
 'update the state
-Sub SetData(prop as string, value as object) As VImg
+Sub SetData(prop As String, value As Object) As VImg
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -783,6 +837,7 @@ End Sub
 
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VImg
+	'Log($"${mName}:${actProp}:${varName}"$)
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
 	If actProp = "caption" Then Return Me
 	Try
@@ -843,8 +898,8 @@ Sub AddClass(classNames As List) As VImg
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	dim cm as string = BANanoShared.Join(" ", classnames)
-	Setclasses(cm)
+	Dim cm As String = BANanoShared.Join(" ", classNames)
+	SetClasses(cm)
 	Return Me
 End Sub
 
@@ -892,11 +947,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VImg
-	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
-	if prop = "" then return me
+	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
+	If prop = "" Then Return Me
 	styles.put(prop, value)
-	dim m as map = createmap()
+	Dim m As Map = CreateMap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -917,10 +972,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		for each k as string in styleprops.Keys
-			dim v as string = styleprops.get(k)
+		For Each k As String In styleProps.Keys
+			Dim v As String = styleProps.get(k)
 			SetStyleSingle(k, v)
-		next
+		Next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -934,13 +989,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj as string) As VImg
+Sub SetVClass(classObj As String) As VImg
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj as string) As VImg
+Sub SetVStyle(styleObj As String) As VImg
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -967,7 +1022,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VImg
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(array(sColor))
+	AddClass(Array(sColor))
 	Return Me
 End Sub
 
@@ -976,7 +1031,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VImg
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(array(mcolor))
+	AddClass(Array(mcolor))
 	Return Me
 End Sub
 
@@ -1026,26 +1081,26 @@ Sub Show As VImg
 End Sub
 
 'set a class on and off
-Sub SetClassOnOff(clsName as string, clsValue As Boolean) As VImg
-	if svBindClass = "" then
+Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VImg
+	If sVBindClass = "" Then
 		Log($"VImg.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindClass)
+	End If
+	Dim obj As Map = data.get(sVBindClass)
 	obj.put(clsName, clsValue)
-	data.put(svBindClass, obj)
+	data.put(sVBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VImg
-	if svBindStyle = "" then
+Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VImg
+	If sVBindStyle = "" Then
 		Log($"VImg.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	end if
-	dim obj As Map = data.get(svBindStyle)
+	End If
+	Dim obj As Map = data.get(sVBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(svBindStyle, obj)
+	data.put(sVBindStyle, obj)
 	Return Me
 End Sub
 
