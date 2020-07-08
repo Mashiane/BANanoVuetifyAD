@@ -151,7 +151,20 @@ Sub Class_Globals
 	Public const TEXT_LOWERCASE As String = "text-lowercase"
 	Public const TEXT_UPPERCASE As String = "text-uppercase"
 	Public const TEXT_CAPITALIZE As String = "text-capitalize"
-	'	
+	'
+	Public const ICONPOS_LEFT As String = "left"
+	Public const ICONPOS_RIGHT As String = "right"
+	'
+	Public const ALERT_TYPE_SUCCESS As String = "success"
+	Public const ALERT_TYPE_INFO As String = "info"
+	Public const ALERT_TYPE_WARNING As String = "warning"
+	Public const ALERT_TYPE_ERROR As String = "error"
+	'
+	Public const ALERT_BORDER_TOP As String = "top"
+	Public const ALERT_BORDER_BOTTOM As String = "bottom"
+	Public const ALERT_BORDER_RIGHT As String = "right"
+	Public const ALERT_BORDER_LEFT As String = "left"
+	
 	Private sourceID As String
 	Private targetID As String
 	Public store As BANanoObject
@@ -202,17 +215,6 @@ Public Sub Initialize(Module As Object, elTo As String, elSource As String) As V
 	Return Me
 End Sub
 
-private Sub ConfirmInitialize
-	SetData("confirmshow", False)
-	SetData("confirmwidth", "600")
-	SetData("confirmtitle", "Confirm Title")
-	SetData("confirmtext", "Confirm Text")
-	SetData("confirmok", "Ok")
-	SetData("confirmcancel", "Cancel")
-	SetData("confirmkey", "confirm")
-	SetData("confirmcancelshow", True)
-End Sub
-
 'show confirm dialog
 Sub ShowConfirmDialog(process As String, Title As String, Message As String,ConfirmText As String, CancelText As String)
 	process = process.tolowercase
@@ -245,78 +247,6 @@ End Sub
 Sub GetConfirm As String
 	Dim sproc As String = GetData("confirmkey")
 	Return sproc
-End Sub
-
-'hide the snackbar
-Sub HideSnackBar
-	SetData("snackbarshow", False)
-End Sub
-
-'initialize the snackbar
-private Sub SnackBarInitialize
-	'define the snackbar
-	SetData("snackbarmessage", "")
-	SetData("snackbarshow", False)
-	SetData("snacktimeout", 3000)
-	SetData("snackbarcolor", COLOR_GREEN)
-	SetData("snackbarbuttonshow", True)
-	SetData("snackbarbuttontitle", "OK")
-End Sub
-
-'show an error snackbar
-Sub ShowSnackBarError(Message As String)
-	Message = CStr(Message)
-	Message = Message.Replace("null", "")
-	Message = Message.Trim
-	If Message = "" Then Return
-	SetData("snackbarmessage", Message)
-	SetData("snackbarshow", True)
-	SetData("snacktimeout", 3000)
-	SetData("snackbarcolor", COLOR_RED)
-	SetData("snackbarbuttonshow", True)
-	SetData("snackbarbuttontitle", "OK")
-End Sub
-
-'show a success snackbar
-Sub ShowSnackBarSuccess(Message As String)
-	Message = CStr(Message)
-	Message = Message.Replace("null", "")
-	Message = Message.Trim
-	If Message = "" Then Return
-	SetData("snackbarcolor", COLOR_GREEN)
-	SetData("snackbarmessage", Message)
-	SetData("snacktimeout", 3000)
-	SetData("snackbarshow", True)
-	SetData("snackbarbuttonshow", True)
-	SetData("snackbarbuttontitle", "OK")
-End Sub
-
-'show a warning snack bar
-Sub ShowSnackBarWarning(Message As String)
-	Message = CStr(Message)
-	Message = Message.Replace("null", "")
-	Message = Message.Trim
-	If Message = "" Then Return
-	SetData("snackbarcolor", COLOR_ORANGE)
-	SetData("snacktimeout", 3000)
-	SetData("snackbarmessage", Message)
-	SetData("snackbarshow", True)
-	SetData("snackbarbuttonshow", True)
-	SetData("snackbarbuttontitle", "OK")
-End Sub
-
-'show a snack bar
-Sub ShowSnackBar(Message As String)
-	Message = CStr(Message)
-	Message = Message.Replace("null", "")
-	Message = Message.Trim
-	If Message = "" Then Return
-	SetData("snackbarcolor", "info")
-	SetData("snacktimeout", 3000)
-	SetData("snackbarmessage", Message)
-	SetData("snackbarshow", True)
-	SetData("snackbarbuttonshow", True)
-	SetData("snackbarbuttontitle", "OK")
 End Sub
 
 
@@ -724,6 +654,13 @@ Sub AddError(vmodel As String, vError As String)
 	Errors.Put(vmodel, vError)
 End Sub
 
+'empty the element
+Sub BANanoEmpty(elID As String)
+	elID = elID.tolowercase
+	Dim ph As BANanoElement
+	ph.Initialize(elID)
+	ph.empty
+End Sub
 
 'set master template for the page
 Sub SetTemplate(tmp As String) As VueApp
@@ -1025,6 +962,14 @@ Sub GetState(k As String) As Object
 	Return out
 End Sub
 
+'toggle the visibility of an item using vshow
+Sub ToggleItem(elID As String) As VueApp
+	elID = elID.ToLowerCase
+	Dim sstate As String = $"${elID}show"$
+	ToggleState(sstate)
+	Return Me
+End Sub
+
 'toggle the state value
 Sub ToggleState(stateName As String) As VueApp
 	Dim bcurrent As Boolean = GetState(stateName)
@@ -1128,10 +1073,6 @@ End Sub
 
 'render the ux
 Sub Serve
-	'initialize a few things
-	SnackBarInitialize
-	ConfirmInitialize
-	
 	sourceID = sourceID.Replace("#","")
 	targetID = targetID.Replace("#","")
 	'set where we should render the app to
@@ -1229,6 +1170,15 @@ Sub HideDrawer(drwName As String)
 	SetData(drwName, False)
 End Sub
 
+'hide bottom nav
+Sub HideBottomNav
+	SetData("bottomnavshow", False)
+End Sub
+
+'show bottom nav
+Sub ShowBottomNav
+	SetData("bottomnavshow", True)
+End Sub
 
 'toggle a drawer
 Sub ToggleDrawer(drwName As String)
@@ -1352,11 +1302,13 @@ Sub SetEnabled(elID As String, b As Boolean)
 	SetStateSingle($"${elID}disabled"$, b)
 End Sub
 
+'hide an item
 Sub Hide(elID As String)
 	elID = elID.tolowercase
 	SetStateSingle($"${elID}show"$, False)
 End Sub
 
+'show an item
 Sub Show(elID As String)
 	SetStateSingle($"${elID}show"$, True)
 End Sub
@@ -1375,59 +1327,33 @@ End Sub
 Sub AddSpacer(Module As Object, parentID As String, spacerID As String) As VSpacer
 	parentID = parentID.ToLowerCase
 	spacerID = spacerID.ToLowerCase
+	parentID = parentID.Replace("#","")
 	'
 	Dim spacer As VSpacer
 	spacer.Initialize(Module, spacerID, spacerID)
 	spacer.AddToParent(parentID)
+	spacer.AddToApp(Me)
 	Return spacer
 End Sub
 
-'add a button and icon to an existing parent
-Sub AddButtonIcon(Module As Object, parentID As String, btnID As String, btnText As String, btnRaised As Boolean, btnColor As String, iconName As String, iconRight As Boolean) As VBtn
-	btnID = btnID.tolowercase
-	parentID = parentID.tolowercase
+'add a divider
+Sub AddDivider(Module As Object, parentID As String, dividerID As String, bInset As Boolean, bVertical As Boolean, dClass As String) As VDivider
+	parentID = parentID.ToLowerCase
+	dividerID = dividerID.ToLowerCase
+	parentID = parentID.Replace("#","")
 	'
-	Dim btn As VBtn
-	btn.initialize(Module, btnID, btnID)
-	If btnRaised = False Then btn.SetText(True)
-	btn.SetColor(btnColor)
-	btn.AddToParent(parentID)
-	'
-	If btnText <> "" Then
-		Dim spanKey As String = $"${btnID}span"$
-		Dim span As VHTML
-		span.initialize(Module, spanKey, spanKey)
-		span.SetCaption(btnText)
-		span.SetTagName("span")
+	Dim spacer As VDivider
+	spacer.Initialize(Module, dividerID, dividerID)
+	If bInset Then spacer.SetInset(bInset)
+	If bVertical Then spacer.SetVertical(bVertical)
+	If dClass <> "" Then 
+		spacer.AddClass(Array(dClass))
 	End If
-	'
-	If iconName <> "" Then
-		Dim iconKey As String = $"${btnID}icon"$
-		Dim icon As VIcon
-		icon.initialize(Module, iconKey, iconKey)
-		icon.SetCaption(iconName)
-	End If
-	'
-	If iconRight Then
-		If btnText <> "" Then 
-			span.AddToParent(btnID)
-		End If
-		If iconName <> "" Then 
-			icon.SetRight(iconRight)
-			icon.AddToParent(btnID)
-		End If
-	Else
-		If iconName <> "" Then 
-			icon.SetLeft(True)
-			icon.AddToParent(btnID)
-		End If
-		
-		If btnText <> "" Then 
-			span.AddToParent(btnID)
-		End If
-	End If
-	Return btn
+	spacer.AddToParent(parentID)
+	spacer.AddToApp(Me)
+	Return spacer
 End Sub
+
 
 'get html from placeholder and append it on target
 Sub BANanoGetHTML1(source As String, target As String)
@@ -1438,188 +1364,6 @@ Sub BANanoGetHTML1(source As String, target As String)
 	BANano.GetElement(target).Append(ssource)
 End Sub
 
-'define a template to load items from
-Sub AddListItem1(Module As Object, parentID As String, datasource As String, key As String, avatar As String, iconName As String, iconColor As String, title As String, subtitle As String, subtitle1 As String) As VListItem
-	'
-	parentID = parentID.tolowercase
-	datasource = datasource.tolowercase
-	'
-	Dim tmp As VTemplate
-	tmp.Initialize(Module, $"${parentID}tmpl"$, $"${parentID}tmpl"$)
-	tmp.SetVFor($"(item, i) in ${datasource}"$)
-	tmp.AddToParent(parentID)
-	'
-	Dim vli As VListItem
-	vli.Initialize(Module, $"${parentID}item"$, $"${parentID}item"$)
-	vli.SetVIf($"item.${key}"$)
-	vli.SetAttr(":key", $"item.${key}"$)
-	vli.SetAttr(":id", $"item.${key}"$)
-	vli.SetEOnClick($"item.${key}"$)
-	vli.AddToParent(tmp.mName)
-	
-	If avatar <> "" Then
-		Dim lia As VListItemAvatar
-		lia.Initialize(Module, $"${parentID}avatar"$, $"${parentID}avatar"$)
-		lia.SetVIf($"item.${avatar}"$)
-		lia.AddToParent(vli.mName)
-		'
-		Dim img As VImg
-		img.Initialize(Module, $"${parentID}img"$, $"${parentID}img"$)
-		img.SetAttr(":src", $"item.${avatar}"$)
-		img.AddToParent(lia.mName)
-	End If
-	'
-	If iconName <> "" Then
-		Dim vlii As VListItemIcon
-		vlii.Initialize(Module, $"${parentID}itemicon"$, $"${parentID}itemicon"$)
-		vlii.SetVif($"item.${iconName}"$)
-		vlii.AddToParent(vli.mName)
-		'
-		Dim icon As VIcon
-		icon.Initialize(Module,$"${parentID}itemicon"$, $"${parentID}itemicon"$)
-		icon.SetVText($"item.${iconName}"$)
-		If iconColor <> "" Then icon.SetAttr(":color", $"item.${iconColor}"$)
-		icon.AddToParent(vlii.mName)
-	End If
-	'
-	Dim iContent As Int = 0
-	If title <> "" Then iContent = iContent + 1
-	If subtitle <> "" Then iContent = iContent + 1
-	If subtitle1 <> "" Then iContent = iContent + 1
-	
-	If iContent > 0 Then
-		Dim contentKey As String = $"${parentID}itemcontent"$
-		'
-		Dim lic As VListItemContent
-		lic.Initialize(Module, contentKey, contentKey)
-		lic.AddToParent(vli.mname)
-	
-		'
-		If title <> "" Then
-			Dim lit As VListItemTitle
-			lit.Initialize(Module, $"${parentID}title"$, $"${parentID}title"$)
-			lit.SetVif($"item.${title}"$)
-			lit.SetVText($"item.${title}"$)
-			lit.AddToParent(lic.mname)
-		End If
-		'
-		If subtitle <> "" Then
-			Dim listt As VListItemSubtitle
-			listt.Initialize(Module, $"${parentID}subtitle"$, $"${parentID}subtitle"$)
-			listt.SetVIf($"item.${subtitle}"$)
-			listt.SetVText($"item.${subtitle}"$)
-			listt.AddToParent(lic.Mname)
-		End If
-		'
-		If subtitle1 <> "" Then
-			Dim listt1 As VListItemSubtitle
-			listt1.Initialize(Module, $"${parentID}subtitle1"$, $"${parentID}subtitle1"$)
-			listt1.SetVIf($"item.${subtitle1}"$)
-			listt1.SetVText($"item.${subtitle1}"$)
-			listt1.AddToParent(lic.MName)
-		End If
-	End If
-	'
-	
-	'add the divider
-	Dim dvd As VDivider
-	dvd.Initialize(Module,$"${parentID}dvd"$, $"${parentID}dvd"$)
-	dvd.SetVElseIf("item.divider")
-	dvd.SetAttr(":key", "i")
-	dvd.SetInset(True)
-	dvd.AddToParent(tmp.mname)
-	'
-	'add sub heading
-	Dim sh As VSubheader
-	sh.Initialize(Module, $"${parentID}subheader"$, $"${parentID}subheader"$)
-	sh.SetVElseIf("item.header")
-	sh.SetAttr(":key", "item.header")
-	sh.SetVText("item.header")
-	sh.SetInset(True)
-	sh.AddToParent(tmp.mname)
-	'
-	Return vli
-End Sub
-
-
-'define a template to load items from
-Sub AddListItem(Module As Object, parentID As String, datasource As String, key As String, avatar As String, iconName As String, iconColor As String, title As String, subtitle As String, subtitle1 As String) As VListItem
-	parentID = parentID.tolowercase
-	datasource = datasource.tolowercase
-	'
-	Dim vli As VListItem
-	vli.Initialize(Module, $"${parentID}item"$, $"${parentID}item"$)
-	vli.SetVFor($"(item, i) in ${datasource}"$)
-	vli.SetVIf($"item.${key}"$)
-	vli.SetAttr(":key", $"item.${key}"$)
-	vli.SetAttr(":id", $"item.${key}"$)
-	vli.SetEOnClick($"item.${key}"$)
-	vli.AddToParent(parentID)
-	
-	If avatar <> "" Then
-		Dim lia As VListItemAvatar
-		lia.Initialize(Module, $"${parentID}avatar"$, $"${parentID}avatar"$)
-		lia.SetVIf($"item.${avatar}"$)
-		lia.AddToParent(vli.mName)
-		'
-		Dim img As VImg
-		img.Initialize(Module, $"${parentID}img"$, $"${parentID}img"$)
-		img.SetAttr(":src", $"item.${avatar}"$)
-		img.AddToParent(lia.mName)
-	End If
-	'
-	If iconName <> "" Then
-		Dim vlii As VListItemIcon
-		vlii.Initialize(Module, $"${parentID}itemicon"$, $"${parentID}itemicon"$)
-		vlii.SetVif($"item.${iconName}"$)
-		vlii.AddToParent(vli.mName)
-		'
-		Dim icon As VIcon
-		icon.Initialize(Module,$"${parentID}itemicon"$, $"${parentID}itemicon"$)
-		icon.SetVText($"item.${iconName}"$)
-		If iconColor <> "" Then icon.SetAttr(":color", $"item.${iconColor}"$)
-		icon.AddToParent(vlii.mName)
-	End If
-	'
-	Dim iContent As Int = 0
-	If title <> "" Then iContent = iContent + 1
-	If subtitle <> "" Then iContent = iContent + 1
-	If subtitle1 <> "" Then iContent = iContent + 1
-	
-	If iContent > 0 Then
-		Dim contentKey As String = $"${parentID}itemcontent"$
-		'
-		Dim lic As VListItemContent
-		lic.Initialize(Module, contentKey, contentKey)
-		lic.AddToParent(vli.mname)
-	
-		'
-		If title <> "" Then
-			Dim lit As VListItemTitle
-			lit.Initialize(Module, $"${parentID}title"$, $"${parentID}title"$)
-			lit.SetVif($"item.${title}"$)
-			lit.SetVText($"item.${title}"$)
-			lit.AddToParent(lic.mname)
-		End If
-		'
-		If subtitle <> "" Then
-			Dim listt As VListItemSubtitle
-			listt.Initialize(Module, $"${parentID}subtitle"$, $"${parentID}subtitle"$)
-			listt.SetVIf($"item.${subtitle}"$)
-			listt.SetVText($"item.${subtitle}"$)
-			listt.AddToParent(lic.Mname)
-		End If
-		'
-		If subtitle1 <> "" Then
-			Dim listt1 As VListItemSubtitle
-			listt1.Initialize(Module, $"${parentID}subtitle1"$, $"${parentID}subtitle1"$)
-			listt1.SetVIf($"item.${subtitle1}"$)
-			listt1.SetVText($"item.${subtitle1}"$)
-			listt1.AddToParent(lic.MName)
-		End If
-	End If
-	Return vli
-End Sub
 
 'scroll to, 300, 0, easeInOutCubic
 Sub ScrollTo(elID As String, duration As Int, offset As Int, easing As String)
@@ -1696,4 +1440,726 @@ Sub SetOnClick(Module As Object, methodName As String)
 	Dim cb As BANanoObject = BANano.CallBack(Module, methodName, Array(e))
 	'add to methods
 	SetCallBack(methodName, cb)
+End Sub
+
+'show badge
+Sub ShowBadge(btnID As String)
+	btnID = btnID.tolowercase
+	Dim badgeShow As String = $"${btnID}badgeshow"$
+	SetData(badgeShow, True)
+End Sub
+
+'hide badge
+Sub HideBadge(btnID As String)
+	btnID = btnID.tolowercase
+	Dim badgeShow As String = $"${btnID}badgeshow"$
+	SetData(badgeShow, False)
+End Sub
+
+'change badge color
+Sub SetBadgeColor(btnID As String, badgeColor As String)
+	btnID = btnID.tolowercase
+	Dim sbadgeColor As String = $"${btnID}badgecolor"$
+	SetData(sbadgeColor, badgeColor)
+End Sub
+
+'set badge content
+Sub SetBadgeContent(btnID As String, BadgeContent As String)
+	btnID = btnID.tolowercase
+	Dim SBadgeContent As String = $"${btnID}content"$
+	SetData(SBadgeContent, BadgeContent)
+End Sub
+
+'increment badge
+Sub IncrementBadge(btnID As String)
+	btnID = btnID.tolowercase
+	Dim SBadgeContent As String = $"${btnID}content"$
+	'read current value
+	Dim ivalue As Int = GetData(SBadgeContent)
+	ivalue = BANano.parseInt(ivalue)
+	ivalue = ivalue + 1
+	SetData(SBadgeContent, ivalue)
+End Sub
+
+'decrement badge
+Sub DecrementBadge(btnID As String)
+	btnID = btnID.tolowercase
+	Dim SBadgeContent As String = $"${btnID}content"$
+	'read current value
+	Dim ivalue As Int = GetData(SBadgeContent)
+	ivalue = BANano.parseInt(ivalue)
+	ivalue = ivalue - 1
+	SetData(SBadgeContent, ivalue)
+End Sub
+
+'show an error snackbar
+Sub ShowSnackBarError(mName As String, Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData($"${mName}message"$, Message)
+	SetData($"${mName}show"$, True)
+	SetData($"${mName}color"$, "red")
+End Sub
+
+'show a success snackbar
+Sub ShowSnackBarSuccess(mName As String, Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData($"${mName}message"$, Message)
+	SetData($"${mName}show"$, True)
+	SetData($"${mName}color"$, "success")
+End Sub
+
+'show a warning snack bar
+Sub ShowSnackBarWarning(mName As String, Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData($"${mName}message"$, Message)
+	SetData($"${mName}show"$, True)
+	SetData($"${mName}color"$, "orange")
+End Sub
+
+'show a snack bar
+Sub ShowSnackBar(mName As String, Message As String)
+	Message = CStr(Message)
+	Message = Message.Replace("null", "")
+	Message = Message.Trim
+	If Message = "" Then Return
+	SetData($"${mName}message"$, Message)
+	SetData($"${mName}show"$, True)
+	SetData($"${mName}color"$, "info")
+End Sub
+
+'show the navbar
+Sub ShowNavBar
+	Show("navbar")
+End Sub
+
+'show nav menu
+Sub ShowNavMenu	
+	'show nav menu
+	Show("navmenu")
+End Sub
+	
+	'show the logo
+Sub ShowLogo
+	Show("logo")
+End Sub
+	
+	'show nav bar title
+Sub ShowNavBarTitle
+	Show("navbartitle")
+End Sub
+	
+'show the footer
+Sub ShowFooter
+	Show("footer")
+End Sub
+
+'hide the navbar
+Sub HideNavBar
+	Hide("navbar")
+End Sub
+
+'hide nav menu
+Sub HideNavMenu	
+	'show nav menu
+	Hide("navmenu")
+End Sub
+	
+'hide the logo
+Sub HideLogo
+	Show("logo")
+End Sub
+	
+'hide nav bar title
+Sub HideNavBarTitle
+	Hide("navbartitle")
+End Sub
+	
+'Hide the footer
+Sub HideFooter
+	Hide("footer")
+End Sub
+
+
+
+'add a button with text and badge
+Sub AddButton(Module As Object, parentID As String, btnID As String, btnLabel As String, btnRaised As Boolean, btnColor As String, btnOutlined As Boolean, btnSize As String, btnBlock As Boolean, btnRounded As Boolean, btnShaped As Boolean, btnBadgeContent As String, btnBadgeColor As String, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	btnID = btnID.tolowercase
+	'
+	Dim badge As String = $"${btnID}badge"$
+	Dim badgeContent As String = $"${btnID}content"$
+	Dim badgeShow As String = $"${btnID}badgeshow"$
+	Dim badgeColor As String = $"${btnID}badgecolor"$
+	Dim btnShow As String = $"${btnID}show"$
+	Dim sColor As String = $"${btnID}color"$
+	Dim sCaption As String = $"${btnID}caption"$
+	Dim sRaised As String = $"${btnID}raised"$
+	Dim sOutlined As String = $"${btnID}outlined"$
+	Dim sRounded As String = $"${btnID}rounded"$
+	Dim sShaped As String = $"${btnID}shaped"$
+	Dim sBlock As String = $"${btnID}block"$
+	Dim slabel As String = $"${btnID}label"$
+	'
+	Dim buttonbadge As VBadge
+	buttonbadge.Initialize(Module, badge, badge)
+	buttonbadge.SetDark(True)
+	buttonbadge.SetOverlap(True)
+	buttonbadge.setattr(":content", badgeContent)
+	buttonbadge.SetAttr("v-model", badgeShow)
+	buttonbadge.SetAttr(":color", badgeColor)
+	buttonbadge.AddClass(Array(Class))
+	'
+	'get the button
+	Dim button As VBtn
+	button.Initialize(Module, btnID, btnID)
+	button.SetVShow(btnShow)
+	button.SetAttr(":color", sColor)
+	button.SetAttr(":text", sRaised)
+	button.SetAttr(":outlined", sOutlined)
+	button.setattr(":rounded", sRounded)
+	button.setattr(":shaped", sShaped)
+	button.setattr(":block", sBlock)
+	If btnSize <> "" Then button.SetAttr(btnSize, True)
+	button.SetCaption($"{{ ${slabel} }}"$)
+	
+	buttonbadge.AddToParent(parentID)
+	button.AddToParent(badge)
+	'
+	button.AddToApp(Me)
+	buttonbadge.AddToApp(Me)
+	'
+	SetData(badgeContent, btnBadgeContent)
+	SetData(badgeColor, btnBadgeColor)
+	SetData(badgeShow, True)
+	SetData(btnShow, True)
+	SetData(sColor, btnColor)
+	SetData(sCaption, btnLabel)
+	SetData(sRaised, Not(btnRaised))
+	SetData(sOutlined, btnOutlined)
+	SetData(sRounded, btnRounded)
+	SetData(sShaped, btnShaped)
+	SetData(sBlock, btnBlock)
+	SetData(slabel, btnLabel)
+End Sub
+
+''add an snack bar
+Sub AddSnackBar(Module As Object, parentID As String, elID As String, Color As String, sLabel As String, bShaped As Boolean, TimeOut As String, bOutline As Boolean, bRound As Boolean, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	elID = elID.tolowercase
+	'
+	Dim snack As VSnackbar
+	snack.Initialize(Module, elID, elID)
+	'
+	Dim sContent As String = $"${elID}messsage"$
+	Dim sShow As String = $"${elID}show"$
+	Dim sColor As String = $"${elID}color"$
+	Dim sShaped As String = $"${elID}shaped"$
+	Dim sTimeOut As String = $"${elID}timeout"$
+	Dim sOutline As String = $"${elID}outlined"$
+	Dim sRound As String = $"${elID}rounded"$
+	
+	'make reactive
+	snack.SetVModel(sShow)
+	snack.SetApp(True)
+	snack.SetMultiline(True)
+	snack.SetTop(True)
+	snack.SetRight(True)
+	snack.SetAttr(":color", sColor)
+	snack.SetAttr(":shaped", sShaped)
+	snack.SetAttr(":timeout", sTimeOut)
+	snack.SetAttr(":outlined", sOutline)
+	snack.SetAttr(":rounded", sRound)
+	snack.AddClass(Array(Class))
+	snack.SetCaption($"{{ ${sContent} }}"$)
+	'
+	'return the button
+	snack.AddToParent(parentID)
+	snack.AddToApp(Me)
+	
+	SetData(sContent, sLabel)
+	SetData(sColor, Color)
+	SetData(sShow, False)
+	SetData(sShaped, bShaped)
+	SetData(sTimeOut, TimeOut)
+	SetData(sOutline, bOutline)
+	SetData(sRound, bRound)
+End Sub
+
+
+'add an alert
+Sub AddAlert(Module As Object, parentID As String, alertID As String, AlertType As String, BorderPos As String, Color As String, ColoredBorder As Boolean, Dense As Boolean, Dismissible As Boolean, Prominent As Boolean, Icon As String, CloseIcon As String, Outlined As Boolean, Shaped As Boolean, Label As String, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	alertID = alertID.tolowercase
+	'
+	If CloseIcon = "" Then CloseIcon = "$cancel"
+	
+	'get the alert
+	Dim alert As VAlert
+	alert.Initialize(Module, alertID, alertID)
+	'set contents
+	Dim sCaption As String = $"${alertID}caption"$
+	alert.SetAttr(":border", $"${alertID}border"$)
+	alert.SetAttr(":type", $"${alertID}type"$)
+	alert.SetAttr(":close-icon", $"${alertID}closeicon"$)
+	alert.SetAttr(":color", $"${alertID}color"$)
+	alert.SetAttr(":colored-border", $"${alertID}coloredborder"$)
+	alert.SetAttr(":dense", $"${alertID}dense"$)
+	alert.SetAttr(":dismissible", $"${alertID}dismissible"$)
+	alert.SetAttr(":icon", $"${alertID}icon"$)
+	alert.SetAttr(":outlined", $"${alertID}outlined"$)
+	alert.SetAttr(":prominent", $"${alertID}prominent"$)
+	alert.SetAttr(":shaped", $"${alertID}shaped"$)
+	alert.SetCaption($"{{ ${sCaption} }}"$)
+	alert.SetVModel($"${alertID}show"$)
+	alert.AddClass(Array(Class))
+	'
+	'return the alert
+	alert.AddToParent(parentID)
+	alert.AddToApp(Me)
+	'
+	SetData(sCaption, Label)
+	SetData($"${alertID}show"$, True)
+	SetData($"${alertID}border"$, BorderPos)
+	SetData($"${alertID}type"$, AlertType)
+	SetData($"${alertID}closeicon"$, CloseIcon)
+	SetData($"${alertID}color"$, Color)
+	SetData($"${alertID}coloredborder"$, ColoredBorder)
+	SetData($"${alertID}dense"$, Dense)
+	SetData($"${alertID}dismissible"$, Dismissible)
+	SetData($"${alertID}icon"$, Icon)
+	SetData($"${alertID}outlined"$, Outlined)
+	SetData($"${alertID}prominent"$, Prominent)
+	SetData($"${alertID}shaped"$, Shaped)
+End Sub
+
+'add avatar image
+Sub AddAvatarImg(Module As Object, parentID As String, avatarID As String, Color As String, ImgURL As String, Size As String, Tile As Boolean, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	avatarID = avatarID.tolowercase
+	'
+	Dim avatar As VAvatar
+	avatar.Initialize(Module, avatarID, avatarID)
+	avatar.SetAttr(":color", $"${avatarID}color"$)
+	avatar.SetAttr(":size", $"${avatarID}size"$)
+	avatar.SetAttr(":tile", $"${avatarID}tile"$)
+	avatar.AddClass(Array(Class))
+	avatar.SetVShow($"${avatarID}show"$)
+	
+	Dim savatarimg As String = $"${avatarID}img"$
+	Dim avatarimg As VImg
+	avatarimg.Initialize(Module, savatarimg, savatarimg)
+	avatarimg.SetAttr(":src", $"${avatarID}img"$)
+	
+	'return the alert
+	avatar.AddToParent(parentID)
+	avatarimg.AddToParent(avatarID)
+	
+	avatar.AddToApp(Me)
+	avatarimg.AddToApp(Me)
+		
+	SetData($"${avatarID}show"$, True)
+	SetData($"${avatarID}color"$, Color)
+	SetData($"${avatarID}size"$, Size)
+	SetData($"${avatarID}tile"$, Tile)
+	SetData($"${avatarID}img"$, ImgURL)
+End Sub
+
+'add avatar icon
+Sub AddAvatarIcon(Module As Object, parentID As String, avatarID As String, Color As String, Icon As String, IconColor As String, Size As String, Tile As Boolean, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	avatarID = avatarID.tolowercase
+	'
+	Dim avatar As VAvatar
+	avatar.Initialize(Module, avatarID, avatarID)
+	avatar.SetAttr(":color", $"${avatarID}color"$)
+	avatar.SetAttr(":size", $"${avatarID}size"$)
+	avatar.SetAttr(":tile", $"${avatarID}tile"$)
+	avatar.AddClass(Array(Class))
+	avatar.SetVShow($"${avatarID}show"$)
+	
+	Dim savataricon As String = $"${avatarID}icon"$
+	Dim sCaption As String = $"${avatarID}caption"$
+	Dim avataricon As VIcon
+	avataricon.initialize(Module, savataricon, savataricon)
+	avataricon.SetCaption($"{{ ${sCaption} }}"$)
+	avataricon.SetAttr(":color", $"${avatarID}iconcolor"$)
+	'
+	avatar.addtoparent(parentID)
+	avataricon.Addtoparent(avatarID)
+	'
+	'return the alert
+	avatar.AddToApp(Me)
+	avataricon.AddToApp(Me)
+	
+	SetData(sCaption, Icon)
+	SetData($"${avatarID}show"$, True)
+	SetData($"${avatarID}color"$, Color)
+	SetData($"${avatarID}size"$, Size)
+	SetData($"${avatarID}tile"$, Tile)
+	SetData($"${avatarID}iconcolor"$, IconColor)
+End Sub
+
+
+'add avatar text
+Sub AddAvatarText(Module As Object, parentID As String, avatarID As String, Color As String, Label As String, TextColor As String, Size As String, Tile As Boolean, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	avatarID = avatarID.tolowercase
+	'
+	Dim avatar As VAvatar
+	avatar.Initialize(Module, avatarID, avatarID)
+	avatar.SetAttr(":color", $"${avatarID}color"$)
+	avatar.SetAttr(":size", $"${avatarID}size"$)
+	avatar.SetAttr(":tile", $"${avatarID}tile"$)
+	avatar.AddClass(Array(Class))
+	avatar.SetVShow($"${avatarID}show"$)
+	
+	Dim savatartext As String = $"${avatarID}span"$
+	Dim avatartext As VDiv
+	avatartext.Initialize(Module, savatartext, savatartext)
+	Dim sCaption As String = $"${avatarID}caption"$
+	avatartext.SetCaption($"{{ ${sCaption} }}"$)
+	Dim aclass As String = $"${TextColor}--text"$
+	avatartext.addclass(Array(aclass))
+	avatartext.SetTagName("span")
+	avatartext.AddClass(Array("headline"))
+	'
+	avatar.AddToParent(parentID)
+	avatartext.AddToParent(avatarID)
+	'return the alert
+	avatar.AddToApp(Me)
+	avatartext.AddToApp(Me)
+	'
+	SetData(sCaption, Label)
+	SetData($"${avatarID}show"$, True)
+	SetData($"${avatarID}color"$, Color)
+	SetData($"${avatarID}size"$, Size)
+	SetData($"${avatarID}tile"$, Tile)
+	SetData($"${avatarID}textcolor"$, TextColor)
+End Sub
+
+
+
+'add a button with text and icon on the left
+Sub AddButtonIcon(Module As Object, parentID As String, btnID As String, btnLabel As String, btnRaised As Boolean, btnColor As String, btnIcon As String, iconColor As String, iconPos As String, btnBadgeContent As String, btnBadgeColor As String, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	btnID = btnID.tolowercase
+	'
+	Dim badgeContent As String = $"${btnID}content"$
+	Dim badgeShow As String = $"${btnID}badgeshow"$
+	Dim badgeColor As String = $"${btnID}badgecolor"$
+	Dim btnShow As String = $"${btnID}show"$
+	Dim sRaised As String = $"${btnID}raised"$
+	Dim sColor As String = $"${btnID}color"$
+	Dim slabel As String = $"${btnID}label"$
+		
+	'get the badge
+	Dim sbuttonbadge As String = $"${btnID}badge"$
+	Dim buttonbadge As VBadge
+	buttonbadge.Initialize(Module, sbuttonbadge, sbuttonbadge)
+	buttonbadge.SetDark(True)
+	buttonbadge.SetOverlap(True)
+	'make reactive
+	buttonbadge.setattr(":content", badgeContent)
+	buttonbadge.SetAttr("v-model", badgeShow)
+	buttonbadge.SetAttr(":color", badgeColor)
+	buttonbadge.AddClass(Array(Class))
+	'
+	'get the button
+	Dim button As VBtn
+	button.Initialize(Module, btnID, btnID)
+	button.SetAttr(":color", sColor)
+	button.SetVShow(btnShow)
+	button.SetAttr(":text", sRaised)
+	
+	'get the button label
+	Dim sbuttontitle As String = $"${btnID}title"$
+	Dim buttontitle As VDiv
+	buttontitle.Initialize(Module, sbuttontitle, sbuttontitle)
+	buttontitle.SetCaption($"{{ ${slabel} }}"$)
+	buttontitle.SetTagName("span")
+	
+	'get the icon
+	Dim sbuttonicon As String = $"${btnID}icon"$
+	Dim buttonicon As VIcon
+	buttonicon.Initialize(Module, sbuttonicon, sbuttonicon)
+	buttonicon.SetCaption(btnIcon)
+	buttonicon.SetColor(iconColor)
+	'
+	'return the button
+	buttonbadge.AddToParent(parentID)
+	button.AddToParent(sbuttonbadge)
+	'
+	Select Case iconPos
+	Case ICONPOS_LEFT
+		buttonicon.SetLeft(True)
+		buttonicon.addtoparent(btnID)
+		buttontitle.Addtoparent(btnID)
+	Case ICONPOS_RIGHT
+		buttonicon.SetRight(True)
+		buttontitle.Addtoparent(btnID)
+		buttonicon.addtoparent(btnID)
+	End Select
+	
+	buttonbadge.AddToApp(Me)
+	button.AddToApp(Me)
+	buttontitle.AddToApp(Me)
+	buttonicon.AddToApp(Me)
+	'
+	SetData(badgeContent, btnBadgeContent)
+	SetData(badgeColor, btnBadgeColor)
+	SetData(badgeShow, True)
+	SetData(btnShow, True)
+	SetData(sRaised, Not(btnRaised))
+	SetData(sColor, btnColor)
+	SetData(slabel, btnLabel)
+End Sub
+
+
+'add avatar image
+Sub AddAvatarStatus(Module As Object, parentID As String, avatarID As String, ImgURL As String, Size As String, BadgeColor As String, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	avatarID = avatarID.tolowercase
+	'
+	Dim badgeShow As String = $"${avatarID}badgeshow"$
+	Dim sBadgeColor As String = $"${avatarID}badgecolor"$
+	'
+	'get the badge
+	Dim sbuttonbadge As String = $"${avatarID}badge"$
+	Dim buttonbadge As VBadge
+	buttonbadge.Initialize(Module, sbuttonbadge, sbuttonbadge)
+	buttonbadge.SetBordered(True)
+	buttonbadge.SetBottom(True)
+	buttonbadge.SetAttr(":color", sBadgeColor)
+	buttonbadge.SetDot(True)
+	buttonbadge.SetVModel(badgeShow)
+	buttonbadge.SetOffsetX("10")
+	buttonbadge.SetOffsetY("10")
+	'	
+	Dim avatar As VAvatar
+	avatar.Initialize(Module, avatarID, avatarID)
+	avatar.SetAttr(":size", $"${avatarID}size"$)
+	avatar.AddClass(Array(Class))
+	avatar.SetVShow($"${avatarID}show"$)
+	
+	Dim savatarimg As String = $"${avatarID}img"$
+	Dim avatarimg As VImg
+	avatarimg.Initialize(Module, savatarimg, savatarimg)
+	avatarimg.SetAttr(":src", $"${avatarID}img"$)
+	
+	'return the alert
+	buttonbadge.AddToParent(parentID)
+	avatar.AddToParent(sbuttonbadge)
+	avatarimg.AddToParent(avatarID)
+	
+	avatar.AddToApp(Me)
+	avatarimg.AddToApp(Me)
+		
+	SetData($"${avatarID}show"$, True)
+	SetData($"${avatarID}size"$, Size)
+	SetData($"${avatarID}img"$, ImgURL)
+	SetData(badgeShow, True)
+	SetData(sBadgeColor, BadgeColor)
+End Sub
+
+
+
+'add a button with text and icon on the left
+Sub AddFAB(Module As Object, parentID As String, btnID As String, btnColor As String, btnIcon As String, btnOutlined As Boolean, btnSize As String, btnBadgeContent As String, btnBadgeColor As String, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	btnID = btnID.tolowercase
+	'
+	Dim badgeContent As String = $"${btnID}content"$
+	Dim badgeShow As String = $"${btnID}badgeshow"$
+	Dim badgeColor As String = $"${btnID}badgecolor"$
+	Dim btnShow As String = $"${btnID}show"$
+	Dim sOutlined As String = $"${btnID}outlined"$
+	Dim sColor As String = $"${btnID}color"$
+	Dim sfabbadge As String = $"${btnID}badge"$
+	'
+	Dim fabbadge As VBadge
+	fabbadge.Initialize(Module, sfabbadge, sfabbadge)
+	fabbadge.setattr(":content", badgeContent)
+	fabbadge.SetAttr("v-model", badgeShow)
+	fabbadge.SetAttr(":color", badgeColor)
+	fabbadge.AddClass(Array(Class))
+	fabbadge.SetDark(True)
+	fabbadge.SetOverLap(True)
+	fabbadge.AddToParent(parentID)
+	'
+	
+	'get the button
+	Dim fab As VBtn
+	fab.initialize(Module, btnID, btnID)
+	fab.SetVShow(btnShow)
+	fab.SetAttr(":outlined", sOutlined)
+	fab.SetAttr(":color", sColor)
+	If btnSize <> "" Then fab.SetAttr(btnSize, True)
+	fab.setfab(True)
+	fab.SetDark(True)
+	fab.AddToParent(sfabbadge)
+	
+	'get the icon
+	Dim sbuttonicon As String = $"${btnID}idon"$
+	Dim buttonicon As VIcon
+	buttonicon.Initialize(Module, sbuttonicon, sbuttonicon)
+	buttonicon.setdark(True)
+	buttonicon.SetCaption(btnIcon)
+	buttonicon.AddToParent(btnID)
+	'
+	'return the button
+	buttonicon.AddToApp(Me)
+	fab.AddToApp(Me)
+	fabbadge.AddToApp(Me)
+	'
+	SetData(badgeContent, btnBadgeContent)
+	SetData(badgeColor, btnBadgeColor)
+	SetData(badgeShow, True)
+	SetData(btnShow, True)
+	SetData(sOutlined, btnOutlined)
+	SetData(sColor, btnColor)
+End Sub
+
+
+'add an icon button
+Sub AddIconButton(Module As Object, parentID As String, btnID As String, btnColor As String, btnIcon As String, btnBadgeContent As String, btnBadgeColor As String, Class As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	btnID = btnID.tolowercase
+	'
+	Dim badgeContent As String = $"${btnID}content"$
+	Dim badgeShow As String = $"${btnID}badgeshow"$
+	Dim badgeColor As String = $"${btnID}badgecolor"$
+	Dim btnShow As String = $"${btnID}show"$
+	Dim sColor As String = $"${btnID}color"$
+	
+	'get the badge
+	Dim sbuttonbadge As String = $"${btnID}badge"$
+	Dim buttonbadge As VBadge
+	buttonbadge.Initialize(Module, sbuttonbadge, sbuttonbadge)
+	buttonbadge.setattr(":content", badgeContent)
+	buttonbadge.SetAttr("v-model", badgeShow)
+	buttonbadge.SetAttr(":color", badgeColor)
+	buttonbadge.AddClass(Array(Class))
+	buttonbadge.SetOverlap(True)
+	buttonbadge.SetDark(True)
+	buttonbadge.AddToParent(parentID)
+	'
+	
+	'get the button
+	Dim button As VBtn
+	button.initialize(Module, btnID, btnID)
+	button.SetAttr(":color", sColor)
+	button.SetIcon(True)
+	button.SetVShow(btnShow)
+	button.addtoparent(sbuttonbadge)
+	
+	'get the icon
+	Dim sbuttonicon As String = $"${btnID}icon"$
+	Dim buttonicon As VIcon
+	buttonicon.Initialize(Module, sbuttonicon, sbuttonicon)
+	buttonicon.SetCaption(btnIcon)
+	buttonicon.addtoparent(btnID)
+	'
+	button.AddToApp(Me)
+	buttonbadge.AddToApp(Me)
+	buttonicon.Addtoapp(Me)
+	
+	SetData(badgeContent, btnBadgeContent)
+	SetData(badgeColor, btnBadgeColor)
+	SetData(badgeShow, True)
+	SetData(btnShow, True)
+	SetData(sColor, btnColor)
+End Sub
+
+
+'add confirm dialog
+Sub AddConfirmDialog(Module As Object, parentID As String, width As String)
+	parentID = parentID.tolowercase
+	parentID = parentID.replace("#","")
+	
+	Dim cshow As String = "confirmshow"
+	Dim cwidth As String = "confirmwidth"
+	Dim sconfirmcard As String = "confirmcard"
+	Dim sconfirmtitle As String = "confirmtitle"
+	Dim sconfirmtext As String = "confirmtext"
+	Dim sconfirmactions As String = "confirmactions"
+	Dim sconfirmcancel As String = "confirmcancel"
+	Dim sconfirmok As String = "confirmok"
+	'
+	Dim confirm As VDialog
+	confirm.initialize(Module, "confirm", "confirm")
+	confirm.SetVModel(cshow)
+	confirm.SetAttr(":width", cwidth)
+	confirm.SetPersistent(True)
+	confirm.SetRetainFocus(True)
+	'
+	Dim confirmcard As VCard
+	confirmcard.Initialize(Module, sconfirmcard, sconfirmcard)
+	'
+	Dim confirmtitle As VCardTitle
+	confirmtitle.Initialize(Module, sconfirmtitle, sconfirmtitle)
+	confirmtitle.SetCaption($"{{ ${sconfirmtitle} }}"$)
+	'
+	Dim confirmtext As VCardText
+	confirmtext.Initialize(Module, sconfirmtext, sconfirmtext)
+	confirmtext.SetCaption($"{{ ${sconfirmtext} }}"$)
+	'
+	Dim confirmactions As VCardActions
+	confirmactions.initialize(Module, sconfirmactions, sconfirmactions)
+	'
+	Dim confirmcancel As VBtn
+	confirmcancel.initialize(Module, "confirmcancel", "confirmcancel")
+	confirmcancel.SetColor("error")
+	confirmcancel.SetVShow("confirmcancelshow")
+	confirmcancel.SetText(True)
+	confirmcancel.SetCaption($"{{ ${sconfirmcancel} }}"$)
+	'
+	Dim confirmok As VBtn
+	confirmok.initialize(Module, "confirmok", "confirmok")
+	confirmok.SetColor("success")
+	confirmok.SetText(True)
+	confirmok.SetCaption($"{{ ${sconfirmok} }}"$)
+	'
+	confirm.addtoparent(parentID)
+	confirmcard.AddToParent("confirm")
+	confirmtitle.AddToParent(sconfirmcard)
+	confirmtext.AddToParent(sconfirmcard)
+	AddDivider(Module, sconfirmcard, "confirmdivider", False, False, "")
+	confirmactions.AddToParent(sconfirmcard)
+	AddSpacer(Module, sconfirmactions, "confirmspacer")
+	confirmcancel.AddToParent(sconfirmactions)
+	confirmok.AddToParent(sconfirmactions)
+	'
+	confirm.AddToApp(Me)
+	confirmcard.AddToApp(Me)
+	confirmtitle.AddToApp(Me)
+	confirmtext.AddToApp(Me)
+	confirmcancel.AddToApp(Me)
+	confirmok.AddToApp(Me)
+	'
+	SetData(cwidth, width)
+	SetData(cshow, False)
+	SetData(sconfirmtitle, "")
+	SetData(sconfirmtext, "")
+	SetData("confirmcancelshow", True)
+	SetData(sconfirmcancel, "Cancel")
+	SetData(sconfirmok, "Ok")
 End Sub

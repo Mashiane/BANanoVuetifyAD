@@ -1,4 +1,4 @@
-2020-06-27 16:52:29 B4J=true
+2020-07-08 02:37:29 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -26,6 +26,7 @@ Version=8.3
 #DesignerProperty: Key: Max, DisplayName: Max, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Multiple, DisplayName: Multiple, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: NextIcon, DisplayName: NextIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PrevIcon, DisplayName: PrevIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Progress, DisplayName: Progress, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ProgressColor, DisplayName: ProgressColor, Description: , FieldType: String, DefaultValue: 
@@ -77,6 +78,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -107,6 +110,7 @@ Private bMandatory As Boolean = False
 Private sMax As String = ""
 Private bMultiple As Boolean = False
 Private sNextIcon As String = ""
+Private sParentId As String = ""
 Private sPrevIcon As String = ""
 Private bProgress As Boolean = False
 Private sProgressColor As String = ""
@@ -159,7 +163,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -187,6 +197,7 @@ bMandatory = props.Get("Mandatory")
 sMax = props.Get("Max")
 bMultiple = props.Get("Multiple")
 sNextIcon = props.Get("NextIcon")
+sParentId = props.Get("ParentId")
 sPrevIcon = props.Get("PrevIcon")
 bProgress = props.Get("Progress")
 sProgressColor = props.Get("ProgressColor")
@@ -349,6 +360,13 @@ End Sub
 Sub SetNextIcon(varNextIcon As String) As VCarousel
 sNextIcon = varNextIcon
 SetAttr("next-icon", sNextIcon)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VCarousel
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -640,6 +658,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnChangeE(sChange As String) As VCarousel
+eOnchange = sChange
+Return Me
+End Sub
+
 
 'return the generated html
 Sub ToString As String
@@ -660,6 +683,7 @@ AddAttr(bMandatory, "mandatory")
 AddAttr(sMax, "max")
 AddAttr(bMultiple, "multiple")
 AddAttr(sNextIcon, "next-icon")
+AddAttr(sParentId, "parent-id")
 AddAttr(sPrevIcon, "prev-icon")
 AddAttr(bProgress, "progress")
 AddAttr(sProgressColor, "progress-color")
@@ -704,6 +728,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -723,7 +748,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -734,6 +759,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -820,6 +855,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VCarousel
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1086,34 +1122,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VCarousel
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VCarousel
-	If sRequired = "" Then
-		Log($"VCarousel.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VCarousel
+'	If sRequired = "" Then
+'		Log($"VCarousel.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VCarousel
-	If sReadonly = "" Then
-		Log($"VCarousel.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VCarousel
+'	If sReadonly = "" Then
+'		Log($"VCarousel.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VCarousel
-	If sDisabled = "" Then
-		Log($"VCarousel.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VCarousel
+'	If sDisabled = "" Then
+'		Log($"VCarousel.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

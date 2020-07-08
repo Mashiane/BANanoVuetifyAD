@@ -19,7 +19,7 @@ Version=8.3
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: DayFormat, DisplayName: DayFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: EventColor, DisplayName: EventColor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Events, DisplayName: Events, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: FirstDayOfWeek, DisplayName: FirstDayOfWeek, Description: , FieldType: String, DefaultValue: 
@@ -40,6 +40,7 @@ Version=8.3
 #DesignerProperty: Key: NextMonthAriaLabel, DisplayName: NextMonthAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: NextYearAriaLabel, DisplayName: NextYearAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: NoTitle, DisplayName: NoTitle, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PickerDate, DisplayName: PickerDate, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PrevIcon, DisplayName: PrevIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PrevMonthAriaLabel, DisplayName: PrevMonthAriaLabel, Description: , FieldType: String, DefaultValue: 
@@ -98,10 +99,12 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -142,6 +145,7 @@ Private sNextIcon As String = ""
 Private sNextMonthAriaLabel As String = ""
 Private sNextYearAriaLabel As String = ""
 Private bNoTitle As Boolean = False
+Private sParentId As String = ""
 Private sPickerDate As String = ""
 Private sPrevIcon As String = ""
 Private sPrevMonthAriaLabel As String = ""
@@ -205,7 +209,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -243,6 +253,7 @@ sNextIcon = props.Get("NextIcon")
 sNextMonthAriaLabel = props.Get("NextMonthAriaLabel")
 sNextYearAriaLabel = props.Get("NextYearAriaLabel")
 bNoTitle = props.Get("NoTitle")
+sParentId = props.Get("ParentId")
 sPickerDate = props.Get("PickerDate")
 sPrevIcon = props.Get("PrevIcon")
 sPrevMonthAriaLabel = props.Get("PrevMonthAriaLabel")
@@ -315,12 +326,6 @@ SetOnInput
 SetOnUpdatePickerDate
 
 
-End Sub
-
-
-private Sub CStr(o As Object) As String
-	If o = BANano.UNDEFINED Then o = ""
-	Return "" & o
 End Sub
 
 'set allowed-dates
@@ -502,6 +507,13 @@ End Sub
 Sub SetNoTitle(varNoTitle As Boolean) As VDatePicker
 bNoTitle = varNoTitle
 SetAttr("no-title", bNoTitle)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VDatePicker
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -835,6 +847,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnDomeventDateE(sDomeventDate As String) As VDatePicker
+eOndomeventdate = sDomeventDate
+Return Me
+End Sub
+
 'set on domeventmonth event, updates the master events records
 Sub SetOnDomeventMonth() As VDatePicker
 Dim sName As String = $"${mEventName}_domeventmonth"$
@@ -846,6 +863,11 @@ SetAttr("v-on:<domevent>:month", sCode)
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnDomeventMonthE(sDomeventMonth As String) As VDatePicker
+eOndomeventmonth = sDomeventMonth
 Return Me
 End Sub
 
@@ -863,6 +885,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnDomeventYearE(sDomeventYear As String) As VDatePicker
+eOndomeventyear = sDomeventYear
+Return Me
+End Sub
+
 'set on change event, updates the master events records
 Sub SetOnChange() As VDatePicker
 Dim sName As String = $"${mEventName}_change"$
@@ -874,6 +901,11 @@ SetAttr("v-on:change", sCode)
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnChangeE(sChange As String) As VDatePicker
+eOnchange = sChange
 Return Me
 End Sub
 
@@ -891,6 +923,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnInputE(sInput As String) As VDatePicker
+eOninput = sInput
+Return Me
+End Sub
+
 'set on updatepickerdate event, updates the master events records
 Sub SetOnUpdatePickerDate() As VDatePicker
 Dim sName As String = $"${mEventName}_updatepickerdate"$
@@ -902,6 +939,11 @@ SetAttr("v-on:update:picker-date", sCode)
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdatePickerDateE(sUpdatePickerDate As String) As VDatePicker
+eOnupdatepickerdate = sUpdatePickerDate
 Return Me
 End Sub
 
@@ -935,6 +977,7 @@ AddAttr(sNextIcon, "next-icon")
 AddAttr(sNextMonthAriaLabel, "next-month-aria-label")
 AddAttr(sNextYearAriaLabel, "next-year-aria-label")
 AddAttr(bNoTitle, "no-title")
+AddAttr(sParentId, "parent-id")
 AddAttr(sPickerDate, "picker-date")
 AddAttr(sPrevIcon, "prev-icon")
 AddAttr(sPrevMonthAriaLabel, "prev-month-aria-label")
@@ -985,6 +1028,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -1004,7 +1048,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -1015,6 +1059,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -1101,7 +1155,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VDatePicker
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
-	If BANano.IsNumber(varName) Then varName = CStr(varName)
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1357,25 +1411,25 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VDatePicker
-	If sVBindStyle = "" Then
+	if svBindStyle = "" then
 		Log($"VDatePicker.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VDatePicker
-	If sRequired = "" Then
-		Log($"VDatePicker.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VDatePicker
+'	If sRequired = "" Then
+'		Log($"VDatePicker.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
 'Sub SetReadOnlyOnOff(b As Boolean) As VDatePicker
@@ -1386,8 +1440,8 @@ End Sub
 '	data.Put(sReadonly, b)
 '	Return Me
 'End Sub
-'
-''disabled
+
+'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VDatePicker
 '	If sDisabled = "" Then
 '		Log($"VDatePicker.Disabled - the disabled for ${mName} has not been set!"$)

@@ -18,7 +18,7 @@ Version=8.3
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Depressed, DisplayName: Depressed, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Exact, DisplayName: Exact, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: ExactActiveClass, DisplayName: ExactActiveClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Fab, DisplayName: Fab, Description: , FieldType: Boolean, DefaultValue: False
@@ -30,7 +30,6 @@ Version=8.3
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Large, DisplayName: Large, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Left, DisplayName: Left, Description: , FieldType: Boolean, DefaultValue: False
-#DesignerProperty: Key: Flat, DisplayName: Flat, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Link, DisplayName: Link, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Loading, DisplayName: Loading, Description: , FieldType: Boolean, DefaultValue: False
@@ -40,6 +39,7 @@ Version=8.3
 #DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Nuxt, DisplayName: Nuxt, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Replace, DisplayName: Replace, Description: , FieldType: Boolean, DefaultValue: False
@@ -94,10 +94,12 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -115,7 +117,6 @@ Private bAbsolute As Boolean = False
 Private sActiveClass As String = ""
 Private bAppend As Boolean = False
 Private bBlock As Boolean = False
-	Private bFlat As Boolean = False
 Private bBottom As Boolean = False
 Private sCaption As String = ""
 Private sColor As String = ""
@@ -143,6 +144,7 @@ Private sMinHeight As String = ""
 Private sMinWidth As String = ""
 Private bNuxt As Boolean = False
 Private bOutlined As Boolean = False
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private bReplace As Boolean = False
@@ -202,7 +204,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -237,7 +245,6 @@ bLarge = props.Get("Large")
 bLeft = props.Get("Left")
 bLight = props.Get("Light")
 bLink = props.Get("Link")
-		bFlat = props.Get("Flat")
 bLoading = props.Get("Loading")
 sMaxHeight = props.Get("MaxHeight")
 sMaxWidth = props.Get("MaxWidth")
@@ -245,6 +252,7 @@ sMinHeight = props.Get("MinHeight")
 sMinWidth = props.Get("MinWidth")
 bNuxt = props.Get("Nuxt")
 bOutlined = props.Get("Outlined")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 bReplace = props.Get("Replace")
@@ -351,13 +359,6 @@ End Sub
 Sub SetDark(varDark As Boolean) As VBtn
 bDark = varDark
 SetAttr("dark", bDark)
-Return Me
-End Sub
-
-'set dark
-Sub SetFlat(varFlat As Boolean) As VBtn
-bFlat = varFlat
-SetAttr("flat", bFlat)
 Return Me
 End Sub
 
@@ -519,6 +520,13 @@ End Sub
 Sub SetOutlined(varOutlined As Boolean) As VBtn
 bOutlined = varOutlined
 SetAttr("outlined", bOutlined)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VBtn
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -859,6 +867,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickE(sClick As String) As VBtn
+eOnclick = sClick
+Return Me
+End Sub
+
 
 'return the generated html
 Sub ToString As String
@@ -870,7 +883,6 @@ AddAttr(bBottom, "bottom")
 AddAttr(sCaption, "caption")
 AddAttr(sColor, "color")
 AddAttr(bDark, "dark")
-	AddAttr(bFlat, "flat")
 AddAttr(bDepressed, "depressed")
 AddAttr(bDisabled, "disabled")
 AddAttr(sElevation, "elevation")
@@ -894,6 +906,7 @@ AddAttr(sMinHeight, "min-height")
 AddAttr(sMinWidth, "min-width")
 AddAttr(bNuxt, "nuxt")
 AddAttr(bOutlined, "outlined")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(bReplace, "replace")
@@ -945,6 +958,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -964,7 +978,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -973,8 +987,18 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -986,7 +1010,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VBtn
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
@@ -1020,7 +1044,7 @@ Sub AddToApp(vap As VueApp) As VBtn
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VBtn
+Sub SetData(prop as string, value as object) As VBtn
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -1058,17 +1082,10 @@ Sub SetCaption(varText As String) As VBtn
 	Return Me
 End Sub
 
-
-private Sub CStr(o As Object) As String
-	If o = BANano.UNDEFINED Then o = ""
-	Return "" & o
-End Sub
-
-
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VBtn
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
-	If BANano.IsNumber(varName) Then varName = CStr(varName)
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1245,14 +1262,14 @@ Sub SetColorIntensity(varColor As String, varIntensity As String) As VBtn
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, scolor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VBtn
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -1261,7 +1278,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VBtn
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -1335,24 +1352,24 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VBtn
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VBtn
-	If sRequired = "" Then
-		Log($"VBtn.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VBtn
+'	If sRequired = "" Then
+'		Log($"VBtn.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VBtn
-	If sReadonly = "" Then
-		Log($"VBtn.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VBtn
+'	If sReadonly = "" Then
+'		Log($"VBtn.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VBtn

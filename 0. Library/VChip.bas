@@ -34,6 +34,7 @@ Version=8.3
 #DesignerProperty: Key: Link, DisplayName: Link, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Nuxt, DisplayName: Nuxt, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Pill, DisplayName: Pill, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
@@ -88,6 +89,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -124,6 +127,7 @@ Private bLight As Boolean = False
 Private bLink As Boolean = False
 Private bNuxt As Boolean = False
 Private bOutlined As Boolean = False
+Private sParentId As String = ""
 Private bPill As Boolean = False
 Private sReadonly As String = ""
 Private sRef As String = ""
@@ -179,7 +183,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -213,6 +223,7 @@ bLight = props.Get("Light")
 bLink = props.Get("Link")
 bNuxt = props.Get("Nuxt")
 bOutlined = props.Get("Outlined")
+sParentId = props.Get("ParentId")
 bPill = props.Get("Pill")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
@@ -426,6 +437,13 @@ End Sub
 Sub SetOutlined(varOutlined As Boolean) As VChip
 bOutlined = varOutlined
 SetAttr("outlined", bOutlined)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VChip
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -717,6 +735,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickE(sClick As String) As VChip
+eOnclick = sClick
+Return Me
+End Sub
+
 'set on clickclose event, updates the master events records
 Sub SetOnClickClose() As VChip
 Dim sName As String = $"${mEventName}_clickclose"$
@@ -728,6 +751,11 @@ SetAttr("v-on:click:close", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickCloseE(sClickClose As String) As VChip
+eOnclickclose = sClickClose
 Return Me
 End Sub
 
@@ -745,6 +773,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnInputE(sInput As String) As VChip
+eOninput = sInput
+Return Me
+End Sub
+
 'set on updateactive event, updates the master events records
 Sub SetOnUpdateActive() As VChip
 Dim sName As String = $"${mEventName}_updateactive"$
@@ -756,6 +789,11 @@ SetAttr("v-on:update:active", sCode)
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateActiveE(sUpdateActive As String) As VChip
+eOnupdateactive = sUpdateActive
 Return Me
 End Sub
 
@@ -785,6 +823,7 @@ AddAttr(bLight, "light")
 AddAttr(bLink, "link")
 AddAttr(bNuxt, "nuxt")
 AddAttr(bOutlined, "outlined")
+AddAttr(sParentId, "parent-id")
 AddAttr(bPill, "pill")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
@@ -829,6 +868,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -848,7 +888,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -859,6 +899,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -945,6 +995,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VChip
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1211,24 +1262,24 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VChip
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VChip
-	If sRequired = "" Then
-		Log($"VChip.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VChip
+'	If sRequired = "" Then
+'		Log($"VChip.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VChip
-	If sReadonly = "" Then
-		Log($"VChip.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VChip
+'	If sReadonly = "" Then
+'		Log($"VChip.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VChip

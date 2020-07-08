@@ -12,6 +12,7 @@ Version=8.3
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -47,10 +48,12 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -69,6 +72,7 @@ Private bDark As Boolean = False
 Private sDisabled As String = ""
 Private sKey As String = ""
 Private bLight As Boolean = False
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -109,7 +113,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -125,6 +135,7 @@ bDark = props.Get("Dark")
 sDisabled = props.Get("Disabled")
 sKey = props.Get("Key")
 bLight = props.Get("Light")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -189,6 +200,13 @@ End Sub
 Sub SetLight(varLight As Boolean) As VApp
 bLight = varLight
 SetAttr("light", bLight)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VApp
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -397,6 +415,7 @@ AddAttr(bDark, "dark")
 AddAttr(sDisabled, "disabled")
 AddAttr(sKey, "key")
 AddAttr(bLight, "light")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -430,6 +449,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -449,7 +469,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -460,6 +480,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -546,6 +576,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VApp
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -812,34 +843,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VApp
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VApp
-	If sRequired = "" Then
-		Log($"VApp.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VApp
+'	If sRequired = "" Then
+'		Log($"VApp.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VApp
-	If sReadonly = "" Then
-		Log($"VApp.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VApp
+'	If sReadonly = "" Then
+'		Log($"VApp.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VApp
-	If sDisabled = "" Then
-		Log($"VApp.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VApp
+'	If sDisabled = "" Then
+'		Log($"VApp.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

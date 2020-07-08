@@ -39,6 +39,7 @@ Version=8.3
 #DesignerProperty: Key: Multiple, DisplayName: Multiple, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: OffIcon, DisplayName: OffIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OnIcon, DisplayName: OnIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PersistentHint, DisplayName: PersistentHint, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: PrependIcon, DisplayName: PrependIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: Boolean, DefaultValue: False
@@ -94,6 +95,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -132,6 +135,7 @@ Private sMessages As String = ""
 Private bMultiple As Boolean = False
 Private sOffIcon As String = ""
 Private sOnIcon As String = ""
+Private sParentId As String = ""
 Private bPersistentHint As Boolean = False
 Private sPrependIcon As String = ""
 Private bReadonly As Boolean = False
@@ -188,7 +192,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -224,6 +234,7 @@ sMessages = props.Get("Messages")
 bMultiple = props.Get("Multiple")
 sOffIcon = props.Get("OffIcon")
 sOnIcon = props.Get("OnIcon")
+sParentId = props.Get("ParentId")
 bPersistentHint = props.Get("PersistentHint")
 sPrependIcon = props.Get("PrependIcon")
 bReadonly = props.Get("Readonly")
@@ -458,6 +469,13 @@ End Sub
 Sub SetOnIcon(varOnIcon As String) As VCheckbox
 sOnIcon = varOnIcon
 SetAttr("on-icon", sOnIcon)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VCheckbox
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -741,6 +759,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickE(sClick As String) As VCheckbox
+eOnclick = sClick
+Return Me
+End Sub
+
 'set on clickappend event, updates the master events records
 Sub SetOnClickAppend() As VCheckbox
 Dim sName As String = $"${mEventName}_clickappend"$
@@ -752,6 +775,11 @@ SetAttr("v-on:click:append", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickAppendE(sClickAppend As String) As VCheckbox
+eOnclickappend = sClickAppend
 Return Me
 End Sub
 
@@ -769,6 +797,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickPrependE(sClickPrepend As String) As VCheckbox
+eOnclickprepend = sClickPrepend
+Return Me
+End Sub
+
 'set on mousedown event, updates the master events records
 Sub SetOnMousedown() As VCheckbox
 Dim sName As String = $"${mEventName}_mousedown"$
@@ -780,6 +813,11 @@ SetAttr("v-on:mousedown", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousedownE(sMousedown As String) As VCheckbox
+eOnmousedown = sMousedown
 Return Me
 End Sub
 
@@ -797,6 +835,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseupE(sMouseup As String) As VCheckbox
+eOnmouseup = sMouseup
+Return Me
+End Sub
+
 'set on updateerror event, updates the master events records
 Sub SetOnUpdateError() As VCheckbox
 Dim sName As String = $"${mEventName}_updateerror"$
@@ -811,6 +854,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdateErrorE(sUpdateError As String) As VCheckbox
+eOnupdateerror = sUpdateError
+Return Me
+End Sub
+
 'set on updateindeterminate event, updates the master events records
 Sub SetOnUpdateIndeterminate() As VCheckbox
 Dim sName As String = $"${mEventName}_updateindeterminate"$
@@ -822,6 +870,11 @@ SetAttr("v-on:update:indeterminate", sCode)
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateIndeterminateE(sUpdateIndeterminate As String) As VCheckbox
+eOnupdateindeterminate = sUpdateIndeterminate
 Return Me
 End Sub
 
@@ -853,6 +906,7 @@ AddAttr(sMessages, "messages")
 AddAttr(bMultiple, "multiple")
 AddAttr(sOffIcon, "off-icon")
 AddAttr(sOnIcon, "on-icon")
+AddAttr(sParentId, "parent-id")
 AddAttr(bPersistentHint, "persistent-hint")
 AddAttr(sPrependIcon, "prepend-icon")
 AddAttr(bReadonly, "readonly")
@@ -895,6 +949,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -914,7 +969,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -925,6 +980,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -1011,6 +1076,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VCheckbox
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1266,25 +1332,25 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VCheckbox
-	If sVBindStyle = "" Then
+	if svBindStyle = "" then
 		Log($"VCheckbox.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VCheckbox
-	If sRequired = "" Then
-		Log($"VCheckbox.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VCheckbox
+'	If sRequired = "" Then
+'		Log($"VCheckbox.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
 'Sub SetReadOnlyOnOff(b As Boolean) As VCheckbox
@@ -1295,8 +1361,8 @@ End Sub
 '	data.Put(sReadonly, b)
 '	Return Me
 'End Sub
-'
-''disabled
+
+'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VCheckbox
 '	If sDisabled = "" Then
 '		Log($"VCheckbox.Disabled - the disabled for ${mName} has not been set!"$)

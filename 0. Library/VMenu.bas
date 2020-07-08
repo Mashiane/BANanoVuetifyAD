@@ -43,6 +43,7 @@ Version=8.3
 #DesignerProperty: Key: OpenOnFocus, DisplayName: OpenOnFocus, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: OpenOnHover, DisplayName: OpenOnHover, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Origin, DisplayName: Origin, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PositionX, DisplayName: PositionX, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PositionY, DisplayName: PositionY, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
@@ -92,6 +93,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -141,6 +144,7 @@ Private bOpenOnClick As Boolean = False
 Private bOpenOnFocus As Boolean = False
 Private bOpenOnHover As Boolean = False
 Private sOrigin As String = ""
+Private sParentId As String = ""
 Private sPositionX As String = ""
 Private sPositionY As String = ""
 Private sReadonly As String = ""
@@ -191,7 +195,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -238,6 +248,7 @@ bOpenOnClick = props.Get("OpenOnClick")
 bOpenOnFocus = props.Get("OpenOnFocus")
 bOpenOnHover = props.Get("OpenOnHover")
 sOrigin = props.Get("Origin")
+sParentId = props.Get("ParentId")
 sPositionX = props.Get("PositionX")
 sPositionY = props.Get("PositionY")
 sReadonly = props.Get("Readonly")
@@ -529,6 +540,13 @@ End Sub
 Sub SetOrigin(varOrigin As String) As VMenu
 sOrigin = varOrigin
 SetAttr("origin", sOrigin)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VMenu
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -838,6 +856,7 @@ AddAttr(bOpenOnClick, "open-on-click")
 AddAttr(bOpenOnFocus, "open-on-focus")
 AddAttr(bOpenOnHover, "open-on-hover")
 AddAttr(sOrigin, "origin")
+AddAttr(sParentId, "parent-id")
 AddAttr(sPositionX, "position-x")
 AddAttr(sPositionY, "position-y")
 AddAttr(sReadonly, "readonly")
@@ -881,6 +900,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -900,7 +920,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -911,6 +931,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -997,6 +1027,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VMenu
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1263,26 +1294,26 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VMenu
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VMenu
-	If sRequired = "" Then
-		Log($"VMenu.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VMenu
+'	If sRequired = "" Then
+'		Log($"VMenu.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VMenu
-	If sReadonly = "" Then
-		Log($"VMenu.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VMenu
+'	If sReadonly = "" Then
+'		Log($"VMenu.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
-''disabled
+'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VMenu
 '	If sDisabled = "" Then
 '		Log($"VMenu.Disabled - the disabled for ${mName} has not been set!"$)

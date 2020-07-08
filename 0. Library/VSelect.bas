@@ -68,6 +68,7 @@ Version=8.3
 #DesignerProperty: Key: NoDataText, DisplayName: NoDataText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OpenOnClear, DisplayName: OpenOnClear, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PersistentHint, DisplayName: PersistentHint, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Placeholder, DisplayName: Placeholder, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Prefix, DisplayName: Prefix, Description: , FieldType: String, DefaultValue: 
@@ -143,6 +144,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -201,6 +204,7 @@ Private bMultiple As Boolean = False
 Private sNoDataText As String = ""
 Private bOpenOnClear As Boolean = False
 Private bOutlined As Boolean = False
+Private sParentId As String = ""
 Private bPersistentHint As Boolean = False
 Private sPlaceholder As String = ""
 Private sPrefix As String = ""
@@ -277,7 +281,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -333,6 +343,7 @@ bMultiple = props.Get("Multiple")
 sNoDataText = props.Get("NoDataText")
 bOpenOnClear = props.Get("OpenOnClear")
 bOutlined = props.Get("Outlined")
+sParentId = props.Get("ParentId")
 bPersistentHint = props.Get("PersistentHint")
 sPlaceholder = props.Get("Placeholder")
 sPrefix = props.Get("Prefix")
@@ -754,6 +765,13 @@ SetAttr("outlined", bOutlined)
 Return Me
 End Sub
 
+'set parent-id
+Sub SetParentId(varParentId As String) As VSelect
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
+Return Me
+End Sub
+
 'set persistent-hint
 Sub SetPersistentHint(varPersistentHint As Boolean) As VSelect
 bPersistentHint = varPersistentHint
@@ -1111,6 +1129,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnBlurE(sBlur As String) As VSelect
+eOnblur = sBlur
+Return Me
+End Sub
+
 'set on change event, updates the master events records
 Sub SetOnChange() As VSelect
 Dim sName As String = $"${mEventName}_change"$
@@ -1122,6 +1145,11 @@ SetAttr("v-on:change", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnChangeE(sChange As String) As VSelect
+eOnchange = sChange
 Return Me
 End Sub
 
@@ -1139,6 +1167,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickE(sClick As String) As VSelect
+eOnclick = sClick
+Return Me
+End Sub
+
 'set on clickappend event, updates the master events records
 Sub SetOnClickAppend() As VSelect
 Dim sName As String = $"${mEventName}_clickappend"$
@@ -1150,6 +1183,11 @@ SetAttr("v-on:click:append", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickAppendE(sClickAppend As String) As VSelect
+eOnclickappend = sClickAppend
 Return Me
 End Sub
 
@@ -1167,6 +1205,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickAppendOuterE(sClickAppendOuter As String) As VSelect
+eOnclickappendouter = sClickAppendOuter
+Return Me
+End Sub
+
 'set on clickclear event, updates the master events records
 Sub SetOnClickClear() As VSelect
 Dim sName As String = $"${mEventName}_clickclear"$
@@ -1178,6 +1221,11 @@ SetAttr("v-on:click:clear", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickClearE(sClickClear As String) As VSelect
+eOnclickclear = sClickClear
 Return Me
 End Sub
 
@@ -1195,6 +1243,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickPrependE(sClickPrepend As String) As VSelect
+eOnclickprepend = sClickPrepend
+Return Me
+End Sub
+
 'set on clickprependinner event, updates the master events records
 Sub SetOnClickPrependInner() As VSelect
 Dim sName As String = $"${mEventName}_clickprependinner"$
@@ -1206,6 +1259,11 @@ SetAttr("v-on:click:prepend-inner", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickPrependInnerE(sClickPrependInner As String) As VSelect
+eOnclickprependinner = sClickPrependInner
 Return Me
 End Sub
 
@@ -1223,6 +1281,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnFocusE(sFocus As String) As VSelect
+eOnfocus = sFocus
+Return Me
+End Sub
+
 'set on input event, updates the master events records
 Sub SetOnInput() As VSelect
 Dim sName As String = $"${mEventName}_input"$
@@ -1234,6 +1297,11 @@ SetAttr("v-on:input", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnInputE(sInput As String) As VSelect
+eOninput = sInput
 Return Me
 End Sub
 
@@ -1251,6 +1319,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnKeydownE(sKeydown As String) As VSelect
+eOnkeydown = sKeydown
+Return Me
+End Sub
+
 'set on mousedown event, updates the master events records
 Sub SetOnMousedown() As VSelect
 Dim sName As String = $"${mEventName}_mousedown"$
@@ -1262,6 +1335,11 @@ SetAttr("v-on:mousedown", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousedownE(sMousedown As String) As VSelect
+eOnmousedown = sMousedown
 Return Me
 End Sub
 
@@ -1279,6 +1357,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseupE(sMouseup As String) As VSelect
+eOnmouseup = sMouseup
+Return Me
+End Sub
+
 'set on updateerror event, updates the master events records
 Sub SetOnUpdateError() As VSelect
 Dim sName As String = $"${mEventName}_updateerror"$
@@ -1290,6 +1373,11 @@ SetAttr("v-on:update:error", sCode)
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateErrorE(sUpdateError As String) As VSelect
+eOnupdateerror = sUpdateError
 Return Me
 End Sub
 
@@ -1307,6 +1395,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdateListIndexE(sUpdateListIndex As String) As VSelect
+eOnupdatelistindex = sUpdateListIndex
+Return Me
+End Sub
+
 'set on updatesearchinput event, updates the master events records
 Sub SetOnUpdateSearchInput() As VSelect
 Dim sName As String = $"${mEventName}_updatesearchinput"$
@@ -1318,6 +1411,11 @@ SetAttr("v-on:update:search-input", sCode)
 Dim argument As String 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateSearchInputE(sUpdateSearchInput As String) As VSelect
+eOnupdatesearchinput = sUpdateSearchInput
 Return Me
 End Sub
 
@@ -1369,6 +1467,7 @@ AddAttr(bMultiple, "multiple")
 AddAttr(sNoDataText, "no-data-text")
 AddAttr(bOpenOnClear, "open-on-clear")
 AddAttr(bOutlined, "outlined")
+AddAttr(sParentId, "parent-id")
 AddAttr(bPersistentHint, "persistent-hint")
 AddAttr(sPlaceholder, "placeholder")
 AddAttr(sPrefix, "prefix")
@@ -1422,6 +1521,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -1441,7 +1541,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -1452,6 +1552,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -1538,6 +1648,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VSelect
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1793,27 +1904,27 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VSelect
-	If sVBindStyle = "" Then
+	if svBindStyle = "" then
 		Log($"VSelect.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VSelect
-	If sRequired = "" Then
-		Log($"VSelect.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VSelect
+'	If sRequired = "" Then
+'		Log($"VSelect.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
-''read only
+'read only
 'Sub SetReadOnlyOnOff(b As Boolean) As VSelect
 '	If sReadonly = "" Then
 '		Log($"VSelect.ReadOnly - the readonly for ${mName} has not been set!"$)
@@ -1822,8 +1933,8 @@ End Sub
 '	data.Put(sReadonly, b)
 '	Return Me
 'End Sub
-'
-''disabled
+
+'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VSelect
 '	If sDisabled = "" Then
 '		Log($"VSelect.Disabled - the disabled for ${mName} has not been set!"$)

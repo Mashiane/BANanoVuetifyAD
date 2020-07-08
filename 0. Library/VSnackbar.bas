@@ -17,7 +17,7 @@ Version=8.3
 #DesignerProperty: Key: ContentClass, DisplayName: ContentClass, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: String, Description: Set elevation, DefaultValue: 
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Left, DisplayName: Left, Description: , FieldType: Boolean, DefaultValue: False
@@ -28,6 +28,7 @@ Version=8.3
 #DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MultiLine, DisplayName: MultiLine, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Outlined, DisplayName: Outlined, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -75,13 +76,16 @@ Version=8.3
 
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
+Private data As Map 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
-Private appLink As VueApp 'ignore
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
-Private data As Map
+
 Private properties As Map
 Private styles As Map
 Private classList As Map
@@ -112,6 +116,7 @@ Private sMinHeight As String = ""
 Private sMinWidth As String = ""
 Private bMultiLine As Boolean = False
 Private bOutlined As Boolean = False
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -165,7 +170,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -196,6 +207,7 @@ sMinHeight = props.Get("MinHeight")
 sMinWidth = props.Get("MinWidth")
 bMultiLine = props.Get("MultiLine")
 bOutlined = props.Get("Outlined")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -355,13 +367,6 @@ SetAttr("max-width", sMaxWidth)
 Return Me
 End Sub
 
-
-
-private Sub CStr(o As Object) As String
-	If o = BANano.UNDEFINED Then o = ""
-	Return "" & o
-End Sub
-
 'set min-height
 Sub SetMinHeight(varMinHeight As String) As VSnackbar
 sMinHeight = varMinHeight
@@ -387,6 +392,13 @@ End Sub
 Sub SetOutlined(varOutlined As Boolean) As VSnackbar
 bOutlined = varOutlined
 SetAttr("outlined", bOutlined)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VSnackbar
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -685,6 +697,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnInputE(sInput As String) As VSnackbar
+eOninput = sInput
+Return Me
+End Sub
+
 
 'return the generated html
 Sub ToString As String
@@ -708,6 +725,7 @@ AddAttr(sMinHeight, "min-height")
 AddAttr(sMinWidth, "min-width")
 AddAttr(bMultiLine, "multi-line")
 AddAttr(bOutlined, "outlined")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -753,6 +771,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -772,7 +791,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -781,8 +800,18 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -794,7 +823,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VSnackbar
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
@@ -807,6 +836,29 @@ End Sub
 public Sub AddToParent(targetID As String) As VSnackbar
 	mTarget = BANano.GetElement("#" & targetID.ToLowerCase)
 	DesignerCreateView(mTarget, Null)
+	Return Me
+End Sub
+
+'add component to app, this binds events and states
+Sub AddToApp(vap As VueApp) As VSnackbar
+	appLink = vap
+	data = vap.data	
+	'apply the binding for the control
+	For Each k As String In bindings.Keys
+		Dim v As String = bindings.Get(k)
+		vap.SetData(k, v)
+	Next
+	'apply the events
+	For Each k As String In methods.Keys
+		Dim cb As BANanoObject = methods.Get(k)
+		vap.SetCallBack(k, cb)
+	Next
+	Return Me
+End Sub
+
+'update the state
+Sub SetData(prop as string, value as object) As VSnackbar
+	data.put(prop, value)
 	Return Me
 End Sub
 
@@ -846,7 +898,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VSnackbar
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
-	If BANano.IsNumber(varName) Then varName = CStr(varName)
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -906,17 +958,17 @@ Sub AddClass(classNames As List) As VSnackbar
 	For Each k As String In classNames
 		classList.put(k, k)
 	Next
-	Dim cm As String = BANanoShared.Join(" ", classNames)
-	SetClasses(cm)
+	dim cm as string = BANanoShared.Join(" ", classnames)
+	Setclasses(cm)
 	Return Me
 End Sub
 
 'set styles from a map
 Sub SetStyles(m As Map) As VSnackbar
-	For Each k As String In m.Keys
-		Dim v As String = m.get(k)
+	for each k as string in m.Keys
+		dim v as string = m.get(k)
 		styles.put(k, v)
-	Next
+	next
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
 	Return Me
@@ -933,9 +985,9 @@ End Sub
 
 'set an attribute
 Sub SetAttr(prop As String, value As String) As VSnackbar
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then Return Me
 	properties.put(prop, value)
 	If mElement <> Null Then 
 		mElement.SetAttr(prop, value)
@@ -955,11 +1007,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VSnackbar
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -980,10 +1032,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -997,13 +1049,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VSnackbar
+Sub SetVClass(classObj as string) As VSnackbar
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VSnackbar
+Sub SetVStyle(styleObj as string) As VSnackbar
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -1019,18 +1071,18 @@ End Sub
 
 'set color intensity
 Sub SetColorIntensity(varColor As String, varIntensity As String) As VSnackbar
-	Dim sColor As String = $"${varColor} ${varIntensity}"$
+	Dim scolor As String = $"${varColor} ${varIntensity}"$
 	Dim pp As String = $"${mName}color"$
 	SetAttr(":color", pp)
 	'store the bindings
-	bindings.Put(pp, sColor)
+	bindings.Put(pp, scolor)
 	Return Me
 End Sub
 
 'set text color
 Sub SetTextColor1(varColor As String) As VSnackbar
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -1039,7 +1091,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VSnackb
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -1068,29 +1120,6 @@ Sub Toggle As VSnackbar
 	Return Me
 End Sub
 
-'add component to app, this binds events and states
-Sub AddToApp(vap As VueApp) As VSnackbar
-	appLink = vap
-	data = vap.data
-	'apply the binding for the control
-	For Each k As String In bindings.Keys
-		Dim v As String = bindings.Get(k)
-		vap.SetData(k, v)
-	Next
-	'apply the events
-	For Each k As String In methods.Keys
-		Dim cb As BANanoObject = methods.Get(k)
-		vap.SetCallBack(k, cb)
-	Next
-	Return Me
-End Sub
-
-'update the state
-Sub SetData(prop As String, value As Object) As VSnackbar
-	data.put(prop, value)
-	Return Me
-End Sub
-
 'hide
 Sub Hide As VSnackbar
 	If sVModel = "" Then
@@ -1116,54 +1145,54 @@ Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VSnackbar
 	If sVBindClass = "" Then
 		Log($"VSnackbar.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VSnackbar
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VSnackbar
+	if svBindStyle = "" then
 		Log($"VSnackbar.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VSnackbar
-	If sRequired = "" Then
-		Log($"VSnackbar.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VSnackbar
+'	If sRequired = "" Then
+'		Log($"VSnackbar.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VSnackbar
-	If sReadonly = "" Then
-		Log($"VSnackbar.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VSnackbar
+'	If sReadonly = "" Then
+'		Log($"VSnackbar.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VSnackbar
-	If sDisabled = "" Then
-		Log($"VSnackbar.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VSnackbar
+'	If sDisabled = "" Then
+'		Log($"VSnackbar.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)
@@ -1179,4 +1208,6 @@ Sub AddToComponent(ve As VMElement)
 		ve.SetCallBack(k, cb)
 	Next
 End Sub
+
+
 

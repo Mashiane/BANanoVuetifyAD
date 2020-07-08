@@ -15,6 +15,7 @@ Version=8.3
 #DesignerProperty: Key: ExpandIcon, DisplayName: ExpandIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: HideActions, DisplayName: HideActions, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -56,6 +57,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -76,6 +79,7 @@ Private sDisabled As String = ""
 Private sExpandIcon As String = ""
 Private bHideActions As Boolean = False
 Private sKey As String = ""
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -118,7 +122,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -136,6 +146,7 @@ sDisabled = props.Get("Disabled")
 sExpandIcon = props.Get("ExpandIcon")
 bHideActions = props.Get("HideActions")
 sKey = props.Get("Key")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -218,6 +229,13 @@ End Sub
 Sub SetKey(varKey As String) As VExpansionPanelHeader
 sKey = varKey
 SetAttr("key", sKey)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VExpansionPanelHeader
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -439,6 +457,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickE(sClick As String) As VExpansionPanelHeader
+eOnclick = sClick
+Return Me
+End Sub
+
 
 'return the generated html
 Sub ToString As String
@@ -449,6 +472,7 @@ AddAttr(sDisabled, "disabled")
 AddAttr(sExpandIcon, "expand-icon")
 AddAttr(bHideActions, "hide-actions")
 AddAttr(sKey, "key")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -483,6 +507,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -502,7 +527,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -513,6 +538,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -599,6 +634,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VExpansionPanelHeader
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -865,34 +901,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VExpansionPanel
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VExpansionPanelHeader
-	If sRequired = "" Then
-		Log($"VExpansionPanelHeader.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VExpansionPanelHeader
+'	If sRequired = "" Then
+'		Log($"VExpansionPanelHeader.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VExpansionPanelHeader
-	If sReadonly = "" Then
-		Log($"VExpansionPanelHeader.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VExpansionPanelHeader
+'	If sReadonly = "" Then
+'		Log($"VExpansionPanelHeader.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VExpansionPanelHeader
-	If sDisabled = "" Then
-		Log($"VExpansionPanelHeader.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VExpansionPanelHeader
+'	If sDisabled = "" Then
+'		Log($"VExpansionPanelHeader.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

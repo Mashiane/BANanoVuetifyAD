@@ -1,4 +1,4 @@
-2020-06-27 16:52:16 B4J=true
+2020-07-08 02:37:13 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -105,6 +105,7 @@ Version=8.3
 #DesignerProperty: Key: MinWeeks, DisplayName: MinWeeks, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MonthFormat, DisplayName: MonthFormat, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Now, DisplayName: Now, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -209,6 +210,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -263,6 +266,7 @@ Private sMaxDays As String = ""
 Private sMinWeeks As String = ""
 Private sMonthFormat As String = ""
 Private sNow As String = ""
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -368,7 +372,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -420,6 +430,7 @@ sMaxDays = props.Get("MaxDays")
 sMinWeeks = props.Get("MinWeeks")
 sMonthFormat = props.Get("MonthFormat")
 sNow = props.Get("Now")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -928,6 +939,13 @@ SetAttr("now", sNow)
 Return Me
 End Sub
 
+'set parent-id
+Sub SetParentId(varParentId As String) As VCalendar
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
+Return Me
+End Sub
+
 'set readonly
 Sub SetReadonly(varReadonly As String) As VCalendar
 sReadonly = varReadonly
@@ -1214,6 +1232,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnChangeE(sChange As String) As VCalendar
+eOnchange = sChange
+Return Me
+End Sub
+
 'set on clickdate event, updates the master events records
 Sub SetOnClickDate() As VCalendar
 Dim sName As String = $"${mEventName}_clickdate"$
@@ -1225,6 +1248,11 @@ SetAttr("v-on:click:date", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickDateE(sClickDate As String) As VCalendar
+eOnclickdate = sClickDate
 Return Me
 End Sub
 
@@ -1242,6 +1270,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickDayE(sClickDay As String) As VCalendar
+eOnclickday = sClickDay
+Return Me
+End Sub
+
 'set on clickdaycategory event, updates the master events records
 Sub SetOnClickDayCategory() As VCalendar
 Dim sName As String = $"${mEventName}_clickdaycategory"$
@@ -1253,6 +1286,11 @@ SetAttr("v-on:click:day-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickDayCategoryE(sClickDayCategory As String) As VCalendar
+eOnclickdaycategory = sClickDayCategory
 Return Me
 End Sub
 
@@ -1270,6 +1308,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickIntervalE(sClickInterval As String) As VCalendar
+eOnclickinterval = sClickInterval
+Return Me
+End Sub
+
 'set on clickmore event, updates the master events records
 Sub SetOnClickMore() As VCalendar
 Dim sName As String = $"${mEventName}_clickmore"$
@@ -1281,6 +1324,11 @@ SetAttr("v-on:click:more", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickMoreE(sClickMore As String) As VCalendar
+eOnclickmore = sClickMore
 Return Me
 End Sub
 
@@ -1298,6 +1346,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickTimeE(sClickTime As String) As VCalendar
+eOnclicktime = sClickTime
+Return Me
+End Sub
+
 'set on clicktimecategory event, updates the master events records
 Sub SetOnClickTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_clicktimecategory"$
@@ -1309,6 +1362,11 @@ SetAttr("v-on:click:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnClickTimeCategoryE(sClickTimeCategory As String) As VCalendar
+eOnclicktimecategory = sClickTimeCategory
 Return Me
 End Sub
 
@@ -1326,6 +1384,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnContextmenuDateE(sContextmenuDate As String) As VCalendar
+eOncontextmenudate = sContextmenuDate
+Return Me
+End Sub
+
 'set on contextmenuday event, updates the master events records
 Sub SetOnContextmenuDay() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenuday"$
@@ -1337,6 +1400,11 @@ SetAttr("v-on:contextmenu:day", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnContextmenuDayE(sContextmenuDay As String) As VCalendar
+eOncontextmenuday = sContextmenuDay
 Return Me
 End Sub
 
@@ -1354,6 +1422,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnContextmenuDayCategoryE(sContextmenuDayCategory As String) As VCalendar
+eOncontextmenudaycategory = sContextmenuDayCategory
+Return Me
+End Sub
+
 'set on contextmenuinterval event, updates the master events records
 Sub SetOnContextmenuInterval() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenuinterval"$
@@ -1365,6 +1438,11 @@ SetAttr("v-on:contextmenu:interval", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnContextmenuIntervalE(sContextmenuInterval As String) As VCalendar
+eOncontextmenuinterval = sContextmenuInterval
 Return Me
 End Sub
 
@@ -1382,6 +1460,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnContextmenuTimeE(sContextmenuTime As String) As VCalendar
+eOncontextmenutime = sContextmenuTime
+Return Me
+End Sub
+
 'set on contextmenutimecategory event, updates the master events records
 Sub SetOnContextmenuTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_contextmenutimecategory"$
@@ -1393,6 +1476,11 @@ SetAttr("v-on:contextmenu:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnContextmenuTimeCategoryE(sContextmenuTimeCategory As String) As VCalendar
+eOncontextmenutimecategory = sContextmenuTimeCategory
 Return Me
 End Sub
 
@@ -1410,6 +1498,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnInputE(sInput As String) As VCalendar
+eOninput = sInput
+Return Me
+End Sub
+
 'set on mousedownday event, updates the master events records
 Sub SetOnMousedownDay() As VCalendar
 Dim sName As String = $"${mEventName}_mousedownday"$
@@ -1421,6 +1514,11 @@ SetAttr("v-on:mousedown:day", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousedownDayE(sMousedownDay As String) As VCalendar
+eOnmousedownday = sMousedownDay
 Return Me
 End Sub
 
@@ -1438,6 +1536,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMousedownDayCategoryE(sMousedownDayCategory As String) As VCalendar
+eOnmousedowndaycategory = sMousedownDayCategory
+Return Me
+End Sub
+
 'set on mousedowninterval event, updates the master events records
 Sub SetOnMousedownInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mousedowninterval"$
@@ -1449,6 +1552,11 @@ SetAttr("v-on:mousedown:interval", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousedownIntervalE(sMousedownInterval As String) As VCalendar
+eOnmousedowninterval = sMousedownInterval
 Return Me
 End Sub
 
@@ -1466,6 +1574,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMousedownTimeE(sMousedownTime As String) As VCalendar
+eOnmousedowntime = sMousedownTime
+Return Me
+End Sub
+
 'set on mousedowntimecategory event, updates the master events records
 Sub SetOnMousedownTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_mousedowntimecategory"$
@@ -1477,6 +1590,11 @@ SetAttr("v-on:mousedown:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousedownTimeCategoryE(sMousedownTimeCategory As String) As VCalendar
+eOnmousedowntimecategory = sMousedownTimeCategory
 Return Me
 End Sub
 
@@ -1494,6 +1612,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseenterDayE(sMouseenterDay As String) As VCalendar
+eOnmouseenterday = sMouseenterDay
+Return Me
+End Sub
+
 'set on mouseenterdaycategory event, updates the master events records
 Sub SetOnMouseenterDayCategory() As VCalendar
 Dim sName As String = $"${mEventName}_mouseenterdaycategory"$
@@ -1505,6 +1628,11 @@ SetAttr("v-on:mouseenter:day-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseenterDayCategoryE(sMouseenterDayCategory As String) As VCalendar
+eOnmouseenterdaycategory = sMouseenterDayCategory
 Return Me
 End Sub
 
@@ -1522,6 +1650,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseenterIntervalE(sMouseenterInterval As String) As VCalendar
+eOnmouseenterinterval = sMouseenterInterval
+Return Me
+End Sub
+
 'set on mouseentertime event, updates the master events records
 Sub SetOnMouseenterTime() As VCalendar
 Dim sName As String = $"${mEventName}_mouseentertime"$
@@ -1533,6 +1666,11 @@ SetAttr("v-on:mouseenter:time", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseenterTimeE(sMouseenterTime As String) As VCalendar
+eOnmouseentertime = sMouseenterTime
 Return Me
 End Sub
 
@@ -1550,6 +1688,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseenterTimeCategoryE(sMouseenterTimeCategory As String) As VCalendar
+eOnmouseentertimecategory = sMouseenterTimeCategory
+Return Me
+End Sub
+
 'set on mouseleaveday event, updates the master events records
 Sub SetOnMouseleaveDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleaveday"$
@@ -1561,6 +1704,11 @@ SetAttr("v-on:mouseleave:day", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseleaveDayE(sMouseleaveDay As String) As VCalendar
+eOnmouseleaveday = sMouseleaveDay
 Return Me
 End Sub
 
@@ -1578,6 +1726,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseleaveDayCategoryE(sMouseleaveDayCategory As String) As VCalendar
+eOnmouseleavedaycategory = sMouseleaveDayCategory
+Return Me
+End Sub
+
 'set on mouseleaveinterval event, updates the master events records
 Sub SetOnMouseleaveInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleaveinterval"$
@@ -1589,6 +1742,11 @@ SetAttr("v-on:mouseleave:interval", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseleaveIntervalE(sMouseleaveInterval As String) As VCalendar
+eOnmouseleaveinterval = sMouseleaveInterval
 Return Me
 End Sub
 
@@ -1606,6 +1764,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseleaveTimeE(sMouseleaveTime As String) As VCalendar
+eOnmouseleavetime = sMouseleaveTime
+Return Me
+End Sub
+
 'set on mouseleavetimecategory event, updates the master events records
 Sub SetOnMouseleaveTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_mouseleavetimecategory"$
@@ -1617,6 +1780,11 @@ SetAttr("v-on:mouseleave:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseleaveTimeCategoryE(sMouseleaveTimeCategory As String) As VCalendar
+eOnmouseleavetimecategory = sMouseleaveTimeCategory
 Return Me
 End Sub
 
@@ -1634,6 +1802,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMousemoveDayE(sMousemoveDay As String) As VCalendar
+eOnmousemoveday = sMousemoveDay
+Return Me
+End Sub
+
 'set on mousemovedaycategory event, updates the master events records
 Sub SetOnMousemoveDayCategory() As VCalendar
 Dim sName As String = $"${mEventName}_mousemovedaycategory"$
@@ -1645,6 +1818,11 @@ SetAttr("v-on:mousemove:day-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousemoveDayCategoryE(sMousemoveDayCategory As String) As VCalendar
+eOnmousemovedaycategory = sMousemoveDayCategory
 Return Me
 End Sub
 
@@ -1662,6 +1840,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMousemoveIntervalE(sMousemoveInterval As String) As VCalendar
+eOnmousemoveinterval = sMousemoveInterval
+Return Me
+End Sub
+
 'set on mousemovetime event, updates the master events records
 Sub SetOnMousemoveTime() As VCalendar
 Dim sName As String = $"${mEventName}_mousemovetime"$
@@ -1673,6 +1856,11 @@ SetAttr("v-on:mousemove:time", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMousemoveTimeE(sMousemoveTime As String) As VCalendar
+eOnmousemovetime = sMousemoveTime
 Return Me
 End Sub
 
@@ -1690,6 +1878,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMousemoveTimeCategoryE(sMousemoveTimeCategory As String) As VCalendar
+eOnmousemovetimecategory = sMousemoveTimeCategory
+Return Me
+End Sub
+
 'set on mouseupday event, updates the master events records
 Sub SetOnMouseupDay() As VCalendar
 Dim sName As String = $"${mEventName}_mouseupday"$
@@ -1701,6 +1894,11 @@ SetAttr("v-on:mouseup:day", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseupDayE(sMouseupDay As String) As VCalendar
+eOnmouseupday = sMouseupDay
 Return Me
 End Sub
 
@@ -1718,6 +1916,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseupDayCategoryE(sMouseupDayCategory As String) As VCalendar
+eOnmouseupdaycategory = sMouseupDayCategory
+Return Me
+End Sub
+
 'set on mouseupinterval event, updates the master events records
 Sub SetOnMouseupInterval() As VCalendar
 Dim sName As String = $"${mEventName}_mouseupinterval"$
@@ -1729,6 +1932,11 @@ SetAttr("v-on:mouseup:interval", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseupIntervalE(sMouseupInterval As String) As VCalendar
+eOnmouseupinterval = sMouseupInterval
 Return Me
 End Sub
 
@@ -1746,6 +1954,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMouseupTimeE(sMouseupTime As String) As VCalendar
+eOnmouseuptime = sMouseupTime
+Return Me
+End Sub
+
 'set on mouseuptimecategory event, updates the master events records
 Sub SetOnMouseupTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_mouseuptimecategory"$
@@ -1757,6 +1970,11 @@ SetAttr("v-on:mouseup:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnMouseupTimeCategoryE(sMouseupTimeCategory As String) As VCalendar
+eOnmouseuptimecategory = sMouseupTimeCategory
 Return Me
 End Sub
 
@@ -1774,6 +1992,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnMovedE(sMoved As String) As VCalendar
+eOnmoved = sMoved
+Return Me
+End Sub
+
 'set on touchendday event, updates the master events records
 Sub SetOnTouchendDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchendday"$
@@ -1785,6 +2008,11 @@ SetAttr("v-on:touchend:day", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchendDayE(sTouchendDay As String) As VCalendar
+eOntouchendday = sTouchendDay
 Return Me
 End Sub
 
@@ -1802,6 +2030,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchendDayCategoryE(sTouchendDayCategory As String) As VCalendar
+eOntouchenddaycategory = sTouchendDayCategory
+Return Me
+End Sub
+
 'set on touchendinterval event, updates the master events records
 Sub SetOnTouchendInterval() As VCalendar
 Dim sName As String = $"${mEventName}_touchendinterval"$
@@ -1813,6 +2046,11 @@ SetAttr("v-on:touchend:interval", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchendIntervalE(sTouchendInterval As String) As VCalendar
+eOntouchendinterval = sTouchendInterval
 Return Me
 End Sub
 
@@ -1830,6 +2068,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchendTimeE(sTouchendTime As String) As VCalendar
+eOntouchendtime = sTouchendTime
+Return Me
+End Sub
+
 'set on touchendtimecategory event, updates the master events records
 Sub SetOnTouchendTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_touchendtimecategory"$
@@ -1841,6 +2084,11 @@ SetAttr("v-on:touchend:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchendTimeCategoryE(sTouchendTimeCategory As String) As VCalendar
+eOntouchendtimecategory = sTouchendTimeCategory
 Return Me
 End Sub
 
@@ -1858,6 +2106,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchmoveDayE(sTouchmoveDay As String) As VCalendar
+eOntouchmoveday = sTouchmoveDay
+Return Me
+End Sub
+
 'set on touchmovedaycategory event, updates the master events records
 Sub SetOnTouchmoveDayCategory() As VCalendar
 Dim sName As String = $"${mEventName}_touchmovedaycategory"$
@@ -1869,6 +2122,11 @@ SetAttr("v-on:touchmove:day-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchmoveDayCategoryE(sTouchmoveDayCategory As String) As VCalendar
+eOntouchmovedaycategory = sTouchmoveDayCategory
 Return Me
 End Sub
 
@@ -1886,6 +2144,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchmoveIntervalE(sTouchmoveInterval As String) As VCalendar
+eOntouchmoveinterval = sTouchmoveInterval
+Return Me
+End Sub
+
 'set on touchmovetime event, updates the master events records
 Sub SetOnTouchmoveTime() As VCalendar
 Dim sName As String = $"${mEventName}_touchmovetime"$
@@ -1897,6 +2160,11 @@ SetAttr("v-on:touchmove:time", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchmoveTimeE(sTouchmoveTime As String) As VCalendar
+eOntouchmovetime = sTouchmoveTime
 Return Me
 End Sub
 
@@ -1914,6 +2182,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchmoveTimeCategoryE(sTouchmoveTimeCategory As String) As VCalendar
+eOntouchmovetimecategory = sTouchmoveTimeCategory
+Return Me
+End Sub
+
 'set on touchstartday event, updates the master events records
 Sub SetOnTouchstartDay() As VCalendar
 Dim sName As String = $"${mEventName}_touchstartday"$
@@ -1925,6 +2198,11 @@ SetAttr("v-on:touchstart:day", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchstartDayE(sTouchstartDay As String) As VCalendar
+eOntouchstartday = sTouchstartDay
 Return Me
 End Sub
 
@@ -1942,6 +2220,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchstartDayCategoryE(sTouchstartDayCategory As String) As VCalendar
+eOntouchstartdaycategory = sTouchstartDayCategory
+Return Me
+End Sub
+
 'set on touchstartinterval event, updates the master events records
 Sub SetOnTouchstartInterval() As VCalendar
 Dim sName As String = $"${mEventName}_touchstartinterval"$
@@ -1953,6 +2236,11 @@ SetAttr("v-on:touchstart:interval", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchstartIntervalE(sTouchstartInterval As String) As VCalendar
+eOntouchstartinterval = sTouchstartInterval
 Return Me
 End Sub
 
@@ -1970,6 +2258,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnTouchstartTimeE(sTouchstartTime As String) As VCalendar
+eOntouchstarttime = sTouchstartTime
+Return Me
+End Sub
+
 'set on touchstarttimecategory event, updates the master events records
 Sub SetOnTouchstartTimeCategory() As VCalendar
 Dim sName As String = $"${mEventName}_touchstarttimecategory"$
@@ -1981,6 +2274,11 @@ SetAttr("v-on:touchstart:time-category", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnTouchstartTimeCategoryE(sTouchstartTimeCategory As String) As VCalendar
+eOntouchstarttimecategory = sTouchstartTimeCategory
 Return Me
 End Sub
 
@@ -2028,6 +2326,7 @@ AddAttr(sMaxDays, "max-days")
 AddAttr(sMinWeeks, "min-weeks")
 AddAttr(sMonthFormat, "month-format")
 AddAttr(sNow, "now")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -2070,6 +2369,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -2089,7 +2389,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -2100,6 +2400,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -2186,6 +2496,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VCalendar
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -2452,34 +2763,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VCalendar
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VCalendar
-	If sRequired = "" Then
-		Log($"VCalendar.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VCalendar
+'	If sRequired = "" Then
+'		Log($"VCalendar.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VCalendar
-	If sReadonly = "" Then
-		Log($"VCalendar.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VCalendar
+'	If sReadonly = "" Then
+'		Log($"VCalendar.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VCalendar
-	If sDisabled = "" Then
-		Log($"VCalendar.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VCalendar
+'	If sDisabled = "" Then
+'		Log($"VCalendar.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

@@ -6,10 +6,11 @@ Version=8.3
 'Custom BANano View class: VHtml
 #IgnoreWarnings:12
 
-#DesignerProperty: Key: TagName, DisplayName: TagName, Description: , FieldType: String, DefaultValue: div
+
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -26,6 +27,7 @@ Version=8.3
 #DesignerProperty: Key: VPre, DisplayName: VPre, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: VShow, DisplayName: VShow, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: VText, DisplayName: VText, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: TagName, DisplayName: TagName, Description: , List:p|a|br|div|span|h1|h2|h3|h4|h5|h6, FieldType: String, DefaultValue: 
 #DesignerProperty: Key: BorderColor, DisplayName: BorderColor, Description: Set border-color, FieldType: String, DefaultValue: , List: amber|black|blue|blue-grey|brown|cyan|deep-orange|deep-purple|green|grey|indigo|light-blue|light-green|lime|orange|pink|purple|red|teal|transparent|white|yellow|primary|secondary|accent|error|info|success|warning|none
 #DesignerProperty: Key: BorderStyle, DisplayName: BorderStyle, Description: Set border-style, FieldType: String, DefaultValue: , List: dashed|dotted|double|groove|hidden|inset|none|outset|ridge|solid
 #DesignerProperty: Key: BorderWidth, DisplayName: BorderWidth, Description: Set border-width, FieldType: String, DefaultValue: 
@@ -49,6 +51,8 @@ Private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -65,6 +69,7 @@ Private mTagName As String = "div"
 Private sCaption As String = ""
 Private sDisabled As String = ""
 Private sKey As String = ""
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -105,7 +110,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -120,6 +131,7 @@ mTagName = props.Get("TagName")
 sCaption = props.Get("Caption")
 sDisabled = props.Get("Disabled")
 sKey = props.Get("Key")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -173,6 +185,13 @@ SetAttr("key", sKey)
 Return Me
 End Sub
 
+'set parent-id
+Sub SetParentId(varParentId As String) As VHtml
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
+Return Me
+End Sub
+
 'set readonly
 Sub SetReadonly(varReadonly As String) As VHtml
 sReadonly = varReadonly
@@ -181,42 +200,42 @@ Return Me
 End Sub
 
 'set ref
-Sub SetRef(varRef As String) As VHtml
+Sub SetRef(varRef As String) As VHTML
 sRef = varRef
 SetAttr("ref", sRef)
 Return Me
 End Sub
 
 'set required
-Sub SetRequired(varRequired As String) As VHtml
+Sub SetRequired(varRequired As String) As VHTML
 sRequired = varRequired
 SetAttr("required", sRequired)
 Return Me
 End Sub
 
 'set v-bind:class
-Sub SetVBindClass(varVBindClass As String) As VHtml
+Sub SetVBindClass(varVBindClass As String) As VHTML
 sVBindClass = varVBindClass
 SetAttr("v-bind:class", sVBindClass)
 Return Me
 End Sub
 
 'set v-bind:style
-Sub SetVBindStyle(varVBindStyle As String) As VHtml
+Sub SetVBindStyle(varVBindStyle As String) As VHTML
 sVBindStyle = varVBindStyle
 SetAttr("v-bind:style", sVBindStyle)
 Return Me
 End Sub
 
 'set v-cloak
-Sub SetVCloak(varVCloak As Boolean) As VHtml
+Sub SetVCloak(varVCloak As Boolean) As VHTML
 bVCloak = varVCloak
 SetAttr("v-cloak", bVCloak)
 Return Me
 End Sub
 
 'set v-else
-Sub SetVElse(varVElse As String) As VHtml
+Sub SetVElse(varVElse As String) As VHTML
 sVElse = varVElse
 SetAttr("v-else", sVElse)
 Return Me
@@ -382,6 +401,7 @@ Sub ToString As String
 AddAttr(sCaption, "caption")
 AddAttr(sDisabled, "disabled")
 AddAttr(sKey, "key")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -415,6 +435,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -434,7 +455,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -447,16 +468,26 @@ Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTa
 Return strRes
 End Sub
 
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
+End Sub
+
 'add a child component
-Sub AddComponent(child As String) As VHTML
+Sub AddComponent(child As String) As VHtml
 	mElement.Append(child)
 	sCaption = mElement.GetText
 	Return Me
 End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
-Sub SetID(varText As String) As VHTML
-	mName = varText
+Sub SetID(varText As String) As VHtml
+	mname = varText
 	Return Me
 End Sub
 
@@ -531,6 +562,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VHtml
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -797,34 +829,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VHtml
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VHtml
-	If sRequired = "" Then
-		Log($"VHtml.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VHtml
+'	If sRequired = "" Then
+'		Log($"VHtml.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VHtml
-	If sReadonly = "" Then
-		Log($"VHtml.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VHtml
+'	If sReadonly = "" Then
+'		Log($"VHtml.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VHtml
-	If sDisabled = "" Then
-		Log($"VHtml.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VHtml
+'	If sDisabled = "" Then
+'		Log($"VHtml.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

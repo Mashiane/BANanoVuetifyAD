@@ -31,6 +31,7 @@ Version=8.3
 #DesignerProperty: Key: Origin, DisplayName: Origin, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OverlayColor, DisplayName: OverlayColor, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: OverlayOpacity, DisplayName: OverlayOpacity, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Persistent, DisplayName: Persistent, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
@@ -76,10 +77,12 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -114,6 +117,7 @@ Private bOpenOnHover As Boolean = False
 Private sOrigin As String = ""
 Private sOverlayColor As String = ""
 Private sOverlayOpacity As String = ""
+Private sParentId As String = ""
 Private bPersistent As Boolean = False
 Private sReadonly As String = ""
 Private sRef As String = ""
@@ -164,7 +168,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -196,6 +206,7 @@ bOpenOnHover = props.Get("OpenOnHover")
 sOrigin = props.Get("Origin")
 sOverlayColor = props.Get("OverlayColor")
 sOverlayOpacity = props.Get("OverlayOpacity")
+sParentId = props.Get("ParentId")
 bPersistent = props.Get("Persistent")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
@@ -388,6 +399,13 @@ End Sub
 Sub SetOverlayOpacity(varOverlayOpacity As String) As VDialog
 sOverlayOpacity = varOverlayOpacity
 SetAttr("overlay-opacity", sOverlayOpacity)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VDialog
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -651,6 +669,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickOutsideE(sClickOutside As String) As VDialog
+eOnclickoutside = sClickOutside
+Return Me
+End Sub
+
 'set on input event, updates the master events records
 Sub SetOnInput() As VDialog
 Dim sName As String = $"${mEventName}_input"$
@@ -665,6 +688,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnInputE(sInput As String) As VDialog
+eOninput = sInput
+Return Me
+End Sub
+
 'set on keydown event, updates the master events records
 Sub SetOnKeydown() As VDialog
 Dim sName As String = $"${mEventName}_keydown"$
@@ -676,6 +704,11 @@ SetAttr("v-on:keydown", sCode)
 Dim argument As BANanoEvent 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnKeydownE(sKeydown As String) As VDialog
+eOnkeydown = sKeydown
 Return Me
 End Sub
 
@@ -703,6 +736,7 @@ AddAttr(bOpenOnHover, "open-on-hover")
 AddAttr(sOrigin, "origin")
 AddAttr(sOverlayColor, "overlay-color")
 AddAttr(sOverlayOpacity, "overlay-opacity")
+AddAttr(sParentId, "parent-id")
 AddAttr(bPersistent, "persistent")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
@@ -743,6 +777,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -762,7 +797,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -771,8 +806,18 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -784,7 +829,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VDialog
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
@@ -859,6 +904,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VDialog
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -967,11 +1013,11 @@ End Sub
 
 'set a single style
 Sub SetStyleSingle(prop As String, value As String) As VDialog
-	If BANano.IsUndefined(prop) Or BANano.IsNull(prop) Then prop = ""
-	If BANano.IsUndefined(value) Or BANano.IsNull(value) Then value = ""
-	If prop = "" Then Return Me
+	If BANano.IsUndefined(prop) or BANano.IsNull(prop) Then prop = ""
+	If BANano.IsUndefined(value) or BANano.IsNull(value) Then value = ""
+	if prop = "" then return me
 	styles.put(prop, value)
-	Dim m As Map = CreateMap()
+	dim m as map = createmap()
 	m.put(prop, value)
 	Dim jsonStyle As String = BANano.ToJson(m)
 	SetStyle(jsonStyle)
@@ -992,10 +1038,10 @@ Sub Build(props As Map, styleProps As Map, classNames As List, loose As List) As
 		Next
 	End If
 	If styleProps <> Null Then
-		For Each k As String In styleProps.Keys
-			Dim v As String = styleProps.get(k)
+		for each k as string in styleprops.Keys
+			dim v as string = styleprops.get(k)
 			SetStyleSingle(k, v)
-		Next
+		next
 	End If
 	If classNames <> Null Then
 		AddClass(classNames)
@@ -1042,7 +1088,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VDialog
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -1051,7 +1097,7 @@ Sub SetTextColorIntensity(varColor As String, varIntensity As String) As VDialog
 	Dim sColor As String = $"${varColor}--text"$
 	Dim sIntensity As String = $"text--${varIntensity}"$
 	Dim mcolor As String = $"${sColor} ${sIntensity}"$
-	AddClass(Array(mcolor))
+	AddClass(array(mcolor))
 	Return Me
 End Sub
 
@@ -1105,44 +1151,44 @@ Sub SetClassOnOff(clsName As String, clsValue As Boolean) As VDialog
 	If sVBindClass = "" Then
 		Log($"VDialog.VBindClass - the v-bind:class for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindClass)
+	end if
+	dim obj As Map = data.get(svBindClass)
 	obj.put(clsName, clsValue)
-	data.put(sVBindClass, obj)
+	data.put(svBindClass, obj)
 	Return Me
 End Sub
 
 'set style 
-Sub SetStyleOnOff(styleName As String, styleValue As Boolean) As VDialog
-	If sVBindStyle = "" Then
+Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VDialog
+	if svBindStyle = "" then
 		Log($"VDialog.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VDialog
-	If sRequired = "" Then
-		Log($"VDialog.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VDialog
+'	If sRequired = "" Then
+'		Log($"VDialog.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VDialog
-	If sReadonly = "" Then
-		Log($"VDialog.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VDialog
+'	If sReadonly = "" Then
+'		Log($"VDialog.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VDialog

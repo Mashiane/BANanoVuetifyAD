@@ -13,6 +13,7 @@ Version=8.3
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: LazyValidation, DisplayName: LazyValidation, Description: , FieldType: Boolean, DefaultValue: False
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -55,6 +56,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -72,6 +75,7 @@ Private sCaption As String = ""
 Private bDisabled As Boolean = False
 Private sKey As String = ""
 Private bLazyValidation As Boolean = False
+Private sParentId As String = ""
 Private bReadonly As Boolean = False
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -115,7 +119,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -130,6 +140,7 @@ sCaption = props.Get("Caption")
 bDisabled = props.Get("Disabled")
 sKey = props.Get("Key")
 bLazyValidation = props.Get("LazyValidation")
+sParentId = props.Get("ParentId")
 bReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -194,6 +205,13 @@ End Sub
 Sub SetLazyValidation(varLazyValidation As Boolean) As VForm
 bLazyValidation = varLazyValidation
 SetAttr("lazy-validation", bLazyValidation)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VForm
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -415,6 +433,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnInputE(sInput As String) As VForm
+eOninput = sInput
+Return Me
+End Sub
+
 'set on submit event, updates the master events records
 Sub SetOnSubmit() As VForm
 Dim sName As String = $"${mEventName}_submit"$
@@ -429,6 +452,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnSubmitE(sSubmit As String) As VForm
+eOnsubmit = sSubmit
+Return Me
+End Sub
+
 
 'return the generated html
 Sub ToString As String
@@ -436,6 +464,7 @@ AddAttr(sCaption, "caption")
 AddAttr(bDisabled, "disabled")
 AddAttr(sKey, "key")
 AddAttr(bLazyValidation, "lazy-validation")
+AddAttr(sParentId, "parent-id")
 AddAttr(bReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -470,6 +499,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -489,7 +519,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -500,6 +530,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -586,6 +626,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VForm
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -841,25 +882,25 @@ End Sub
 
 'set style 
 Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VForm
-	If sVBindStyle = "" Then
+	if svBindStyle = "" then
 		Log($"VForm.VBindCStyle - the v-bind:style for ${mName} has not been set!"$)
 		Return Me
-	End If
-	Dim obj As Map = data.get(sVBindStyle)
+	end if
+	dim obj As Map = data.get(svBindStyle)
 	obj.put(styleName, styleValue)
-	data.put(sVBindStyle, obj)
+	data.put(svBindStyle, obj)
 	Return Me
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VForm
-	If sRequired = "" Then
-		Log($"VForm.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VForm
+'	If sRequired = "" Then
+'		Log($"VForm.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
 'Sub SetReadOnlyOnOff(b As Boolean) As VForm
@@ -870,8 +911,8 @@ End Sub
 '	data.Put(sReadonly, b)
 '	Return Me
 'End Sub
-'
-''disabled
+
+'disabled
 'Sub SetDisabledOnOff(b As Boolean) As VForm
 '	If sDisabled = "" Then
 '		Log($"VForm.Disabled - the disabled for ${mName} has not been set!"$)

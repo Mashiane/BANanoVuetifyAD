@@ -63,7 +63,7 @@ Module6=pgThankYou
 NumberOfFiles=24
 NumberOfLibraries=5
 NumberOfModules=6
-Version=8.31
+Version=8.45
 @EndOfDesignText@
 #Region Project Attributes 
 	#MainFormWidth: 600

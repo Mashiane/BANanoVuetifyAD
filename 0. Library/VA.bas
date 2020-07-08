@@ -13,6 +13,7 @@ Version=8.3
 #DesignerProperty: Key: Href, DisplayName: Href, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Name, DisplayName: Name, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -50,10 +51,12 @@ Version=8.3
 Sub Class_Globals 
 Private BANano As BANano 'ignore 
 Private data As Map 
-Private appLink As VueApp 'ignore 
+private appLink As VueApp 'ignore 
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -73,6 +76,7 @@ Private bDownload As Boolean = False
 Private sHref As String = ""
 Private sKey As String = ""
 Private sName As String = ""
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -115,7 +119,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -132,6 +142,7 @@ bDownload = props.Get("Download")
 sHref = props.Get("Href")
 sKey = props.Get("Key")
 sName = props.Get("Name")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -205,6 +216,13 @@ End Sub
 Sub SetName(varName As String) As VA
 sName = varName
 SetAttr("name", sName)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VA
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -428,6 +446,7 @@ AddAttr(bDownload, "download")
 AddAttr(sHref, "href")
 AddAttr(sKey, "key")
 AddAttr(sName, "name")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -463,6 +482,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -482,7 +502,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -491,8 +511,18 @@ Next
 End If
 Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
-Dim strRes As String = $"<${mTagName} id="${mName}" ${exattr}>${sCaption}</${mTagName}>"$
+Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -504,7 +534,7 @@ End Sub
 
 'change the id of the element, ONLY execute this after a manual Initialize
 Sub SetID(varText As String) As VA
-	mName = varText
+	mname = varText
 	Return Me
 End Sub
 
@@ -538,7 +568,7 @@ Sub AddToApp(vap As VueApp) As VA
 End Sub
 
 'update the state
-Sub SetData(prop As String, value As Object) As VA
+Sub SetData(prop as string, value as object) As VA
 	data.put(prop, value)
 	Return Me
 End Sub
@@ -579,6 +609,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VA
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -729,13 +760,13 @@ Public Sub GetHtml() As String
 End Sub
 
 'bind classes
-Sub SetVClass(classObj As String) As VA
+Sub SetVClass(classObj as string) As VA
 	SetVBind("class", classObj)
 	Return Me
 End Sub
 
 'bind styles
-Sub SetVStyle(styleObj As String) As VA
+Sub SetVStyle(styleObj as string) As VA
 	SetVBind("style", styleObj)
 	Return Me
 End Sub
@@ -762,7 +793,7 @@ End Sub
 'set text color
 Sub SetTextColor1(varColor As String) As VA
 	Dim sColor As String = $"${varColor}--text"$
-	AddClass(Array(sColor))
+	AddClass(array(sColor))
 	Return Me
 End Sub
 
@@ -845,34 +876,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VA
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VA
-	If sRequired = "" Then
-		Log($"VA.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VA
+'	If sRequired = "" Then
+'		Log($"VA.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VA
-	If sReadonly = "" Then
-		Log($"VA.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VA
+'	If sReadonly = "" Then
+'		Log($"VA.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VA
-	If sDisabled = "" Then
-		Log($"VA.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VA
+'	If sDisabled = "" Then
+'		Log($"VA.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

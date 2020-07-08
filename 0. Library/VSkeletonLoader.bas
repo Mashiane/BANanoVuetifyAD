@@ -1,4 +1,4 @@
-2020-06-27 16:54:21 B4J=true
+2020-07-08 02:39:25 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -12,7 +12,7 @@ Version=8.3
 #DesignerProperty: Key: Caption, DisplayName: Caption, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Dark, DisplayName: Dark, Description: , FieldType: Boolean, DefaultValue: False
 #DesignerProperty: Key: Disabled, DisplayName: Disabled, Description: , FieldType: String, DefaultValue: 
-#DesignerProperty: Key: Elevation, DisplayName: Elevation, FieldType: Int, MinRange: 0, MaxRange: 24, Description: Set elevation, FieldType: String, DefaultValue: 0
+#DesignerProperty: Key: Elevation, DisplayName: Elevation, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Height, DisplayName: Height, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Key, DisplayName: Key, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Light, DisplayName: Light, Description: , FieldType: Boolean, DefaultValue: False
@@ -21,6 +21,7 @@ Version=8.3
 #DesignerProperty: Key: MaxWidth, DisplayName: MaxWidth, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinHeight, DisplayName: MinHeight, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: MinWidth, DisplayName: MinWidth, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -65,6 +66,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -91,6 +94,7 @@ Private sMaxHeight As String = ""
 Private sMaxWidth As String = ""
 Private sMinHeight As String = ""
 Private sMinWidth As String = ""
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -136,7 +140,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -160,6 +170,7 @@ sMaxHeight = props.Get("MaxHeight")
 sMaxWidth = props.Get("MaxWidth")
 sMinHeight = props.Get("MinHeight")
 sMinWidth = props.Get("MinWidth")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -285,6 +296,13 @@ End Sub
 Sub SetMinWidth(varMinWidth As String) As VSkeletonLoader
 sMinWidth = varMinWidth
 SetAttr("min-width", sMinWidth)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VSkeletonLoader
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -536,6 +554,7 @@ AddAttr(sMaxHeight, "max-height")
 AddAttr(sMaxWidth, "max-width")
 AddAttr(sMinHeight, "min-height")
 AddAttr(sMinWidth, "min-width")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -574,6 +593,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -593,7 +613,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -604,6 +624,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -690,6 +720,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VSkeletonLoader
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -956,34 +987,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VSkeletonLoader
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VSkeletonLoader
-	If sRequired = "" Then
-		Log($"VSkeletonLoader.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VSkeletonLoader
+'	If sRequired = "" Then
+'		Log($"VSkeletonLoader.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VSkeletonLoader
-	If sReadonly = "" Then
-		Log($"VSkeletonLoader.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VSkeletonLoader
+'	If sReadonly = "" Then
+'		Log($"VSkeletonLoader.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VSkeletonLoader
-	If sDisabled = "" Then
-		Log($"VSkeletonLoader.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VSkeletonLoader
+'	If sDisabled = "" Then
+'		Log($"VSkeletonLoader.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

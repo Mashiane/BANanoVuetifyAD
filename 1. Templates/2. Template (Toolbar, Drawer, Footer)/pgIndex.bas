@@ -10,12 +10,23 @@ Sub Process_Globals
 	Private MyApp As VueApp
 	Private navdrawer As VNavigationDrawer
 	Private navmenu As VAppBarNavIcon
-	Private listitem As VListItem
-	Private snackbar As VSnackbar
-	Private snackbarbutton As VBtn
-	Private btnconfirmcancel As VBtn
-	Private btnconfirmok As VBtn
 	Private logo As VImg
+	Private btnToggleAlert As VBtn
+	Private bottomnav As VBottomNavigation
+	Private app As VDiv
+	Private inspire As VApp
+	Private mashcontainer As VContainer
+	Private mashcontent As VContent
+	Private navbar As VAppBar
+	Private navbartitle As VToolbarTitle
+	Private navfooter As VFooter
+	Private VDiv1 As VDiv
+	Private list As VList
+	Private listitem As VListItem
+	Private listitemaction As VListItemAction
+	Private listitemcontent As VListItemContent
+	Private listitemicon As VIcon
+	Private listitemtitle As VListItemTitle
 End Sub
 
 Sub Init
@@ -24,12 +35,12 @@ Sub Init
 	'initialize the vue instance, we will render it to #app element
 	'we will .GetHTML from the #body
 	MyApp.Initialize(Me, "#app", "#body")
+	'
 	'add the snackbar
-	BANano.LoadLayout("#placeholder", "snackbar")
-	MyApp.BANanoGetHTML1("#placeholder", "#inspire")
+	MyApp.AddSnackBar(Me, "#inspire", "snackbar", "info", "Snack", True, "3000", False, False, "")
+	
 	'add confirm dialog
-	BANano.LoadLayout("#placeholder", "dialogconfirm")
-	MyApp.BANanoGetHTML1("#placeholder", "#inspire")
+	MyApp.AddConfirmDialog(Me, "#inspire", "600")
 	
 	'define the items
 	Dim items As List = BANanoShared.newlist
@@ -38,29 +49,83 @@ Sub Init
 	items.add(CreateMap("key":"c", "icon":"mdi-flag","title":"Conversations"))
 	'save the state
 	MyApp.SetData("items", items)
-	'load the list icon title layout
-	BANano.LoadLayout("#placeholder", "ListIconTitle")
-	'append the layout to the drawer
-	MyApp.BANanoGetHTML1("#placeholder", "#navdrawer")
+	
+	'add list icon title
+	AddListIconTitle(Me, "#navdrawer")
 	'
 	'IMPORTANT - bind events and states
 	navdrawer.AddToApp(MyApp)
 	navmenu.AddToApp(MyApp)
-	listitem.AddToApp(MyApp)
-	snackbar.AddToApp(MyApp)
-	snackbarbutton.AddToApp(MyApp)
-	btnconfirmok.AddToApp(MyApp)
-	btnconfirmcancel.AddToApp(MyApp)
 	logo.AddToApp(MyApp)
+	btnToggleAlert.AddToApp(MyApp)
+'	bottomnav.AddToApp(MyApp)
+'	app.AddToApp(MyApp)
+'	inspire.AddToApp(MyApp)
+'	mashcontainer.AddToApp(MyApp)
+'	mashcontent.AddToApp(MyApp)
+'	navbar.AddToApp(MyApp)
+'	navbartitle.AddToApp(MyApp)
+'	navfooter.AddToApp(MyApp)
+'	VDiv1.AddToApp(MyApp)
+'	'
+'	list.AddToApp(MyApp)
+'	listitem.AddToApp(MyApp)
+'	listitemaction.AddToApp(MyApp)
+'	listitemcontent.AddToApp(MyApp)
+'	listitemicon.AddToApp(MyApp)
+'	listitemtitle.AddToApp(MyApp)
 	
+	
+	'show the navbar
+	MyApp.Show("navbar")
+	'show nav menu
+	MyApp.Show("navmenu")
 	'show the logo
-	MyApp.SetData("logoshow", True)
+	MyApp.Show("logo")
+	'show nav bar title
+	MyApp.Show("navbartitle")
+	'show the footer
+	MyApp.Show("footer")
+		'
+	'add a spacer to the navbar
+	MyApp.AddSpacer(Me, "#navbar", "spacer1")
+	
+	'try and add multiple button icons
+	MyApp.AddButtonIcon(Me, "#navbar", "btnTest", "New", True, MyApp.COLOR_WHITE, "mdi-plus", MyApp.COLOR_RED, MyApp.ICONPOS_LEFT, "20", MyApp.COLOR_GREEN, "")
+	'add a vertical divider
+	MyApp.AddDivider(MyApp, "#navbar", "div1", False, True, "mx-2")
+	'
+	MyApp.AddIconButton(Me, "#navbar", "btnIcon", MyApp.COLOR_RED, "mdi-heart", "10", MyApp.COLOR_ORANGE,"")
+	
+	MyApp.AddFAB(Me, "#mashcontainer", "fab1", "red", "mdi-minus", False, MyApp.BUTTON_XSMALL, "2", "green", "ma-2")
+	MyApp.AddFAB(Me, "#mashcontainer", "fab2", "green", "mdi-pencil", True, MyApp.BUTTON_XLARGE, "", "", "ma-2")
+	MyApp.AddFAB(Me, "#mashcontainer", "fab3", "purple", "mdi-android", False, MyApp.BUTTON_LARGE, "", "", "ma-2")
+	
+	MyApp.AddButton(Me,"#mashcontainer", "btn1", "Button1", True, "orange", False, MyApp.button_large, False, False, False, "3", "red", "ma-2")
+	MyApp.AddButton(Me,"#mashcontainer", "btn2", "Rounded", True, "yellow", False, "", False, True, False, "", "", "ma-2")
+	'add an alert
+	MyApp.AddAlert(Me, "#mashcontainer", "a1", MyApp.ALERT_TYPE_SUCCESS, MyApp.ALERT_BORDER_LEFT, "", False, False, True, False, "", "", True, False, BANanoShared.LoremIpsum(1), "ma-2")
+	
+	'add avatar text
+	MyApp.AddAvatarText(Me, "#mashcontainer", "avt", "indigo", "AM", "white", "62", False, "ma-2")
+	MyApp.AddAvatarIcon(Me, "#mashcontainer", "avti", "red", "mdi-account-circle", "white", "62", False, "ma-2")
+	MyApp.AddAvatarImg(Me, "#mashcontainer", "avtimg", "", "./assets/4.jpg", "42", False, "ma-2")
+	MyApp.AddAvatarStatus(Me, "#mashcontainer", "userstatus", "./assets/2.png", "40", "green", "ma-2") 
+	
+	'add bottom nav
+	'show bottom nav
+	MyApp.Show("bottomnav")
+	MyApp.AddButtonIcon(Me, "#bottomnav", "btnRecent", "Recent", False, "", "mdi-history","", MyApp.ICONPOS_RIGHT, "", "", "")
+	MyApp.AddButtonIcon(Me, "#bottomnav", "btnFavourates", "Favourates", False, "", "mdi-heart","", MyApp.ICONPOS_RIGHT, "", "", "")
+	MyApp.AddButtonIcon(Me, "#bottomnav", "btnNearBy", "Nearby", False, "", "mdi-map-marker","", MyApp.ICONPOS_RIGHT, "", "", "")
 	
 	'serve the app
 	MyApp.Serve
 	'
 	Log(MyApp.Template)
 End Sub
+
+
 
 'when the navmenu is clicked
 Sub navmenu_clickstop (event As BANanoEvent)
@@ -71,7 +136,7 @@ End Sub
 Sub listitem_click (argument As String)
 	Select Case argument
 	Case "a"
-		MyApp.ShowSnackBarWarning(argument)
+		MyApp.ShowSnackBarWarning("snackbar", argument)
 	Case "b"
 		MyApp.ShowConfirmDialog(argument, "Confirm It", "Are you sure you want to...", "Yes", "No")
 	Case "c"
@@ -79,19 +144,62 @@ Sub listitem_click (argument As String)
 	End Select
 End Sub
 
-'snack bar button clicked
-Sub SnackBarButton_click (argument As BANanoEvent)
-	MyApp.HideSnackBar
-End Sub
-
 'ok  button clicked on the confirm dialog
-Sub btnconfirmok_click (argument As BANanoEvent)
+Sub confirmok_click (argument As BANanoEvent)
 	Dim res As String = MyApp.GetConfirm
 	MyApp.HideConfirm
-	MyApp.ShowSnackBarSuccess(res)
+	MyApp.ShowSnackBarSuccess("snackbar", res)
 End Sub
 
 'cancel button clicked on the confirm dialog
-Sub btnconfirmcancel_click (argument As BANanoEvent)
+Sub confirmcancel_click (argument As BANanoEvent)
 	MyApp.HideConfirm
 End Sub
+
+Sub btnTest_click(e As BANanoEvent)
+	'decrement badge
+	MyApp.DecrementBadge("btnTest")
+End Sub
+
+Sub btnIcon_click(e As BANanoEvent)
+	'increment badge
+	MyApp.IncrementBadge("btnIcon")
+End Sub
+
+Sub btnToggleAlert_click (argument As BANanoEvent)
+	MyApp.ToggleItem("a1")
+End Sub
+
+Sub fab1_click (e As BANanoEvent)
+	MyApp.ShowSnackBar("snackbar", "fab1")
+End Sub
+
+
+Sub fab2_click (e As BANanoEvent)
+	MyApp.ShowSnackBar("snackbar", "fab2")
+End Sub
+
+
+
+Sub fab3_click (e As BANanoEvent)
+	MyApp.ShowSnackBar("snackbar", "fab3")
+End Sub
+
+
+'add list item
+Sub AddListIconTitle(Module As Object, parentID As String)
+	parentID = parentID.tolowercase
+	'add confirm dialog
+	'get the parent
+	Dim Ret As Long
+	Dim AllViews As Map
+	
+	Ret = BANano.LoadLayoutArray("#placeholder", "ListIconTitle", True)
+	AllViews = BANano.GetAllViewsFromLayoutArray(Module, "ListIconTitle", Ret)
+	Dim listitem As VListItem = AllViews.Get("listitem")
+	'
+	MyApp.BANanoGetHTML1("#placeholder", parentID)
+	listitem.AddToApp(MyApp)
+End Sub
+
+

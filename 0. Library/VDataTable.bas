@@ -1,4 +1,4 @@
-2020-06-27 16:52:54 B4J=true
+2020-07-08 02:37:53 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -80,6 +80,7 @@ Version=8.3
 #DesignerProperty: Key: NoDataText, DisplayName: NoDataText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: NoResultsText, DisplayName: NoResultsText, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Page, DisplayName: Page, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Ref, DisplayName: Ref, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Required, DisplayName: Required, Description: , FieldType: String, DefaultValue: 
@@ -149,6 +150,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -198,6 +201,7 @@ Private bMustSort As Boolean = False
 Private sNoDataText As String = ""
 Private sNoResultsText As String = ""
 Private sPage As String = ""
+Private sParentId As String = ""
 Private sReadonly As String = ""
 Private sRef As String = ""
 Private sRequired As String = ""
@@ -268,7 +272,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -315,6 +325,7 @@ bMustSort = props.Get("MustSort")
 sNoDataText = props.Get("NoDataText")
 sNoResultsText = props.Get("NoResultsText")
 sPage = props.Get("Page")
+sParentId = props.Get("ParentId")
 sReadonly = props.Get("Readonly")
 sRef = props.Get("Ref")
 sRequired = props.Get("Required")
@@ -693,6 +704,13 @@ SetAttr("page", sPage)
 Return Me
 End Sub
 
+'set parent-id
+Sub SetParentId(varParentId As String) As VDataTable
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
+Return Me
+End Sub
+
 'set readonly
 Sub SetReadonly(varReadonly As String) As VDataTable
 sReadonly = varReadonly
@@ -980,6 +998,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnClickRowE(sClickRow As String) As VDataTable
+eOnclickrow = sClickRow
+Return Me
+End Sub
+
 'set on contextmenurow event, updates the master events records
 Sub SetOnContextmenuRow() As VDataTable
 Dim sName As String = $"${mEventName}_contextmenurow"$
@@ -1002,6 +1025,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnContextmenuRowE(sContextmenuRow As String) As VDataTable
+eOncontextmenurow = sContextmenuRow
+Return Me
+End Sub
+
 'set on currentitems event, updates the master events records
 Sub SetOnCurrentItems() As VDataTable
 Dim sName As String = $"${mEventName}_currentitems"$
@@ -1013,6 +1041,11 @@ SetAttr("v-on:current-items", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnCurrentItemsE(sCurrentItems As String) As VDataTable
+eOncurrentitems = sCurrentItems
 Return Me
 End Sub
 
@@ -1038,6 +1071,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnDblclickRowE(sDblclickRow As String) As VDataTable
+eOndblclickrow = sDblclickRow
+Return Me
+End Sub
+
 'set on input event, updates the master events records
 Sub SetOnInput() As VDataTable
 Dim sName As String = $"${mEventName}_input"$
@@ -1049,6 +1087,11 @@ SetAttr("v-on:input", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnInputE(sInput As String) As VDataTable
+eOninput = sInput
 Return Me
 End Sub
 
@@ -1066,6 +1109,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnItemExpandedE(sItemExpanded As String) As VDataTable
+eOnitemexpanded = sItemExpanded
+Return Me
+End Sub
+
 'set on itemselected event, updates the master events records
 Sub SetOnItemSelected() As VDataTable
 Dim sName As String = $"${mEventName}_itemselected"$
@@ -1077,6 +1125,11 @@ SetAttr("v-on:item-selected", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnItemSelectedE(sItemSelected As String) As VDataTable
+eOnitemselected = sItemSelected
 Return Me
 End Sub
 
@@ -1094,6 +1147,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnPageCountE(sPageCount As String) As VDataTable
+eOnpagecount = sPageCount
+Return Me
+End Sub
+
 'set on pagination event, updates the master events records
 Sub SetOnPagination() As VDataTable
 Dim sName As String = $"${mEventName}_pagination"$
@@ -1105,6 +1163,11 @@ SetAttr("v-on:pagination", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnPaginationE(sPagination As String) As VDataTable
+eOnpagination = sPagination
 Return Me
 End Sub
 
@@ -1122,6 +1185,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnToggleSelectAllE(sToggleSelectAll As String) As VDataTable
+eOntoggleselectall = sToggleSelectAll
+Return Me
+End Sub
+
 'set on updateexpanded event, updates the master events records
 Sub SetOnUpdateExpanded() As VDataTable
 Dim sName As String = $"${mEventName}_updateexpanded"$
@@ -1133,6 +1201,11 @@ SetAttr("v-on:update:expanded", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateExpandedE(sUpdateExpanded As String) As VDataTable
+eOnupdateexpanded = sUpdateExpanded
 Return Me
 End Sub
 
@@ -1150,6 +1223,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdateGroupByE(sUpdateGroupBy As String) As VDataTable
+eOnupdategroupby = sUpdateGroupBy
+Return Me
+End Sub
+
 'set on updategroupdesc event, updates the master events records
 Sub SetOnUpdateGroupDesc() As VDataTable
 Dim sName As String = $"${mEventName}_updategroupdesc"$
@@ -1161,6 +1239,11 @@ SetAttr("v-on:update:group-desc", sCode)
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateGroupDescE(sUpdateGroupDesc As String) As VDataTable
+eOnupdategroupdesc = sUpdateGroupDesc
 Return Me
 End Sub
 
@@ -1178,6 +1261,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdateItemsPerPageE(sUpdateItemsPerPage As String) As VDataTable
+eOnupdateitemsperpage = sUpdateItemsPerPage
+Return Me
+End Sub
+
 'set on updatemultisort event, updates the master events records
 Sub SetOnUpdateMultiSort() As VDataTable
 Dim sName As String = $"${mEventName}_updatemultisort"$
@@ -1189,6 +1277,11 @@ SetAttr("v-on:update:multi-sort", sCode)
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateMultiSortE(sUpdateMultiSort As String) As VDataTable
+eOnupdatemultisort = sUpdateMultiSort
 Return Me
 End Sub
 
@@ -1206,6 +1299,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdateMustSortE(sUpdateMustSort As String) As VDataTable
+eOnupdatemustsort = sUpdateMustSort
+Return Me
+End Sub
+
 'set on updateoptions event, updates the master events records
 Sub SetOnUpdateOptions() As VDataTable
 Dim sName As String = $"${mEventName}_updateoptions"$
@@ -1217,6 +1315,11 @@ SetAttr("v-on:update:options", sCode)
 Dim argument As Object 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateOptionsE(sUpdateOptions As String) As VDataTable
+eOnupdateoptions = sUpdateOptions
 Return Me
 End Sub
 
@@ -1234,6 +1337,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdatePageE(sUpdatePage As String) As VDataTable
+eOnupdatepage = sUpdatePage
+Return Me
+End Sub
+
 'set on updatesortby event, updates the master events records
 Sub SetOnUpdateSortBy() As VDataTable
 Dim sName As String = $"${mEventName}_updatesortby"$
@@ -1248,6 +1356,11 @@ methods.Put(sName, cb)
 Return Me
 End Sub
 
+Sub SetOnUpdateSortByE(sUpdateSortBy As String) As VDataTable
+eOnupdatesortby = sUpdateSortBy
+Return Me
+End Sub
+
 'set on updatesortdesc event, updates the master events records
 Sub SetOnUpdateSortDesc() As VDataTable
 Dim sName As String = $"${mEventName}_updatesortdesc"$
@@ -1259,6 +1372,11 @@ SetAttr("v-on:update:sort-desc", sCode)
 Dim argument As Boolean 'ignore
 Dim cb As BANanoObject = BANano.CallBack(mCallBack, sName, Array(argument))
 methods.Put(sName, cb)
+Return Me
+End Sub
+
+Sub SetOnUpdateSortDescE(sUpdateSortDesc As String) As VDataTable
+eOnupdatesortdesc = sUpdateSortDesc
 Return Me
 End Sub
 
@@ -1301,6 +1419,7 @@ AddAttr(bMustSort, "must-sort")
 AddAttr(sNoDataText, "no-data-text")
 AddAttr(sNoResultsText, "no-results-text")
 AddAttr(sPage, "page")
+AddAttr(sParentId, "parent-id")
 AddAttr(sReadonly, "readonly")
 AddAttr(sRef, "ref")
 AddAttr(sRequired, "required")
@@ -1344,6 +1463,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -1363,7 +1483,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -1374,6 +1494,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -1460,6 +1590,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VDataTable
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -1726,34 +1857,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VDataTable
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VDataTable
-	If sRequired = "" Then
-		Log($"VDataTable.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VDataTable
+'	If sRequired = "" Then
+'		Log($"VDataTable.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VDataTable
-	If sReadonly = "" Then
-		Log($"VDataTable.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VDataTable
+'	If sReadonly = "" Then
+'		Log($"VDataTable.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VDataTable
-	If sDisabled = "" Then
-		Log($"VDataTable.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VDataTable
+'	If sDisabled = "" Then
+'		Log($"VDataTable.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

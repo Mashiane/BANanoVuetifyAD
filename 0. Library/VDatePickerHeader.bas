@@ -1,4 +1,4 @@
-2020-06-27 16:52:59 B4J=true
+2020-07-08 02:37:59 B4J=true
 Group=Default Group
 ModulesStructureVersion=1
 Type=Class
@@ -20,6 +20,7 @@ Version=8.3
 #DesignerProperty: Key: Min, DisplayName: Min, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: NextAriaLabel, DisplayName: NextAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: NextIcon, DisplayName: NextIcon, Description: , FieldType: String, DefaultValue: 
+#DesignerProperty: Key: ParentId, DisplayName: ParentId, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PrevAriaLabel, DisplayName: PrevAriaLabel, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: PrevIcon, DisplayName: PrevIcon, Description: , FieldType: String, DefaultValue: 
 #DesignerProperty: Key: Readonly, DisplayName: Readonly, Description: , FieldType: Boolean, DefaultValue: False
@@ -62,6 +63,8 @@ private appLink As VueApp 'ignore
 Public mName As String 'ignore 
 Private mEventName As String 'ignore 
 Private mCallBack As Object 'ignore 
+'Private bindStyle As Map 
+'Private bindClass As Map 
 Private mTarget As BANanoElement 'ignore 
 Private mElement As BANanoElement 'ignore
 
@@ -87,6 +90,7 @@ Private sMax As String = ""
 Private sMin As String = ""
 Private sNextAriaLabel As String = ""
 Private sNextIcon As String = ""
+Private sParentId As String = ""
 Private sPrevAriaLabel As String = ""
 Private sPrevIcon As String = ""
 Private bReadonly As Boolean = False
@@ -130,7 +134,13 @@ methods.Initialize
 properties.Initialize 
 styles.Initialize 
 classList.Initialize 
-Return Me 
+'bindClass.Initialize  
+'bindStyle.Initialize
+'bindings.Put($"${mName}style"$, bindStyle)
+'bindings.Put($"${mName}class"$, bindClass)
+'SetVBindStyle($"${mName}style"$)
+'SetVBindClass($"${mName}class"$)
+Return Me
 End Sub
 
 ' this is the place where you create the view in html and run initialize javascript.  Must be Public!
@@ -153,6 +163,7 @@ sMax = props.Get("Max")
 sMin = props.Get("Min")
 sNextAriaLabel = props.Get("NextAriaLabel")
 sNextIcon = props.Get("NextIcon")
+sParentId = props.Get("ParentId")
 sPrevAriaLabel = props.Get("PrevAriaLabel")
 sPrevIcon = props.Get("PrevIcon")
 bReadonly = props.Get("Readonly")
@@ -269,6 +280,13 @@ End Sub
 Sub SetNextIcon(varNextIcon As String) As VDatePickerHeader
 sNextIcon = varNextIcon
 SetAttr("next-icon", sNextIcon)
+Return Me
+End Sub
+
+'set parent-id
+Sub SetParentId(varParentId As String) As VDatePickerHeader
+sParentId = varParentId
+SetAttr("parent-id", sParentId)
 Return Me
 End Sub
 
@@ -505,6 +523,7 @@ AddAttr(sMax, "max")
 AddAttr(sMin, "min")
 AddAttr(sNextAriaLabel, "next-aria-label")
 AddAttr(sNextIcon, "next-icon")
+AddAttr(sParentId, "parent-id")
 AddAttr(sPrevAriaLabel, "prev-aria-label")
 AddAttr(sPrevIcon, "prev-icon")
 AddAttr(bReadonly, "readonly")
@@ -541,6 +560,7 @@ SetStyleSingle("padding-left", sPaddingLeft)
 Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 cKeys = cKeys & " " & mClasses
 cKeys = cKeys.trim
+cKeys = BANanoShared.MvDistinct(" ", cKeys)
 AddAttr(cKeys, "class")
 'build the style list
 If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
@@ -560,7 +580,7 @@ AddAttr(sKeys, "style")
 If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 If mAttributes.StartsWith("{") Then mAttributes = ""
 If mAttributes <> "" Then
-Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 For Each mt As String In mItems
 Dim k As String = BANanoShared.MvField(mt,1,"=")
 Dim v As String = BANanoShared.MvField(mt,2,"=")
@@ -571,6 +591,16 @@ Dim exattr As String = BANanoShared.BuildAttributes(properties)
 
 Dim strRes As String = $"<${mTagName} id="${mName}" ${exAttr}>${sCaption}</${mTagName}>"$
 Return strRes
+End Sub
+
+' returns the BANanoElement
+public Sub getElement() As BANanoElement
+	Return mElement
+End Sub
+
+' returns the tag id
+public Sub getID() As String
+	Return mName
 End Sub
 
 'add a child component
@@ -657,6 +687,7 @@ End Sub
 'will add properties to attributes
 private Sub AddAttr(varName As String, actProp As String) As VDatePickerHeader
 	If BANano.IsUndefined(varName) Or BANano.IsNull(varName) Then varName = ""
+	If BANano.IsNumber(varName) Then varName = BANanoShared.CStr(varName)
 	If actProp = "caption" Then Return Me
 	Try
 		If BANano.IsBoolean(varName) Then
@@ -923,34 +954,34 @@ Sub SetStyleOnOff(styleName as string, styleValue As Boolean) As VDatePickerHead
 End Sub
 
 'required
-Sub SetRequiredOnOff(b As Boolean) As VDatePickerHeader
-	If sRequired = "" Then
-		Log($"VDatePickerHeader.Required - the required for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sRequired, b)
-	Return Me
-End Sub
+'Sub SetRequiredOnOff(b As Boolean) As VDatePickerHeader
+'	If sRequired = "" Then
+'		Log($"VDatePickerHeader.Required - the required for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sRequired, b)
+'	Return Me
+'End Sub
 
 'read only
-Sub SetReadOnlyOnOff(b As Boolean) As VDatePickerHeader
-	If sReadonly = "" Then
-		Log($"VDatePickerHeader.ReadOnly - the readonly for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sReadonly, b)
-	Return Me
-End Sub
+'Sub SetReadOnlyOnOff(b As Boolean) As VDatePickerHeader
+'	If sReadonly = "" Then
+'		Log($"VDatePickerHeader.ReadOnly - the readonly for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sReadonly, b)
+'	Return Me
+'End Sub
 
 'disabled
-Sub SetDisabledOnOff(b As Boolean) As VDatePickerHeader
-	If sDisabled = "" Then
-		Log($"VDatePickerHeader.Disabled - the disabled for ${mName} has not been set!"$)
-		Return Me
-	End If
-	data.Put(sDisabled, b)
-	Return Me
-End Sub
+'Sub SetDisabledOnOff(b As Boolean) As VDatePickerHeader
+'	If sDisabled = "" Then
+'		Log($"VDatePickerHeader.Disabled - the disabled for ${mName} has not been set!"$)
+'		Return Me
+'	End If
+'	data.Put(sDisabled, b)
+'	Return Me
+'End Sub
 
 'bind this element to component
 Sub AddToComponent(ve As VMElement)

@@ -324,7 +324,7 @@ Sub ToString As String
 	Dim cKeys As String = BANanoShared.JoinMapKeys(classList, " ")
 	cKeys = cKeys & " " & mClasses
 	cKeys = cKeys.trim
-	AddAttr(cKeys, "class")
+	AddAttr(BANanoShared.MvDistinct(" ", cKeys), "class")
 	'build the style list
 	If BANano.IsUndefined(mStyle) Or BANano.IsNull(mStyle) Then mStyle = ""
 	If mStyle.StartsWith("{") Then mStyle = ""
@@ -343,7 +343,7 @@ Sub ToString As String
 	If BANano.IsUndefined(mAttributes) Or BANano.IsNull(mAttributes) Then mAttributes = ""
 	If mAttributes.StartsWith("{") Then mAttributes = ""
 	If mAttributes <> "" Then
-		Dim mItems As List = BANanoShared.StrParse(",",mAttributes)
+		Dim mItems As List = BANanoShared.StrParse(";",mAttributes)
 		For Each mt As String In mItems
 			Dim k As String = BANanoShared.MvField(mt,1,"=")
 			Dim v As String = BANanoShared.MvField(mt,2,"=")

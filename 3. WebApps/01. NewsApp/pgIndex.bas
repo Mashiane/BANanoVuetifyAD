@@ -13,7 +13,7 @@ Sub Process_Globals
 	Private apiKey As String = "f294df205fda4bd3972206fa9b45f6e6"
 	Private newssource As VListItem
 	Private bPHP As BANanoPHP
-	Private AOS As BANanoObject
+	'Private AOS As BANanoObject
 	Private articles As List
 	Private sources As List
 End Sub
@@ -51,11 +51,11 @@ End Sub
 'get news from api
 Sub GetNewsAndSources
 	'animate on scroll
-	Dim aosOptions As Map = CreateMap()
-	aosOptions.put("disable", "phone")
-	AOS.initialize("AOS")
-	AOS.RunMethod("init", Array(aosOptions))
-	MyApp.use(AOS)
+	'Dim aosOptions As Map = CreateMap()
+	'aosOptions.put("disable", "phone")
+	'AOS.initialize("AOS")
+	'AOS.RunMethod("init", Array(aosOptions))
+	'MyApp.use(AOS)
 	'
 	articles = MyApp.newlist
 	sources = MyApp.newlist
