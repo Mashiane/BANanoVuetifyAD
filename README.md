@@ -7,7 +7,7 @@ https://youtu.be/pTzXfRwds4k
 
 Here we see what we can do with this library.
 
-Download an install Laragon: https://laragon.org/download/ This is a development server I use.
+If you dont have a webserver, download an install Laragon: https://laragon.org/download/ This is a development web server I use which is easy to use.
 
 Download B4J from here, https://www.idevaffiliate.com/33168/74.html
 
