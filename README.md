@@ -16,6 +16,6 @@ Download BANano from here, https://www.b4x.com/android/forum/threads/banano-webs
 Download SD_Zip Library here, https://www.b4x.com/android/forum/threads/sd-ziplibrary.90652/#content
 
 1. On your downloaded folder : Open the BANanoVuetifyAD project and RUN it in RELEASE mode, this will compile the project and put it in your external libraries folder. The library version should be 1.07+
-2. Open any of the projects in Projects / WebApps and run them.
+2. Open any of the projects in Projects / WebApps and run them. Update the "Publish" and "Port" variables to point to your webserver and port numbers.
 
 Enjoy
