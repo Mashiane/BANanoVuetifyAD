@@ -19,6 +19,6 @@ ModuleClosedNodes3=
 ModuleClosedNodes4=
 ModuleClosedNodes5=
 ModuleClosedNodes6=
-NavigationStack=pgIndex,BuildCart,132,0,pgIndex,Build_Routers,171,0,pgIndex,Build_Products,172,0,pgIndex,Process_Globals,16,0,pgIndex,Init,51,0,pgIndex,addItemToCart,64,0,pgStore,Process_Globals,10,0,pgStore,Initialize,41,0,pgStore,GotoMe,53,0,pgStore,btnAddToCart1_click,58,0,pgStore,getimageurl,66,0
+NavigationStack=pgIndex,Build_Routers,171,0,pgIndex,Build_Products,172,0,pgIndex,Process_Globals,16,0,pgIndex,Init,51,0,pgIndex,addItemToCart,64,0,pgStore,Process_Globals,10,0,pgStore,Initialize,41,0,pgStore,GotoMe,53,0,pgStore,getimageurl,66,0,pgStore,btnAddToCart1_click,59,0
 SelectedBuild=0
 VisibleModules=4,5

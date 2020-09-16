@@ -193,7 +193,7 @@ Module9=VBadge
 NumberOfFiles=50
 NumberOfLibraries=3
 NumberOfModules=86
-Version=8.45
+Version=8.5
 @EndOfDesignText@
 #Region Project Attributes 
 	#MainFormWidth: 600
